@@ -1,0 +1,7 @@
+*.log
+*.sqlite3
+vendor/cache/*
+Gemfile.lock
+config/database.yml
+config/deploy.rb
+config/deploy/*
