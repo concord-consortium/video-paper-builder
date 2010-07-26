@@ -10,3 +10,4 @@ gem 'rspec-rails'
 gem 'spork'
 gem 'launchy'
 gem 'capistrano-ext'
+gem 'velir_kaltura-ruby', :require=> "kaltura"
