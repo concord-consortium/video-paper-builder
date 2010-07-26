@@ -6,3 +6,4 @@ config/database.yml
 config/deploy.rb
 config/deploy/*
 config/kaltura.yml
+.bundle/environment.rb
