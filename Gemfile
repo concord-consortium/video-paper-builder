@@ -1,8 +1,7 @@
 source :gemcutter
 
-gem "bundler"
-gem "rails", "2.3.8"
-gem "mysql"
+gem 'rails', '2.3.8'
+gem 'mysql'
 gem 'capybara'
 gem 'database_cleaner'
 gem 'cucumber-rails'
@@ -11,4 +10,7 @@ gem 'rspec-rails'
 gem 'spork'
 gem 'launchy'
 gem 'capistrano-ext'
-gem 'velir_kaltura-ruby', :require=> "kaltura"
+gem 'velir_kaltura-ruby', :require=> 'kaltura'
+gem 'devise', '1.0.7'
+gem 'devise_invitable', '0.3.0', :require => 'devise'
+gem 'warden'
