@@ -6,7 +6,7 @@ Feature:
   Background:
     Given the following user records
       | email                | password | role  |
-      | fake_email@velir.com | funstuff | admin |
+      | fake_admin@velir.com | funstuff | admin |
       
   Scenario: An unauthenticated admin tries to invite an administrator
     Given I am not logged in
@@ -19,11 +19,11 @@ Feature:
     Then I should not be able to create an administrator
     
   Scenario: An authenticated admin can invite an administrator
-    Given I am logged in as "fake_email@velir.com"
+    Given I am an admin logged in as "fake_admin@velir.com"
     When I visit admins_invitation_path
     Then I should be able to invite an administrator
     
   Scenario: An authenticated admin can create an administrator
-    Given I am logged in as "fake_email@velir.com"
+    Given I am an admin logged in as "fake_admin@velir.com"
     When I visit admins_new_path
     Then I should be able to create an administrator

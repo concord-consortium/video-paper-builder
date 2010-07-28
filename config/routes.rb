@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.devise_for :users
   map.devise_for :admins
-
   map.root :controller => "home"
 
   map.connect ':controller/:action/:id'
