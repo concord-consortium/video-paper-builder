@@ -1,5 +1,6 @@
 class VideoPapersController < ApplicationController
-  before_filter :authenticate_any_user!
+  before_filter :authenticate_any_user!, :except=>[:new,:create]
+  before_filter :authenticate_user!, :only=>[:new,:create]
   
   # GET /video_papers
   # GET /video_papers.xml
@@ -27,6 +28,7 @@ class VideoPapersController < ApplicationController
   # GET /video_papers/new.xml
   def new
     @video_paper = VideoPaper.new
+    @video_paper.user = current_user
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,6 +45,7 @@ class VideoPapersController < ApplicationController
   # POST /video_papers.xml
   def create
     @video_paper = VideoPaper.new(params[:video_paper])
+    @video_paper.user = current_user
 
     respond_to do |format|
       if @video_paper.save

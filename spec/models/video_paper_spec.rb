@@ -1,9 +1,13 @@
 require 'spec_helper'
 
 describe VideoPaper do
+  before(:all) do
+    @user = Factory.create(:user, :email=>"spec_test@velir.com")
+  end
   before(:each) do
     @valid_attributes = {
-      :title => "value for title"
+      :title => "value for title",
+      :owner_id => @user.id
     }
   end
 
@@ -12,8 +16,21 @@ describe VideoPaper do
   end
   
   it "should have a title" do 
-    video = VideoPaper.new
-    video.save.should be_false
+    video_paper = VideoPaper.new(:owner_id=>@user.id)
+    video_paper.save.should be_false
   end
   
+  it "should require an owner_id" do 
+    video_paper = VideoPaper.new(:title=>"This is a valid title")
+    video_paper.save.should be_false
+  end
+  
+  it "should belong to a user" do 
+    user_video_paper = VideoPaper.new(:title=>"Awesome Title",
+      :owner_id=>@user.id
+    )
+    user_video_paper.save
+    
+    user_video_paper.user.should == @user
+  end
 end
