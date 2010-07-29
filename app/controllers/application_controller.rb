@@ -11,4 +11,15 @@ class ApplicationController < ActionController::Base
   def authenticate_resource!
     authenticate_admin!
   end
+  
+  def authenticate_any_user!
+    if user_signed_in?
+      current_user
+    elsif admin_signed_in?
+      current_admin
+    else
+      authenticate_user!
+    end
+  end
+  
 end

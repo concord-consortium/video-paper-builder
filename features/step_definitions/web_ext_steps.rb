@@ -5,16 +5,6 @@ Given /^the following user records$/ do |table|
     if row["role"] == "admin"
       @admins << {:email=>row["email"],:password=>row["password"]}
     else
-      if row["role"] == "user"
-        visit '/users/sign_up'
-        fill_in 'Email', :with=> row["email"]
-        fill_in 'Password', :with=> row["password"]
-        fill_in 'Password confirmation', :with=> row["password"]
-        click_button 'Sign up'
-        user = User.find_by_email(row["email"])
-        visit '/users/confirmation?confirmation_token=' + user.confirmation_token.to_s
-        @users << {:email=>row["email"],:password=>row["password"]}
-      end
     end
   end
 end
@@ -40,4 +30,21 @@ Given /^I am a user logged in as "([^\"]*)"$/ do |email|
   fill_in 'Email', :with=> user_row.first[:email]
   fill_in 'Password', :with=>user_row.first[:password]
   click_button 'Sign in'
+end
+
+Given /^I am the admin "([^\"]*)" and I create the following user:$/ do |email, table|
+  @users ||= []
+  Given "I am not logged in"
+  Given "I am an admin logged in as \"#{email}\""
+  table.hashes.each do |row|
+    When "I go to the user sign up page"
+    fill_in 'Email', :with=> row["email"]
+    fill_in 'Password',:with=>row["password"]
+    fill_in 'Password confirmation', :with=> row["password"]
+    click_button 'Sign up'
+    Given "I am not logged in"
+    When "I go to the #{row["email"]}'s user confirmation page"
+    @users << {:email=>row["email"],:password=>row["password"]}    
+  end
+  Given "I am not logged in"
 end

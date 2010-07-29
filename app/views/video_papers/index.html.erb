@@ -1,0 +1,20 @@
+<h1>Listing video_papers</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+  </tr>
+
+<% @video_papers.each do |video_paper| %>
+  <tr>
+    <td><%=h video_paper.title %></td>
+    <td><%= link_to 'Show', video_paper %></td>
+    <td><%= link_to 'Edit', edit_video_paper_path(video_paper) %></td>
+    <td><%= link_to 'Destroy', video_paper, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New video_paper', new_video_paper_path %>
