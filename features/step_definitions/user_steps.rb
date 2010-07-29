@@ -4,4 +4,3 @@ Given /^the administrator "([^"]*)" invites a user "([^"]*)"$/ do |admin, user|
   fill_in 'Email', :with=>user
   click_button 'Send an invitation'
 end
-
