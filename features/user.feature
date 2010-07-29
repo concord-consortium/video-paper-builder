@@ -28,7 +28,6 @@ Feature:
     Then I fill in the following:
       | Password | funstuff |
       | Password confirmation | funstuff |
-    And I press 'Set my password'
+    And I press "Set my password"
     Then I should be on the home page
-    And I should see 'Signed in successfully.'
-    
+    And I should see "Your password was set successfully. You are now signed in."
