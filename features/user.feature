@@ -1,5 +1,5 @@
 Feature:
-  In the VideoPaperBuilder mission
+  In to fufill the  Video Paper Builder mission
   As an authenticated user
   I want to be able to login to the application
   
