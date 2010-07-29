@@ -19,23 +19,6 @@ Given /^the following user records$/ do |table|
   end
 end
 
-Given /^I am logged in as the default administrator$/ do
-  Given "I am not logged in"
-  visit '/admins/sign_in'
-  fill_in 'Email', :with=>"videopaperbuilder@gmail.com"
-  fill_in 'Password', :with=>"funstuff"
-  click_button 'Sign in'
-end
-
-Given /^I am logged in as the default user$/ do
-  Given "I am not logged in"
-  visit '/users/sign_in'
-  fill_in 'Email', :with=>"fake_user@velir.com"
-  fill_in 'Password', :with=>"funstuff"
-  click_button 'Sign in'
-end
-
-
 Given /^I am not logged in$/ do
   visit '/admins/sign_out'
   visit '/users/sign_out'
