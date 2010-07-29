@@ -1,0 +1,9 @@
+<p>
+  <b>Title:</b>
+  <%=h @video_paper.title %>
+</p>
+
+
+<%= link_to 'Edit', edit_video_paper_path(@video_paper) %> |
+<%= link_to 'Back', video_papers_path %> |
+<%= link_to 'Destroy', @video_paper, :method => :delete %>

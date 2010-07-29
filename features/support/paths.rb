@@ -30,6 +30,12 @@ module NavigationHelpers
       '/users/confirmation?confirmation_token=' + User.find_by_email($1).confirmation_token.to_s
     when /the (.*)'s user invitation page/
       '/users/invitation/accept?invitation_token=' + User.find_by_email($1).invitation_token.to_s
+    when /the new video paper page/
+      '/video_papers/new'
+    when /(.*)'s video paper edit page/
+      '/video_papers/edit/' + VideoPaper.find_by_title($1).id.to_s
+    when /(.*)'s video paper page/
+      '/video_papers/' + VideoPaper.find_by_title($1).id.to_s
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

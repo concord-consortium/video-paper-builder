@@ -1,0 +1,16 @@
+<h1>Editing video_paper</h1>
+
+<% form_for(@video_paper) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @video_paper %> |
+<%= link_to 'Back', video_papers_path %>
