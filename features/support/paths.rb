@@ -10,6 +10,7 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
+    #ADMINS
     when /the admin sign in page/
       '/admins/sign_in'
     when /the admin sign up page/
@@ -20,6 +21,7 @@ module NavigationHelpers
       '/admins/confirmation?confirmation_token=' + Admin.find_by_email($1).confirmation_token.to_s
     when /the admin sign out page/
       '/admins/sign_out'
+    #USERS
     when /the user sign in page/
       '/users/sign_in'
     when /the user sign up page/
@@ -30,6 +32,9 @@ module NavigationHelpers
       '/users/confirmation?confirmation_token=' + User.find_by_email($1).confirmation_token.to_s
     when /the (.*)'s user invitation page/
       '/users/invitation/accept?invitation_token=' + User.find_by_email($1).invitation_token.to_s
+    #VIDEO PAPERS
+    when /the video paper page/
+      '/video_papers'
     when /the new video paper page/
       '/video_papers/new'
     when /(.*)'s video paper edit page/

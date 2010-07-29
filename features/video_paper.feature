@@ -16,8 +16,8 @@ Feature:
     
   Scenario: Admin user attempts to access a video paper
     Given I am an admin logged in as "videopaperbuilder@gmail.com"
-    When I go to the new video paper page
-    Then I should see "New video_paper"
+    When I go to the video paper page
+    Then I should be on the video paper page
     
   Scenario: Normal user attempts to access a video paper
     Given I am the admin "videopaperbuilder@gmail.com" and I create the following user:
