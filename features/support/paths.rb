@@ -28,6 +28,8 @@ module NavigationHelpers
       '/users/invitation/new'
     when /the (.*)'s user confirmation page/
       '/users/confirmation?confirmation_token=' + User.find_by_email($1).confirmation_token.to_s
+    when /the (.*)'s user invitation page/
+      '/users/invitation/accept?invitation_token=' + User.find_by_email($1).invitation_token.to_s
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
