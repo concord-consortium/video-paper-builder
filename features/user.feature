@@ -9,13 +9,26 @@ Feature:
       | email                       | password | role  |
       | videopaperbuilder@gmail.com | funstuff | admin |
       
-  Scenario: An unauthenticated user to invite another user
+  Scenario: An unauthenticated user attempts to invite another user
     Given I am not logged in
     When I go to the user invitation page
-	  Then I should be on the user sign in page
-	  And I should see "You neeed to sign in or sign up before continuing"
+	  Then I should be on the admin sign in page
+	  And I should see "You need to sign in or sign up before continuing"
 
-  Scenario: An authenticated user to invite another user
-  	Given I am a user logged in as "fake_user@velir.com"
-    When I visit invite_user_path
-    Then I should see an error message
+  Scenario: An unauthenticated user tries to create another user
+    Given I am not logged in
+    When I go to the user sign up page
+    Then I should be on the admin sign in page
+    And I should see "You need to sign in or sign up before continuing"
+    
+  Scenario: A user can follow an invitation email
+    Given the administrator "videopaperbuilder@gmail.com" invites a user "super_fun_time@velir.com"
+    Given I am not logged in
+    When I go to the super_fun_time@velir.com's user invitation page
+    Then I fill in the following:
+      | Password | funstuff |
+      | Password confirmation | funstuff |
+    And I press 'Set my password'
+    Then I should be on the home page
+    And I should see 'Signed in successfully.'
+    

@@ -1,10 +1,7 @@
-When /^I visit invite_user_path$/ do
-  Given 'I am logged in as the default user'
-  visit '/users/invitation/new'
+Given /^the administrator "([^"]*)" invites a user "([^"]*)"$/ do |admin, user|
+  Given "I am an admin logged in as \"#{admin}\""
+  When "I go to the user invitation page"
+  fill_in 'Email', :with=>user
   click_button 'Send an invitation'
-end
-
-Then /^I should see an error message$/ do
-  page.should have_css('.alert')
 end
 
