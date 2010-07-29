@@ -1,16 +1,8 @@
 Given /^the following user records$/ do |table|
-  Given "I am logged in as the default administrator"
   @admins = []
   @users  = []
   table.hashes.each do |row|
     if row["role"] == "admin"
-      visit '/admins/sign_up'
-      fill_in 'Email', :with=> row["email"]
-      fill_in 'Password', :with=> row["password"]
-      fill_in 'Password confirmation', :with=> row["password"]
-      click_button 'Sign up'
-      admin = Admin.find_by_email(row["email"])
-      visit '/admins/confirmation?confirmation_token=' + admin.confirmation_token.to_s
       @admins << {:email=>row["email"],:password=>row["password"]}
     else
       if row["role"] == "user"

@@ -10,6 +10,24 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
+    when /the admin sign in page/
+      '/admins/sign_in'
+    when /the admin sign up page/
+      '/admins/sign_up'
+    when /the admin invitation page/
+      '/admins/invitation/new'
+    when /the (.*)'s admin confirmation page/
+      '/admins/confirmation?confirmation_token=' + Admin.find_by_email($1).confirmation_token.to_s
+    when /the admin sign out page/
+      '/admins/sign_out'
+    when /the user sign in page/
+      '/users/sign_in'
+    when /the user sign up page/
+      '/users/sign_up'
+    when /the user invitation page/
+      '/users/invitation/new'
+    when /the (.*)'s user confirmation page/
+      '/users/confirmation?confirmation_token=' + User.find_by_email($1).confirmation_token.to_s
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

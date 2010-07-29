@@ -1,23 +1,16 @@
-When /^I visit admins_invitation_path$/ do
-  visit "/admins/invitation/new"
-end
-
-Then /^I should not be able to invite administrator$/ do  
-  Given "I am redirected to admin sign_in"
+Then /^I should not be able to invite an admin$/ do  
+  Given "I am on the admin sign in page"
   page.should_not have_content('Send invitation')
+  page.should have_content('Sign in')
 end
 
-When /^I visit admins_new_path$/ do
-  visit "/admins/sign_up"
-end
 
 Then /^I should not be able to create an administrator$/ do
-  Given "I am redirected to admin sign_in"
+  Given "I am on the admin sign up page"
+  page.should have_content('You need to sign in or sign up before continuing.')
+  page.should have_content('Sign in')
 end
 
-Then /^I am redirected to admin sign_in$/ do
-  current_path.should == "/admins/sign_in"
-end
 
 Then /^I should be able to invite an administrator$/ do
   fill_in 'Email', :with=>"dummy_vpb_user@velir.com"
