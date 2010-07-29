@@ -7,4 +7,8 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+  protected
+  def authenticate_resource!
+    authenticate_admin!
+  end
 end
