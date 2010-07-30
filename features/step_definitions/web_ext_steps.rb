@@ -49,3 +49,11 @@ Given /^I am the admin "([^\"]*)" and I create the following user:$/ do |email, 
   end
   Given "I am not logged in"
 end
+
+Given /^the following video papers$/ do |table|
+  @papers = []
+  table.hashes.each do |row|
+    @papers << {:title => row["title"],:user=>row["user"]}
+  end
+end
+

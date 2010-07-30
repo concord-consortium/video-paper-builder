@@ -13,6 +13,10 @@ namespace :devise do
     puts 'Email : ' << admin.email
     puts 'Password: ' << admin.password
     
+  end
+  
+  desc 'setup test database fixtures'
+  task :test => ['devise:setup'] do
     user = User.create! do |u|
       u.email = "test_user@velir.com"
       u.password = 'funstuff'
@@ -22,5 +26,13 @@ namespace :devise do
     puts 'New user created!'
     puts 'Email: ' << user.email
     puts 'Password: ' << user.password
-  end
+    
+    paper = VideoPaper.new
+    paper.title = "Generic Video Paper"
+    paper.user = user
+    paper.save
+    puts 'New Video Paper created!'
+    puts 'Title: ' << paper.title
+    puts 'User: ' << paper.user.email
+  end 
 end
