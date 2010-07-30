@@ -45,7 +45,9 @@ class VideoPapersController < ApplicationController
   # POST /video_papers.xml
   def create
     @video_paper = VideoPaper.new(params[:video_paper])
-    @video_paper.user = current_user
+    if current_user
+      @video_paper.user = current_user
+    end
 
     respond_to do |format|
       if @video_paper.save

@@ -4,7 +4,8 @@ Given /^the following user records$/ do |table|
   table.hashes.each do |row|
     if row["role"] == "admin"
       @admins << {:email=>row["email"],:password=>row["password"]}
-    else
+    elsif row["role"] == "user"
+      @users << {:email=>row["email"],:password=>row["password"]}
     end
   end
 end

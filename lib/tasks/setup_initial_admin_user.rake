@@ -12,5 +12,15 @@ namespace :devise do
     puts 'New admin created!'
     puts 'Email : ' << admin.email
     puts 'Password: ' << admin.password
+    
+    user = User.create! do |u|
+      u.email = "test_user@velir.com"
+      u.password = 'funstuff'
+      u.password_confirmation = 'funstuff'
+    end
+    user.confirm!
+    puts 'New user created!'
+    puts 'Email: ' << user.email
+    puts 'Password: ' << user.password
   end
 end
