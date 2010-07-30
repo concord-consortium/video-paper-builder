@@ -56,9 +56,9 @@ describe Video do
 
       Pellentesque tincidunt dui sed leo lacinia suscipit. Curabitur dapibus sollicitudin mollis. Sed ac lorem eget tellus vehicula suscipit sed vel tellus. Praesent orci quam, dignissim id iaculis sit amet, dictum nec lacus. In placerat leo nec lacus pharetra ac tincidunt turpis imperdiet. Donec vehicula faucibus sem ac iaculis. Nullam at sem orci, sit amet consectetur enim. Praesent euismod porttitor nisi tincidunt dictum. Vivamus dictum nisl eu mauris scelerisque pretium a vel mauris. Nunc arcu mauris, tincidunt a vestibulum id, lobortis vel nunc. Etiam aliquam, quam id rutrum cursus, lacus sem sollicitudin sapien, at placerat diam orci at quam. Morbi venenatis lacus at ipsum pharetra aliquam. In vel arcu nibh. Nunc vitae urna quam. Duis id sapien risus, nec ornare enim. Sed blandit lorem sit amet leo mollis dictum. Aliquam urna ante, tincidunt eget hendrerit nec, commodo vitae massa.",
       :video_paper_id=>1
-      
-      video = Video.new(invalid_attributes)
-      video.save.should be_false
     }
+    
+    video = Video.new(invalid_attributes)
+    video.save.should be_false
   end
 end
