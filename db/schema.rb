@@ -78,4 +78,12 @@ ActiveRecord::Schema.define(:version => 20100801003409) do
     t.integer  "owner_id"
   end
 
+  create_table "videos", :force => true do |t|
+    t.string   "entry_id"
+    t.text     "description"
+    t.integer  "video_paper_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
 end

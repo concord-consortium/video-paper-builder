@@ -1,7 +1,8 @@
 class VideoPaper < ActiveRecord::Base
-  validates_presence_of :title
-  validates_presence_of :owner_id
   
+  ###################################
+  # Associations
+  ###################################
   belongs_to :user, :foreign_key=> "owner_id"
   has_many :sections
   
@@ -31,4 +32,12 @@ class VideoPaper < ActiveRecord::Base
     
     logger.debug("\nFinished constructing sections for video paper id: #{self.id.to_s} \n\n")
   end
-  end
+  
+  
+  ###################################
+  # Validations
+  ###################################
+  validates_presence_of :title
+  validates_presence_of :owner_id
+
+end
