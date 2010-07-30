@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :video_papers
+  map.resources :video_papers, :shallow =>true do |video_paper|
+    video_paper.resources :videos
+  end
 
   map.devise_for :users
   map.devise_for :admins
