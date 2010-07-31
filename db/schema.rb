@@ -37,10 +37,16 @@ ActiveRecord::Schema.define(:version => 20100801003409) do
   add_index "admins", ["invitation_token"], :name => "index_admins_on_invitation_token"
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
 
+<<<<<<< HEAD:db/schema.rb
   create_table "sections", :force => true do |t|
     t.string   "title"
     t.string   "content"
     t.integer  "video_paper_id"
+=======
+  create_table "languages", :force => true do |t|
+    t.string   "name"
+    t.string   "code"
+>>>>>>> finished with validations until I add the thumbnail image in:db/schema.rb
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -84,6 +90,7 @@ ActiveRecord::Schema.define(:version => 20100801003409) do
     t.integer  "video_paper_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "language_id"
   end
 
 end
