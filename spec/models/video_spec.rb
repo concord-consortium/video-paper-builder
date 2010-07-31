@@ -10,18 +10,21 @@ describe Video do
     @valid_attributes = {
       :entry_id => "blarg",
       :description => "value for description",
-      :video_paper_id => 1
+      :video_paper_id => 1,
+      :language_id => Language.find_by_code('en').id
     }
   end
 
   it "should create a new instance given valid attributes" do
-    Video.create!(@valid_attributes)
+    video =Video.new(@valid_attributes)
+    video.save.should be_true
   end
   
   it "should require a description" do 
     invalid_attributes = {
       :entry_id => "blarg",
-      :video_paper_id => 1
+      :video_paper_id => 1,
+      :language_id => Language.find_by_code('en').id
     }
     video = Video.new(invalid_attributes)
     
@@ -31,7 +34,8 @@ describe Video do
   it "should require a kaltura entry" do
     invalid_attributes = {
       :description=>"blarg",
-      :video_paper_id=>1
+      :video_paper_id=>1,
+      :language_id => Language.find_by_code('en').id      
     }
     video = Video.new(invalid_attributes)
     video.save.should be_false
@@ -55,7 +59,19 @@ describe Video do
       Maecenas lorem ipsum, faucibus ut laoreet hendrerit, aliquet nec dui. Vivamus tempor lacus ut tortor consectetur vitae ullamcorper lorem ultricies. Maecenas tempor laoreet tincidunt. Pellentesque gravida ligula mattis enim volutpat nec condimentum lectus ullamcorper. In lobortis metus nec nulla convallis auctor. In vel mi risus. Sed vel augue hendrerit dui mollis semper sed quis lorem. Phasellus vel arcu nibh. Donec pharetra, orci at dictum semper, metus metus molestie lorem, ac ultrices urna metus ut tortor. Cras auctor lectus vitae velit tempus ac tincidunt elit rhoncus. Duis tempus posuere eros, sed vehicula neque condimentum eget. Fusce imperdiet leo eu ligula luctus consectetur. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
 
       Pellentesque tincidunt dui sed leo lacinia suscipit. Curabitur dapibus sollicitudin mollis. Sed ac lorem eget tellus vehicula suscipit sed vel tellus. Praesent orci quam, dignissim id iaculis sit amet, dictum nec lacus. In placerat leo nec lacus pharetra ac tincidunt turpis imperdiet. Donec vehicula faucibus sem ac iaculis. Nullam at sem orci, sit amet consectetur enim. Praesent euismod porttitor nisi tincidunt dictum. Vivamus dictum nisl eu mauris scelerisque pretium a vel mauris. Nunc arcu mauris, tincidunt a vestibulum id, lobortis vel nunc. Etiam aliquam, quam id rutrum cursus, lacus sem sollicitudin sapien, at placerat diam orci at quam. Morbi venenatis lacus at ipsum pharetra aliquam. In vel arcu nibh. Nunc vitae urna quam. Duis id sapien risus, nec ornare enim. Sed blandit lorem sit amet leo mollis dictum. Aliquam urna ante, tincidunt eget hendrerit nec, commodo vitae massa.",
-      :video_paper_id=>1
+      :video_paper_id=>1,
+      :language_id => Language.find_by_code('en').id      
+    }
+    
+    video = Video.new(invalid_attributes)
+    video.save.should be_false
+  end
+  
+  it "should have a language" do
+    invalid_attributes = {
+      :entry_id => 'blarg',
+      :description=> 'blarg',
+      :video_paper_id => 1,
     }
     
     video = Video.new(invalid_attributes)
