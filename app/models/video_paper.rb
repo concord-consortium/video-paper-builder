@@ -4,6 +4,7 @@ class VideoPaper < ActiveRecord::Base
   # Associations
   ###################################
   belongs_to :user, :foreign_key=> "owner_id"
+  has_one :video
   
   
   ###################################

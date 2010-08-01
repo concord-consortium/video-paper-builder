@@ -27,7 +27,5 @@ Feature:
     And I should see "VideoPaper Description:"
     And I should see "Thumbnail Image"
     And I should see "Language:"
-    And I should see "Upload video"
-    And I should see "Cancel"
     
     

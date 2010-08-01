@@ -21,23 +21,18 @@ module KalturaFu
         self.create_category(category)
       elsif !force_add && !existing_category
         raise "Category: #{category} does not exist.  Either use the force add flag or manually add the category."
-      if existing_category
-        video = self.get_video_info(video_id)
-        updated_entry = Kaltura::MediaEntry.new
-        if video.categories.nil?
-          updated_categories = category
-        else
-          updated_categories = video.categories + "," + category
-        end
-        updated_entry.categories = updated_categories
-        @@client.media_service.update(video_id,updated_entry)
-      elsif force_add
-        
+      end
+      
+      video = self.get_video_info(video_id)
+      updated_entry = Kaltura::MediaEntry.new
+      if video.categories.nil?
+        updated_categories = category
       else
-        
+        updated_categories = video.categories + "," + category
       end
-          
-      end
+      updated_entry.categories = updated_categories
+      @@client.media_service.update(video_id,updated_entry)
+                
     end
     
     def set_categories_to_video(video_id,categories=[])

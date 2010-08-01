@@ -38,7 +38,7 @@ module NavigationHelpers
     when /the new video paper page/
       '/video_papers/new'
     when /(.*)'s video paper edit page/
-      '/video_papers/edit/' + VideoPaper.find_by_title($1).id.to_s
+      '/video_papers/' + VideoPaper.find_by_title($1).id.to_s + '/edit'
     when /(.*)'s video paper page/
       '/video_papers/' + VideoPaper.find_by_title($1).id.to_s
     #VIDEOS

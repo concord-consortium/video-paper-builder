@@ -1,9 +1,38 @@
-"Generic Video Paper"<br/>
+	<style>object, embed{ position:absolute; top:0; left:0; z-index:999;}</style> 
 
-"Select Video"<br/>
-"Additional Information"<br/>
-"VideoPaper Description:"<br/>
+	<h1><%=@video_paper.title%></h1>
+
+	<% form_for [@video_paper, @video] do |f| %>
+		  <%= f.error_messages %>
+			<h2>Step 1: Select Video</h2>
+			<div id="flashContainer">
+	    	<p><a id="selectButton" style="display:inline" class="super awesome button">Browse & Select</a><span id="selected-title" style="display:none"> Selected Video: <span id="title-text">Blarg</span></span></p>
+	    	<br/>
+				<%= kaltura_upload_embed %>
+			</div>	
+	  	<div id="progressBar" style="display:none">
+	    	<span class="progressBar" id="progress"></span><br/>
+	  	</div>			
+	  	<div>
+				<h2>Step 2: Additional Information</h2>
+	    	<p><%= f.label :description, "VideoPaper Description:" %>
+	    	<%= f.text_area :description %></p>
+	  	</div>
+			<div>
+				<p><%= f.label :description, "Language:" %>
+				<%= f.collection_select :language_id, Language.all, :id,:name %></p><br/>
+			</div>
+	  	<%= f.hidden_field :entry_id %>
+	  	<div id="javascript_errors"></div>
+			<% if @video.entry_id.nil?%>
+				<% disabled = true %>
+			<% else %>
+				<% disabled = false%>
+			<% end %>
+			<%= f.submit "Upload video", :id=>"button_submit",:class=>"super awesome button",:disabled=>disabled%> | <%= link_to("Cancel",@video_paper,:method=>'get') %>
+	<% end %>
+	
+
+<p>
 "Thumbnail Image"<br/>
-"Language:"<br/>
-"Upload video"<br/>
-"Cancel"<br/>
+</p>
