@@ -32,6 +32,8 @@ class VideoPaper < ActiveRecord::Base
     
     logger.debug("\nFinished constructing sections for video paper id: #{self.id.to_s} \n\n")
   end
+  has_one :video
+
   
   
   ###################################

@@ -7,8 +7,7 @@ module KalturaFu
     
     def include_kaltura_fu(*args)
       content = javascript_include_tag('kaltura_upload')
-      content << "\n#{javascript_include_tag('http://ajax.googleapis.com' + 
-		 '/ajax/libs/swfobject/2.2/swfobject.js')}" 
+      content << "\n#{javascript_include_tag('http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js')}" 
     end
     
     #returns a thumbnail image
@@ -48,6 +47,7 @@ module KalturaFu
       width = PLAYER_WIDTH
       height = PLAYER_HEIGHT
       source_type = "entryId"
+      service_url = "http://www.kaltura.com"
 
       unless options[:size].empty?
 	      width = options[:size].first
@@ -56,6 +56,10 @@ module KalturaFu
       
       if options[:use_url] == true
         source_type = "url"
+      end
+      
+      unless KalturaFu.config[:service_url].nil?
+        service_url = KalturaFu.config[:service_url]
       end
     
       unless options[:player_conf_id].nil?
@@ -87,11 +91,17 @@ module KalturaFu
           name: \"#{options[:div_id]}\"
       	};
 
-      	swfobject.embedSWF(\"http://www.kaltura.com/kwidget/wid/_#{KalturaFu.config[:partner_id]}" + player_conf_parameter + "\",\"#{options[:div_id]}\",\"#{width}\",\"#{height}\",\"9.0.0\",false,flashVars,params,attributes);
+      	swfobject.embedSWF(\"#{service_url}/kwidget/wid/_#{KalturaFu.config[:partner_id]}" + player_conf_parameter + "\",\"#{options[:div_id]}\",\"#{width}\",\"#{height}\",\"9.0.0\",false,flashVars,params,attributes);
       </script>"
     end
     
     def kaltura_upload_embed(options={})
+      service_url = "http://www.kaltura.com"
+            
+      unless KalturaFu.config[:service_url].nil?
+        service_url = KalturaFu.config[:service_url]
+      end
+      
       options[:div_id] ||="uploader"
       "<div id=\"#{options[:div_id]}\"></div>
     		<script type=\"text/javascript\">
@@ -115,7 +125,38 @@ module KalturaFu
     			jsDelegate: \"delegate\"
     		};
 
-        swfobject.embedSWF(\"http://www.kaltura.com/kupload/ui_conf_id/1103\", \"uploader\", \"160\", \"26\", \"9.0.0\", \"expressInstall.swf\", flashVars, params,attributes);
+        swfobject.embedSWF(\"#{service_url}/kupload/ui_conf_id/1103\", \"uploader\", \"160\", \"26\", \"9.0.0\", \"expressInstall.swf\", flashVars, params,attributes);
+
+    	</script>"
+    end
+    
+    def kaltura_contributor_embed(options={})
+      service_url = "http://www.kaltura.com"
+            
+      unless KalturaFu.config[:service_url].nil?
+        service_url = KalturaFu.config[:service_url]
+      end
+      
+      options[:div_id] ||="uploader"
+      "<div id=\"#{options[:div_id]}\"></div>
+    		<script type=\"text/javascript\">
+
+    		var params = {
+    			allowScriptAccess: \"always\",
+    			allowNetworking: \"all\",
+    			wmode: \"opaque\"
+    		};
+    		var flashVars = {
+    			uid: \"ANONYMOUS\",
+    			partnerId: \"#{KalturaFu.config[:partner_id]}\",
+    			ks: \"#{KalturaFu.session_key}\",
+    			afterAddEntry: \"onConributionWizardAfterAddEntry\",
+    			close: \"onContributionWizardClose\",
+    			showCloseButton: \"false\",
+    			Permissions: \"1\"
+    		};
+
+        swfobject.embedSWF(\"#{service_url}/kcw/ui_conf_id/1000740\", \"uploader\", \"680\", \"360\", \"9.0.0\", \"expressInstall.swf\", flashVars, params);
 
     	</script>"
     end
