@@ -17,6 +17,8 @@ class Hash
 end
 
 module KalturaFu
+  READY = Kaltura::Constants::FlavorAssetStatus::READY
+  
   
   @@config = {}
   @@client = nil

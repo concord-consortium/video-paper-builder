@@ -23,6 +23,19 @@ module KalturaFu
       end
     end
     
+    def set_video_description(video_id,description)
+      self.check_for_client_session
+      
+      if self.video_exists?(video_id)
+        new_entry = Kaltura::MediaEntry.new
+        new_entry.description = description
+        @@client.media_service.update(video_id,new_entry)
+        true
+      else
+        false
+      end
+    end
+    
     def check_video_status(video_id)
       self.check_for_client_session
       
