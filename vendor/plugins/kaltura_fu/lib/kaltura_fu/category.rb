@@ -35,8 +35,19 @@ module KalturaFu
                 
     end
     
-    def set_categories_to_video(video_id,categories=[])
+    def set_category(video_id,category)
+      self.check_for_client_session
+      
+      if self.video_exists?(video_id)
+        updated_entry = Kaltura::MediaEntry.new
+        updated_entry.categories = category
+        @@client.media_service.update(video_id,updated_entry)
+        true
+      else
+        false
+      end
     end
+    
       
     def category_exists?(category_name)
       self.check_for_client_session

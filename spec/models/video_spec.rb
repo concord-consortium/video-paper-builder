@@ -2,15 +2,22 @@ require 'spec_helper'
 
 describe Video do
   before(:all) do
-    @user1 = Factory.create(:user, :email=>"spec_test_1@velir.com")
-    @user2 = Factory.create(:user, :email=>"spec_test_2@velir.com")
-    @admin = Factory.create(:admin, :email=>"spec_admin@velir.om")    
+    @user1 = Factory.create(:user)
+    @user2 = Factory.create(:user)
+    @admin = Factory.create(:admin)    
+    
+    #find a video with the category of "test" to eff with.
+    KalturaFu.generate_session_key
+    temp_filter = Kaltura::Filter::BaseFilter.new
+    pager = Kaltura::FilterPager.new
+    pager.page_size = 100000
+    @entry = KalturaFu.client.media_service.list(temp_filter,pager).objects.map!{|c| c if c.categories == "test"}.compact!.last.id
   end
   before(:each) do
     @valid_attributes = {
-      :entry_id => "blarg",
+      :entry_id => @entry,
       :description => "value for description",
-      :video_paper_id => 1,
+      :video_paper_id => Factory.create(:video_paper).id,
       :language_id => Language.find_by_code('en').id
     }
   end
@@ -22,7 +29,7 @@ describe Video do
   
   it "should require a description" do 
     invalid_attributes = {
-      :entry_id => "blarg",
+      :entry_id => @entry,
       :video_paper_id => 1,
       :language_id => Language.find_by_code('en').id
     }
@@ -33,7 +40,7 @@ describe Video do
   
   it "should require a kaltura entry" do
     invalid_attributes = {
-      :description=>"blarg",
+      :description=>@entry,
       :video_paper_id=>1,
       :language_id => Language.find_by_code('en').id      
     }
@@ -49,7 +56,7 @@ describe Video do
   end
   it "should limit the description to 500 characters" do
     invalid_attributes = {
-      :entry_id=>"blarg",
+      :entry_id=>@entry,
       :description=> "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi justo, iaculis quis dapibus vitae, egestas non erat. Donec pretium rhoncus iaculis. Integer tempus dui sit amet elit auctor at elementum justo interdum. Ut pulvinar congue magna placerat pulvinar. Phasellus eget mauris arcu, ut lacinia purus. Pellentesque in ipsum tempor felis sollicitudin egestas. Proin consequat facilisis nulla id lobortis. Donec quis egestas erat. Cras porta, tortor sed feugiat facilisis, augue massa ultricies tellus, vitae viverra quam ligula id velit. Praesent libero lorem, mattis non vulputate quis, porta ut massa. Nunc at felis at libero rhoncus ultrices. Morbi non lorem tellus, non pellentesque urna. Sed non dui tortor, vitae varius lectus. Nullam facilisis lorem non ante facilisis luctus. Praesent auctor mollis ipsum, id sollicitudin mauris mollis at. In hac habitasse platea dictumst.
 
       Donec odio nibh, fringilla a pharetra in, cursus et nibh. Nulla eu feugiat ligula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam vulputate congue tempor. Donec vel nunc quam. Fusce sit amet felis et nibh egestas pretium vel in nisi. Ut neque quam, venenatis nec pretium eu, sagittis non diam. Vivamus non mauris quam. Quisque id quam massa, eget tempor dui. Aenean mollis accumsan cursus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec auctor volutpat urna, nec ornare orci adipiscing sit amet. Vivamus interdum velit quis nulla fermentum elementum. Phasellus et nulla elit, tempus molestie neque. Pellentesque non sapien tortor. In hac habitasse platea dictumst. Curabitur gravida eros quis neque tristique ut tincidunt dui lobortis. Quisque eget nulla ante. Vestibulum adipiscing tellus et urna feugiat dictum. Pellentesque convallis vulputate nulla et dictum.
@@ -69,12 +76,53 @@ describe Video do
   
   it "should have a language" do
     invalid_attributes = {
-      :entry_id => 'blarg',
+      :entry_id => @entry,
       :description=> 'blarg',
       :video_paper_id => 1,
     }
     
     video = Video.new(invalid_attributes)
     video.save.should be_false
+    
+  end
+  
+  it "should add the description to the Kaltura metadata" do
+    description = rand(100).to_s + "waffles yo."
+    valid_attributes = {
+      :entry_id => @entry,
+      :description => description,
+      :video_paper_id => 1,
+      :language_id => Language.find_by_code('en').id
+    }
+    
+    video = Video.new(valid_attributes)
+    video.save.should be_true
+    
+    description.should == (KalturaFu.get_video_info(@entry).description)
+  end
+  
+  it "should set the kaltura category to the rails environment" do
+    #first eff with the kaltura category
+    KalturaFu.set_category(@entry,"blarg")
+    KalturaFu.get_video_info(@entry).categories.should == "blarg"
+    
+    video = Video.new(@valid_attributes)
+    video.save.should be_true
+    
+    KalturaFu.get_video_info(video.entry_id).categories.should == "test"
+  end
+  
+  it "should snag the video duration from kaltura after saving" do
+    video = Video.new(@valid_attributes)
+    video.save.should be_true
+    
+    video.duration.should == KalturaFu.get_video_info(video.entry_id).duration
+  end
+  
+  it "should update the processing status from kaltura" do
+    video = Video.new(@valid_attributes)
+    video.save.should be_true
+    
+    video.processed?.should == true
   end
 end

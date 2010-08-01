@@ -2,14 +2,18 @@
 
 	<h1><%=@video_paper.title%></h1>
 
-	<% form_for [@video_paper, @video] do |f| %>
+	<h2>Step 1: Select Video</h2>
+	<div id="flashContainer">
+  	<p><a id="selectButton" style="display:inline" class="super awesome button">Browse & Select</a><span id="selected-title" style="display:none"> Selected Video: <span id="title-text">Blarg</span></span></p>
+  	<br/>
+		<%= kaltura_upload_embed %>
+	</div>
+
+	<%= `which convert` %><br/>
+	<%= `echo $PATH` %>
+
+	<% form_for [@video_paper, @video],:html => { :multipart => true } do |f| %>
 		  <%= f.error_messages %>
-			<h2>Step 1: Select Video</h2>
-			<div id="flashContainer">
-	    	<p><a id="selectButton" style="display:inline" class="super awesome button">Browse & Select</a><span id="selected-title" style="display:none"> Selected Video: <span id="title-text">Blarg</span></span></p>
-	    	<br/>
-				<%= kaltura_upload_embed %>
-			</div>	
 	  	<div id="progressBar" style="display:none">
 	    	<span class="progressBar" id="progress"></span><br/>
 	  	</div>			
@@ -18,6 +22,9 @@
 	    	<p><%= f.label :description, "VideoPaper Description:" %>
 	    	<%= f.text_area :description %></p>
 	  	</div>
+			<div>
+				<p><%=f.label :thumbnail, "Thumbnail Image:"%>
+				<%=f.file_field :thumbnail%></p>
 			<div>
 				<p><%= f.label :description, "Language:" %>
 				<%= f.collection_select :language_id, Language.all, :id,:name %></p><br/>

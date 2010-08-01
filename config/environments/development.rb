@@ -17,3 +17,5 @@ config.action_controller.perform_caching             = false
 config.action_mailer.raise_delivery_errors = false
 
 config.action_mailer.default_url_options = { :host => 'vpb.local' }
+
+Paperclip.options[:command_path] = '/opt/local/bin'
