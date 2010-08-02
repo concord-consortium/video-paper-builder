@@ -121,11 +121,11 @@ module KalturaFu
     			subPId: \"#{KalturaFu.config[:subpartner_id]}\",
     			entryId: \"-1\",
     			ks: \"#{KalturaFu.session_key}\",
-    			uiConfId: '1103',
+    			uiConfId: '1000015',
     			jsDelegate: \"delegate\"
     		};
 
-        swfobject.embedSWF(\"#{service_url}/kupload/ui_conf_id/1103\", \"uploader\", \"160\", \"26\", \"9.0.0\", \"expressInstall.swf\", flashVars, params,attributes);
+        swfobject.embedSWF(\"http://kaltura.dev.velir.com/p/101/sp/0/flash/kupload/v1.0.23/KUpload.swf\", \"uploader\", \"160\", \"26\", \"9.0.0\", \"expressInstall.swf\", flashVars, params,attributes);
 
     	</script>"
     end

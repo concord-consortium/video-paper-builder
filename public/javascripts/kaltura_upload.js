@@ -50,6 +50,7 @@ delegate.progressHandler = function(args)
 
 delegate.uiConfErrorHandler = function()
 {
+  alert("OMG WTF MATE ");
 }
 
 function upload()
