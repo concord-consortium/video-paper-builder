@@ -47,9 +47,7 @@ class VideoPapersController < ApplicationController
     if current_user
       @video_paper.user = current_user
     end
-    
-    build_video_paper_sections!
-    
+
     respond_to do |format|
       if @video_paper.save
         format.html { redirect_to(@video_paper, :notice => 'VideoPaper was successfully created.') }
@@ -88,27 +86,5 @@ class VideoPapersController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
-  private
-  
-  # Adds the video paper sections to the videopaper upon creation.
-  # TODO: Should we consider a way to parameterize the default titles below?
-  def build_video_paper_sections!
-    @intro_section = Section.new :video_paper=> @video_paper, :title=>"Introduction"
-    @intro_section.save!
     
-    @getting_started_section = Section.new :video_paper=> @video_paper, :title=>"Getting Started"
-    @getting_started_section.save!
-
-    @inquiry_section = Section.new :video_paper=> @video_paper, :title=>"Inquiry"
-    @inquiry_section.save!
-    
-    @wrapping_up_section = Section.new :video_paper=> @video_paper, :title=>"Wrapping up"
-    @wrapping_up_section.save!
-
-    @conclusion_section = Section.new :video_paper=> @video_paper, :title=>"Conclusion"
-    @conclusion_section.save!
-  end
-  
-  
 end

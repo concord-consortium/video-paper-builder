@@ -32,5 +32,11 @@ describe VideoPaper do
     user_video_paper.save    
     user_video_paper.user.should == @user
   end
-
+  
+  it "should have five sections" do
+    video_paper = VideoPaper.new(:title=>"I have sections", :owner_id=> 1)
+    video_paper.save!
+    video_paper.sections.count.should equal 5
+  end
+  
 end
