@@ -45,8 +45,9 @@ module NavigationHelpers
     when /the (.*)'s new video page/
       '/video_papers/' + VideoPaper.find_by_title($1).id.to_s + '/videos/new'
     #VIDEO PAPER SECTIONS
-    when /the video paper section (.*) page/
-      '/sections/' + Section.find($1)
+    when /the video paper (.*)'s page/
+      '/video_papers/' + VideoPaper.find($1).id.to_s
+      
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

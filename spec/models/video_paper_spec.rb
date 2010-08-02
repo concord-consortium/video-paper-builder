@@ -29,8 +29,8 @@ describe VideoPaper do
     user_video_paper = VideoPaper.new(:title=>"Awesome Title",
       :owner_id=>@user.id
     )
-    user_video_paper.save
-    
+    user_video_paper.save    
     user_video_paper.user.should == @user
   end
+
 end
