@@ -4,6 +4,8 @@ namespace :devise do
   desc 'setup devise example migrating db and creating a default user'
   task :setup => ['db:reset','db:drop', 'db:create', 'db:migrate', 'environment'] do
     admin = Admin.create! do |u|
+      u.first_name = 'Bob'
+      u.last_name = 'Bobberino'
       u.email = 'videopaperbuilder@gmail.com'
       u.password = 'funstuff'
       u.password_confirmation = 'funstuff'
@@ -18,6 +20,8 @@ namespace :devise do
   desc 'setup test database fixtures'
   task :test => ['devise:setup'] do
     user = User.create! do |u|
+      u.first_name = 'Robert'
+      u.last_name = 'Bobberson'
       u.email = "test_user@velir.com"
       u.password = 'funstuff'
       u.password_confirmation = 'funstuff'
