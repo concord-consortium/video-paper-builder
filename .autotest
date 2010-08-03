@@ -11,4 +11,3 @@ end
 Autotest.add_hook :run_command do |autotest|
 	system("bundle exec rake devise:test RAILS_ENV=test") 
 end
-

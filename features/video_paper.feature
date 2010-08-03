@@ -49,7 +49,6 @@ Feature:
   Scenario: Normal user destroys video paper
     Given I am a user logged in as "test_user@velir.com"
     When I go to the new video paper page
-    Then show me the page
     Then I should see "New video_paper"
     And I create a new video paper named "Fake Delete Title"
     When I go to Fake Delete Title's video paper page

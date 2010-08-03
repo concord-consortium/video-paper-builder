@@ -27,9 +27,11 @@ Feature:
     Given I am an admin logged in as "videopaperbuilder@gmail.com"
     When I go to the admin sign up page
     And I fill in the following:
+      | First name            | John                     |
+      | Last name             | Doe                      |    
       | Email                 | new_test_admin@velir.com |
       | Password              | funstuff                 |
-      | Password confirmation | funstuff                 |
+      | Password confirmation | funstuff                 |    
     And I press "Sign up"
     And I go to the admin sign out page
     And I go to the new_test_admin@velir.com's admin confirmation page
@@ -46,9 +48,11 @@ Feature:
     Given I am an admin logged in as "videopaperbuilder@gmail.com"
     When I go to the user sign up page
     And I fill in the following:
-      |Email                 | fun_test_user@velir.com |
-      |Password              | funstuff                |
-      |Password confirmation | funstuff                |
+      | First name            | John                    |
+      | Last name             | Doe                     |
+      | Email                 | fun_test_user@velir.com |
+      | Password              | funstuff                |
+      | Password confirmation | funstuff                |
     And I press "Sign up"
     Then I should be on the user sign in page
     And I should see "You have signed up successfully."
@@ -58,7 +62,9 @@ Feature:
     When I go to the user invitation page
     Then I should be on the user invitation page
     And I fill in the following:
-      | Email | fun_invite_user@velir.com |
+      | First name | John                      |
+      | Last name  | Doe                       |
+      | Email      | fun_invite_user@velir.com |
     And I press "Send an invitation"
     Then I should see "An email with instructions about how to set the password has been sent."
       

@@ -14,6 +14,7 @@ class RegistrationsController < ApplicationController
   # POST /resource/sign_up
   def create
     build_resource
+    resource = resource_class.new(params[resource_name])
 
     if resource.save
       set_flash_message :notice, :signed_up

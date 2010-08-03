@@ -9,9 +9,6 @@
 		<%= kaltura_upload_embed %>
 	</div>
 
-	<%= `which convert` %><br/>
-	<%= `echo $PATH` %>
-
 	<% form_for [@video_paper, @video],:html => { :multipart => true } do |f| %>
 		  <%= f.error_messages %>
 	  	<div id="progressBar" style="display:none">

@@ -21,7 +21,6 @@ Feature:
   Scenario: Normal user adds content to sections
     Given I am a user logged in as "test_user@velir.com"
   	When I go to Generic Video Paper's video paper page
-  	Then show me the page
   	And I fill in the following:
   		| introduction      | intro text        |
   		| getting_started   | getting started   |

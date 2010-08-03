@@ -5,8 +5,15 @@ class VideoPaper < ActiveRecord::Base
   ###################################
   belongs_to :user, :foreign_key=> "owner_id"
   has_many :sections
+  has_one :video
   
   accepts_nested_attributes_for :sections
+
+  ###################################
+  # Validations
+  ###################################
+  validates_presence_of :title
+  validates_presence_of :owner_id
 
   def after_create
     construct_video_paper_sections
@@ -32,14 +39,5 @@ class VideoPaper < ActiveRecord::Base
     
     logger.debug("\nFinished constructing sections for video paper id: #{self.id.to_s} \n\n")
   end
-  has_one :video
-
   
-  
-  ###################################
-  # Validations
-  ###################################
-  validates_presence_of :title
-  validates_presence_of :owner_id
-
 end

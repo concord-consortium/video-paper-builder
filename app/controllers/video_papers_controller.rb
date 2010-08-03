@@ -17,6 +17,7 @@ class VideoPapersController < ApplicationController
   # GET /video_papers/1.xml
   def show
     @video_paper = VideoPaper.find(params[:id])
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @video_paper }
@@ -28,7 +29,7 @@ class VideoPapersController < ApplicationController
   def new
     @video_paper = VideoPaper.new
     @video_paper.user = current_user
-    
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @video_paper }
@@ -86,5 +87,5 @@ class VideoPapersController < ApplicationController
       format.xml  { head :ok }
     end
   end
-    
+
 end
