@@ -10,10 +10,22 @@ Feature:
       | test_user@velir.com         | funstuff | user  |  
 
   Scenario: Normal user creates a new video paper containing five sections
-	Given I am a user logged in as "test_user@velir.com"
-	When I go to the new video paper page
-	Then I should see "New video_paper"
-	And I create a new video paper named "Fake Title"
-	Then I should see "VideoPaper was successfully created."
+  	Given I am a user logged in as "test_user@velir.com"
+  	When I go to the new video paper page
+  	Then I should see "New video_paper"
+  	And I create a new video paper named "Fake Title"
+  	Then I should see "VideoPaper was successfully created."
     When I go to Fake Title's video paper page
-	Then I should have five sections
+  	Then I should have five sections
+	
+  Scenario: Normal user adds content to sections
+    Given I am a user logged in as "test_user@velir.com"
+  	When I go to Generic Video Paper's video paper page
+  	Then show me the page
+  	And I fill in the following:
+  		| introduction      | intro text        |
+  		| getting_started   | getting started   |
+  		| inquiry           | questions         |
+  		| wrapping_up       | wrapup            |
+  		| conclusion        | conclusion        |
+  	And I press "Update"

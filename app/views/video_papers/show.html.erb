@@ -2,13 +2,15 @@
   <b>Title:</b>
   <%=h @video_paper.title %>
 </p>
-
-<p><b>Sections:</b></p>
-<ul id="sections">
-	<% @video_paper.sections.each do |section| %>
-	<li><%=h section.title %></li>
-	<% end %>	
-</ul>
+<% form_for @video_paper do |f| %>
+	<% f.fields_for :sections do |builder| %>
+		<div id="<%= builder.object.title.to_s.downcase.underscore.gsub(' ', '_') %>_wrapper" class="section">
+			<%= builder.label builder.object.title %>
+			<%= builder.text_area :content, :rows => 3, :id => "#{builder.object.title.to_s.downcase.underscore.gsub(' ', '_') }" %>
+		</div>
+	<% end %>
+	<p><%= f.submit 'Update' %></p>
+<% end %>
 <%= link_to 'Edit', edit_video_paper_path(@video_paper) %> |
 <%= link_to 'Back', video_papers_path %> |
 <%= link_to 'Destroy', @video_paper, :method => :delete %>

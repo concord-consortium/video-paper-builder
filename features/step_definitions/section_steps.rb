@@ -1,8 +1,7 @@
 Then /^I should have five sections$/ do
-  page.should have_content('Sections')
-  page.should have_content('Introduction')
-  page.should have_content('Getting Started')
-  page.should have_content('Inquiry')
-  page.should have_content('Conclusion')
+  page.should have_css('#introduction')
+  page.should have_css('#getting_started')
+  page.should have_css('#inquiry')
+  page.should have_css('#wrapping_up')
+  page.should have_css('#conclusion')
 end
-
