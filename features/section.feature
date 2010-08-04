@@ -97,3 +97,19 @@ Feature:
     And I follow "Edit Conclusion"
     And I follow "Cancel"
     Then I should be on Fake Title's video paper page
+
+  Scenario: Normal user tries to edit section without title parameter
+    Given I am a user logged in as "test_user@velir.com"
+    When I go to the new video paper page
+    Then I should see "New video_paper"
+    And I create a new video paper named "Fake Title"
+    Then I should see "VideoPaper was successfully created."
+    When I go to edit titleless section on Fake Title
+    Then I should see "Introduction"
+    When I fill in "section_content" with "introduction content"
+    And I press "Save"
+    Then I should see "introduction content"
+    And I follow "Edit Introduction"
+    And I follow "Cancel"
+    Then I should be on Fake Title's video paper page
+    

@@ -33,10 +33,14 @@ describe VideoPaper do
     user_video_paper.user.should == @user
   end
   
-  it "should have five sections" do
+  it "should have preset sections" do
     video_paper = VideoPaper.new(:title=>"I have sections", :owner_id=> 1)
     video_paper.save!
-    video_paper.sections.count.should equal 5
+    Settings.sections.each do |section_setting|
+      section = video_paper.sections.find_by_title(section_setting[1]["title"])
+      section.should_not be nil
+    end
+    video_paper.sections.count.should equal Settings.sections.count
   end
   
 end

@@ -25,6 +25,12 @@ class VideoPapersController < ApplicationController
   def edit_section
     @video_paper = VideoPaper.find(params[:id])
     @section = @video_paper.sections.find_by_title(params[:section])
+
+    # if the section can't be found by title, then use the first
+    if @section == nil
+      @section = @video_paper.sections.first
+    end
+    
     render :template => 'sections/edit_sections', :section => @section
   end
 
