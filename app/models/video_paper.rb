@@ -32,4 +32,19 @@ class VideoPaper < ActiveRecord::Base
     logger.debug("\nFinished constructing sections for video paper id: #{self.id.to_s} \n\n")
   end
   
+  def remove_user(user_id)
+    user = User.find(user_id)
+    
+    unless user.nil?
+      paper = self.shared_papers.find_by_user_id(user.id)
+      if paper.destroy
+        true
+      else
+        false
+      end
+    else
+      false
+    end
+  end
+  
 end

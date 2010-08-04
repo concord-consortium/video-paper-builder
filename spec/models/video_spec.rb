@@ -145,8 +145,8 @@ describe Video do
       :private=> true      
     }
     video_2 = Video.new(valid_attributos)
-    video.save.should be_true
-    video.public?.should be_false
+    video_2.save.should be_true
+    video_2.public?.should be_false
   end  
   
   it "should respond appropriately to private?" do
@@ -162,7 +162,7 @@ describe Video do
       :private=> true      
     }
     video_2 = Video.new(valid_attributos)
-    video.save.should be_true
-    video.private?.should be_true
+    video_2.save.should be_true
+    video_2.private?.should be_true
   end  
 end
