@@ -1,0 +1,21 @@
+defaults: &defaults
+  sections:
+    a:
+      title: Introduction
+    b: 
+      title: Getting Started
+    c: 
+      title: Inquiry
+    d: 
+      title: Wrapping up
+    e: 
+      title: Conclusion
+  
+development: 
+  <<: *defaults
+  
+test: &test
+  <<: *defaults
+
+cucumber: 
+  <<: *test

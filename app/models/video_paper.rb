@@ -6,8 +6,8 @@ class VideoPaper < ActiveRecord::Base
   belongs_to :user, :foreign_key=> "owner_id"
   has_many :sections
   has_one :video
-  has_many :users, :through=>:shared_papers
-  has_many :shared_papers
+  has_many :shared_papers  
+  has_many :users, :through=>:shared_papers, :uniq=>true
   
   accepts_nested_attributes_for :sections
 
@@ -24,20 +24,12 @@ class VideoPaper < ActiveRecord::Base
   def construct_video_paper_sections
     logger.debug("\nConstructing sections for video paper id: #{self.id.to_s} \n\n")
     
-    @intro_section = Section.new :video_paper=> self, :title=>"Introduction"
-    @intro_section.save!
-    
-    @getting_started_section = Section.new :video_paper=> self, :title=>"Getting Started"
-    @getting_started_section.save!
-    
-    @inquiry_section = Section.new :video_paper=> self, :title=>"Inquiry"
-    @inquiry_section.save!
-    
-    @wrapping_up_section = Section.new :video_paper=> self, :title=>"Wrapping up"
-    @wrapping_up_section.save!
-    
-    @conclusion_section = Section.new :video_paper=> self, :title=>"Conclusion"
-    @conclusion_section.save!
+    Settings.sections.each do |section_setting|
+      section = Section.new
+      section.video_paper = self
+      section.title = section_setting[1]["title"]
+      section.save
+    end
     
     logger.debug("\nFinished constructing sections for video paper id: #{self.id.to_s} \n\n")
   end

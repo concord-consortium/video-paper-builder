@@ -42,4 +42,11 @@ describe SharedPaper do
     paper = SharedPaper.new(invalid_attributes)
     paper.save.should be_false
   end
+  
+  it "shouldn't save two saves of the same exact paper/user combo" do
+    paper = SharedPaper.new(@valid_attributes)
+    paper.save.should be_true
+    paper_2 = SharedPaper.new(@valid_attributes)
+    paper_2.save.should be_false
+  end
 end
