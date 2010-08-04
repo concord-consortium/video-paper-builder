@@ -22,8 +22,10 @@ class VideoPapersController < ApplicationController
     @video_paper = VideoPaper.find(params[:id])
   end
   
-  def edit_sections
+  def edit_section
     @video_paper = VideoPaper.find(params[:id])
+    @section = @video_paper.sections.find_by_title(params[:section])
+    render :template => 'sections/edit_sections', :section => @section
   end
 
   def create
@@ -41,7 +43,6 @@ class VideoPapersController < ApplicationController
 
   def update
     @video_paper = VideoPaper.find(params[:id])
-
     if @video_paper.update_attributes(params[:video_paper])
       redirect_to(@video_paper, :notice => 'VideoPaper was successfully updated.')
     else
@@ -49,8 +50,12 @@ class VideoPapersController < ApplicationController
     end
   end
   
-  def update_sections
+  def update_section
     @video_paper = VideoPaper.find(params[:id])
+    @section = @video_paper.sections.find_by_title(params[:section][:title])
+    @section.content = params[:section][:content]
+    @section.save!
+    redirect_to(@video_paper, :notice => 'VideoPaper was successfully updated.')
   end
 
   def destroy
