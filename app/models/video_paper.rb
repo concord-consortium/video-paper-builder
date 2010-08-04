@@ -8,8 +8,6 @@ class VideoPaper < ActiveRecord::Base
   has_one :video
   has_many :shared_papers  
   has_many :users, :through=>:shared_papers, :uniq=>true
-  
-  accepts_nested_attributes_for :sections
 
   ###################################
   # Validations

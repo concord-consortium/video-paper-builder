@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :video_papers, :member=>{:share => :get,:shared=>:put,:unshare=>:get} do |video_paper|
+
+  map.resources :video_papers, :member=>{:share => :get,:shared=>:put,:unshare=>:get, :edit_section => :get, :update_section => :put} do |video_paper|
     video_paper.resources :videos
   end
 
