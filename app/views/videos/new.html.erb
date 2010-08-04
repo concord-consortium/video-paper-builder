@@ -13,9 +13,15 @@
 		  <%= f.error_messages %>
 	  	<div id="progressBar" style="display:none">
 	    	<span class="progressBar" id="progress"></span><br/>
-	  	</div>			
+	  	</div>
+			<div>
+				<h2>Step 2: Video Status</h2>
+				
+				<p><%= f.radio_button :private, "false",:checked=>true %> public
+				<%= f.radio_button :private, "true" %> private </p>
+			</div>
 	  	<div>
-				<h2>Step 2: Additional Information</h2>
+				<h2>Step 3: Additional Information</h2>
 	    	<p><%= f.label :description, "VideoPaper Description:" %>
 	    	<%= f.text_area :description %></p>
 	  	</div>

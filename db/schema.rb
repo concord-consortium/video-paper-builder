@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100803175951) do
+ActiveRecord::Schema.define(:version => 20100804155640) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                              :default => "", :null => false
@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(:version => 20100803175951) do
     t.string   "duration"
     t.boolean  "processed"
     t.integer  "thumbnail_time"
+    t.boolean  "private"
   end
 
 end

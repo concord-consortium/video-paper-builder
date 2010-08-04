@@ -18,6 +18,7 @@ class Video < ActiveRecord::Base
     validates_presence_of :description
     validates_presence_of :entry_id, :message=>"You need to upload a video."
     validates_presence_of :language_id
+    validates_inclusion_of :private, :in=>[true,false]
     validates_uniqueness_of :video_paper_id
     validates_length_of :description, :maximum=>500
     
@@ -31,6 +32,14 @@ class Video < ActiveRecord::Base
     def processed?
       check_video_status unless self.processed
       self.processed
+    end
+    
+    def private?
+      self.private
+    end
+    
+    def public?
+      !private?
     end
     
     # Protected Methods

@@ -18,7 +18,8 @@ describe Video do
       :entry_id => @entry,
       :description => "value for description",
       :video_paper_id => Factory.create(:video_paper).id,
-      :language_id => Language.find_by_code('en').id
+      :language_id => Language.find_by_code('en').id,
+      :private=> false
     }
   end
 
@@ -31,7 +32,8 @@ describe Video do
     invalid_attributes = {
       :entry_id => @entry,
       :video_paper_id => 1,
-      :language_id => Language.find_by_code('en').id
+      :language_id => Language.find_by_code('en').id,
+      :private=>true
     }
     video = Video.new(invalid_attributes)
     
@@ -42,7 +44,8 @@ describe Video do
     invalid_attributes = {
       :description=>@entry,
       :video_paper_id=>1,
-      :language_id => Language.find_by_code('en').id      
+      :language_id => Language.find_by_code('en').id,
+      :private=>true      
     }
     video = Video.new(invalid_attributes)
     video.save.should be_false
@@ -67,7 +70,8 @@ describe Video do
 
       Pellentesque tincidunt dui sed leo lacinia suscipit. Curabitur dapibus sollicitudin mollis. Sed ac lorem eget tellus vehicula suscipit sed vel tellus. Praesent orci quam, dignissim id iaculis sit amet, dictum nec lacus. In placerat leo nec lacus pharetra ac tincidunt turpis imperdiet. Donec vehicula faucibus sem ac iaculis. Nullam at sem orci, sit amet consectetur enim. Praesent euismod porttitor nisi tincidunt dictum. Vivamus dictum nisl eu mauris scelerisque pretium a vel mauris. Nunc arcu mauris, tincidunt a vestibulum id, lobortis vel nunc. Etiam aliquam, quam id rutrum cursus, lacus sem sollicitudin sapien, at placerat diam orci at quam. Morbi venenatis lacus at ipsum pharetra aliquam. In vel arcu nibh. Nunc vitae urna quam. Duis id sapien risus, nec ornare enim. Sed blandit lorem sit amet leo mollis dictum. Aliquam urna ante, tincidunt eget hendrerit nec, commodo vitae massa.",
       :video_paper_id=>1,
-      :language_id => Language.find_by_code('en').id      
+      :language_id => Language.find_by_code('en').id,
+      :private=>true      
     }
     
     video = Video.new(invalid_attributes)
@@ -79,6 +83,7 @@ describe Video do
       :entry_id => @entry,
       :description=> 'blarg',
       :video_paper_id => 1,
+      :private=>true
     }
     
     video = Video.new(invalid_attributes)
@@ -92,7 +97,8 @@ describe Video do
       :entry_id => @entry,
       :description => description,
       :video_paper_id => 1,
-      :language_id => Language.find_by_code('en').id
+      :language_id => Language.find_by_code('en').id,
+      :private=>false
     }
     
     video = Video.new(valid_attributes)
@@ -125,4 +131,38 @@ describe Video do
     
     video.processed?.should == true
   end
+  
+  it "should respond appropriately to public?" do
+    video = Video.new(@valid_attributes)
+    video.save.should be_true
+    video.public?.should be_true
+    
+    valid_attributos = {
+      :entry_id => @entry,
+      :description => "value for description",
+      :video_paper_id => Factory.create(:video_paper).id,
+      :language_id => Language.find_by_code('en').id,
+      :private=> true      
+    }
+    video_2 = Video.new(valid_attributos)
+    video.save.should be_true
+    video.public?.should be_false
+  end  
+  
+  it "should respond appropriately to private?" do
+    video = Video.new(@valid_attributes)
+    video.save.should be_true
+    video.private?.should be_false
+    
+    valid_attributos = {
+      :entry_id => @entry,
+      :description => "value for description",
+      :video_paper_id => Factory.create(:video_paper).id,
+      :language_id => Language.find_by_code('en').id,
+      :private=> true      
+    }
+    video_2 = Video.new(valid_attributos)
+    video.save.should be_true
+    video.private?.should be_true
+  end  
 end
