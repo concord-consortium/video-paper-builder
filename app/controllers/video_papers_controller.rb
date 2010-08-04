@@ -1,7 +1,8 @@
 class VideoPapersController < ApplicationController
-  before_filter :authenticate_any_user!, :except=>[:new,:create]
+  before_filter :authenticate_any_user!, :except=>[:new,:create,:show]
   before_filter :authenticate_user!, :only=>[:new,:create]
-  
+  before_filter :authenticate_owner!, :only=>[:edit,:update,:share]
+  before_filter :authenticate_shared!, :only=>[:show]
   # GET /video_papers
   # GET /video_papers.xml
   def index
@@ -87,5 +88,63 @@ class VideoPapersController < ApplicationController
       format.xml  { head :ok }
     end
   end
-
+  
+  def share
+    @video_paper = VideoPaper.find(params[:id])
+    @shared_users = @video_paper.shared_papers
+    @share = SharedPaper.new
+  end
+  
+  def shared
+    @video_paper = VideoPaper.find(params[:id])
+    @shared_users = @video_paper.shared_papers
+    @share = SharedPaper.new(params[:shared_paper])
+    
+    
+    user = User.find_by_email(params[:shared_paper][:user_id])
+    @shared_paper = SharedPaper.new
+    @shared_paper.user = user
+    @shared_paper.video_paper = @video_paper
+    @shared_paper.notes = params[:shared_paper][:notes]
+    
+    if @shared_paper.save
+      redirect_to video_papers_url,:notice=>"word"
+    else
+      render "share"
+    end
+  end
+  
+  protected
+  def authenticate_owner!
+    unless owner_or_admin
+      redirect_to(root_path, :notice => "You aren't authorized for this action.")
+    end    
+  end
+  def authenticate_shared!
+    logger.info("RAWR #{VideoPaper.find(params[:id]).users.include?(current_user)} \n")
+    logger.info("OWNER_OR_ADMIN #{owner_or_admin == true}")
+    unless owner_or_admin || VideoPaper.find(params[:id]).users.include?(current_user)
+      logger.info("I GET HERE \n")
+      unless current_user
+        authenticate_user!
+      else
+        redirect_to(new_user_session_path, :notice=>"You not permitted to view this page.")
+      end
+    end
+  end
+  def owner_or_admin
+    owner = VideoPaper.find(params[:id]).user
+    if admin || owner == current_user
+      true
+    else
+      false
+    end
+  end  
+  def admin
+    if current_admin
+      true
+    else
+      false
+    end
+  end
 end

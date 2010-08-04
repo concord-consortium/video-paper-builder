@@ -41,6 +41,8 @@ module NavigationHelpers
       '/video_papers/' + VideoPaper.find_by_title($1).id.to_s + '/edit'
     when /(.*)'s video paper page/
       '/video_papers/' + VideoPaper.find_by_title($1).id.to_s
+    when /(.*)'s sharing page/
+      '/video_papers/' + VideoPaper.find_by_title($1).id.to_s + '/share'
     #VIDEOS
     when /the (.*)'s new video page/
       '/video_papers/' + VideoPaper.find_by_title($1).id.to_s + '/videos/new'

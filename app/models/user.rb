@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :first_name, :last_name,:invitation_token
   
   has_many :video_papers, :foreign_key => 'owner_id'
+  has_many :video_papers, :through=> :shared_papers
+  has_many :shared_papers
   
   validates_presence_of :first_name
   validates_presence_of :last_name

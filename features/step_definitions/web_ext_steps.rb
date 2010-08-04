@@ -28,8 +28,8 @@ Given /^I am a user logged in as "([^\"]*)"$/ do |email|
   Given "I am not logged in"
   user_row  = @users.map {|user| user if user[:email] == email}
   visit '/users/sign_in'
-  fill_in 'Email', :with=> user_row.first[:email]
-  fill_in 'Password', :with=>user_row.first[:password]
+  fill_in 'Email', :with=> email
+  fill_in 'Password', :with=> 'funstuff'
   click_button 'Sign in'
 end
 

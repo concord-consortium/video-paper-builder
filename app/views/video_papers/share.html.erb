@@ -1,0 +1,15 @@
+<h1>Sharing Settings for <%= @video_paper.title %></h1>
+
+<% @shared_users.each do |shared_user| %>
+	Shared With:
+	<p><%= shared_user.user.name%></p>
+	<p><%= shared_user.user.email%> | <%= link_to "unshare yo.",:controller=>"video_papers",:action=>'unshare',:id=>@video_paper.id,:user_id=>shared_user.id %></p>
+<% end %>
+
+<% form_for @share,:url=>shared_video_paper_path(@video_paper),:html=>{:method=>"put"} do |f| %>
+	<p<%= f.label :user_id, "Share With:"%>
+	<%= f.text_field :user_id %></p>
+	<p><%= f.label :notes,"Add a note (optional):" %>
+	<%= f.text_area :notes %></p>
+	<p><%= f.submit 'Share' %> | <%=link_to 'Cancel',video_papers_path,:method=>'get' %></p>
+<%end%>

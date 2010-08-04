@@ -38,5 +38,17 @@ namespace :devise do
     puts 'New Video Paper created!'
     puts 'Title: ' << paper.title
     puts 'User: ' << paper.user.email
+    
+    user_2 = User.create! do |u|
+      u.first_name = 'Sly'
+      u.last_name = 'Stone'
+      u.email = "sharing_user@velir.com"
+      u.password = 'funstuff'
+      u.password_confirmation = 'funstuff'
+    end
+    user_2.confirm!   
+    puts 'New user created!'
+    puts 'Email: ' << user_2.email
+    puts 'Password: ' << user_2.password     
   end 
 end

@@ -6,6 +6,8 @@ class VideoPaper < ActiveRecord::Base
   belongs_to :user, :foreign_key=> "owner_id"
   has_many :sections
   has_one :video
+  has_many :users, :through=>:shared_papers
+  has_many :shared_papers
   
   accepts_nested_attributes_for :sections
 
