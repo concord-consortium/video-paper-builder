@@ -49,6 +49,15 @@ class VideoPapersController < ApplicationController
     end
   end
   
+  def unshare
+    @video_paper = VideoPaper.find(params[:id])
+    if @video_paper.remove_user(params[:user_id])
+      redirect_to share_video_paper_path(@video_paper), :notice=> "Removed User from shared list."
+    else
+      redirect_to share_video_paper_path(@video_paper), :notice=> "ruh-roh"
+    end
+  end
+  
   def update_sections
     @video_paper = VideoPaper.find(params[:id])
   end

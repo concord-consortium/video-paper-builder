@@ -3,7 +3,7 @@
 <% @shared_users.each do |shared_user| %>
 	Shared With:
 	<p><%= shared_user.user.name%></p>
-	<p><%= shared_user.user.email%> | <%= link_to "unshare yo.",:controller=>"video_papers",:action=>'unshare',:id=>@video_paper.id,:user_id=>shared_user.id %></p>
+	<p><%= shared_user.user.email%> | <%= link_to "Unshare",:controller=>"video_papers",:action=>'unshare',:id=>@video_paper.id,:user_id=>shared_user.user_id %></p>
 <% end %>
 
 <% form_for @share,:url=>shared_video_paper_path(@video_paper),:html=>{:method=>"put"} do |f| %>
