@@ -3,6 +3,7 @@ require 'spec_helper'
 describe VideoPaper do
   before(:all) do
     @user = Factory.create(:user, :email=>"spec_test@velir.com")
+    @second_user = Factory.create(:user,:email=>"super_spec_test@velir.com")
   end
   before(:each) do
     @valid_attributes = {
@@ -43,4 +44,64 @@ describe VideoPaper do
     video_paper.sections.count.should equal Settings.sections.count
   end
   
+  
+  it "should let you share the paper to another user" do
+    video_paper = Factory.create(:video_paper)
+    
+    share_attributes = {
+      :user_id => @second_user.id,
+      :notes=> "I love lamp"
+    }
+    video_paper.share(share_attributes).should be_true
+    paper = video_paper.shared_papers.find_by_user_id(share_attributes[:user_id]) 
+    video_paper.shared_papers.include?(paper).should be_true
+  end
+  
+  it "shouldn't let you share the paper to the same user twice.  duplicates make kittens sad" do
+    video_paper = Factory.create(:video_paper)
+    
+    share_attributes = {
+      :user_id => @second_user.id,
+      :notes => "waffles are great."
+    }
+    video_paper.share(share_attributes).should be_true
+    paper = video_paper.shared_papers.find_by_user_id(share_attributes[:user_id]) 
+    video_paper.shared_papers.include?(paper).should be_true
+    
+    share_attributes[:notes] = "well waffles aren't fantastic."
+    video_paper.share(share_attributes).should be_false
+    
+    second_paper = video_paper.shared_papers.find_by_notes(share_attributes[:notes])
+    video_paper.shared_papers.include?(second_paper).should be_false
+  end
+  
+  it "should let you unshare the paper when need be." do 
+    video_paper = Factory.create(:video_paper)
+    
+    share_attributes = {
+      :user_id => @second_user.id,
+      :notes=> "I love lamp"
+    }
+    video_paper.share(share_attributes).should be_true
+    paper = video_paper.shared_papers.find_by_user_id(share_attributes[:user_id])    
+    
+    video_paper.shared_papers.include?(paper).should be_true
+    
+    video_paper.unshare(share_attributes[:user_id]).should be_true
+    
+    video_paper.shared_papers.include?(paper).should be_false
+  end
+  
+  it "should indicate a share was unsuccesful when you give it poor attributes" do
+    video_paper = Factory.create(:video_paper)
+    
+    share_attributes = {
+      :user_id => 'I am not right at all',
+      :notes => 'ditto.'
+    }
+    
+    video_paper.share(share_attributes).should be_false
+    paper = video_paper.shared_papers.find_by_user_id(share_attributes[:user_id])
+    #video_paper.shared_papers.include?(paper).should be_false
+  end
 end

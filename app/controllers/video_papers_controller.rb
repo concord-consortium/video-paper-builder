@@ -66,7 +66,7 @@ class VideoPapersController < ApplicationController
 
   def unshare
     @video_paper = VideoPaper.find(params[:id])
-    if @video_paper.remove_user(params[:user_id])
+    if @video_paper.unshare(params[:user_id])
       redirect_to share_video_paper_path(@video_paper), :notice=> "Removed User from shared list."
     else
       redirect_to share_video_paper_path(@video_paper), :notice=> "ruh-roh"
@@ -91,14 +91,10 @@ class VideoPapersController < ApplicationController
     @shared_users = @video_paper.shared_papers
     @share = SharedPaper.new(params[:shared_paper])
     
-    
-    user = User.find_by_email(params[:shared_paper][:user_id])
-    @shared_paper = SharedPaper.new
-    @shared_paper.user = user
-    @shared_paper.video_paper = @video_paper
-    @shared_paper.notes = params[:shared_paper][:notes]
-    
-    if @shared_paper.save
+    shared_paper = params[:shared_paper]
+    #massage the attributes into an acceptable format for the share method
+    shared_paper[:user_id] = User.find_by_email(params[:shared_paper][:user_id]).id
+    if @video_paper.share(shared_paper)
       redirect_to video_papers_url,:notice=>"word"
     else
       render "share"

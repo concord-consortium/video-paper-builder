@@ -1,22 +1,38 @@
 class User < ActiveRecord::Base
+  
+  ###################################
+  # AR Plugins/gems
+  ###################################
+  
   # Include default devise modules. Others available are:
   # :http_authenticatable, :token_authenticatable, :confirmable, :lockable, :timeoutable and :activatable
   devise :registerable, :database_authenticatable, :recoverable,
          :rememberable, :trackable, :validatable, :confirmable, :invitable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :first_name, :last_name,:invitation_token
+  ###################################
+  # Associations
+  ###################################
   
   has_many :video_papers, :foreign_key => 'owner_id'
   has_many :video_papers, :through=> :shared_papers, :uniq=>true
   has_many :shared_papers
   
+  ###################################
+  # Validations
+  ###################################
+  
   validates_presence_of :first_name
   validates_presence_of :last_name
+  validates_associated :shared_papers
 
   ##################################
   # instance methods
   ##################################
+  
+  #Public Methods
+  
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :first_name, :last_name,:invitation_token  
   
   def name
     "#{self.first_name.titlecase} #{self.last_name.titlecase}"

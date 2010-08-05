@@ -49,4 +49,13 @@ describe SharedPaper do
     paper_2 = SharedPaper.new(@valid_attributes)
     paper_2.save.should be_false
   end
+  
+  it "shouldn't save a share of a user_id that doesn't exist" do
+    invalid_attributes = {
+      :video_paper_id => Factory.create(:video_paper).id,
+      :user_id=> 'waffles are fantastical'
+    }
+    paper = SharedPaper.new(invalid_attributes)
+    paper.save.should be_false
+  end
 end

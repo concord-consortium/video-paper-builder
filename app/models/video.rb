@@ -27,6 +27,10 @@ class Video < ActiveRecord::Base
     ###################################
     before_create :set_kaltura_metadata_fields
     after_create :update_kaltura_metadata
+
+    ##################################
+    # instance methods
+    ##################################
     
     # Public Methods
     def processed?
