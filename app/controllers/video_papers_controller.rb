@@ -61,7 +61,10 @@ class VideoPapersController < ApplicationController
     @section = @video_paper.sections.find_by_title(params[:section][:title])
     @section.content = params[:section][:content]
     @section.save!
-    redirect_to(@video_paper, :notice => 'VideoPaper was successfully updated.')
+    #Redirect user to the section they just updated
+    #TODO: is there a better way to incorporate dom_friend here?
+    @edited_section_url = url_for(@video_paper) + "#" + dom_friend(:id=>@section.title)
+    redirect_to(@edited_section_url, :notice => 'VideoPaper was successfully updated.')
   end
 
   def unshare
@@ -76,7 +79,6 @@ class VideoPapersController < ApplicationController
   def destroy
     @video_paper = VideoPaper.find(params[:id])
     @video_paper.destroy
-
     redirect_to(video_papers_url,:notice=>'VideoPaper was successfully destroyed.') 
   end
   
