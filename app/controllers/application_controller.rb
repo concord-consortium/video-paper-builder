@@ -21,5 +21,10 @@ class ApplicationController < ActionController::Base
       authenticate_user!
     end
   end
+
+  def dom_friend(args)
+    id = args[:id]
+    id.downcase.gsub(' ', '_')
+  end
   
 end

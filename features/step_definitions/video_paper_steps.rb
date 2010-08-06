@@ -8,4 +8,3 @@ When /^I edit the video paper title named "([^\"]*)"$/ do |title|
   fill_in "Title", :with => "Updated #{title}"
   click_button "Update"
 end
-
