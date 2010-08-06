@@ -1,15 +1,47 @@
-<p>
-  <b>Title:</b>
-  <%=h @video_paper.title %>
-</p>
+<style type="text/css">
+.ui-tabs-panel {text-align:center;height:300px;overflow-y:scroll;width:100%;}
+.ui-tabs-selected {font-weight:bold;}
+.ui-tabs-hide {display:none;}
+.ui-tabs-nav {width:100%;clear:both;display:block;}
+.ui-tabs-nav .tab {list-style:none;float:left;width:20%;text-align:center;}
+</style>
 
-<% @video_paper.sections.each do |section| %>
-  <div id="<%= dom_friend :id => section.title%>">
-    <p>Section: <%= section.title %></p>
-    <p>Content: <%= section.content %></p>
-    <p><%= edit_section_link(:video_paper => @video_paper, :section => section.title, :text => 'Edit') %></p>
-  </div>
-<% end %>
+<h1><%=h @video_paper.title -%></h1>
 <%= link_to 'Edit', edit_video_paper_path(@video_paper) %> |
 <%= link_to 'Back', video_papers_path %> |
 <%= link_to 'Destroy', @video_paper, :method => :delete %>
+<div id="tabs">
+  <ul>
+  <% @video_paper.sections.each_with_index do |section, index| %>
+    <li id="<%= dom_friend :id => section.title %>_tab" class="tab">
+      <a href="#<%= dom_friend :id => section.title %>"><%= section.title-%></a>
+    </li>
+  <% end %>
+  </ul>
+  </div>
+  <% @video_paper.sections.each do |section| %>
+    <div class="tab-content" id="<%= dom_friend :id => section.title %>">
+      <p><%= edit_section_link(:video_paper => @video_paper, :section => section.title, :text => 'Edit') %></p>
+      <p><%= section.content -%></p>
+    </div>
+  <% end %>
+</div>
+<script type="text/javascript">
+//TODO: Namespace and organize onload for this stuff
+// determine the tab index that should be selected based on the url
+var selectInitialTab = function () {
+  var tabIndex = 0;
+  $('li.tab a').each(
+    function(idx,el){
+      if(el.href != 'undefined' && el.href != '')
+        if(window.location.href.match(el.href) != null) {
+          tabIndex = idx;
+        }
+      }
+    );    
+  return tabIndex;
+}
+$("#tabs").tabs({
+  selected:selectInitialTab() // preselect tab
+});
+</script>

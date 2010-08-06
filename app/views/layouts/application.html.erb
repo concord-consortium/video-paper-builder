@@ -1,20 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<%= stylesheet_link_tag :flutie, 'screen', :cache => true %>
-  <%= javascript_include_tag 'http://code.jquery.com/jquery-1.4.2.min.js' %>
-  <%= javascript_include_tag 'jquery.progressbar' %>
-	<%= javascript_include_tag 'kaltura_upload'%>
-	<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js'%>
+<%= stylesheet_link_tag :flutie, 'screen', :cache => true %>
+<%= javascript_include_tag 'libs' %>
+<%= javascript_include_tag 'jquery.progressbar' %>
+<%= javascript_include_tag 'kaltura_upload' %>
 </head>
-
 <body>
-	<div class="content">
-		<p class="notice"><%= flash[:notice] %></p>
+  <div class="content">
+    <p class="notice"><%= flash[:notice] %></p>
     <p class="alert"><%= flash[:alert] %></p>
-    
-		<%= yield %>
-	</div>
+    <%= yield %>
+  </div>
 </body>
 </html>
