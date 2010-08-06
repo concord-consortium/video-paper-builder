@@ -50,3 +50,12 @@ Feature:
     Given I am a user logged in as "sharing_user@velir.com"
     When I go to Generic Video Paper's sharing page
     Then I should be on the home page
+    
+  Scenario: Owner attempts to share 'Generic Video Paper' with a non-user
+    Given I am a user logged in as "test_user@velir.com"
+    When I go to Generic Video Paper's sharing page
+    And I fill in the following:
+      | Share With: | thisisntanemail@velir.com |
+    Then I press "Share"
+    Then I should be on Generic Video Paper's shared page
+    

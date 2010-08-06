@@ -83,7 +83,7 @@ class VideoPapersController < ApplicationController
   def share
     @video_paper = VideoPaper.find(params[:id])
     @shared_users = @video_paper.shared_papers
-    @share = SharedPaper.new
+    @share = SharedPaper.new(params[:shared_paper])
   end
   
   def shared
@@ -93,8 +93,12 @@ class VideoPapersController < ApplicationController
     
     shared_paper = params[:shared_paper]
     #massage the attributes into an acceptable format for the share method
-    shared_paper[:user_id] = User.find_by_email(params[:shared_paper][:user_id]).id
-    if @video_paper.share(shared_paper)
+    user = User.find_by_email(params[:shared_paper][:user_id])
+    if user
+      shared_paper[:user_id] = user.id
+    end
+    @share = @video_paper.share(shared_paper)
+    if @share.valid?
       redirect_to video_papers_url,:notice=>"word"
     else
       render "share"

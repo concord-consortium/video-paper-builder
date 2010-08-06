@@ -44,9 +44,8 @@ class VideoPaper < ActiveRecord::Base
     shared_paper.video_paper = self
     if shared_paper.save
       ShareMailer.deliver_share_email(shared_paper.user,shared_paper.video_paper,self.user,shared_paper.notes)
-      retval = true
     end
-    retval
+    shared_paper
   end
   
 # Protected Methods
