@@ -13,7 +13,15 @@
 	<div class="content">
 		<p class="notice"><%= flash[:notice] %></p>
     <p class="alert"><%= flash[:alert] %></p>
-    
+    <% if user_signed_in? %>
+      <li>
+      <%= link_to('Logout', destroy_user_session_path) %>        
+      </li>
+    <% else %>
+      <li>
+      <%= link_to('Login', new_user_session_path)  %>  
+      </li>
+    <% end %>    
 		<%= yield %>
 	</div>
 </body>

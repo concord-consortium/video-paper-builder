@@ -1,0 +1,16 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    Hello <%=@user.name%>!<br/>
+    <p><%=@sender.name%> has shared the VideoPaper "<%=@shared_paper.title%>" with you.  Click <%= link_to 'here', video_paper_url(@shared_paper) %> to see it.</p>
+    <% unless @note.nil? || @note.blank? %>
+      <p><%= @sender.first_name%> also sent along a brief note about the paper:</p>
+      <p><%= @note%></p>
+    <% end %>
+    Enjoy the VideoPaper!<br/>
+    -The VideoPaper Team at <%= link_to 'Concord Consortium', 'http://concord.org'%>
+  </body>
+</html>

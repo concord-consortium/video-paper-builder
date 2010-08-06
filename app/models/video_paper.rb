@@ -42,8 +42,10 @@ class VideoPaper < ActiveRecord::Base
     retval = false
     shared_paper = SharedPaper.new(shared_paper_params)
     shared_paper.video_paper = self
-    retval = true if shared_paper.save
-    
+    if shared_paper.save
+      ShareMailer.deliver_share_email(shared_paper.user,shared_paper.video_paper,self.user,shared_paper.notes)
+      retval = true
+    end
     retval
   end
   
