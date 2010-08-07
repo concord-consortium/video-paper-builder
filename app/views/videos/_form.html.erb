@@ -1,0 +1,61 @@
+<style>object, embed{ position:absolute; top:0; left:0; z-index:999;}</style> 
+<script type="text/javascript">
+  $(document).ready(function(){
+   $('#thumbnail-time-code-show').click(function(){
+     $('#thumbnail-image').hide();
+     $('#thumbnail-time-code').show();
+   });
+   $('#thumbnail-file-show').click(function(){
+     $('#thumbnail-image').show();
+     $('#thumbnail-time-code').hide();
+   });
+  });
+</script>
+<h1><%=@video_paper.title%></h1>
+
+<h2>Step 1: Select Video</h2>
+<div id="flashContainer">
+	<p><a id="selectButton" style="display:inline" class="super awesome button">Browse & Select</a><span id="selected-title" style="display:none"> Selected Video: <span id="title-text">Blarg</span></span></p>
+	<br/>
+	<%= kaltura_upload_embed %>
+</div>
+
+<% form_for [@video_paper, @video],:html => { :multipart => true } do |f| %>
+	  <%= f.error_messages %>
+  	<div id="progressBar" style="display:none">
+    	<span class="progressBar" id="progress"></span><br/>
+  	</div>
+		<div>
+			<h2>Step 2: Video Status</h2>
+			
+			<p><%= f.radio_button :private, "false",:checked=>true %> public
+			<%= f.radio_button :private, "true" %> private </p>
+		</div>
+  	<div>
+			<h2>Step 3: Additional Information</h2>
+    	<p><%= f.label :description, "VideoPaper Description:" %>
+    	<%= f.text_area :description %></p>
+  	</div>
+		<div id="thumbnail-image">
+			<p><%=f.label :thumbnail, "Thumbnail Image:"%>
+			<%=f.file_field :thumbnail%></p>
+			If you don't happen to have a thumbnail handy just skip this field and we'll make one for you.  You can even <a id="thumbnail-time-code-show"href="#" >specify a point in time in your video to use as your thumbnail</a>.
+		</div>
+		<div id="thumbnail-time-code" style="display:none">
+			<p><%= f.label :thumbnail_time, "Thumbnail Image:"%>
+			<%= f.text_field :thumbnail_time %></p>			  
+             Enter a point in the video in seconds, or use a time format like <strong>hh:mm:ss</strong>. <a id="thumbnail-file-show" href="#" >Upload a file instead</a>.
+		</div>
+		<div>
+			<p><%= f.label :description, "Language:" %>
+			<%= f.collection_select :language_id, Language.all, :id,:name %></p><br/>
+		</div>
+  	<%= f.hidden_field :entry_id %>
+  	<div id="javascript_errors"></div>
+		<% if @video.entry_id.nil?%>
+			<% disabled = true %>
+		<% else %>
+			<% disabled = false%>
+		<% end %>
+		<%= f.submit "Upload video", :id=>"button_submit",:class=>"super awesome button",:disabled=>disabled%> | <%= link_to("Cancel",@video_paper,:method=>'get') %>
+<% end %>

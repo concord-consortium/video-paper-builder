@@ -3,6 +3,11 @@ class VideosController < ApplicationController
   before_filter :get_video_paper_and_owner_from_request
   before_filter :authenticate_owner!  
   before_filter :video_exists?, :only=>[:new,:create]
+  before_filter :no_video?,:only=>[:index]
+  
+  def index
+    @video = @video_paper.video
+  end
   
   def new
     @video = Video.new
@@ -44,6 +49,13 @@ class VideosController < ApplicationController
     if @video_paper.video
       redirect_to( edit_video_paper_video_path(@video_paper,@video_paper.video),
         :notice=>"You already have a video, you can edit it instead!"
+      )
+    end
+  end
+  def no_video?
+    unless @video_paper.video
+      redirect_to( new_video_paper_video_path(@video_paper),
+        :notice=>"You should start by making a video!"
       )
     end
   end

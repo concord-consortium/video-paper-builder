@@ -165,4 +165,138 @@ describe Video do
     video_2.save.should be_true
     video_2.private?.should be_true
   end  
+  
+  it "should allow a nil thumbnail_time" do
+    valid_attributes = {
+      :entry_id => @entry,
+      :description => "a valid description",
+      :video_paper_id => Factory.create(:video_paper).id,
+      :language_id => Language.find_by_code('en').id,
+      :private => false,
+      :thumbnail_time => nil
+    }
+    video = Video.new(valid_attributes)
+    video.save.should be_true
+  end
+  
+  it "should allow a blank thumbnail_time" do
+    valid_attributes = {
+      :entry_id => @entry,
+      :description => "a valid description",
+      :video_paper_id => Factory.create(:video_paper).id,
+      :language_id => Language.find_by_code('en').id,
+      :private => false,
+      :thumbnail_time => ""
+    }
+    video = Video.new(valid_attributes)
+    video.save.should be_true
+  end
+  
+  it "should allow a basic, numeric thumbnail_time" do
+    valid_attributes = {
+      :entry_id => @entry,
+      :description => "a valid description",
+      :video_paper_id => Factory.create(:video_paper).id,
+      :language_id => Language.find_by_code('en').id,
+      :private => false,
+      :thumbnail_time => "150"
+    }
+    video = Video.new(valid_attributes)
+    video.save.should be_true
+    video.thumbnail_time.should == '150'
+  end
+  
+  it "should allow a properly timecoded hh:mm:ss time format to save" do
+    valid_attributes = {
+      :entry_id => @entry,
+      :description => "a valid description",
+      :video_paper_id => Factory.create(:video_paper).id,
+      :language_id => Language.find_by_code('en').id,
+      :private => false,
+      :thumbnail_time => "00:02:30"
+    }
+    video = Video.new(valid_attributes)
+    video.save.should be_true
+    video.thumbnail_time.should == 150
+  end
+  
+  it "shouldn't allow a non-numeric time format" do
+    invalid_attributes = {
+      :entry_id => @entry,
+      :description => "a valid description",
+      :video_paper_id => Factory.create(:video_paper).id,
+      :language_id => Language.find_by_code('en').id,
+      :private => false,
+      :thumbnail_time => "waffles"
+    }
+    video = Video.new(invalid_attributes)
+    video.save.should be_false
+  end
+  
+  it "shouldn't allow a non-numeric time format in hh:mm:ss either" do
+    invalid_attributes = {
+      :entry_id => @entry,
+      :description => "a valid description",
+      :video_paper_id => Factory.create(:video_paper).id,
+      :language_id => Language.find_by_code('en').id,
+      :private => false,
+      :thumbnail_time => "waffles:05:12"
+    }
+    video = Video.new(invalid_attributes)
+    video.save.should be_false
+  end  
+  
+  it "shouldn't allow a seconds over 60 in hh:mm:ss format" do
+    invalid_attributes = {
+      :entry_id => @entry,
+      :description => "a valid description",
+      :video_paper_id => Factory.create(:video_paper).id,
+      :language_id => Language.find_by_code('en').id,
+      :private => false,
+      :thumbnail_time => "00:00:61"
+    }
+    video = Video.new(invalid_attributes)
+    video.save.should be_false
+  end  
+  
+  it "shouldn't allow a minutes over 60 in hh:mm:ss format" do
+    invalid_attributes = {
+      :entry_id => @entry,
+      :description => "a valid description",
+      :video_paper_id => Factory.create(:video_paper).id,
+      :language_id => Language.find_by_code('en').id,
+      :private => false,
+      :thumbnail_time => "00:61:05"
+    }
+    video = Video.new(invalid_attributes)
+    video.save.should be_false
+  end
+  
+  it "shouldn't anything over a day long in hh:mm:ss format" do
+    invalid_attributes = {
+      :entry_id => @entry,
+      :description => "a valid description",
+      :video_paper_id => Factory.create(:video_paper).id,
+      :language_id => Language.find_by_code('en').id,
+      :private => false,
+      :thumbnail_time => "25:00:02"
+    }
+    video = Video.new(invalid_attributes)
+    video.save.should be_false
+  end
+
+  it "should allow a timestamp just under one day" do
+    valid_attributes = {
+      :entry_id => @entry,
+      :description => "a valid description",
+      :video_paper_id => Factory.create(:video_paper).id,
+      :language_id => Language.find_by_code('en').id,
+      :private => false,
+      :thumbnail_time => "23:59:59"
+    }
+    video = Video.new(valid_attributes)
+    video.save.should be_true
+    video.thumbnail_time.should  == 11879
+  end
+  
 end
