@@ -145,4 +145,7 @@ Feature:
     Then I share "Generic Video Paper" with "random_user@velir.com"
     Given I am a user logged in as "random_user@velir.com"
     When I go to Generic Video Paper's video paper page
+    Then I should be on Generic Video Paper's video paper page
     Then I should not see "Edit Introduction"
+    When I am a user logged in as "test_user@velir.com"
+    Then I unshare "Generic Video Paper" with "sharing_user@velir.com"    

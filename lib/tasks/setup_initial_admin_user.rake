@@ -38,6 +38,42 @@ namespace :devise do
     puts 'New Video Paper created!'
     puts 'Title: ' << paper.title
     puts 'User: ' << paper.user.email
+    #find a video with the category of "test" to eff with.
+    KalturaFu.generate_session_key
+    temp_filter = Kaltura::Filter::BaseFilter.new
+    pager = Kaltura::FilterPager.new
+    pager.page_size = 100000
+    entry = KalturaFu.client.media_service.list(temp_filter,pager).objects.map!{|c| c if c.categories == "test"}.compact!.last.id
+    video = Video.new(
+      :entry_id=> entry,
+      :video_paper_id => paper.id,
+      :description => "this is an awesome description",
+      :private => false,
+      :language_id => Language.find_by_code('en').id
+    )
+    video.save
+    
+    paper_2 = VideoPaper.new
+    paper_2.title = "Less Generic Video Paper"
+    paper_2.user = user
+    paper_2.save
+    puts 'New Video Paper created!'
+    puts 'Title: ' << paper_2.title
+    puts 'User: ' << paper_2.user.email
+    #find a video with the category of "test" to eff with.
+    KalturaFu.generate_session_key
+    temp_filter = Kaltura::Filter::BaseFilter.new
+    pager = Kaltura::FilterPager.new
+    pager.page_size = 100000
+    entry = KalturaFu.client.media_service.list(temp_filter,pager).objects.map!{|c| c if c.categories == "test"}.compact!.last.id
+    video_2 = Video.new(
+      :entry_id=> entry,
+      :video_paper_id => paper_2.id,
+      :description => "this is an awesome description",
+      :private => true,
+      :language_id => Language.find_by_code('en').id
+    )
+    video_2.save
     
     user_2 = User.create! do |u|
       u.first_name = 'Sly'

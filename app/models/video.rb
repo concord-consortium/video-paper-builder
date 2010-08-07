@@ -40,8 +40,8 @@ class Video < ActiveRecord::Base
     
     # Public Methods
     def processed?
-      check_video_status unless self.processed
-      self.processed
+      check_video_status unless self.processed == true
+      return self.processed
     end
     
     def private?
@@ -83,6 +83,8 @@ class Video < ActiveRecord::Base
       video_info = KalturaFu.get_video_info(self.entry_id)
       self.duration = video_info.duration  
       check_video_status
+      save!
+      return true
     end
     
     def check_video_status
@@ -93,6 +95,7 @@ class Video < ActiveRecord::Base
       else
         self.processed = false
       end
-      true
+      save!
+      return self.processed
     end
 end

@@ -57,3 +57,5 @@ Given /^the following video papers$/ do |table|
   end
 end
 
+Given /^the following videos$/ do |table|
+end

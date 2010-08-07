@@ -96,7 +96,7 @@ describe Video do
     valid_attributes = {
       :entry_id => @entry,
       :description => description,
-      :video_paper_id => 1,
+      :video_paper_id => Factory.create(:video_paper).id,
       :language_id => Language.find_by_code('en').id,
       :private=>false
     }

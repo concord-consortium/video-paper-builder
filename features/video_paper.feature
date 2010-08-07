@@ -8,7 +8,17 @@ Feature:
     Given the following user records
       | email                       | password | role  |
       | videopaperbuilder@gmail.com | funstuff | admin |
-      | test_user@velir.com         | funstuff | user  |  
+      | test_user@velir.com         | funstuff | user  |
+      | sharing_user@velir.com      | funstuff | user  |
+    
+    Given the following video papers
+      | title                    | user                |
+      | Generic Video Paper      | test_user@velir.com |
+      | Less Generic Video Paper | test_user@velir.com |
+      
+    Given the following videos
+      | video paper         |
+      | Generic Video Paper |
   
   Scenario: Unauthenticated user attempts to access a video paper
     Given I am not logged in
@@ -55,4 +65,46 @@ Feature:
     And I follow "Destroy"
     Then I should see "VideoPaper was successfully destroyed."
     
+  Scenario: 'test_user@velir.com' views Generic Video Paper
+    Given I am a user logged in as "test_user@velir.com"
+    When I go to Generic Video Paper's video paper page
+    Then I should see "Generic Video Paper"
+    And I should see "Produced by Robert Bobberson"
+    And I should see "Language: English"
+    And I should see an embedded video
+    
+  Scenario: 'test_user@velir.com' views Less Generic Video Paper
+    Given I am a user logged in as "test_user@velir.com"
+    When I go to Less Generic Video Paper's video paper page
+    Then I should see "Less Generic Video Paper"
+    And I should see "Produced by Robert Bobberson"
+    And I should see "Language: English"
+    And I should see an embedded video    
+    
+  Scenario: 'sharing_user@velir.com' views Generic Video Paper
+    Given I am a user logged in as "test_user@velir.com"
+    When I share "Generic Video Paper" with "sharing_user@velir.com"
+    When I am a user logged in as "sharing_user@velir.com"
+    And I go to Generic Video Paper's video paper page  
+    Then I should see "Generic Video Paper"
+    Then I should see "Generic Video Paper"
+    And I should see "Produced by Robert Bobberson"
+    And I should see "Language: English"
+    And I should see an embedded video
+    When I am a user logged in as "test_user@velir.com"
+    Then I unshare "Generic Video Paper" with "sharing_user@velir.com"
+    
+    
+  Scenario: 'sharing_user@velir.com' views Less Generic Video Paper
+    Given I am a user logged in as "test_user@velir.com"
+    When I share "Less Generic Video Paper" with "sharing_user@velir.com"
+    When I am a user logged in as "sharing_user@velir.com"
+    And I go to Less Generic Video Paper's video paper page
+    Then I should see "Less Generic Video Paper"
+    Then I should see "Less Generic Video Paper"
+    And I should see "Produced by Robert Bobberson"
+    And I should see "Language: English"
+    And I should not see an embedded video
+    When I am a user logged in as "test_user@velir.com"
+    Then I unshare "Less Generic Video Paper" with "sharing_user@velir.com"    
     

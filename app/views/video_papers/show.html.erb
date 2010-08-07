@@ -6,10 +6,16 @@
 .ui-tabs-nav .tab {list-style:none;float:left;width:20%;text-align:center;}
 </style>
 
-<h1><%=h @video_paper.title -%></h1>
-<%= link_to 'Edit', edit_video_paper_path(@video_paper) %> |
-<%= link_to 'Back', video_papers_path %> |
-<%= link_to 'Destroy', @video_paper, :method => :delete %>
+
+<div id="paper-header-left">
+  <%= render :partial=>'video_embed' %>
+</div>
+<div id="paper-header-right">
+  <h1><%=h @video_paper.title -%></h1>
+  <h2>Produced by <%=h @video_paper.user.name%>, <%= @video_paper.created_at %></h2>
+  <%= render :partial=>'video_information'%>
+</div>
+
 <div id="tabs">
   <ul>
   <% @video_paper.sections.each_with_index do |section, index| %>
@@ -18,16 +24,18 @@
     </li>
   <% end %>
   </ul>
-  </div>
-  <% @video_paper.sections.each do |section| %>
-    <div class="tab-content" id="<%= dom_friend :id => section.title %>">
-      <% if owner_or_admin %>
-        <p><%= edit_section_link(:video_paper => @video_paper, :section => section.title, :text => 'Edit') %></p>
-      <% end %>
-      <p><%= section.content -%></p>
-    </div>
-  <% end %>
 </div>
+<% @video_paper.sections.each do |section| %>
+  <div class="tab-content" id="<%= dom_friend :id => section.title %>">
+    <% if owner_or_admin? %>
+      <p><%= edit_section_link(:video_paper => @video_paper, :section => section.title, :text => 'Edit') %></p>
+    <% end %>
+    <p><%= section.content -%></p>
+  </div>
+<% end %>
+<%= link_to 'Edit', edit_video_paper_path(@video_paper) %> |
+<%= link_to 'Back', video_papers_path %> |
+<%= link_to 'Destroy', @video_paper, :method => :delete %>
 <script type="text/javascript">
 //TODO: Namespace and organize onload for this stuff
 // determine the tab index that should be selected based on the url

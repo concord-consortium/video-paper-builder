@@ -47,12 +47,16 @@ Then /^the getting started tab should be current$/ do
 end
 
 Then /^I share "([^"]*)" with "([^"]*)"$/ do |paper, user|
-  video_paper = VideoPaper.find_by_title(paper)
-  user = User.find_by_email(user)
-  shared_paper_parms = {
-    :user_id => user.id,
-    :video_paper_id => video_paper.id
-  }
-  video_paper.share(shared_paper_parms)
+  When "I go to #{paper}'s sharing page"
+  Then "I should see \"Sharing Settings for #{paper}\""
+  fill_in 'Share With:', :with=> user
+  Then "I press \"Share\""
 end
+
+Then /^I unshare "([^"]*)" with "([^"]*)"$/ do |paper, user|
+  When "I go to #{paper}'s sharing page"
+  Then "I should see \"Sharing Settings for #{paper}\""
+  Then "I follow \"Unshare\""  
+end
+
 

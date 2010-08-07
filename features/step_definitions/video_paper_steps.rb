@@ -8,3 +8,12 @@ When /^I edit the video paper title named "([^\"]*)"$/ do |title|
   fill_in "Title", :with => "Updated #{title}"
   click_button "Update"
 end
+
+Then /^I should see an embedded video$/ do
+  page.should have_css('#kplayer')
+end
+
+Then /^I should not see an embedded video$/ do
+  page.should_not have_css('#kplayer')
+end
+

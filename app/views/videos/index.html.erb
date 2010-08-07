@@ -1,5 +1,5 @@
-<% if @video.processed? %>
-  <%= kaltura_player_embed @video.entry_id%>
+<% if @video.processed? == true %>
+  <%= kaltura_player_embed @video.entry_id %>
 <% else %>
   your video is currently being processed.
 <% end%>

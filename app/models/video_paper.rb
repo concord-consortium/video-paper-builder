@@ -20,7 +20,13 @@ class VideoPaper < ActiveRecord::Base
   ###################################
   after_create :construct_video_paper_sections
 
-
+  ###################################
+  # Named Scopes
+  ###################################
+  named_scope :owned_by, lambda { |owner| 
+    { :conditions => { :owner_id => owner.id} }
+  }
+  
   ##################################
   # instance methods
   ##################################

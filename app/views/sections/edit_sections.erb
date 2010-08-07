@@ -1,9 +1,0 @@
-<h1><%= @section.title -%></h1>
-<% form_for @section, :url => "update_section" do |f| %>
-  <%= hidden_field :section, :title %>
-  <%= f.text_area :content %>
-  <div class="form_buttons">
-    <%= submit_tag "Save" %>
-    <%= link_to "Cancel", @video_paper %>
-  </div>
-<% end %>

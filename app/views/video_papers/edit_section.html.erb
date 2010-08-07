@@ -1,0 +1,26 @@
+<div id="paper-header-left">
+  <%= render :partial=>'video_embed' %>
+</div>
+<div id="paper-header-right">
+  <h1><%=h @video_paper.title -%></h1>
+  <h2>Produced by <%=h @video_paper.user.name%>, <%= @video_paper.created_at %></h2>
+  <%= render :partial=>'video_information'%>
+</div>
+<div id="tabs">
+  <ul>
+  <% @video_paper.sections.each_with_index do |section, index| %>
+    <li id="<%= dom_friend :id => section.title %>_tab" class="tab">
+      <a href="#<%= dom_friend :id => section.title %>"><%= section.title-%></a>
+    </li>
+  <% end %>
+  </ul>
+</div>
+
+<% form_for @section, :url => "update_section" do |f| %>
+  <%= hidden_field :section, :title %>
+  <%= f.text_area :content %>
+  <div class="form_buttons">
+    <%= submit_tag "Save" %>
+    <%= link_to "Cancel", @video_paper %>
+  </div>
+<% end %>
