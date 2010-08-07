@@ -7,7 +7,8 @@ Feature:
     Given the following user records
       | email                       | password | role  |
       | videopaperbuilder@gmail.com | funstuff | admin |
-      | test_user@velir.com         | funstuff | user  |  
+      | test_user@velir.com         | funstuff | user  |
+      | random_user@velir.com       | funstuff | user  |  
 
   Scenario: Normal user creates a new video paper containing five sections
   	Given I am a user logged in as "test_user@velir.com"
@@ -137,3 +138,11 @@ Feature:
     When I go to Fake Title's video paper introduction section
     Then I should see "Introduction"
     And the introduction tab should be current
+    
+  Scenario: Shared user visits Generic Video Paper's page and sees if he/she can edit sections
+    Given I am a user logged in as "test_user@velir.com"
+    When I go to Generic Video Paper's video paper page
+    Then I share "Generic Video Paper" with "random_user@velir.com"
+    Given I am a user logged in as "random_user@velir.com"
+    When I go to Generic Video Paper's video paper page
+    Then I should not see "Edit Introduction"

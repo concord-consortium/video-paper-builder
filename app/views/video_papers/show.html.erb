@@ -21,7 +21,9 @@
   </div>
   <% @video_paper.sections.each do |section| %>
     <div class="tab-content" id="<%= dom_friend :id => section.title %>">
-      <p><%= edit_section_link(:video_paper => @video_paper, :section => section.title, :text => 'Edit') %></p>
+      <% if owner_or_admin %>
+        <p><%= edit_section_link(:video_paper => @video_paper, :section => section.title, :text => 'Edit') %></p>
+      <% end %>
       <p><%= section.content -%></p>
     </div>
   <% end %>

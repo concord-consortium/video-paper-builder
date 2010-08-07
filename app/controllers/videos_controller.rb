@@ -37,6 +37,14 @@ class VideosController < ApplicationController
   end
   def update
     @video = Video.find(params[:id])
+    
+    if @video_paper.update_attributes(params[:video_paper])
+      redirect_to( video_paper_videos_path(@video_paper),
+        :notice=>"Your video was sucessfully updated!"
+      )
+    else 
+      render "edit"
+    end
   end
   
   protected

@@ -49,6 +49,18 @@ namespace :devise do
     user_2.confirm!   
     puts 'New user created!'
     puts 'Email: ' << user_2.email
-    puts 'Password: ' << user_2.password     
+    puts 'Password: ' << user_2.password  
+    
+    user_3 = User.create! do |u|
+      u.first_name = 'OK'
+      u.last_name = 'Coral'
+      u.email = "random_user@velir.com"
+      u.password = 'funstuff'
+      u.password_confirmation = 'funstuff'
+    end
+    user_3.confirm!   
+    puts 'New user created!'
+    puts 'Email: ' << user_3.email
+    puts 'Password: ' << user_3.password   
   end 
 end

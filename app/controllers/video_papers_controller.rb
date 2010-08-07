@@ -1,8 +1,9 @@
 class VideoPapersController < ApplicationController
   before_filter :authenticate_any_user!, :except=>[:new,:create,:show]
   before_filter :authenticate_user!, :only=>[:new,:create]
-  before_filter :authenticate_owner!, :only=>[:edit,:update,:share]
-  before_filter :authenticate_shared!, :only=>[:show]
+  before_filter :authenticate_owner!, :only=>[:edit,:edit_section,:update,:update_section,:share]
+  before_filter :authenticate_shared!, :only=>[:show,]
+  helper_method :owner_or_admin
 
   def index
     @video_papers = VideoPaper.all
@@ -114,10 +115,7 @@ class VideoPapersController < ApplicationController
     end    
   end
   def authenticate_shared!
-    logger.info("RAWR #{VideoPaper.find(params[:id]).users.include?(current_user)} \n")
-    logger.info("OWNER_OR_ADMIN #{owner_or_admin == true}")
     unless owner_or_admin || VideoPaper.find(params[:id]).users.include?(current_user)
-      logger.info("I GET HERE \n")
       unless current_user
         authenticate_user!
       else
@@ -126,18 +124,14 @@ class VideoPapersController < ApplicationController
     end
   end
   def owner_or_admin
+    retval = false
     owner = VideoPaper.find(params[:id]).user
-    if admin || owner == current_user
-      true
-    else
-      false
-    end
+    retval = true if admin || owner == current_user
+    retval
   end  
   def admin
-    if current_admin
-      true
-    else
-      false
-    end
+    retval = false
+    retval = true if current_admin
+    retval
   end
 end
