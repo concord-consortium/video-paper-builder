@@ -1,11 +1,11 @@
 class VideoPapersController < ApplicationController
   before_filter :authenticate_any_user!, :except=>[:new,:create,:show]
   before_filter :authenticate_user!, :only=>[:new,:create]
-  before_filter :authenticate_owner!, :only=>[:edit,:edit_section,:update,:update_section,:share]
+  before_filter :authenticate_owner!, :only=>[:edit,:edit_section,:update,:update_section,:share,:edit_section_duration,:update_setion_duration]
   before_filter :authenticate_shared!, :only=>[:show]
   helper_method :owner_or_admin?
   helper_method :owner?
-
+  
   def index
     if current_admin
       @video_papers = VideoPaper.all
@@ -38,8 +38,7 @@ class VideoPapersController < ApplicationController
     # if the section can't be found by title, then use the first
     if @section == nil
       @section = @video_paper.sections.first
-    end
-    
+    end  
   end
 
   def create
@@ -113,6 +112,17 @@ class VideoPapersController < ApplicationController
     else
       render "share"
     end
+  end
+  
+  def edit_section_duration
+    @video_paper = VideoPaper.find(params[:id])
+    @section = @video_paper.sections.find_by_title(params[:section])
+    @video = @video_paper.video
+
+    # if the section can't be found by title, then use the first
+    if @section == nil
+      @section = @video_paper.sections.first
+    end    
   end
   
   protected

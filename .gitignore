@@ -8,3 +8,5 @@ config/deploy/*
 config/kaltura.yml
 .bundle/environment.rb
 public/system/*
+.DS_Store
+public/.DS_Store

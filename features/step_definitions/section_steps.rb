@@ -59,4 +59,14 @@ Then /^I unshare "([^"]*)" with "([^"]*)"$/ do |paper, user|
   Then "I follow \"Unshare\""  
 end
 
+When /^I add "([^"]*)" to "([^"]*)"$/ do |content,finder|
+  ##
+  # This is probably the biggest hackety hack of the entire project.
+  # The WYSIWYG editor drops an iframe and hides the section content text field, and then 
+  # through dark magic populates it via the iframes' body inner html.  So thats what this
+  # does.  Didn't want to throw out the tests.
+  #
+  page.evaluate_script("document.getElementById(\"#{finder}\").contentWindow.document.body.innerHTML = \"#{content}\";") 
+end
+
 

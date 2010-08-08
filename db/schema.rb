@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100807144724) do
+ActiveRecord::Schema.define(:version => 20100808192255) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                              :default => "", :null => false
@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(:version => 20100807144724) do
     t.integer  "video_paper_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "video_start_time"
+    t.string   "video_stop_time"
   end
 
   create_table "shared_papers", :force => true do |t|
@@ -112,6 +114,15 @@ ActiveRecord::Schema.define(:version => 20100807144724) do
     t.boolean  "processed"
     t.string   "thumbnail_time"
     t.boolean  "private"
+  end
+
+  create_table "wysihat_files", :force => true do |t|
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

@@ -28,7 +28,7 @@ Feature:
     When I go to Fake Title's video paper page
     And I follow "Introduction"
     And I follow "Edit Introduction"
-    When I fill in "section_content" with "introduction content"
+    When I add "introduction content" to "section_content_editor"
     And I press "Save"
     Then I should see "introduction content"
     And I follow "Introduction"
@@ -45,7 +45,7 @@ Feature:
     When I go to Fake Title's video paper page
     And I follow "Getting Started"
     And I follow "Edit Getting Started"
-    When I fill in "section_content" with "getting started content"
+    When I add "getting started content" to "section_content_editor"    
     And I press "Save"
     Then I should see "getting started content"
     And I follow "Getting Started"
@@ -62,7 +62,7 @@ Feature:
     When I go to Fake Title's video paper page
     And I follow "Inquiry"
     And I follow "Edit Inquiry"
-    When I fill in "section_content" with "inquiry content"
+    When I add "inquiry content" to "section_content_editor"    
     And I press "Save"
     Then I should see "inquiry content"
     And I follow "Inquiry"
@@ -79,7 +79,7 @@ Feature:
     When I go to Fake Title's video paper page
     And I follow "Wrapping up"
     And I follow "Edit Wrapping up"
-    When I fill in "section_content" with "wrapping up content"
+    When I add "wrapping up content" to "section_content_editor"    
     And I press "Save"
     Then I should see "wrapping up content"
     And I follow "Wrapping up"
@@ -96,7 +96,7 @@ Feature:
     When I go to Fake Title's video paper page
     And I follow "Conclusion"
     And I follow "Edit Conclusion"
-    When I fill in "section_content" with "conclusion content"
+    When I add "conclusion content" to "section_content_editor"    
     And I press "Save"
     Then I should see "conclusion content"
     And I follow "Conclusion"
@@ -112,7 +112,7 @@ Feature:
     Then I should see "VideoPaper was successfully created."
     When I go to edit titleless section on Fake Title
     Then I should see "Introduction"
-    When I fill in "section_content" with "introduction content"
+    When I add "introduction content" to "section_content_editor"    
     And I press "Save"
     Then I should see "introduction content"
     And I follow "Edit Introduction"

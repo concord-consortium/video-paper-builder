@@ -41,7 +41,7 @@
 // determine the tab index that should be selected based on the url
 var selectInitialTab = function () {
   var tabIndex = 0;
-  $('li.tab a').each(
+  $j('li.tab a').each(
     function(idx,el){
       if(el.href != 'undefined' && el.href != '')
         if(window.location.href.match(el.href) != null) {
@@ -51,7 +51,7 @@ var selectInitialTab = function () {
     );    
   return tabIndex;
 }
-$("#tabs").tabs({
+$j("#tabs").tabs({
   selected:selectInitialTab() // preselect tab
 });
 </script>

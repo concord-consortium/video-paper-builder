@@ -53,6 +53,8 @@ module NavigationHelpers
       '/video_papers/' + VideoPaper.find_by_title($1).id.to_s + '/edit_section'
     when /(.*)'s video paper (.*) section/
       '/video_papers/' + VideoPaper.find_by_title($1).id.to_s + '/#' + ($2)
+    when /(.*)'s video paper edit timing page/
+      '/video_papers/' + VideoPaper.find_by_title($1).id.to_s + '/edit_section_duration'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
