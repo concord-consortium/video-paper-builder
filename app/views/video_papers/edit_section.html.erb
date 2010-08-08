@@ -3,7 +3,7 @@
 </div>
 <div id="paper-header-right">
   <h1><%=h @video_paper.title -%></h1>
-  <h2>Produced by <%=h @video_paper.user.name%>, <%= @video_paper.created_at %></h2>
+  <h2>Produced by <%=h @video_paper.user.name%>, <%= @video_paper.format_created_date %></h2>
   <%= render :partial=>'video_information'%>
 </div>
 <div id="tabs">

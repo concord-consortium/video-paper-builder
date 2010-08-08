@@ -32,16 +32,11 @@ class VideoPaper < ActiveRecord::Base
   ##################################
 
   # Public Methods
-  def unshare(user_id)
-    retval = false
-    user = User.find(user_id)
-    
-    unless user.nil?
-      paper = self.shared_papers.find_by_user_id(user.id)
-      retval = true if paper.destroy
-    end
-    retval
+  def format_created_date
+    created_at = self.created_at
+    created_at.strftime("%A %B #{created_at.day.ordinalize}, %Y")
   end
+  
   ##
   # The one controller action that shares 
   def share(shared_paper_params)
@@ -51,6 +46,17 @@ class VideoPaper < ActiveRecord::Base
     if shared_paper.save
       ShareMailer.deliver_share_email(shared_paper.user,shared_paper.video_paper,self.user,shared_paper.notes)
       retval = true
+    end
+    retval
+  end
+  
+  def unshare(user_id)
+    retval = false
+    user = User.find(user_id)
+    
+    unless user.nil?
+      paper = self.shared_papers.find_by_user_id(user.id)
+      retval = true if paper.destroy
     end
     retval
   end

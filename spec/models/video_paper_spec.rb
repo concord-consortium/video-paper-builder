@@ -104,4 +104,14 @@ describe VideoPaper do
     paper = video_paper.shared_papers.find_by_user_id(share_attributes[:user_id])
     #video_paper.shared_papers.include?(paper).should be_false
   end
+  
+  it "should produce a human readable created by date" do
+    video_paper = Factory.create(:video_paper)
+    
+    pretty_date = Time.now.utc
+    pretty_date = pretty_date.strftime("%A %B #{pretty_date.day.ordinalize}, %Y")
+    
+    video_paper.format_created_date.should == pretty_date
+    
+  end
 end
