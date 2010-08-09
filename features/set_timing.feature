@@ -32,4 +32,14 @@ Feature:
     And I should see "Set start and stop times for Introduction"
     And I should see "Start Time (HH:MM:SS)"
     And I should see "Stop Time (HH:MM:SS)"
+    
+  Scenario: As the video paper owner, I should be able to set the timings
+    Given I am a user logged in as "test_user@velir.com"
+    When I go to Generic Video Paper's video paper edit timing page
+    Then I should be on Generic Video Paper's video paper edit timing page
+    And I fill in "Start Time (HH:MM:SS)" with "5"
+    And I fill in "Stop Time (HH:MM:SS)" with "8"
+    And I press "Save timings"
+    Then I should be on Generic Video Paper's video paper page
+    And I should see "Success!"
   

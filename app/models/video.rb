@@ -56,16 +56,11 @@ class Video < ActiveRecord::Base
     protected
     
     def convert_complex_pattern_to_simple_pattern
-      logger.info("STARTING IT OFF")
       unless self.thumbnail_time.nil? || self.thumbnail_time.blank?
-        logger.info("DO I GET HERE? #{self.thumbnail_time}")
         if self.thumbnail_time.to_s.match(COMPLEX_SECONDS_PATTERN)
-          logger.info("I GET IN HERE")
           seconds = self.thumbnail_time
   
           parsed_seconds_array = seconds.split(":")
-          wtf_mate = (parsed_seconds_array.at(0).to_i * 360) + (parsed_seconds_array.at(1).to_i * 60) + parsed_seconds_array.at(2).to_i
-          logger.info("OMGWHFMATE #{wtf_mate}")
           self.thumbnail_time = (parsed_seconds_array.at(0).to_i * 360) + (parsed_seconds_array.at(1).to_i * 60) + parsed_seconds_array.at(2).to_i
         end
       end
