@@ -294,3 +294,4 @@ this.valueDiv.remove();b.Widget.prototype.destroy.apply(this,arguments)},value:f
 a===this.max).width(a+"%");this.element.attr("aria-valuenow",a)}});b.extend(b.ui.progressbar,{version:"1.8.4"})})(jQuery);
 ;
 
+var $j = jQuery.noConflict();
