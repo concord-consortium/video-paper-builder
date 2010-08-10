@@ -13,6 +13,14 @@ class VideoPapersController < ApplicationController
       @video_papers = current_user.video_papers + VideoPaper.owned_by(current_user)
     end
   end
+  
+  def my_video_papers
+    @video_papers = VideoPaper.owned_by(current_user)
+  end
+  
+  def shared_video_papers
+    @video_papers = current_user.video_papers
+  end
 
   def show
     @video_paper = VideoPaper.find(params[:id]) 
@@ -108,7 +116,7 @@ class VideoPapersController < ApplicationController
     end
     @share = @video_paper.share(shared_paper)
     if @share
-      redirect_to video_papers_url,:notice=>"word"
+      redirect_to share_video_paper_path(@video_paper),:notice=>"Great Success!"
     else
       render "share"
     end

@@ -1,0 +1,15 @@
+<div class="span-24 last">
+  <% @video_papers.each do |video_paper| %>
+    <div class="span-24 last">
+      <div class="span-4">
+        <%= get_video_paper_thumbnail(video_paper)%>
+      </div>
+      <div class="span-16 last">
+        <h2><%= video_paper.title %></h2>
+        <p>Status: This would display the status if we had it.</p>
+        <p><%=link_to "View",video_paper_path(video_paper)%> | <%= link_to "Edit",edit_video_paper_path(video_paper)%> | <%= link_to "Sharing", share_video_paper_path(video_paper) %> | <a href="#">Unpublish (I don't work yet.)</a></p>
+      </div>
+      <hr/>      
+    </div>
+  <% end %>
+</div>

@@ -1,41 +1,44 @@
 <style type="text/css">
-.ui-tabs-panel {text-align:center;height:300px;overflow-y:scroll;width:100%;}
+.ui-tabs-panel {text-align:center;height:300px;overflow-y:scroll;width:90%;}
 .ui-tabs-selected {font-weight:bold;}
 .ui-tabs-hide {display:none;}
-.ui-tabs-nav {width:100%;clear:both;display:block;}
-.ui-tabs-nav .tab {list-style:none;float:left;width:20%;text-align:center;}
+.ui-tabs-nav {width:90%;clear:both;display:block;}
+.ui-tabs-nav .tab {list-style:none;float:left;width:18%;text-align:center;}
 </style>
 
 
-<div id="paper-header-left">
-  <%= render :partial=>'video_embed' %>
-</div>
-<div id="paper-header-right">
-  <h1><%=h @video_paper.title -%></h1>
-  <h2>Produced by <%=h @video_paper.user.name%>, <%= @video_paper.format_created_date %></h2>
-  <%= render :partial=>'video_information'%>
-</div>
-
-<div id="tabs">
-  <ul>
-  <% @video_paper.sections.each_with_index do |section, index| %>
-    <li id="<%= dom_friend :id => section.title %>_tab" class="tab">
-      <a href="#<%= dom_friend :id => section.title %>"><%= section.title-%></a>
-    </li>
-  <% end %>
-  </ul>
-</div>
-<% @video_paper.sections.each do |section| %>
-  <div class="tab-content" id="<%= dom_friend :id => section.title %>">
-    <% if owner_or_admin? %>
-      <p><%= edit_section_link(:video_paper => @video_paper, :section => section.title, :text => 'Edit') %></p>
-    <% end %>
-    <p><%= section.content -%></p>
+<div class="span-24 last">
+  <div class="span-24 last">
+    <h2><%= @video_paper.title %></h2>
   </div>
+  <div class="span-10">
+    <h5>Produced by <%=h @video_paper.user.name%>, <%= @video_paper.format_created_date %></h5>
+    <%= render :partial=>'video_information'%>    
+    <%= render :partial=>'video_embed' %>
+  </div>
+  <div class="span-14 last">
+    <div id="tabs">
+      <ul>
+      <% @video_paper.sections.each_with_index do |section, index| %>
+        <li id="<%= dom_friend :id => section.title %>_tab" class="tab">
+          <a href="#<%= dom_friend :id => section.title %>"><%= section.title-%></a>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+    <% @video_paper.sections.each do |section| %>
+      <div class="tab-content" id="<%= dom_friend :id => section.title %>">
+        <% if owner_or_admin? %>
+          <p><%= edit_section_link(:video_paper => @video_paper, :section => section.title, :text => 'Edit') %></p>
+        <% end %>
+        <p><%= section.content -%></p>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% if owner_or_admin? %>
+  <%= link_to 'Destroy', @video_paper, :method => :delete %>
 <% end %>
-<%= link_to 'Edit', edit_video_paper_path(@video_paper) %> |
-<%= link_to 'Back', video_papers_path %> |
-<%= link_to 'Destroy', @video_paper, :method => :delete %>
 <script type="text/javascript">
 //TODO: Namespace and organize onload for this stuff
 // determine the tab index that should be selected based on the url

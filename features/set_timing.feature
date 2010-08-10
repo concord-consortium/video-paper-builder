@@ -20,7 +20,7 @@ Feature:
     Then I share "Generic Video Paper" with "sharing_user@velir.com"
     Given I am a user logged in as "sharing_user@velir.com"
     When I go to Generic Video Paper's video paper edit timing page
-    Then I should be on the home page
+    Then I should be on the new video paper page
     Given I am a user logged in as "test_user@velir.com"
     Then I unshare "Generic Video Paper" with "sharing_user@velir.com"  
     

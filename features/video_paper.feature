@@ -39,19 +39,19 @@ Feature:
   Scenario: Normal user attempts to access a video paper
     When I am a user logged in as "test_user@velir.com"
     When I go to the new video paper page
-    Then I should see "New video_paper"
+    Then I should see "Create a New Video Paper"
     
   Scenario: Normal user creates a video paper
     Given I am a user logged in as "test_user@velir.com"
     When I go to the new video paper page
-    Then I should see "New video_paper"
+    Then I should see "Create a New Video Paper"
     And I create a new video paper named "Fake Title"
     Then I should see "VideoPaper was successfully created."
   
   Scenario: Normal user edits video paper
     Given I am a user logged in as "test_user@velir.com"
     When I go to the new video paper page
-    Then I should see "New video_paper"
+    Then I should see "Create a New Video Paper"
     And I create a new video paper named "Fake Edit Title"
     When I edit the video paper title named "Fake Edit Title"
     Then I should see "VideoPaper was successfully updated."
@@ -59,7 +59,7 @@ Feature:
   Scenario: Normal user destroys video paper
     Given I am a user logged in as "test_user@velir.com"
     When I go to the new video paper page
-    Then I should see "New video_paper"
+    Then I should see "Create a New Video Paper"
     And I create a new video paper named "Fake Delete Title"
     When I go to Fake Delete Title's video paper page
     And I follow "Destroy"

@@ -17,7 +17,7 @@ Feature:
   Scenario: Non-owner& non-shared user of 'Generic Video Paper' attempts to access it
     Given I am a user logged in as "sharing_user@velir.com"
     When I go to Generic Video Paper's video paper page
-    Then I should be on the home page
+    Then I should be on the new video paper page
 
   Scenario: Owner of 'Generic Video Paper' shares it to 'sharing_user@velir.com'
     Given I am a user logged in as "test_user@velir.com"
@@ -27,7 +27,7 @@ Feature:
       | Share With: | sharing_user@velir.com  |
       | Add a note (optional): | I like beets |
     Then I press "Share"
-    And I should be on the video paper page
+    And I should be on Generic Video Paper's sharing page
     When I go to Generic Video Paper's sharing page
     Then I should see "Shared With:"
     And I should see "sharing_user@velir.com"
@@ -49,7 +49,7 @@ Feature:
   Scenario: Now unshared user tries to access 'Generic Video Paper'
     Given I am a user logged in as "sharing_user@velir.com"
     When I go to Generic Video Paper's sharing page
-    Then I should be on the home page
+    Then I should be on the new video paper page
     
   Scenario: Owner attempts to share 'Generic Video Paper' with a non-user
     Given I am a user logged in as "test_user@velir.com"

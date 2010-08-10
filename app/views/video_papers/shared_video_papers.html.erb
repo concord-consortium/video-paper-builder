@@ -1,0 +1,9 @@
+<div class="span-24 last">
+  <% @video_papers.each do |video_paper| %>
+  <div class="span-6">
+    <p><%= get_video_paper_thumbnail(video_paper)%></p>
+    <p><%=link_to video_paper.user.name,video_paper_path(video_paper)%></p>
+    <p><%= video_paper.format_created_date %></p>
+  </div>
+  <% end %>
+</div>

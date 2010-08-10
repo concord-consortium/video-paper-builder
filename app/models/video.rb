@@ -7,7 +7,7 @@ class Video < ActiveRecord::Base
     # AR Plugins/gems
     ###################################
     #paperclip
-    has_attached_file :thumbnail, :styles=>{:thumb=>"200x200>"}
+    has_attached_file :thumbnail, :styles=>{:thumb=>"150x150>"}
     
     
     ###################################

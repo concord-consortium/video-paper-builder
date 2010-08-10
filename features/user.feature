@@ -29,5 +29,5 @@ Feature:
       | Password | funstuff |
       | Password confirmation | funstuff |
     And I press "Set my password"
-    Then I should be on the home page
+    Then I should be on the new video paper page
     And I should see "Your password was set successfully. You are now signed in."

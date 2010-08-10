@@ -15,6 +15,11 @@ module KalturaFu
       options[:size] ||= []
       size_parameters = ""
       seconds_parameter = ""
+      service_url = "http://www.kaltura.com"
+      
+      unless KalturaFu.config[:service_url].nil?
+        service_url = KalturaFu.config[:service_url]
+      end
       
       unless options[:size].empty?
         size_parameters = "/width/#{options[:size].first}/height/" +
@@ -32,7 +37,7 @@ module KalturaFu
         seconds_parameter = "/vid_sec/#{options[:second]}"
       end
       
-      image_tag("http://www.kaltura.com/p/#{KalturaFu.config[:partner_id]}" +
+      image_tag("#{service_url}/p/#{KalturaFu.config[:partner_id]}" +
 		"/thumbnail/entry_id/#{entry_id}" + 
 		seconds_parameter + 
 		size_parameters)

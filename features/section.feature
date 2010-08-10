@@ -13,7 +13,7 @@ Feature:
   Scenario: Normal user creates a new video paper containing five sections
   	Given I am a user logged in as "test_user@velir.com"
   	When I go to the new video paper page
-  	Then I should see "New video_paper"
+    Then I should see "Create a New Video Paper"
   	And I create a new video paper named "Fake Title"
   	Then I should see "VideoPaper was successfully created."
     When I go to Fake Title's video paper page
@@ -22,7 +22,7 @@ Feature:
   Scenario: Normal user edits introduction section
     Given I am a user logged in as "test_user@velir.com"
     When I go to the new video paper page
-    Then I should see "New video_paper"
+    Then I should see "Create a New Video Paper"
     And I create a new video paper named "Fake Title"
     Then I should see "VideoPaper was successfully created."
     When I go to Fake Title's video paper page
@@ -39,7 +39,7 @@ Feature:
   Scenario: Normal user edits getting started section
     Given I am a user logged in as "test_user@velir.com"
     When I go to the new video paper page
-    Then I should see "New video_paper"
+    Then I should see "Create a New Video Paper"
     And I create a new video paper named "Fake Title"
     Then I should see "VideoPaper was successfully created."
     When I go to Fake Title's video paper page
@@ -56,7 +56,7 @@ Feature:
   Scenario: Normal user edits inquiry section
     Given I am a user logged in as "test_user@velir.com"
     When I go to the new video paper page
-    Then I should see "New video_paper"
+    Then I should see "Create a New Video Paper"
     And I create a new video paper named "Fake Title"
     Then I should see "VideoPaper was successfully created."
     When I go to Fake Title's video paper page
@@ -73,7 +73,7 @@ Feature:
   Scenario: Normal user edits wrapping up section
     Given I am a user logged in as "test_user@velir.com"
     When I go to the new video paper page
-    Then I should see "New video_paper"
+    Then I should see "Create a New Video Paper"
     And I create a new video paper named "Fake Title"
     Then I should see "VideoPaper was successfully created."
     When I go to Fake Title's video paper page
@@ -90,7 +90,7 @@ Feature:
   Scenario: Normal user edits conclusion section
     Given I am a user logged in as "test_user@velir.com"
     When I go to the new video paper page
-    Then I should see "New video_paper"
+    Then I should see "Create a New Video Paper"
     And I create a new video paper named "Fake Title"
     Then I should see "VideoPaper was successfully created."
     When I go to Fake Title's video paper page
@@ -107,7 +107,7 @@ Feature:
   Scenario: Normal user tries to edit section without title parameter
     Given I am a user logged in as "test_user@velir.com"
     When I go to the new video paper page
-    Then I should see "New video_paper"
+    Then I should see "Create a New Video Paper"
     And I create a new video paper named "Fake Title"
     Then I should see "VideoPaper was successfully created."
     When I go to edit titleless section on Fake Title
@@ -122,7 +122,7 @@ Feature:
   Scenario: Normal user visits video paper conclusion section
     Given I am a user logged in as "test_user@velir.com"
     When I go to the new video paper page
-    Then I should see "New video_paper"
+    Then I should see "Create a New Video Paper"
     And I create a new video paper named "Fake Title"
     Then I should see "VideoPaper was successfully created."
     When I go to Fake Title's video paper conclusion section
@@ -132,7 +132,7 @@ Feature:
   Scenario: Normal user visits video paper introduction section
     Given I am a user logged in as "test_user@velir.com"
     When I go to the new video paper page
-    Then I should see "New video_paper"
+    Then I should see "Create a New Video Paper"
     And I create a new video paper named "Fake Title"
     Then I should see "VideoPaper was successfully created."
     When I go to Fake Title's video paper introduction section
