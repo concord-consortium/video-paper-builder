@@ -6,7 +6,7 @@ module VideoPapersHelper
   def get_video_paper_thumbnail(video_paper)
     unless video_paper.video.nil?
       if video_paper.video.thumbnail?
-        image_tag(video_paper.video.thumbnail.url)
+        image_tag(video_paper.video.thumbnail.url(:thumb))
       else
         kaltura_thumbnail(video_paper.video.entry_id,:size=>[150,150])
       end

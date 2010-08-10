@@ -36,7 +36,7 @@ delegate.allUploadsCompleteHandler = function()
 
 delegate.entriesAddedHandler = function(entries)
 {
-  $("#progress").progressBar(100);
+  $j("#progress").progressBar(100);
   var entry_index = entries.length - 1.0;
 	var entry = entries[entry_index];
 	document.getElementById('video_entry_id').value = entry.entryId;
@@ -49,7 +49,7 @@ delegate.progressHandler = function(args)
   console.log("I get here!");
   document.getElementById('progressBar').style.display = "inline";
 	var bob = Math.round(args[0] / args[1] * 100);	
-  $("#progress").progressBar(bob);
+  $j("#progress").progressBar(bob);
 }
 
 delegate.uiConfErrorHandler = function()
