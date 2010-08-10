@@ -56,7 +56,12 @@ class VideoPapersController < ApplicationController
     end
 
     if @video_paper.save
-      redirect_to(@video_paper, :notice => 'VideoPaper was successfully created.')
+      case params[:commit]
+        when "Enter in notes"
+          redirect_to(@video_paper, :notice => 'VideoPaper was successfully created.')
+        when "Upload a video"
+          redirect_to(new_video_paper_video_path(@video_paper),:notice=>'VideoPaper was succesfully created.')
+        end
     else
       render :action => "new"
     end
@@ -65,7 +70,12 @@ class VideoPapersController < ApplicationController
   def update
     @video_paper = VideoPaper.find(params[:id])
     if @video_paper.update_attributes(params[:video_paper])
-      redirect_to(@video_paper, :notice => 'VideoPaper was successfully updated.')
+      case params[:commit]
+        when "Enter in notes"
+          redirect_to(@video_paper, :notice => 'VideoPaper was successfully updated.')
+        when "Upload a video"
+          redirect_to(new_video_paper_video_path(@video_paper),:notice=>'VideoPaper was succesfully updated.')
+        end
     else
       render :action => "edit" 
     end

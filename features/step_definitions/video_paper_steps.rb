@@ -6,7 +6,7 @@ end
 When /^I edit the video paper title named "([^\"]*)"$/ do |title|
   When "I go to #{title}'s video paper edit page"
   fill_in "Title", :with => "Updated #{title}"
-  click_button "Update"
+  click_button "Enter in notes"
 end
 
 Then /^I should see an embedded video$/ do
