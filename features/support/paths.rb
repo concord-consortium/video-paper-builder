@@ -33,6 +33,8 @@ module NavigationHelpers
     when /the (.*)'s user invitation page/
       '/users/invitation/accept?invitation_token=' + User.find_by_email($1).invitation_token.to_s
     #VIDEO PAPERS
+    when /my video papers page/
+      '/my_video_papers'
     when /the video paper page/
       '/video_papers'
     when /the new video paper page/

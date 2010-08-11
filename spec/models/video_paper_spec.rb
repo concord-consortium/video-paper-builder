@@ -114,4 +114,34 @@ describe VideoPaper do
     video_paper.format_created_date.should == pretty_date
     
   end
+  
+  it "should default to unpublished when a new video paper is created" do
+    video_paper = VideoPaper.new(@valid_attributes)
+    video_paper.save.should be_true
+    
+    video_paper.published?.should be_false
+    video_paper.unpublished?.should be_true
+    video_paper.status.should == 'unpublished'
+  end
+  
+  it "should display as published when published! is called" do
+    video_paper = VideoPaper.new(@valid_attributes)
+    video_paper.save.should be_true
+    
+    video_paper.publish!
+    video_paper.published?.should be_true
+    video_paper.unpublished?.should be_false
+    video_paper.status.should == 'published'
+  end
+  
+  it "should display as unpublished when unpublish! is called" do
+    video_paper = VideoPaper.new(@valid_attributes)
+    video_paper.save.should be_true
+    
+    video_paper.publish!
+    video_paper.unpublish!
+    video_paper.published?.should be_false
+    video_paper.unpublished?.should be_true
+    video_paper.status.should == 'unpublished'
+  end
 end

@@ -35,6 +35,7 @@ namespace :devise do
     paper.title = "Generic Video Paper"
     paper.user = user
     paper.save
+    paper.publish!
     puts 'New Video Paper created!'
     puts 'Title: ' << paper.title
     puts 'User: ' << paper.user.email
@@ -57,9 +58,18 @@ namespace :devise do
     paper_2.title = "Less Generic Video Paper"
     paper_2.user = user
     paper_2.save
+    paper_2.publish!
     puts 'New Video Paper created!'
     puts 'Title: ' << paper_2.title
     puts 'User: ' << paper_2.user.email
+    
+    paper_3 = VideoPaper.new
+    paper_3.title = "Unpublished Paper"
+    paper_3.user = user
+    paper_3.save
+    puts 'New Video Paper created!'
+    puts 'Title: ' << paper_3.title
+    puts 'User: ' << paper_3.user.email
     #find a video with the category of "test" to eff with.
     KalturaFu.generate_session_key
     temp_filter = Kaltura::Filter::BaseFilter.new

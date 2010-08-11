@@ -1,7 +1,7 @@
 class VideoPapersController < ApplicationController
   before_filter :authenticate_any_user!, :except=>[:new,:create,:show]
   before_filter :authenticate_user!, :only=>[:new,:create]
-  before_filter :authenticate_owner!, :only=>[:edit,:edit_section,:update,:update_section,:share,:edit_section_duration,:update_setion_duration]
+  before_filter :authenticate_owner!, :only=>[:edit,:edit_section,:update,:update_section,:share,:edit_section_duration,:update_setion_duration,:publish,:unpublish]
   before_filter :authenticate_shared!, :only=>[:show]
   helper_method :owner_or_admin?
   helper_method :owner?
@@ -26,6 +26,10 @@ class VideoPapersController < ApplicationController
     @video_paper = VideoPaper.find(params[:id]) 
     @sections = @video_paper.sections
     @video = @video_paper.video
+    
+    if @video_paper.unpublished?  && !owner_or_admin?
+      redirect_to root_path, :notice=>"this video paper is currently not published."
+    end
   end
 
   def new
@@ -155,6 +159,17 @@ class VideoPapersController < ApplicationController
     end
   end
   
+  def publish
+    video_paper = VideoPaper.find(params[:id])
+    video_paper.publish!
+    redirect_to my_video_papers_url, :notice=> "#{video_paper.title} was sucessfully published!"
+  end
+  
+  def unpublish
+    video_paper = VideoPaper.find(params[:id])
+    video_paper.unpublish!
+    redirect_to my_video_papers_url, :notice=> "#{video_paper.title} was sucessfully unpublished!"
+  end
   protected
   def authenticate_owner!
     unless owner_or_admin?
@@ -162,7 +177,8 @@ class VideoPapersController < ApplicationController
     end    
   end
   def authenticate_shared!
-    unless owner_or_admin? || VideoPaper.find(params[:id]).users.include?(current_user)
+    video = VideoPaper.find(params[:id])
+    unless owner_or_admin? || video.users.include?(current_user)
       unless current_user
         authenticate_user!
       else
@@ -171,19 +187,12 @@ class VideoPapersController < ApplicationController
     end
   end
   def owner_or_admin?
-    retval = false
-    retval = true if admin? || owner?
-    retval
+    admin? || owner?
   end  
   def admin?
-    retval = false
-    retval = true if current_admin
-    retval
+   admin_signed_in?
   end
   def owner?
-    retval = false
-    owner = VideoPaper.find(params[:id]).user
-    retval = true if owner == current_user
-    retval
+    current_user == VideoPaper.find(params[:id]).user
   end
 end

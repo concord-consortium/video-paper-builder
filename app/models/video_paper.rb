@@ -14,6 +14,7 @@ class VideoPaper < ActiveRecord::Base
   ###################################
   validates_presence_of :title
   validates_presence_of :owner_id
+  validates_presence_of :status
 
   ###################################
   # Callbacks
@@ -37,6 +38,14 @@ class VideoPaper < ActiveRecord::Base
     created_at.strftime("%A %B #{created_at.day.ordinalize}, %Y")
   end
   
+  def published?
+    self.status == "published"
+  end
+  
+  def publish!
+    self.status = "published"
+    save!
+  end
   ##
   # The one controller action that shares 
   def share(shared_paper_params)
@@ -48,6 +57,15 @@ class VideoPaper < ActiveRecord::Base
       retval = true
     end
     retval
+  end
+  
+  def unpublished?
+    self.status == "unpublished"
+  end
+  
+  def unpublish!
+    self.status = "unpublished"
+    save!
   end
   
   def unshare(user_id)

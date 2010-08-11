@@ -10,7 +10,9 @@ ActionController::Routing::Routes.draw do |map|
       :edit_section => :get, 
       :update_section => :put,
       :edit_section_duration => :get,
-      :update_section_duration => :put
+      :update_section_duration => :put,
+      :publish => :get,
+      :unpublish =>:get
     } do |video_paper|
     video_paper.resources :videos
   end

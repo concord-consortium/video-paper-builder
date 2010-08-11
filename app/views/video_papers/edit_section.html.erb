@@ -15,7 +15,7 @@
 
 <% form_for @section, :url => "update_section" do |f| %>
   <%= hidden_field :section, :title %>
-  <%= f.wysihat_editor :content, :buttons => [:bold, :italic, :underline, :strikethrough, :h1, :h2, :h3, :p, :justify_left, :justify_center, :insert_ordered_list, :insert_unordered_list, :undo, :redo, :link, :html, :videolink] %>
+  <%= f.wysihat_editor :content, :buttons => [:bold, :italic, :underline, :strikethrough, :h1, :h2, :h3, :p, :justify_left, :justify_center, :insert_ordered_list, :insert_unordered_list,:image, :undo, :redo, :link, :html, :videolink] %>
   <div class="form_buttons">
     <%= submit_tag "Save" %>
     <%= link_to "Cancel", @video_paper %>
