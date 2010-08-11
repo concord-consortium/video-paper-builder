@@ -2,7 +2,8 @@
 <h2>Produced by <%=h @video_paper.user.name%>, <%= @video_paper.format_created_date %></h2>
 <h3>Set start and stop times for <%= @section.title%></h3>
 <%= render :partial=> 'video_embed'%>
-  <% form_for @section, :url=>'update_section_duration' do |f| %>
+<% form_for @section, :url=>'update_section_duration' do |f| %>
+  <%= f.hidden_field :title %><%= f.hidden_field :id%>
   <p><%= f.label :video_start_time, "Start Time (HH:MM:SS)"%>
   <%= f.text_field :video_start_time %></p>
   <p><%= f.label :video_stop_time, "Stop Time (HH:MM:SS)"%>

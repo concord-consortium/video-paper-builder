@@ -2,8 +2,8 @@ module KalturaFu
   module ViewHelpers
 
     DEFAULT_KPLAYER = '1339442'
-    PLAYER_WIDTH = '400'
-    PLAYER_HEIGHT = '330'
+    PLAYER_WIDTH = '360'
+    PLAYER_HEIGHT = '202'
     
     def include_kaltura_fu(*args)
       content = javascript_include_tag('kaltura_upload')

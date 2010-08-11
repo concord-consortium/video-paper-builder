@@ -28,6 +28,15 @@ class Section < ActiveRecord::Base
   # instance methods
   ##################################
   
+  def to_timestamp(time_in_seconds)
+    time_to_format = time_in_seconds.to_i
+    hours  = (time_to_format / 3600).to_i
+    minutes = ((time_to_format % 3600) / 60).to_i
+    seconds = (time_to_format % 60).to_i
+    
+    "%02i:%02i:%02i" % [hours.to_s,minutes.to_s,seconds.to_s]
+  end
+  
   ##
   # I'll admit, this is probably overkill.  This is a dynamic method for 
   # converting the hh:mm:ss format into a seconds format for the start and stop times. 
@@ -52,7 +61,7 @@ class Section < ActiveRecord::Base
       if timer.to_s.match(COMPLEX_SECONDS_PATTERN)
         seconds = timer
         parsed_seconds_array = seconds.split(":")
-        timer = (parsed_seconds_array.at(0).to_i * 360) + (parsed_seconds_array.at(1).to_i * 60) + parsed_seconds_array.at(2).to_i
+        timer = (parsed_seconds_array.at(0).to_i * 3600) + (parsed_seconds_array.at(1).to_i * 60) + parsed_seconds_array.at(2).to_i
       end
     end
     attributes = self.instance_variable_get("@attributes")

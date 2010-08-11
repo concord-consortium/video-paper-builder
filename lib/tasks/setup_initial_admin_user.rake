@@ -43,7 +43,7 @@ namespace :devise do
     temp_filter = Kaltura::Filter::BaseFilter.new
     pager = Kaltura::FilterPager.new
     pager.page_size = 100000
-    entry = KalturaFu.client.media_service.list(temp_filter,pager).objects.map!{|c| c if c.categories == "test"}.compact!.last.id
+    entry = KalturaFu.client.media_service.list(temp_filter,pager).objects.map!{|c| c if c.categories == Rails.env}.compact!.last.id
     video = Video.new(
       :entry_id=> entry,
       :video_paper_id => paper.id,
@@ -65,7 +65,7 @@ namespace :devise do
     temp_filter = Kaltura::Filter::BaseFilter.new
     pager = Kaltura::FilterPager.new
     pager.page_size = 100000
-    entry = KalturaFu.client.media_service.list(temp_filter,pager).objects.map!{|c| c if c.categories == "test"}.compact!.last.id
+    entry = KalturaFu.client.media_service.list(temp_filter,pager).objects.map!{|c| c if c.categories == Rails.env}.compact!.last.id
     video_2 = Video.new(
       :entry_id=> entry,
       :video_paper_id => paper_2.id,

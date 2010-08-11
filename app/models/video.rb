@@ -61,7 +61,7 @@ class Video < ActiveRecord::Base
           seconds = self.thumbnail_time
   
           parsed_seconds_array = seconds.split(":")
-          self.thumbnail_time = (parsed_seconds_array.at(0).to_i * 360) + (parsed_seconds_array.at(1).to_i * 60) + parsed_seconds_array.at(2).to_i
+          self.thumbnail_time = (parsed_seconds_array.at(0).to_i * 3600) + (parsed_seconds_array.at(1).to_i * 60) + parsed_seconds_array.at(2).to_i
         end
       end
     end

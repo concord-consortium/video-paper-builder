@@ -145,18 +145,13 @@ class VideoPapersController < ApplicationController
   
   def update_section_duration
     @video_paper = VideoPaper.find(params[:id])
-    @section = @video_paper.sections.find_by_title(params[:section][:title])
+    @section = @video_paper.sections.find_by_id(params[:id])
     @video = @video_paper.video
-
-    # if the section can't be found by title, then use the first
-    if @section == nil
-      @section = @video_paper.sections.first
-    end
-    
+  
     if @section.update_attributes(params[:section])
-      redirect_to @video_paper, :notice=>"Success!"
+      redirect_to({:controller=>"video_papers",:action=>"edit_section",:section=>@section.title}, :notice=>"Success!")
     else
-      render "edit_section"
+      render "edit_section_duration"
     end
   end
   

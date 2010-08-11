@@ -296,7 +296,7 @@ describe Video do
     }
     video = Video.new(valid_attributes)
     video.save.should be_true
-    video.thumbnail_time.should  == 11879
+    video.thumbnail_time.should  == 86399
   end
   
 end

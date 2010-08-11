@@ -216,4 +216,33 @@ describe Section do
     section.save.should be_true
     section.video_stop_time.should  == duration.to_i
   end
+  
+  it "should provide a reasonable timestamp formatted when given a time less than a minute" do
+    section = Section.new(@valid_attributes)
+    
+    section.save.should be_true
+    
+    section.to_timestamp("22").should == "00:00:22"
+    section.to_timestamp(15).should == "00:00:15"
+  end
+  
+  it "should provide a reasonable timestamp formatted when given a time between a minute and an hour" do
+    section = Section.new(@valid_attributes)
+    
+    section.save.should be_true
+    
+    section.to_timestamp("60").should == "00:01:00"
+    section.to_timestamp(61).should == "00:01:01"
+    section.to_timestamp(2053).should == "00:34:13"
+    section.to_timestamp("3599").should == "00:59:59"
+  end
+  
+  it "should provide a reasonable timestamp formatted when given a time greater than an hour" do
+    section = Section.new(@valid_attributes)
+    
+    section.save.should be_true
+    
+    section.to_timestamp("3600").should == "01:00:00"
+    section.to_timestamp("362624").should == "100:43:44"
+  end
 end
