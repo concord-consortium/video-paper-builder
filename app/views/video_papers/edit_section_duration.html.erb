@@ -2,12 +2,22 @@
 <h2>Produced by <%=h @video_paper.user.name%>, <%= @video_paper.format_created_date %></h2>
 <h3>Set start and stop times for <%= @section.title%></h3>
 <%= render :partial=> 'video_embed'%>
+<script type="text/javascript">
+  VPB.SectionTimeData = 
+  {
+    length:<%= @video_paper.video.duration.nil? ? 0 : @video_paper.video.duration-%>,
+    start:<%= @section.video_start_time.nil?    ? 0 : @section.video_start_time-%>,
+    stop:<%= @section.video_stop_time.nil?      ? 0 : @section.video_stop_time-%>
+  
+  }
+</script>
+<div id="slider"></div>
 <% form_for @section, :url=>'update_section_duration' do |f| %>
   <%= f.hidden_field :title %><%= f.hidden_field :id%>
   <p><%= f.label :video_start_time, "Start Time (HH:MM:SS)"%>
-  <%= f.text_field :video_start_time %></p>
+  <%= f.text_field :video_start_time,:value=> @section.to_timestamp(@section.video_start_time)  %></p>
   <p><%= f.label :video_stop_time, "Stop Time (HH:MM:SS)"%>
-  <%= f.text_field :video_stop_time %></p>
+  <%= f.text_field :video_stop_time,:value=> @section.to_timestamp(@section.video_stop_time)  %></p>
   <%= f.submit "Save timings"%>
 <% end %>
 <br/>
