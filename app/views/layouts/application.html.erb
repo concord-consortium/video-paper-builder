@@ -3,42 +3,72 @@
   <head>
     <%= stylesheet_link_tag 'application' %>
     <%= stylesheet_link_tag 'facebox', 'wysihat' %>
-    <%= stylesheet_link_tag 'blueprint/screen.css' %>
     <%= javascript_include_tag 'libs' %>
-    <%= javascript_include_tag 'jquery.progressbar' %>
     <%= javascript_include_tag 'kaltura_upload' %>
-    <%= javascript_include_tag :defaults, 'wysihat_engine' %>
+    <%= javascript_include_tag 'wysihat_engine' %>
+    <%= javascript_include_tag 'application' %>
   </head>
   <body>
-    <div id="container" class="container">
-      <div class="span-24 last">
-        <h1>Video Paper Builder!</h1>
-        <h4>This is our rad header</h4>
-          <% if user_signed_in? %>
-        <div class="span-24 prepend-18 last">        
-            <p>Welcome, <%= current_user.name%>!
-            <%= link_to('Logout', destroy_user_session_path) %></p>
-          <% else %>
-        <div class="span-24 prepend-22 last">        
-            <p><%= link_to('Login', new_user_session_path)  %></p>
-          <% end %>
-        </div>
-        <div class="span-24 last">
-        <%- flash.each do |name, msg| -%>
-          <%= content_tag :div, msg, :class => "#{name}" %>
-        <%- end -%>
-        <% if current_user || current_admin %>
-          <hr/>
-          <p><%=link_to "Authoring >>",new_video_paper_url %> | <%= link_to "My VideoPapers >>", my_video_papers_url %> | <%= link_to "Shared With Me >>",shared_video_papers_url %></p>
-        <% end %>    
-        <%= yield %>
-        </div>
-      </div>
-      <div id="footer" class="span-24">
-        <hr/>
-        <h4>This is our rad footer.</h4>
-        <p>INTENSE FOOTER CONTENT HERE!</p>
-      </div>
-    </div>
+    <div id="wrapper">
+      <div id="main">
+        <div id="cover">
+          <div id="header">
+            <div id="main_nav">
+              <div class="left_curve">
+                <div class="right_curve"> 
+                  <ul> 
+                    <li><a href="#">About&nbsp;VPB</a></li> 
+                    <li><a href="#">The&nbsp;Concord&nbsp;Consortium</a></li> 
+                    <li class="last"><a href="#">Help</a></li> 
+                  </ul> 
+                </div>
+              </div>
+            </div><!-- main_nav -->
+            <div id="logo_login">
+              <div id="logo">
+                <img src="../images/logo.gif" alt=""  />
+              </div> 
+              <div id="login"> 
+                <form action=""> 
+                  <fieldset> 
+                    <label>Log in:</label> 
+                    <div class="input_bg"> 
+                      <input type="text" value="Log In" name="" /> 
+                    </div> 
+                    <div class="input_bg"> 
+                      <input type="text" value="Password" name="" /> 
+                    </div> 
+                    <input type="button" alt="" value="" name="" class="login_btn" /> 
+                    <label class="register"><a href="#">Register</a></label> 
+                  </fieldset> 
+                </form> 
+              </div>
+            </div><!-- logo_login -->
+          </div><!-- header -->
+          <div id="body_container"> 
+            <%= yield %>
+          </div><!-- body_container -->
+        </div><!-- cover -->
+        <div id="footer">
+          <div class="col1">
+            <h3>VideoPaper Builder</h3>
+            <ul>
+              <li><a href="#">About VPB</a><li>
+              <li><a href="#">Help</a><li>
+            </ul>
+          </div><!-- col1-->
+          <div class="col2">
+            <h3>The Concord Consortium</h3>
+            <ul>
+              <li><a href="#">Home </a><li>
+              <li><a href="#">Blog</a><li>
+              <li><a href="#">Our Work</a><li>
+              <li><a href="#">Publications</a><li>
+              <li><a href="#">About Us</a><li>
+            </ul>
+          </div><!-- col2-->
+        </div><!-- footer -->
+      </div><!-- main -->
+    </div><!-- wrapper -->
   </body>
 </html>
