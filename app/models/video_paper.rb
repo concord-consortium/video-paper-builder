@@ -1,4 +1,6 @@
 class VideoPaper < ActiveRecord::Base
+  #Class variables
+  @@per_page = 5
   
   ###################################
   # Associations
@@ -25,12 +27,14 @@ class VideoPaper < ActiveRecord::Base
   # Named Scopes
   ###################################
   named_scope :owned_by, lambda { |owner| 
-    { :conditions => { :owner_id => owner.id} }
+    { :conditions => { :owner_id => owner.id}}
   }
   
   ##################################
   # instance methods
   ##################################
+  
+  attr_reader :per_page
 
   # Public Methods
   def format_created_date
@@ -78,7 +82,28 @@ class VideoPaper < ActiveRecord::Base
     end
     retval
   end
+
+  ##################################
+  # Class methods
+  ##################################
   
+  class << self
+    def order_by(order_by_param)
+      case order_by_param
+        when 'title_desc'
+          'title DESC'
+        when 'title_asc'
+          'title ASC'
+        when 'date_asc'
+          'created_at ASC'
+        when 'date_desc'
+          'created_at DESC'
+      else
+        'created_at DESC'
+      end
+    end
+    
+  end
 # Protected Methods
 protected 
 
