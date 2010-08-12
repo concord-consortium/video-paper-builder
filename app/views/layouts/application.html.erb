@@ -26,9 +26,12 @@
             </div><!-- main_nav -->
             <div id="logo_login">
               <div id="logo">
-                <img src="../images/logo.gif" alt=""  />
+                <img src="/images/logo.gif" alt=""  />
               </div> 
               <div id="login"> 
+                <%- flash.each do |name, msg| -%>
+                  <%= content_tag :div, msg, :class => "#{name}" %>
+                <%- end -%>
                 <form action=""> 
                   <fieldset> 
                     <label>Log in:</label> 
