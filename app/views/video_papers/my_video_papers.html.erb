@@ -6,12 +6,13 @@
       </div>
       <div class="span-16 last">
         <h2><%= video_paper.title %></h2>
-        <p>Status: <%= video_paper.status%></p>
+        <p><strong>Created:</strong> <%= video_paper.format_created_date %><br/>
+        <strong>Status:</strong> <%= video_paper.status.titlecase%></p>
         <p><%=link_to "View",video_paper_path(video_paper)%> | <%= link_to "Edit",edit_video_paper_path(video_paper)%> | <%= link_to "Sharing", share_video_paper_path(video_paper) %> | 
           <% if video_paper.published? %>
             <%=link_to "Unpublish", unpublish_video_paper_path(video_paper)%>
           <% else%>
-            <%= link_to "Publish",publish_video_paper_path(video_paper)%>
+            <%= link_to "Publish",publish_video_paper_path(video_paper)%> | <%= link_to 'Remove', video_paper, :confirm => 'Are you sure?', :method => :delete %>
           <%end%>
           </p>
       </div>

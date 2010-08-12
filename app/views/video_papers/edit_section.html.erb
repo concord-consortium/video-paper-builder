@@ -7,7 +7,7 @@
   <ul>
   <% @video_paper.sections.each_with_index do |section, index| %>
     <li id="<%= dom_friend :id => section.title %>_tab" class="tab">
-      <a href="#<%= dom_friend :id => section.title %>"><%= section.title-%></a>
+      <%= link_to section.title, {:controller=>"video_papers",:action=>"edit_section",:id=>@video_paper.id,:section=>section.title}%>
     </li>
   <% end %>
   </ul>

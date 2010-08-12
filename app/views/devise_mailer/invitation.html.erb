@@ -1,6 +1,6 @@
 Hello <%= @resource.email %>!
 
-Someone has invited you to <%= root_url %>, you can accept it through the link below.
+Someone has invited you to Concord Consortium's Video Paper Builder, you can accept it through the link below.
 
 <%= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %>
 
