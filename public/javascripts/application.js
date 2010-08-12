@@ -17,7 +17,7 @@ VPB = {
 			$j('#section_video_stop_time').attr('value', end);
 		},
 		handleStop:function(event, ui) {
-			console.log('finished');
+			//console.log('finished');
 		},
 		init: function() {
 			// make sure we have time data to work with
@@ -34,20 +34,24 @@ VPB = {
 			});
 		}
 	},
+	homePageSlideShow: {
+		init:function() {
+			$j('#slider').after('<div class="paging"><ul id="thumbs">').cycle({ 
+				fx: 'fade',
+				pager: '#thumbs',
+				pagerAnchorBuilder: function(idx, slide) {
+					return '<li><a href="#"></a></li>';
+				},
+				activePagerClass: 'active',
+				pause: 1,
+				pauseOnPagerHover: 1
+			});
+		}
+	},
 	// initialize page
 	init:function() {
-		console.log('initializing page.');
+		VPB.homePageSlideShow.init();
 		VPB.durationSelector.init();
-		$j('#slider').after('<div class="paging"><ul id="thumbs">').cycle({ 
-			fx: 'fade',
-			pager: '#thumbs',
-			pagerAnchorBuilder: function(idx, slide) {
-				return '<li><a href="#"></a></li>';
-			},
-			activePagerClass: 'active',
-			pause: 1,
-			pauseOnPagerHover: 1
-		});
 	}
 };
 
