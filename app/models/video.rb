@@ -77,7 +77,6 @@ class Video < ActiveRecord::Base
     def update_kaltura_metadata
       video_info = KalturaFu.get_video_info(self.entry_id)
       self.duration = video_info.duration  
-      check_video_status
       save!
       return true
     end
@@ -86,6 +85,7 @@ class Video < ActiveRecord::Base
       status = KalturaFu.check_video_status(self.entry_id)
       case status
         when KalturaFu::READY
+          update_kaltura_metadata
           self.processed = true
       else
         self.processed = false

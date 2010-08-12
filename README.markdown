@@ -21,6 +21,11 @@ Run bundler install:
 
 		$ bundle install
 		
+Test:
+
+    $ rake db:test:prepare;rake devise:test RAILS_ENV=test;bundle exec spec spec/models/*.rb
+    $ rake devise:test RAILS_ENV=test;bundle exec cucumber
+		
 Profit!
 
 		$ script/server
