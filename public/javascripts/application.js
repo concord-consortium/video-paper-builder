@@ -36,7 +36,10 @@ VPB = {
 	},
 	homePageSlideShow: {
 		init:function() {
-			$j('#slider').after('<div class="paging"><ul id="thumbs">').cycle({ 
+			// if there's no slideshow to work with, return.
+			if(! $j('#slideshow').length) { return; }
+			
+			$j('#slideshow').after('<div class="paging"><ul id="thumbs">').cycle({ 
 				fx: 'fade',
 				pager: '#thumbs',
 				pagerAnchorBuilder: function(idx, slide) {

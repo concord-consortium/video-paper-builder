@@ -28,28 +28,18 @@
               <div id="logo">
                 <img src="/images/logo.gif" alt=""  />
               </div> 
-              <div id="login"> 
+              <div class="messages">
                 <%- flash.each do |name, msg| -%>
                   <%= content_tag :div, msg, :class => "#{name}" %>
                 <%- end -%>
-                <form action=""> 
-                  <fieldset> 
-                    <label>Log in:</label> 
-                    <div class="input_bg"> 
-                      <input type="text" value="Log In" name="" /> 
-                    </div> 
-                    <div class="input_bg"> 
-                      <input type="text" value="Password" name="" /> 
-                    </div> 
-                    <input type="button" alt="" value="" name="" class="login_btn" /> 
-                    <label class="register"><a href="#">Register</a></label> 
-                  </fieldset> 
-                </form> 
+              </div>
+              <div id="login"> 
+                <%= render :partial => 'sessions/login'-%>
               </div>
             </div><!-- logo_login -->
           </div><!-- header -->
           <div id="body_container"> 
-            <%= yield %>
+                    <%= yield %>
           </div><!-- body_container -->
         </div><!-- cover -->
         <div id="footer">
