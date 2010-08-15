@@ -1,29 +1,41 @@
-<div class="span-18 colborder">
-  <h1>Step 1: Create a New Video Paper</h1>
-  <% form_for(@video_paper) do |f| %>
-    <%= f.error_messages %>
-</div>
-<div class="span-18 colborder">
-    <p>
-      <%= f.label :title %><br />
-      <%= f.text_field :title %>
-    </p>
-  <h1>Step 2: Start by...</h1>
-  <div class="span-8 colborder">
-      <h3>Uploading a classroom video</h3>
-      <p>I bet this is about as exciting as waffles.</p>
-        <%= f.submit 'Upload a video',:controller=>'videos', :action=>'new' %>
-      </p>
+<div class="content_details">
+  <div class="top_curv">
+    <div class="bottom_curv">
+      <div class="intirior_details">
+        <% form_for(@video_paper) do |f| %>
+          <fieldset>
+          <div class="left_details">
+            <div class="creat_video_details">
+              <div class="create_video">
+                <%= f.error_messages %>
+                <h3>Create a New Video Paper</h3>
+                <div class="file_select">
+                  <label>Name:&nbsp;</label>
+                  <%=f.text_field :title%>
+                </div>
+              </div>
+              <div class="vedio_select">
+                <h3 class="bulet2">Start by...</h3>
+                <span class="clear"></span>
+              </div>
+              <div class="textarea_box">
+                <div class="button"> <span>
+                  <%= f.submit 'Upload a video',:controller=>'videos', :action=>'new',:class=>"upload_btn" %>
+                  </span> <span>
+                  <%= f.submit 'Enter in notes',:class=>'upload_btn'%>                  
+                  </span> </div>
+              </div>
+            </div>
+          </div>
+          <div class="right_details">
+            <div class="status_box">
+              <h3>Status</h3>
+              <p>crap goes here when we get the html.</p>
+            </div>
+          </div>
+          </fieldset>
+        <% end %>
+      </div>
+      <span class="clear"></span> </div>
   </div>
-  <div class="span-8 last">
-    <h3>Entering classroom notes</h3>
-    <p>much less exciting than waffles.</p>
-    <%= f.submit 'Enter in notes'%>
-
-  </div>
-      <% end %>
-</div>
-<div class="span-5 last">
-  <h4>What is a VideoPaper?</h4>
-  <p>Probably has nothing to do with waffles sadly.</p>
 </div>

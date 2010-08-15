@@ -50,8 +50,19 @@ input:focus{outline:none;}
 #header .logo_login .login input.search_btn{float:left; width:12px; padding:0; margin:5px 0 0; background:none; border:none; height:20px}
 #header .logo_login .login input.login_btn{float:left; width:49px; background:url(/images/login_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:6px 0 4px; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:0; cursor:pointer}
 
+/* Let's do some generic form shizzle */
+label{float:left; font:14px/18px Georgia, Times New Roman, Times, serif; color:#5F5F5F; padding-top:4px;}
+input{float:left; padding:3px 10px 6px; margin:0; background:url(/images/login_bg.gif) no-repeat 0 0; border:none; color:#868686; font-size:12px;}
 
 #body_container{float:left; width:947px;margin-top:35px; min-height:429px; height:auto!important; height:429px;}
+
+/* Let's do some generic form shizzle */
+form{float:left;}
+fieldset{float:left;}
+fieldset label{float:left; font:14px/18px Georgia, Times New Roman, Times, serif; color:#5F5F5F; padding-top:4px;}*/
+fieldset input{float:left; padding:3px 10px 6px; margin:0; background:url(/images/login_bg.gif) no-repeat 0 0; border:none; color:#868686; font-size:12px;}
+fieldset .button{float:left; width:auto;padding-left:55px;padding-top:10px; margin-right:26px; display:inline}
+fieldset .button input.upload_btn{float:left; width:100px; background:url(/images/upload_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:5px 0; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:0 8px 0 0; cursor:pointer}
 
 #home_left_container{float:left; width:337px; padding-left:10px; margin-bottom:35px; display:inline; border-right:1px solid #fee9aa}
 #home_left_container h3{float:left; width:290px; font:23px/25px Georgia, Times New Roman, Times, serif; color:#85b150;}

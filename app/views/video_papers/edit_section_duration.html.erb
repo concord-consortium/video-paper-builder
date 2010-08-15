@@ -1,7 +1,12 @@
+<div class="content_details">
+  <div class="top_curv">
+    <div class="bottom_curv">
+      <div class="intirior_details">
 <h1><%=h @video_paper.title -%></h1>
 <h2>Produced by <%=h @video_paper.user.name%>, <%= @video_paper.format_created_date %></h2>
 <h3>Set start and stop times for <%= @section.title%></h3>
 <%= render :partial=> 'video_embed'%>
+<% if @video_paper.video%>
 <script type="text/javascript">
   VPB.SectionTimeData = 
   {
@@ -11,13 +16,21 @@
   
   }
 </script>
+<% end %>
 <div id="slider"></div>
+<fieldset>
 <% form_for @section, :url=>'update_section_duration' do |f| %>
   <%= f.hidden_field :title %><%= f.hidden_field :id%>
   <p><%= f.label :video_start_time, "Start Time (HH:MM:SS)"%>
   <%= f.text_field :video_start_time,:value=> @section.to_timestamp(@section.video_start_time)  %></p>
   <p><%= f.label :video_stop_time, "Stop Time (HH:MM:SS)"%>
   <%= f.text_field :video_stop_time,:value=> @section.to_timestamp(@section.video_stop_time)  %></p>
-  <%= f.submit "Save timings"%>
+  <div class="button">
+    <%= f.submit "Save timings",:class=>'upload_btn'%>
+  </div>
 <% end %>
-<br/>
+</fieldset>
+</div>
+</div>
+</div>
+</div>

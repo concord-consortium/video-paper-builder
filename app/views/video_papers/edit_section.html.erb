@@ -1,44 +1,52 @@
-<div id="paper-header-right">
-  <h1><%=h @video_paper.title -%></h1>
-  <h2>Produced by <%=h @video_paper.user.name%>, <%= @video_paper.format_created_date %></h2>
-  <%= render :partial=>'video_information'%>
-</div>
-<div id="tabs">
-  <ul>
-  <% @video_paper.sections.each_with_index do |section, index| %>
-    <li id="<%= dom_friend :id => section.title %>_tab" class="tab">
-      <%= link_to section.title, {:controller=>"video_papers",:action=>"edit_section",:id=>@video_paper.id,:section=>section.title}%>
-    </li>
-  <% end %>
-  </ul>
-</div>
+<div class="content_details">
+  <div class="top_curv">
+    <div class="bottom_curv">
+      <div class="intirior_details">
+        <div id="paper-header-right">
+          <h1><%=h @video_paper.title -%></h1>
+          <h2>Produced by <%=h @video_paper.user.name%>, <%= @video_paper.format_created_date %></h2>
+          <%= render :partial=>'video_information'%>
+        </div>
+        <div id="tabs">
+          <ul>
+          <% @video_paper.sections.each_with_index do |section, index| %>
+            <li id="<%= dom_friend :id => section.title %>_tab" class="tab">
+              <%= link_to section.title, {:controller=>"video_papers",:action=>"edit_section",:id=>@video_paper.id,:section=>section.title}%>
+            </li>
+          <% end %>
+          </ul>
+        </div>
 
-<% form_for @section, :url => "update_section" do |f| %>
-  <%= hidden_field :section, :title %>
-  <%= f.wysihat_editor :content, :buttons => [:bold, :italic, :underline, :strikethrough, :h1, :h2, :h3, :p, :justify_left, :justify_center, :insert_ordered_list, :insert_unordered_list,:image, :undo, :redo, :link, :html, :videolink] %>
-  <div class="form_buttons">
-    <%= submit_tag "Save" %>
-    <%= link_to "Cancel", @video_paper %>
+        <% form_for @section, :url => "update_section" do |f| %>
+          <%= hidden_field :section, :title %>
+          <%= f.wysihat_editor :content, :buttons => [:bold, :italic, :underline, :strikethrough, :h1, :h2, :h3, :p, :justify_left, :justify_center, :insert_ordered_list, :insert_unordered_list,:image, :undo, :redo, :link, :html, :videolink] %>
+          <div class="form_buttons">
+            <%= submit_tag "Save" %>
+            <%= link_to "Cancel", @video_paper %>
+          </div>
+        <% end %>
+
+        <h4>Select appropriate video section</h4>
+        <% if @section.video_start_time && @section.video_stop_time %>
+        <%= link_to "Launch video",
+          {:controller=>"video_papers",
+          :action=>"edit_section_duration",
+          :section=>params[:section]},
+          :class=>"super awesome button"%>
+          <%= @section.to_timestamp(@section.video_start_time) %> - <%= @section.to_timestamp(@section.video_stop_time) %>
+        <% else %>
+          <% if @video_paper.video %>
+          <%= link_to "Launch video",
+            {:controller=>"video_papers",
+            :action=>"edit_section_duration",
+            :section=>params[:section]},
+            :class=>"super awesome button"%>  
+            <h6>dag yo.  You have a video, but no times specified.</h6>
+          <% else %>
+            <h6>No video has been uploaded for this VideoPaper.  <%= link_to "Add a video.", new_video_paper_video_path(@video_paper)%></h6>
+          <%end %>
+        <% end %>
+      </div>
+    </div>
   </div>
-<% end %>
-
-<h4>Select appropriate video section</h4>
-<% if @section.video_start_time && @section.video_stop_time %>
-<%= link_to "Launch video",
-  {:controller=>"video_papers",
-  :action=>"edit_section_duration",
-  :section=>params[:section]},
-  :class=>"super awesome button"%>
-  <%= @section.to_timestamp(@section.video_start_time) %> - <%= @section.to_timestamp(@section.video_stop_time) %>
-<% else %>
-  <% if @video_paper.video %>
-  <%= link_to "Launch video",
-    {:controller=>"video_papers",
-    :action=>"edit_section_duration",
-    :section=>params[:section]},
-    :class=>"super awesome button"%>  
-    <h6>dag yo.  You have a video, but no times specified.</h6>
-  <% else %>
-    <h6>No video has been uploaded for this VideoPaper.  <%= link_to "Add a video.", new_video_paper_video_path(@video_paper)%></h6>
-  <%end %>
-<% end %>
+</div>

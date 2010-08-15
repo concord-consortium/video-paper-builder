@@ -1,14 +1,22 @@
-<div class="span-24 last">
-  <% @video_papers.each do |video_paper| %>
-  <div class="span-5">
-    <p><%= get_video_paper_thumbnail(video_paper)%></p>
-    <p><%=link_to video_paper.title, video_paper_path(video_paper)%><br/>
-    <%=video_paper.user.name%><br/>
-    <%= video_paper.format_created_date %></p>
-    <hr/>
+<div class="content_details">
+  <div class="top_curv">
+    <div class="bottom_curv">
+      <div class="intirior_details">
+        <div class="span-24 last">
+          <% @video_papers.each do |video_paper| %>
+          <div class="span-5">
+            <p><%= get_video_paper_thumbnail(video_paper)%></p>
+            <p><%=link_to video_paper.title, video_paper_path(video_paper)%><br/>
+            <%=video_paper.user.name%><br/>
+            <%= video_paper.format_created_date %></p>
+            <hr/>
+          </div>
+          <% end %>
+        </div>
+        <div class="span-24 last">
+          <p><%= will_paginate @video_papers %></p>
+        </div>
+      </div>
+    </div>
   </div>
-  <% end %>
-</div>
-<div class="span-24 last">
-  <p><%= will_paginate @video_papers %></p>
 </div>

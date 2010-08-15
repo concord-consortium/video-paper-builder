@@ -1,11 +1,11 @@
 Then /^I create a new video paper named "([^\"]*)"$/ do |title|
-  fill_in "Title", :with => title
+  fill_in "video_paper_title", :with => title
   click_button "Enter in notes"
 end
 
 When /^I edit the video paper title named "([^\"]*)"$/ do |title|
   When "I go to #{title}'s video paper edit page"
-  fill_in "Title", :with => "Updated #{title}"
+  fill_in "video_paper_title", :with => "Updated #{title}"
   click_button "Enter in notes"
 end
 
