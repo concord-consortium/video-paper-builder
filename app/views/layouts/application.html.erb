@@ -1,67 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <%= stylesheet_link_tag 'application' %>
-    <%= stylesheet_link_tag 'facebox', 'wysihat' %>
-    <%= javascript_include_tag 'libs' %>
-    <%= javascript_include_tag 'kaltura_upload' %>
-    <%= javascript_include_tag 'wysihat_engine' %>
-    <%= javascript_include_tag 'application' %>
-  </head>
-  <body>
-    <div id="wrapper">
-      <div id="main">
-        <div id="cover">
-          <div id="header">
-            <div id="main_nav">
-              <div class="left_curve">
-                <div class="right_curve"> 
-                  <ul> 
-                    <li><a href="#">About&nbsp;VPB</a></li> 
-                    <li><a href="#">The&nbsp;Concord&nbsp;Consortium</a></li> 
-                    <li class="last"><a href="#">Help</a></li> 
-                  </ul> 
-                </div>
-              </div>
-            </div><!-- main_nav -->
-            <div id="logo_login">
-              <div id="logo">
-                <img src="/images/logo.gif" alt=""  />
-              </div> 
-              <div class="messages">
-                <%- flash.each do |name, msg| -%>
-                  <%= content_tag :div, msg, :class => "#{name}" %>
-                <%- end -%>
-              </div>
-              <div id="login"> 
-                <%= render :partial => 'sessions/login'-%>
-              </div>
-            </div><!-- logo_login -->
-          </div><!-- header -->
-          <div id="body_container"> 
-                    <%= yield %>
-          </div><!-- body_container -->
-        </div><!-- cover -->
-        <div id="footer">
-          <div class="col1">
-            <h3>VideoPaper Builder</h3>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png" />
+<title>VideoPaperBuilder</title>
+<%= stylesheet_link_tag 'layout'%>
+<%= stylesheet_link_tag 'facebox', 'wysihat' %>
+<!--[if IE 6]>
+<script  type="text/javascript" src="/javascripts/jq-png-min.js"></script>
+<script  type="text/javascript" src="/javascripts/png.js"></script>
+<![endif]-->
+
+<% if user_signed_in? %>
+  <%= stylesheet_link_tag 'application' %>
+  <%= stylesheet_link_tag 'facebox', 'wysihat' %>
+  <%= javascript_include_tag 'libs' %>
+  <%= javascript_include_tag 'kaltura_upload' %>
+  <%= javascript_include_tag 'wysihat_engine' %>
+  <%= javascript_include_tag 'application' %>
+<% else %>
+  <%= javascript_include_tag 'jquery'%>
+  <%= javascript_include_tag 'index' %>
+  <%= javascript_include_tag 'jquery.cycle.all' %>  
+<% end %>
+</head>
+<body>
+<div id="wrapper">
+  <div id="main">
+    <div id="cover">
+      <div id="header">
+        <div id="menu">
+          <div class="left_curve">
+            <div class="right_curve">
+              <ul>
+                <li><a href="#">About&nbsp;VPB</a></li>
+                <li><a href="#">The&nbsp;Concord&nbsp;Consortium</a></li>
+                <li class="last"><a href="#">Help</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="logo_login">
+          <div class="logo"><img src="/images/logo.gif" alt=""  /></div>
+          <% if user_signed_in? %>
+            <div class="logout">
+              <%= render :partial =>'sessions/login'%>              
+            </div>          
+          <% else %>
+            <div class="login">
+              <%= render :partial =>'sessions/login'%>
+            </div>            
+          <% end %>
+        </div>
+      </div>
+      <div id="body_container">
+        <div class="messages">
+          <%- flash.each do |name, msg| -%>
+            <%= content_tag :div, msg, :class => "#{name}" %>
+          <%- end -%>
+        </div>
+        <% if user_signed_in? %>
+        <div id="inner_container">
+          <div class="tabs">
             <ul>
-              <li><a href="#">About VPB</a><li>
-              <li><a href="#">Help</a><li>
+              <li><a href="<%= new_video_paper_path%>"><span>Authoring</span></a></li>
+              <li><a href="<%= my_video_papers_path%>"><span>My&nbsp;VideoPapers</span></a></li>
+              <li><a href="<%= shared_video_papers_path%>"><span>Shared&nbsp;With&nbsp;Me</span></a></li>
             </ul>
-          </div><!-- col1-->
-          <div class="col2">
-            <h3>The Concord Consortium</h3>
-            <ul>
-              <li><a href="#">Home </a><li>
-              <li><a href="#">Blog</a><li>
-              <li><a href="#">Our Work</a><li>
-              <li><a href="#">Publications</a><li>
-              <li><a href="#">About Us</a><li>
-            </ul>
-          </div><!-- col2-->
-        </div><!-- footer -->
-      </div><!-- main -->
-    </div><!-- wrapper -->
-  </body>
+          </div>          
+        <% end %>        
+        <%= yield%>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="footer">
+    <div class="footer_inner">
+      <div class="col1">
+        <h3>VideoPaper Builder</h3>
+        <ul>
+          <li><a href="#">About VPB</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+      </div>
+      <div class="col2">
+        <h3>The Concord Consortium</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Our Work</a></li>
+          <li><a href="#">Publications</a></li>
+          <li><a href="#">About Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
 </html>

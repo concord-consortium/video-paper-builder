@@ -19,18 +19,22 @@ Given /^I am an admin logged in as "([^\"]*)"$/ do |email|
   Given "I am not logged in"
   user_row  = @admins.map {|admin| admin if admin[:email] == email}
   visit '/admins/sign_in'
-  fill_in 'Email', :with=> user_row.first[:email]
-  fill_in 'Password', :with=>user_row.first[:password]
-  click_button 'Sign in'
+  with_scope("#body_container") do
+    fill_in 'Email', :with=> user_row.first[:email]
+    fill_in 'Password', :with=>user_row.first[:password]
+    click_button 'Sign in'
+  end
 end
 
 Given /^I am a user logged in as "([^\"]*)"$/ do |email|
   Given "I am not logged in"
   user_row  = @users.map {|user| user if user[:email] == email}
   visit '/users/sign_in'
-  fill_in 'Email', :with=> email
-  fill_in 'Password', :with=> 'funstuff'
-  click_button 'Sign in'
+  with_scope("#body_container") do
+    fill_in 'Email', :with=> email
+    fill_in 'Password', :with=> 'funstuff'
+    click_button 'Sign in'
+  end
 end
 
 Given /^I am the admin "([^\"]*)" and I create the following user:$/ do |email, table|

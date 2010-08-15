@@ -47,7 +47,7 @@ Feature:
   Scenario: An authenticated admin can create a user
     Given I am an admin logged in as "videopaperbuilder@gmail.com"
     When I go to the user sign up page
-    And I fill in the following:
+    And I fill in the following within "#body_container":
       | First name            | John                    |
       | Last name             | Doe                     |
       | Email                 | fun_test_user@velir.com |
@@ -61,7 +61,7 @@ Feature:
     Given I am an admin logged in as "videopaperbuilder@gmail.com"
     When I go to the user invitation page
     Then I should be on the user invitation page
-    And I fill in the following:
+    And I fill in the following within "#body_container": 
       | First name | John                      |
       | Last name  | Doe                       |
       | Email      | fun_invite_user@velir.com |

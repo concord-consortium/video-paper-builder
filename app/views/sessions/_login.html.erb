@@ -1,9 +1,12 @@
 <% if user_signed_in? %>
-  <div class="login_container">
-    <h3 class="login-greeting"><span>Welcome, <%= current_user.name -%><span><a href="/users/sign_out/" class="logout_btn">Logout</a></h3>
+  <ul>
+    <li>Welcome, <%= current_user.name -%></li>
+    <li><%= link_to 'Logout', '/users/sign_out/',:class=>'logout_btn'%></li>
+  </ul>
   </div>
 <% else %>
   <div class="login_container">
+    <label>Log in:</label>
     <% form_for :user, @user, :method => 'post', :url => new_user_session_path do |f| -%>
       <div class="input_bg"> 
         <%= f.text_field :email -%>
@@ -13,7 +16,6 @@
       </div>
         <%= f.submit "Login", :class => "login_btn" %>
         <div>
-        <a class="register_link" href="<% new_user_registration_path %>">Register</a>
         </div>
     <% end %>
   </div>

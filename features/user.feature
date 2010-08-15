@@ -25,7 +25,7 @@ Feature:
     Given the administrator "videopaperbuilder@gmail.com" invites a user "super_fun_time@velir.com"
     Given I am not logged in
     When I go to the super_fun_time@velir.com's user invitation page
-    Then I fill in the following:
+    Then I fill in the following within "#body_container":
       | Password | funstuff |
       | Password confirmation | funstuff |
     And I press "Set my password"
