@@ -3,7 +3,7 @@ source :gemcutter
 gem 'bundler'
 gem 'rails', '2.3.8'
 gem 'mysql'
-gem 'capybara'
+gem 'capybara', :git=>"git://github.com/jnicklas/capybara.git"
 gem 'database_cleaner'
 gem 'cucumber-rails'
 gem 'cucumber'

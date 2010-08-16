@@ -10,3 +10,4 @@ config/kaltura.yml
 public/system/*
 .DS_Store
 public/.DS_Store
+tmp/capybara/*

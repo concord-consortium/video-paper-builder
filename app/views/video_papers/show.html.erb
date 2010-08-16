@@ -6,6 +6,44 @@
 .ui-tabs-nav .tab {list-style:none;float:left;width:18%;text-align:center;}
 </style>
 
+<div class="content_details bg_change">
+  <div class="top_curv">
+    <div class="bottom_curv">
+      <div class="view_video">
+        <h2><%=@video_paper.title%> <img src="/images/big_pencil_icon.png" alt=""  /></h2>
+        <div class="produced_content">
+          <p>Produced by <%=h @video_paper.user.name%>, <%= @video_paper.format_created_date %></p>
+          <%= render :partial=>'video_information'%>  
+          <div class="video"><%= render :partial=>'video_embed' %>  </div>
+        </div>
+        <div class="inner_blue_tab">
+          <div class="top_tab">
+            <ul>
+              <% @video_paper.sections.each_with_index do |section, index| %>
+                <li id="<%= dom_friend :id => section.title %>_tab" class="tab">
+                  <a href="#<%= dom_friend :id => section.title %>"><span><%= section.title-%></span></a>
+                </li>
+              <% end %>              
+
+            </ul>
+          </div>
+          <% @video_paper.sections.each do |section| %>
+            <div class="tab_content" id="<%= dom_friend :id => section.title %>">
+              <div class="into_content">
+                <% if owner_or_admin? %>
+                  <p><%= edit_section_link(:video_paper => @video_paper, :section => section.title, :text => 'Edit') %></p>
+                <% end %>
+                <p><%= section.content -%></p>
+              </div>
+            </div>
+          <% end %>          
+            <span class="clear"></span> </div>
+        </div>
+      </div>
+      <span class="clear"></span> </div>
+  </div>
+</div>
+
 <div class="content_details">
   <div class="top_curv">
     <div class="bottom_curv">

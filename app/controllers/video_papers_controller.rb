@@ -117,6 +117,7 @@ class VideoPapersController < ApplicationController
     @video_paper = VideoPaper.find(params[:id])
     @shared_users = @video_paper.shared_papers
     @share = SharedPaper.new(params[:shared_paper])
+    render :layout=> 'lightbox'
   end
   
   def shared

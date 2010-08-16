@@ -49,14 +49,14 @@ end
 Then /^I share "([^"]*)" with "([^"]*)"$/ do |paper, user|
   When "I go to #{paper}'s sharing page"
   Then "I should see \"Sharing Settings for #{paper}\""
-  fill_in 'Share With:', :with=> user
+  fill_in 'shared_paper_user_id', :with=> user
   Then "I press \"Share\""
 end
 
 Then /^I unshare "([^"]*)" with "([^"]*)"$/ do |paper, user|
   When "I go to #{paper}'s sharing page"
   Then "I should see \"Sharing Settings for #{paper}\""
-  Then "I follow \"Unshare\""  
+  click_link_or_button("unshare")
 end
 
 When /^I add "([^"]*)" to "([^"]*)"$/ do |content,finder|

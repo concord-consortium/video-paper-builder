@@ -1,15 +1,36 @@
-<h1>Sharing Settings for <%= @video_paper.title %></h1>
+<div id="fancy_box">
+  <div id="my_video_papers_lightbox">
+    <% remote_form_for @share,:url=>shared_video_paper_path(@video_paper),:html=>{:method=>"put"} do |f| %>
+      <fieldset>
+      <div>
+        <div class="close"><a href="#" onclick="javascript:parent.$j.fancybox.close();"><img src="/images/clear.gif" alt="" /></a></div>
+      </div>
+      <h3>Sharing Settings for <%= @video_paper.title%></h3>
+      <% unless @shared_users.empty?%>
+        <h4>Shared With:</h4>
+      	<ul>
+          <% @shared_users.each do |shared_user| %>
 
-<% @shared_users.each do |shared_user| %>
-	Shared With:
-	<p><%= shared_user.user.name%></p>
-	<p><%= shared_user.user.email%> | <%= link_to "Unshare",:controller=>"video_papers",:action=>'unshare',:id=>@video_paper.id,:user_id=>shared_user.user_id %></p>
-<% end %>
+          	  <li>
+          	    <h5><%= shared_user.user.name%></h5>
+          	    <p><%= shared_user.user.email%></p>
+          	    <%= link_to "unshare",{:controller=>"video_papers",:action=>'unshare',:id=>@video_paper.id,:user_id=>shared_user.user_id},:class=>"unshare" %></p>
+              </li>      	    
+          <% end %>
+      	</ul>
+    	<% end %>
 
-<% form_for @share,:url=>shared_video_paper_path(@video_paper),:html=>{:method=>"put"} do |f| %>
-	<p<%= f.label :user_id, "Share With:"%>
-	<%= f.text_field :user_id %></p>
-	<p><%= f.label :notes,"Add a note (optional):" %>
-	<%= f.text_area :notes %></p>
-	<p><%= f.submit 'Share' %> | <%=link_to 'Cancel',video_papers_path,:method=>'get' %></p>
-<%end%>
+      <label>Share With:</label>
+      <div class="email_input_bg">
+        <%= f.text_field :user_id %>
+      </div>
+      <label>Add a Note (optional):</label>
+      <%= f.text_area :notes %>
+      <div class="row">
+        <input type="button" name="" value="Cancel" class="cancel" onclick="javascript:parent.$j.fancybox.close();" />
+        <%= f.submit 'Share' ,:class=>'share'%>
+      </div>
+      </fieldset>
+    <%end%>
+  </div>
+</div>
