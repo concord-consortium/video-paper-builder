@@ -378,4 +378,4 @@
 #flashContainer span{ color:#333; font-size:16px; }
 /*object, embed{ position:absolute; top:0; left:0; z-index:999;}*/
 
-#inner_container .intirior_details .left_details .creat_video_details .create_video #progressBar{padding-left:56px;}
+#inner_container .content_details .left_details .creat_video_details .create_video #progressBar{float:left;padding-left:56px;}

@@ -15,7 +15,7 @@
 <div class="content_details">
   <div class="top_curv">
     <div class="bottom_curv">
-      <div class="intirior_details">
+      <div class="upload_video">
         <% form_for [@video_paper, @video],:html => { :multipart => true } do |f| %>
           <fieldset>
           <div class="left_details">
@@ -47,8 +47,6 @@
               <div class="textarea_box">
                 <h3 class="bulet3">Additional Information</h3>
                 <div class="textarea_content">
-                  <label>Video Description:</label>
-                  <%= f.text_area :description %>
                   <div id="thumbnail-image">
                     <%=f.file_field :thumbnail%> <label class="space"><img src="/images/bulb.gif" alt="" />If you do not have a thumbnail, one will automatically be created from the video. You can <a id="thumbnail-time-code-show"href="#" >specify a point in time in your video to use as your thumbnail</a> instead.</label>
                   </div>
