@@ -5,8 +5,6 @@
 <h1><%=h @video_paper.title -%></h1>
 <h2>Produced by <%=h @video_paper.user.name%>, <%= @video_paper.format_created_date %></h2>
 <h3>Set start and stop times for <%= @section.title%></h3>
-<%= render :partial=> 'video_embed'%>
-<% if @video_paper.video%>
 <script type="text/javascript">
   VPB.SectionTimeData = 
   {
@@ -14,10 +12,17 @@
     start:<%= @section.video_start_time.nil?    ? 0 : @section.video_start_time-%>,
     stop:<%= @section.video_stop_time.nil?      ? 0 : @section.video_stop_time-%>
   
+  };
+  
+  // TODO: see how else we can make the player pause while seeking.
+  function jsCallbackReady () {
+		$j('#kplayer').get(0).sendNotification('doPause');
   }
 </script>
+<%= render :partial=> 'video_embed'%>
+<% if @video_paper.video%>
 <% end %>
-<div id="slider"></div>
+<div id="duration_slider"></div>
 <fieldset>
 <% form_for @section, :url=>'update_section_duration' do |f| %>
   <%= f.hidden_field :title %><%= f.hidden_field :id%>

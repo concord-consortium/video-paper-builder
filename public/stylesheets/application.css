@@ -379,3 +379,22 @@
 /*object, embed{ position:absolute; top:0; left:0; z-index:999;}*/
 
 #inner_container .content_details .left_details .creat_video_details .create_video #progressBar{float:left;padding-left:56px;}
+
+#duration_slider {width:360px;}
+.editor_toolbar .videolink {background-image:url('/images/video_link_icon.png');}
+
+#tabs.ui-corner-all {}
+#tabs.ui-widget-content,#tabs .ui-widget-header {background:none;border:none;}
+#tabs .tab {width:auto;}
+#tabs .ui-tabs-nav {width:100%;}
+#tabs .ui-tabs-nav .ui-state-default{border:none;}
+
+.inner_blue_tab .top_tab{float:left; width:662px;}
+.inner_blue_tab .top_tab ul{float:left; width:100%; list-style:none;}
+.inner_blue_tab .top_tab ul li{float:left; font-size:11px; line-height:14px; color:#6da8a4; font-weight:bold; text-transform:uppercase; margin-right:5px;}
+.inner_blue_tab .top_tab ul li a{float:left;color:#6da8a4; text-decoration:none; background:url(/images/inner_blue_tab_l_c.gif) no-repeat 0 0; padding-left:10px;}
+.inner_blue_tab .top_tab ul li a span{float:left; background:url(/images/inner_blue_tab_r_c.gif) no-repeat right 0; padding:7px 10px 0 0; cursor:pointer; height:19px}
+.inner_blue_tab .top_tab ul li a:hover {background-position:0 -26px; color:#fff}
+.inner_blue_tab .top_tab ul li a:hover span{background-position:right -26px; color:#fff}
+.inner_blue_tab .top_tab ul li.active a{background-position:0 -26px; color:#fff}
+.inner_blue_tab .top_tab ul li.active a span{background-position:right -26px; color:#fff}
