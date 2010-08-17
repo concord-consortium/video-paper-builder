@@ -86,10 +86,10 @@ module KalturaFu
       		wmode: \"opaque\"
       	};
       	var flashVars = {
-      		sourceType: \"#{source_type}\",      	  
+      		sourceType: \"#{source_type}\",
       		entryId: \"#{entry_id}\",
       		emptyF: \"onKdpEmpty\",
-      		readyF: \"onKdpReady\",
+      		readyF: \"onKdpReady\"
       	};
       	var attributes = {
           id: \"#{options[:div_id]}\",

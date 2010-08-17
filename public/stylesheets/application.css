@@ -379,3 +379,5 @@
 /*object, embed{ position:absolute; top:0; left:0; z-index:999;}*/
 
 #inner_container .intirior_details .left_details .creat_video_details .create_video #progressBar{padding-left:56px;}
+
+#duration_slider {width:360px;}
