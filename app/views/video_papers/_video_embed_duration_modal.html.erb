@@ -1,0 +1,11 @@
+<% unless @video.nil? %>
+  <% if @video.processed? %>
+    <% if @video.private? && !owner? %>
+      this video is private.
+    <% else %>
+      <%= kaltura_player_embed @video.entry_id, :div_id => "kplayer_duration" %>
+    <% end %>
+  <% else %>
+    The video is still processing.
+  <% end %>
+<% end %>

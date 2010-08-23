@@ -5,6 +5,17 @@
 .ui-tabs-nav {width:100%;clear:both;display:block;}
 .ui-tabs-nav .tab {list-style:none;float:left;width:22%;text-align:center;}
 </style>
+<script type="text/javascript">
+VPB.SectionTimeData = [];
+<% @video_paper.sections.each_with_index do |section, index| %>
+VPB.SectionTimeData[<%=index-%>] =
+{
+  start:<%= section.video_start_time.nil?    ? 0 : section.video_start_time-%>,
+  stop:<%= section.video_stop_time.nil?      ? 0 : section.video_stop_time-%>
+
+};
+<% end %>              
+</script>
 
 <div class="content_details bg_change">
   <div class="top_curv">
@@ -21,48 +32,69 @@
             <ul>
               <% @video_paper.sections.each_with_index do |section, index| %>
                 <li id="<%= dom_friend :id => section.title %>_tab" class="tab">
-                  <a href="#<%= dom_friend :id => section.title %>"><span><%= section.title-%></span></a>
+                  <a href="#<%= dom_friend :id => section.title %>">
+                    <span>
+                      <%= section.title-%>
+                      <% if owner_or_admin? %>
+                      <img class="edit-button" title="Edit <%=section.title-%> Section" src="/images/small_pencil_icon.png" />
+                      <% end %>
+                    </span>
+                  </a>
                 </li>
-              <% end %>              
-
+                
+              <% end %>
             </ul>
           </div>
-          <% @video_paper.sections.each do |section| %>
+          <% @video_paper.sections.each_with_index do |section, index| %>
             <div class="tab_content" id="<%= dom_friend :id => section.title %>">
+              <% form_for section, :url => update_section_video_paper_path(@video_paper) do |f| %>
               <div class="into_content">
+                <div class="section-content content-border">
+                  <%=section.content %>
+                </div>
+                
                 <% if owner_or_admin? %>
-                  <p><%= edit_section_link(:video_paper => @video_paper, :section => section.title, :text => 'Edit') %></p>
-                <% end %>
-                <p><%= section.content -%></p>
+                <div class="section-editor content-border">
+                  <%= hidden_field :section, :title, :value=> section.title %>
+                  <%= f.text_area :content %>
+                  <script type="text/javascript">
+                    // find the content text area and update it's id to something wysihat can use.
+                    // this is needed because wysihat is id dependant, and  rails' text_area formhelper doesn't let you
+                    // manipulate ids.s
+                    $j('#<%= dom_friend :id => section.title %> form textarea').attr("id", "<%= dom_friend :id => section.title %>-content");
+
+                    // Initialize wysihat editor
+                    Event.observe(window, 'load', function() {
+                      wysiHatify('<%= dom_friend :id => section.title %>-content',
+                                  ['bold', 'italic', 'underline', 'strikethrough',
+                                  'h1', 'h2', 'h3', 'p', 'justify_left', 'justify_center',
+                                  'insert_ordered_list', 'insert_unordered_list', 
+                                  'image', 'undo', 'redo', 'link', 'html', 'videolink']
+                                  );
+                    });
+                  </script>
+                  <div class="edit-section-toolbar">
+                    <%= submit_tag "Save" %>
+                    <a href="#" class="cancel-button">Cancel</a>
+                    <%= link_to "Edit Timing",
+                      {:controller=>"video_papers",
+                      :action=>"edit_section_duration",
+                      :section=>:title},
+                      :class=>"timing-button"%> 
+                  </div>
+                <% end %><%-# edit form -%>
+                </div>
+                <% end %><%-# /owner-admin -%>
               </div>
             </div>
-          <% end %>          
-            <span class="clear"></span> </div>
+          <% end %>
+          </div>
         </div>
       </div>
       <span class="clear"></span> </div>
   </div>
 </div>
 
-        <% if owner_or_admin? %>
-          <%= link_to 'Destroy', @video_paper, :method => :delete %>
-        <% end %>
-<script type="text/javascript">
-//TODO: Namespace and organize onload for this stuff
-// determine the tab index that should be selected based on the url
-var selectInitialTab = function () {
-  var tabIndex = 0;
-  $j('li.tab a').each(
-    function(idx,el){
-      if(el.href != 'undefined' && el.href != '')
-        if(window.location.href.match(el.href) != null) {
-          tabIndex = idx;
-        }
-      }
-    );    
-  return tabIndex;
-}
-$j("#tabs").tabs({
-  selected:selectInitialTab() // preselect tab
-});
-</script>
+<% if owner_or_admin? %>
+  <%= link_to 'Destroy', @video_paper, :method => :delete %>
+<% end %>
