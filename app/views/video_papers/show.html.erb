@@ -77,10 +77,12 @@ VPB.SectionTimeData[<%=index-%>] =
                     <%= submit_tag "Save" %>
                     <a href="#" class="cancel-button">Cancel</a>
                     <%= link_to "Edit Timing",
-                      {:controller=>"video_papers",
-                      :action=>"edit_section_duration",
-                      :section=>:title},
-                      :class=>"timing-button"%> 
+                      {
+                        :controller=>"video_papers",
+                        :action=>"edit_section_duration",
+                        :section=> section.title
+                      },
+                      :class=>"timing-button"-%> 
                   </div>
                 <% end %><%-# edit form -%>
                 </div>

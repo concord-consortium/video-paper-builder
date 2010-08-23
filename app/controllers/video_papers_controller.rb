@@ -159,7 +159,7 @@ class VideoPapersController < ApplicationController
   
     if @section.update_attributes(params[:section])
       #redirect_to({:controller=>"video_papers",:action=>"edit_section",:section=>@section.title}, :notice=>"Success!")
-      redirect_to(video_paper_path(@video_paper),:notice=>'Timing successfully updated.')
+      redirect_to(video_paper_path(@video_paper) + "#" + dom_friend(:id=>@section.title),:notice=>'Timing successfully updated.')
     else
       render "edit_section_duration"
     end

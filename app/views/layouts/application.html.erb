@@ -17,6 +17,7 @@
   <%= stylesheet_link_tag 'facebox', 'wysihat' %>
   <%= javascript_include_tag 'libs' %>
   <%= javascript_include_tag 'kaltura_upload' %> 
+  <%= javascript_include_tag 'effects' %>
   <%= javascript_include_tag 'wysihat_engine' %>
   <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag 'fancybox/jquery.mousewheel-3.0.2.pack.js'%>
@@ -47,7 +48,7 @@
           <div class="logo"><img src="/images/logo.gif" alt=""  /></div>
           <% if user_signed_in? %>
             <div class="logout">
-              <%= render :partial =>'sessions/login'%>              
+              <%= render :partial =>'sessions/login'%>
             </div>          
           <% else %>
             <div class="login">
@@ -70,8 +71,8 @@
               <li><a href="<%= my_video_papers_path%>"><span>My&nbsp;VideoPapers</span></a></li>
               <li><a href="<%= shared_video_papers_path%>"><span>Shared&nbsp;With&nbsp;Me</span></a></li>
             </ul>
-          </div>          
-        <% end %>        
+          </div>
+        <% end %>
         <%= yield%>
         </div>
       </div>

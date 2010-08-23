@@ -1,22 +1,25 @@
-<script type="text/javascript">
-VPB.SectionTimeData = [];
-<% @video_paper.sections.each_with_index do |section, index| %>
-VPB.SectionTimeData[<%=index-%>] =
-{
-  length:<%= @video_paper.video.duration.nil? ? 0 : @video_paper.video.duration-%>,
-  start:<%= section.video_start_time.nil?     ? 0 : section.video_start_time-%>,
-  stop:<%= section.video_stop_time.nil?       ? 0 : section.video_stop_time-%>
+<div class="modal_video_wrapper">
+  <script type="text/javascript">
+  VPB.SectionTimeData = [];
+  <% @video_paper.sections.each_with_index do |section, index| %>
+  VPB.SectionTimeData[<%=index-%>] =
+  {
+    length:<%= @video_paper.video.duration.nil? ? 0 : @video_paper.video.duration-%>,
+    start:<%= section.video_start_time.nil?     ? 0 : section.video_start_time-%>,
+    stop:<%= section.video_stop_time.nil?       ? 0 : section.video_stop_time-%>
 
-};
-<% end %>
-</script>
-
+  };
+  <% end %>
+  </script>
 <% if @video_paper.video%>
   <%= render :partial=> 'video_embed_duration_modal'%>
 <% end %>
-<div id="duration_slider"></div>
-<fieldset>
+<div id="duration_slider_wrapper">
+  <div id="duration_slider"></div>
+</div>
+<div class="close"><a href="#" onclick="javascript:parent.$j.fancybox.close();"><img src="/images/clear.gif" alt=""></a></div>
 <% form_for @section, :url=> update_section_duration_video_paper_path do |f| %>
+<fieldset>
   <%= f.hidden_field :title %><%= f.hidden_field :id%>
   <p><%= f.label :video_start_time, "Start Time (HH:MM:SS)"%>
   <%= f.text_field :video_start_time,:value=> @section.to_timestamp(@section.video_start_time)  %></p>
@@ -25,6 +28,6 @@ VPB.SectionTimeData[<%=index-%>] =
   <div class="button">
     <%= f.submit "Save timings",:class=>'upload_btn'%>
   </div>
-<% end %>
 </fieldset>
+<% end %>
 </div>

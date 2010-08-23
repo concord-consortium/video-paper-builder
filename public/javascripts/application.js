@@ -19,7 +19,6 @@ VPB = {
 			$j('#section_video_stop_time').attr('value', end);
 		},
 		handleStop:function(event, ui) {
-			console.log('stop');
 			// if stopping point is different than what it was previously set to..
 			if(ui.values[0] !== this.prevStart) {
 				VPB.modalVideoPlayer.seek(ui.values[0]);
@@ -33,7 +32,6 @@ VPB = {
 			this.prevStop  = ui.values[1];
 		},
 		init: function() {
-			console.log('duration selector');
 			// make sure we have time data to work with
 			if(!VPB.SectionTimeData) { return; }
 			// configure slider
@@ -42,8 +40,8 @@ VPB = {
 				min:0,
 				max:VPB.SectionTimeData[VPB.currentSection].length,
 				values:[VPB.SectionTimeData[VPB.currentSection].start,VPB.SectionTimeData[VPB.currentSection].stop],
-				slide:this.handleSlide,
-				stop:this.handleStop
+				slide:VPB.durationSelector.handleSlide,
+				stop:VPB.durationSelector.handleStop
 			});
 		}
 	},
@@ -78,7 +76,6 @@ VPB = {
 		    );
 		// update global section index.
 		VPB.currentSection = tabIndex;
-		
 		  return tabIndex;
 		},
 		getCurrentTab:function() {
@@ -98,6 +95,8 @@ VPB = {
 		updateTabIndex:function(event,ui) {
 			VPB.currentSection = ui.index;
 		},
+		handlePlayahead:function(data,id) {
+		},
 		sectionTabs:undefined,
 		init:function() {
 			// if we don't have section time data and tabs to work on, just stop.
@@ -109,9 +108,7 @@ VPB = {
 								
 			$j(document).bind('tabsselect', this.updateTabIndex);
 			// listen for whne the video player is ready, then enable tabs
-			$j(document).bind('videoPlayerReady', function(){
-				// TODO:..
-			});
+			$j(document).bind('videoPlayerReady', function(){});
 		}
 	},
 	sectionEditor:{
@@ -147,17 +144,33 @@ VPB = {
 		},
 		init:function() {
 			// wire up buttons
+			$j('.close').live('click', function() {
+				parent.$j.fancybox.close();
+			});
 			$j('.edit-button').click(this.handleEdit);
 			$j('.cancel-button').click(this.handleCancel);
 			$j('.timing-button').click(this.handleTiming);
 			// hook up modal popup to timing editor
-			$j('.timing-button').fancybox();
+			$j('.timing-button').fancybox(
+				{
+					modal:false,
+					autoDimensions:false,
+					overlayOpacity:.8,
+					scrolling:'no',
+					width:370,
+					height:235,
+					showCloseButton:true,
+					enableEscapeButton:true
+				}
+			);
+			
 			// listen for tab changes
 			$j(document).bind('tabsselect', this.handleTabChange);
 		}
 	},
 	videoPlayer: {
 		player:undefined, // kdp handle
+		ready:false,
 		changeListener:function(data,id){},
 		handlePlayerUpdatePlayhead:function(data,id) {
 			$j(document).trigger("videoPlayahead", data);
@@ -168,7 +181,7 @@ VPB = {
 		handlePlayerSeekEnd:function(date,id) {
 			$j(document).trigger("playerSeekEnd", data);
 		},
-		handleBytesDownloadedChange:function(data,id){
+		handlePlayerReady:function(data,id) {
 			$j(document).trigger("videoPlayerReady", data);
 		},
 		play:function(){
@@ -191,6 +204,7 @@ VPB = {
 	},
 	modalVideoPlayer: {
 		player:undefined, // kdp handle
+		ready:false,
 		changeListener:function(data,id){},
 		handlePlayerUpdatePlayhead:function(data,id) {
 			$j(document).trigger("videoPlayahead", data);
@@ -221,26 +235,21 @@ VPB = {
 			}
 		},
 		init:function(){
-			console.log('modal videoplayer init');
 			$j(document).bind('modalVideoPlayerReady', VPB.durationSelector.init);
 		}
 	},
 	// initialize page
 	init:function() {
-		console.log('init page');
 		VPB.sectionTabs.init();
 		VPB.homePageSlideShow.init();
-		//VPB.durationSelector.init();
 		VPB.sectionEditor.init();
 		// Set video offset to the initial section tab offset.
 		// TODO: should this be wired up somewhere else?
 		if( $j('#tabs').length && VPB.SectionTimeData ) {
 			$j(document).bind('videoPlayerReady', function(){
-				console.log("videoplayer ready");
-				VPB.videoPlayer.seek(VPB.SectionTimeData[VPB.sectionTabs.sectionTabs.index()].start);
+				VPB.videoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start);
 			});
 			$j(document).bind('modalVideoPlayerReady', function(){
-				console.log("modal videoplayer ready");
 				VPB.modalVideoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start);
 			});
 		}
@@ -264,7 +273,8 @@ function jsCallbackReady () {
 	VPB.videoPlayer.player.addJsListener("kdpReady", "VPB.videoPlayer.changeListener");
 	
 	// this is when the player is actually ready for scripting
-	VPB.videoPlayer.player.addJsListener("bytesDownloadedChange", "VPB.videoPlayer.handleBytesDownloadedChange");
+	//VPB.videoPlayer.player.addJsListener("bytesDownloadedChange", "VPB.videoPlayer.handleBytesDownloadedChange");
+	VPB.videoPlayer.player.addJsListener("bytesDownloadedChange", "VPB.videoPlayer.handlePlayerReady");
 	VPB.modalVideoPlayer.player.addJsListener("bytesDownloadedChange", "VPB.modalVideoPlayer.handleBytesDownloadedChange");
 	
 	VPB.videoPlayer.player.addJsListener("playerUpdatePlayhead", "VPB.videoPlayer.handlePlayerUpdatePlayhead");

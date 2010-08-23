@@ -380,8 +380,13 @@
 
 #inner_container .content_details .left_details .creat_video_details .create_video #progressBar{float:left;padding-left:56px;}
 
-#duration_slider {width:360px;}
+/* Duration Selector Modal */
+#duration_slider {width:360px;margin-left:5px;position:relative;}
+#duration_slider_wrapper {height:15px;}
+#kplayer_duration {margin-left:5px;margin-top:5px;position:relative;}
+.modal_video_wrapper .close{float:left; width:34px; height:34px; position:absolute; right:-15px; top:-15px; z-index:99999999; background:url(/images/close_btn.png) no-repeat 0 0;}
 
+/* Tabs */
 #tabs.ui-corner-all {}
 #tabs.ui-widget-content,#tabs .ui-widget-header {background:none;border:none;}
 #tabs .tab {width:auto;}
