@@ -36,7 +36,9 @@ VPB.SectionTimeData[<%=index-%>] =
                     <span>
                       <%= section.title-%>
                       <% if owner_or_admin? %>
-                      <img class="edit-button" title="Edit <%=section.title-%> Section" src="/images/small_pencil_icon.png" />
+                      <button class="edit-button" id="edit_<%= dom_friend :id => section.title-%>" type="button">
+                      <img class="edit-button" id="Edit <%=section.title-%> Section" title="Edit <%=section.title-%> Section" src="/images/small_pencil_icon.png" />
+                      </button>
                       <% end %>
                     </span>
                   </a>
@@ -74,7 +76,7 @@ VPB.SectionTimeData[<%=index-%>] =
                     });
                   </script>
                   <div class="edit-section-toolbar">
-                    <%= submit_tag "Save" %>
+                    <%= submit_tag "Save",:id => "Save" %>
                     <a href="#" class="cancel-button">Cancel</a>
                     <%= link_to "Edit Timing",
                       {
