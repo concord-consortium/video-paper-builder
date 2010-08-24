@@ -76,7 +76,7 @@ VPB.SectionTimeData[<%=index-%>] =
                     });
                   </script>
                   <div class="edit-section-toolbar">
-                    <%= submit_tag "Save",:id => "Save" %>
+                    <%= submit_tag "Save",:id => "save-"+dom_friend(:id => section.title) %>
                     <a href="#" class="cancel-button">Cancel</a>
                     <%= link_to "Edit Timing",
                       {

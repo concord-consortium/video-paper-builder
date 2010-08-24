@@ -29,7 +29,7 @@ Feature:
     And I follow "Introduction"
     And I press "edit_introduction"
     When I add "introduction content woo" to "introduction-content_editor"
-    And I press "Save"
+    And I press "save-introduction"
     Then I should see "introduction content"
 
   Scenario: Normal user edits getting started section
@@ -42,7 +42,7 @@ Feature:
     And I follow "Getting Started"
     And I press "edit_getting_started"
     When I add "getting started content" to "getting_started-content_editor"
-    And I press "Save"
+    And I press "save-getting_started"
     Then I should see "getting started content"
     
   Scenario: Normal user edits inquiry section
@@ -55,7 +55,7 @@ Feature:
     And I follow "Inquiry"
     And I press "edit_inquiry"
     When I add "inquiry content" to "inquiry-content_editor"
-    And I press "Save"
+    And I press "save-inquiry"
     Then I should see "inquiry content"
 
   Scenario: Normal user edits wrapping up section
@@ -68,7 +68,7 @@ Feature:
     And I follow "Wrapping up"
     And I press "edit_wrapping_up"
     When I add "wrapping up content" to "wrapping_up-content_editor"
-    And I press "Save"
+    And I press "save-wrapping_up"
     Then I should see "wrapping up content"
 
   Scenario: Normal user edits conclusion section
@@ -81,7 +81,7 @@ Feature:
     And I follow "Conclusion"
     And I press "edit_conclusion"
     When I add "conclusion content" to "conclusion-content_editor"
-    And I press "Save"
+    And I press "save-conclusion"
     Then I should see "conclusion content"
 
   Scenario: Normal user tries to edit section without title parameter
@@ -89,12 +89,11 @@ Feature:
     When I go to the new video paper page
     Then I should see "Create a New Video Paper"
     And I create a new video paper named "Fake Title"
-    Then I should see "VideoPaper was successfully created."
-    When I go to edit titleless section on Fake Title
+    When I go to Fake Title's video paper page
     Then I should see "Introduction"
     Then I press "edit_introduction"
-    When I add "introduction content" to "section_content_editor"
-    And I press "Save"
+    When I add "introduction content" to "introduction-content_editor"
+    And I press "save-introduction"
     Then I should see "introduction content"
 
   Scenario: Normal user visits video paper conclusion section

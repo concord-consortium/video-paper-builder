@@ -26,33 +26,31 @@ Feature:
     
   Scenario: As the video paper owner, I should be able to access the timing actions.
     Given I am a user logged in as "test_user@velir.com"
-    When I go to Generic Video Paper's video paper edit page
-    And I press "Enter in notes"
-    When I follow "Edit Introduction"
-    And I follow "Launch video"
-    Then I should be on Generic Video Paper's video paper edit timing page
-    Then I should see "Generic Video Paper"
-    And I should see "Set start and stop times for Introduction"
+    When I go to Generic Video Paper's video paper page
+    When I press "edit_introduction"
+    And I follow "Edit Timing"
     And I should see "Start Time (HH:MM:SS)"
     And I should see "Stop Time (HH:MM:SS)"
     
   Scenario: As the video paper owner, I should be able to set the timings
     Given I am a user logged in as "test_user@velir.com"
-    When I go to Generic Video Paper's video paper edit timing page
-    Then I should be on Generic Video Paper's video paper edit timing page
+    When I go to Generic Video Paper's video paper page
+    When I press "edit_introduction"
+    And I follow "Edit Timing"
     And I fill in "Start Time (HH:MM:SS)" with "5"
     And I fill in "Stop Time (HH:MM:SS)" with "8"
     And I press "Save timings"
-    Then I should be on edit titleless section on Generic Video Paper
-    And I should see "Success!"
+    Then I should be on Generic Video Paper's video paper page
+    And I should see "Timing successfully updated."
     
   Scenario: As the video paper owner, I should not be able to set silly timings
     Given I am a user logged in as "test_user@velir.com"
-    When I go to Generic Video Paper's video paper edit timing page
-    Then I should be on Generic Video Paper's video paper edit timing page
+    When I go to Generic Video Paper's video paper page
+    When I press "edit_introduction"
+    And I follow "Edit Timing"
     And I fill in "Start Time (HH:MM:SS)" with "waffles"
     And I fill in "Stop Time (HH:MM:SS)" with "peanuts"
     And I press "Save timings"
-    Then I should not be on edit titleless section on Generic Video Paper
-    And I should not see "Success!"
+    Then I should be on Generic Video Paper's video paper page
+    And I should see "Invalid time!"
   
