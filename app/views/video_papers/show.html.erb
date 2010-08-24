@@ -21,7 +21,11 @@ VPB.SectionTimeData[<%=index-%>] =
   <div class="top_curv">
     <div class="bottom_curv">
       <div class="view_video">
-        <h2><%=@video_paper.title%> <img src="/images/big_pencil_icon.png" alt=""  /></h2>
+        <h2><%=@video_paper.title%> 
+          <% if owner_or_admin? %>
+            <%= link_to image_tag('big_pencil_icon.png'),edit_video_paper_path(@video_paper)%>
+          <% end %>
+        </h2>
         <div class="produced_content">
           <p>Produced by <%=h @video_paper.user.name%>, <%= @video_paper.format_created_date %></p>
           <%= render :partial=>'video_information'%>  
