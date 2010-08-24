@@ -17,3 +17,6 @@ Then /^I should not see an embedded video$/ do
   page.should_not have_css('#kplayer')
 end
 
+When /^I pre-confirm$/ do
+  page.evaluate_script('window.confirm = function() { return true; }')
+end

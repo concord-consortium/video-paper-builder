@@ -72,11 +72,15 @@ VPB = {
 		        if(window.location.href.match(el.href) !== null) {
 		          tabIndex = idx;
 		        }
-		      }
-		    );
-		// update global section index.
-		VPB.currentSection = tabIndex;
-		  return tabIndex;
+		    });
+
+			// update global section index.
+			VPB.currentSection = tabIndex;
+
+			// update current section stop time
+			VPB.currentStop = VPB.SectionTimeData[tabIndex].stop;
+
+			return tabIndex;
 		},
 		getCurrentTab:function() {
 			$j('#tabs .tab').each(function(idx,el) {
@@ -182,6 +186,7 @@ VPB = {
 			$j(document).trigger("playerSeekEnd", data);
 		},
 		handlePlayerReady:function(data,id) {
+			VPB.videoPlayer.init();
 			$j(document).trigger("videoPlayerReady", data);
 		},
 		play:function(){
@@ -200,7 +205,14 @@ VPB = {
 				this.player.sendNotification('doPause');
 			}
 		},
-		init:function(){}
+		init:function(){
+			// Listen for when the player section is over and pause.
+			$j(document).bind('videoPlayahead',function(e,data){
+				if(data > VPB.currentStop && VPB.currentStop !== 0) {
+					VPB.videoPlayer.pause();
+				}
+			});
+		}
 	},
 	modalVideoPlayer: {
 		player:undefined, // kdp handle
@@ -256,9 +268,6 @@ VPB = {
 	}
 };
 
-// TODO: Figure out how to listen for the appropriate offset setting so the player will start and stop on appropriate times.
-$j(document).bind('videoPlayahead',function(e,data){console.log("current time: " + Math.abs(data))});
-
 
 // kaltura player callback
 // This is the first call the flash player will make when it's loaded.
@@ -271,16 +280,14 @@ function jsCallbackReady () {
 	// wire up video player listeners
 	VPB.videoPlayer.player.addJsListener("playerStateChange", "VPB.videoPlayer.changeListener");
 	VPB.videoPlayer.player.addJsListener("kdpReady", "VPB.videoPlayer.changeListener");
+	VPB.videoPlayer.player.addJsListener("playerUpdatePlayhead", "VPB.videoPlayer.handlePlayerUpdatePlayhead");
 	
 	// this is when the player is actually ready for scripting
-	//VPB.videoPlayer.player.addJsListener("bytesDownloadedChange", "VPB.videoPlayer.handleBytesDownloadedChange");
 	VPB.videoPlayer.player.addJsListener("bytesDownloadedChange", "VPB.videoPlayer.handlePlayerReady");
 	VPB.modalVideoPlayer.player.addJsListener("bytesDownloadedChange", "VPB.modalVideoPlayer.handleBytesDownloadedChange");
 	
-	VPB.videoPlayer.player.addJsListener("playerUpdatePlayhead", "VPB.videoPlayer.handlePlayerUpdatePlayhead");
 	VPB.videoPlayer.player.addJsListener("scrubberDragEnd", "VPB.videoPlayer.handleScrubberDragEnd");
 	VPB.videoPlayer.player.addJsListener("playerSeekEnd", "VPB.videoPlayer.handlePlayerSeekEnd");
-
 }
 
 $j(document).ready(VPB.init);

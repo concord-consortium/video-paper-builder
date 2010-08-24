@@ -61,8 +61,9 @@ Feature:
     When I go to the new video paper page
     Then I should see "Create a New Video Paper"
     And I create a new video paper named "Fake Delete Title"
-    When I go to Fake Delete Title's video paper page
-    And I follow "Destroy"
+    When I go to the my_video_papers page
+    And I pre-confirm
+    And I follow "Remove"
     Then I should see "VideoPaper was successfully destroyed."
     
   Scenario: 'test_user@velir.com' views Generic Video Paper

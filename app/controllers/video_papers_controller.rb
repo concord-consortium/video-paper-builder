@@ -110,7 +110,7 @@ class VideoPapersController < ApplicationController
   def destroy
     @video_paper = VideoPaper.find(params[:id])
     @video_paper.destroy
-    redirect_to(video_papers_url,:notice=>'VideoPaper was successfully destroyed.') 
+    redirect_to(my_video_papers_url,:notice=>'VideoPaper was successfully destroyed.') 
   end
   
   def share
