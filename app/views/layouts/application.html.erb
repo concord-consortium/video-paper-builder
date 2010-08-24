@@ -66,9 +66,9 @@
         <div id="inner_container">
           <div class="tabs">
             <ul>
-              <li><a href="<%= new_video_paper_path%>"><span>Authoring</span></a></li>
-              <li><a href="<%= my_video_papers_path%>"><span>My&nbsp;VideoPapers</span></a></li>
-              <li><a href="<%= shared_video_papers_path%>"><span>Shared&nbsp;With&nbsp;Me</span></a></li>
+              <%= content_tag :li, link_to("<span>Authoring</span>", new_video_paper_path),:class=>is_active?("new") || is_active?("edit")%>
+              <%= content_tag :li, link_to("<span>My VideoPapers</span>",my_video_papers_path),:class=>( is_active?("my_video_papers") || my_paper?)%>
+              <%= content_tag :li, link_to("<span>Shared With Me</span>",shared_video_papers_path),:class=>(is_active?("shared_video_papers") || shared_paper?)%>
             </ul>
           </div>          
         <% end %>        

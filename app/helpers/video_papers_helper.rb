@@ -8,7 +8,7 @@ module VideoPapersHelper
       if video_paper.video.thumbnail?
         image_tag(video_paper.video.thumbnail.url(:thumb))
       else
-        kaltura_thumbnail(video_paper.video.entry_id,:size=>[150,150])
+        kaltura_thumbnail(video_paper.video.entry_id,:size=>[120,120])
       end
     else
       "no video"
@@ -20,5 +20,29 @@ module VideoPapersHelper
     section = args[:section]
     text = args[:text]
     return "<a href=\"#{video_paper.id}/edit_section?section=#{section}\" title=\"Edit #{section} Section\">#{text} #{section}</a>"
+  end
+  
+  def is_last?(counter)
+    "last" if counter % 4 == 0
+  end
+  
+  def pick_arrow(order_by_clause,options={})
+    if options[:position] == "top"
+      if params[:order_by] == order_by_clause
+        image_tag('top_arrow_active.gif')
+      else
+        image_tag('top_arrow_normal.gif')
+      end
+    else
+      if params[:order_by] == order_by_clause
+        image_tag('bottom_arrow_active.gif')
+      else
+        if params[:order_by].nil? && order_by_clause == 'date_desc'
+          image_tag('bottom_arrow_active.gif')
+        else
+          image_tag('bottom_arrow_normal.gif')
+        end
+      end
+    end
   end
 end

@@ -1,36 +1,46 @@
 <div class="content_details">
   <div class="top_curv">
     <div class="bottom_curv">
-      <div class="intirior_details">
+      <div class="create_screen">
         <% form_for(@video_paper) do |f| %>
           <fieldset>
           <div class="left_details">
-            <div class="creat_video_details">
-              <div class="create_video">
-                <%= f.error_messages %>
-                <h3>Edit <%= @video_paper.title%></h3>
-                <div class="file_select">
-                  <label>Name:&nbsp;</label>
+            <div class="video_row">
+              <%= f.error_messages %>
+              <h3>Edit <%= @video_paper.title %></h3>
+              <div class="nane">
+                <label>Name:&nbsp;</label>
+                <div class="input_bg">
                   <%=f.text_field :title%>
                 </div>
               </div>
-              <div class="vedio_select">
-                <h3 class="bulet2">Edit...</h3>
-                <span class="clear"></span>
-              </div>
-              <div class="textarea_box">
-                <div class="button"> <span>
-                  <%= f.submit 'Upload a video',:controller=>'videos', :action=>'new',:class=>"upload_btn" %>
-                  </span> <span>
-                  <%= f.submit 'Enter in notes',:class=>'upload_btn'%>                  
-                  </span> </div>
-              </div>
-            </div>           
+            </div>
+            <div class="video_row last">
+              <h3 class="bulet2">Edit...</h3>
+              <ul>
+                <li class="col1">
+                  <h4>Uploading a classroom video</h4>
+                  <img src="/images/video1.jpg" alt="" />
+                  <p>If your classroom video is ready, we recommend starting by uploading and editing your video with our video editing tool. You can then add in your materials later.</p>
+                  <p class="upload_btn">
+                  <%= f.submit 'Upload a video',:controller=>'videos', :action=>'new',:class=>"upload_btn" %>  
+                  </p>
+  
+                </li>
+                <li class="col2"> <span>or</span>
+                  <h4>Entering classroom notes</h4>
+                  <img src="/images/document.jpg" alt="" />
+                  <p>If your video isn't ready yet, or if you just want to start entering in classroom notes ahead of time, you can enter them in now and come back and add your video later.</p>
+                  <!--><p class="upload_btn"><a href="#fancy_box" id="various" class="upload_btn">Enter In Notes</a></p>-->
+                    <%= f.submit 'Enter in notes',:class=>'upload_btn'%>
+                   </li>
+              </ul>
+            </div>
           </div>
           <div class="right_details">
-            <div class="status_box">
-              <h3>Status</h3>
-              <p>crap goes here when we get the html.</p>
+            <div class="content">
+              <h3>What is VideoPaper?</h3>
+              <p>A VideoPaper is a tool for putting your classroom videos online, along with notes and accompanying documents, and allowing them to be shared with other educators to be used as a professional learning tool.</p>
             </div>
           </div>
           </fieldset>
@@ -39,4 +49,3 @@
       <span class="clear"></span> </div>
   </div>
 </div>
-

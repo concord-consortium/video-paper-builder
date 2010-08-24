@@ -7,7 +7,7 @@ class Video < ActiveRecord::Base
     # AR Plugins/gems
     ###################################
     #paperclip
-    has_attached_file :thumbnail, :styles=>{:thumb=>"150x150>"}
+    has_attached_file :thumbnail, :styles=>{:thumb=>"120x120>"}
     
     
     ###################################
@@ -19,12 +19,12 @@ class Video < ActiveRecord::Base
     ###################################
     # Validations
     ###################################
-    validates_presence_of :description
+    #validates_presence_of :description
     validates_presence_of :entry_id, :message=>"You need to upload a video."
     validates_presence_of :language_id
     validates_inclusion_of :private, :in=>[true,false]
     validates_uniqueness_of :video_paper_id
-    validates_length_of :description, :maximum=>500
+    #validates_length_of :description, :maximum=>500
     validates_format_of :thumbnail_time, :with=>SIMPLE_SECONDS_PATTERN,:allow_nil=>true,:allow_blank=>true
     
     ###################################

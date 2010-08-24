@@ -16,18 +16,18 @@
     <div class="bottom_curv">
       <div class="my_video_papers">
         <div class="sort">
-          <p><strong>Sort by: Title</strong><span class="margin"><a href="#"><img src="/images/top_arrow_active.gif" alt="" /></a><a href="#"><img src="/images/bottom_arrow_normal.gif" alt="" /></a></span><strong>Date</strong><span><a href="#"><img src="/images/top_arrow_normal.gif" alt="" /></a><a href="#"><img src="/images/bottom_arrow_normal.gif" alt="" /></a></span></p>
-        </div>
-        <div class="video_row">
-          <div class="photo"> <img src="/images/big_video1.jpg" alt="" /> </div>
-          <div class="details">
-            <h3>Title of a VideoPaper that can wrap to multiple lines if it is long.</h3>
-            <p><strong>Status:</strong> In Progress</p>
-            <ul>
-              <li class="view_edit_btn"> <span> <a href="#">View</a> <a href="#">Edit <img src="/images/btn_arrow.gif" alt="" /></a> <a id="various" href="/video_papers/1/share" class="last">Sharing</a> </span> </li>
-              <li class="unpublish_btn"> <span> <a href="#">unpublish</a> </span> </li>
-            </ul>
-          </div>
+          <p>
+            <strong>Sort by: Title</strong>
+            <span class="margin">
+              <%= link_to pick_arrow("title_asc",:position=>"top"), {:controller=>"video_papers",:action=>"my_video_papers",:order_by=>'title_asc'} %>
+              <%=link_to pick_arrow("title_desc") ,{:controller=>"video_papers",:action=>"my_video_papers",:order_by=>'title_desc'} %>
+            </span>
+            <strong>Date</strong>
+            <span>
+              <%=link_to pick_arrow("date_asc",:position=>"top"), {:controller=>"video_papers",:action=>"my_video_papers",:order_by=>'date_asc'}%>
+              <%=link_to pick_arrow("date_desc"), my_video_papers_path %>              
+            </span>
+          </p>
         </div>
         <% @video_papers.each do |video_paper| %>
           <div id="<%=video_paper.title.downcase.gsub(" ","-")%>" class="video_row">
@@ -51,21 +51,10 @@
             <hr/>      
           </div>
         <% end %>        
-        <%= will_paginate @video_papers %>        
-         <div class="paging">
-          <ul>
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">6</a></li>
-            <li>...</li>
-            <li><a href="#">21</a></li>
-            <li><a href="#">22</a></li>
-            <li><a href="#"><img src="/images/next_aroow.gif" alt=""  /></a></li>
-          </ul>
-        </div>
+        <div class="paging"><ul><%= will_paginate @video_papers, 
+          :next_label=> image_tag('next_aroow.gif'),
+          :previous_label=>image_tag('pre_arrow.gif')%></ul></div>
+
       </div>
       <span class="clear"></span> </div>
   </div>

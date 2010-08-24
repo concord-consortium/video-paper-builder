@@ -1,22 +1,43 @@
-<div class="content_details">
+<div class="content_details bg_change">
   <div class="top_curv">
     <div class="bottom_curv">
-      <div class="intirior_details">
-        <div class="span-24 last">
-          <% @video_papers.each do |video_paper| %>
-          <div class="span-5">
-            <p><%= get_video_paper_thumbnail(video_paper)%></p>
-            <p><%=link_to video_paper.title, video_paper_path(video_paper)%><br/>
-            <%=video_paper.user.name%><br/>
-            <%= video_paper.format_created_date %></p>
-            <hr/>
-          </div>
-          <% end %>
+      <div class="shared_with_me">
+        <div class="sort">
+          <p>
+            <strong>Sort by: Title</strong>
+            <span class="margin">
+              <%= link_to pick_arrow("title_asc",:position=>"top"), {:controller=>"video_papers",:action=>"shared_video_papers",:order_by=>'title_asc'} %>
+              <%=link_to pick_arrow("title_desc") ,{:controller=>"video_papers",:action=>"shared_video_papers",:order_by=>'title_desc'} %>
+            </span>
+            <strong>Date</strong>
+            <span>
+              <%=link_to pick_arrow("date_asc",:position=>"top"), {:controller=>"video_papers",:action=>"shared_video_papers",:order_by=>'date_asc'}%>
+              <%=link_to pick_arrow("date_desc"), shared_video_papers_path %>              
+            </span>
+          </p>
         </div>
-        <div class="span-24 last">
-          <p><%= will_paginate @video_papers %></p>
+        <div class="video_list">
+          <ul>
+            <% li_count = 1 %>
+            <% @video_papers.each do |video_paper| %>
+              <% content_tag :li ,:class=> is_last?(li_count) do %>            
+                <%= get_video_paper_thumbnail(video_paper)%>
+                <h3><%=link_to video_paper.title, video_paper_path(video_paper)%></h3>
+                <p><%=video_paper.user.name%><br />
+                  <%= video_paper.format_created_date %></p>
+                <span class="clear"></span>
+              <% end %>
+              <% li_count +=1 %>
+            <% end %>
+          </ul>
+        </div>
+        <div>
+          <div class="paging"><ul><%= will_paginate @video_papers, 
+            :next_label=> image_tag('next_aroow.gif'),
+            :previous_label=>image_tag('pre_arrow.gif')%></ul></div>          
+
         </div>
       </div>
-    </div>
+      <span class="clear"></span> </div>
   </div>
 </div>
