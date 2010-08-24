@@ -251,18 +251,21 @@ input:focus{outline:none;}
 #inner_container .view_video .inner_blue_tab .top_tab ul{float:left; width:100%; list-style:none;}
 #inner_container .view_video .inner_blue_tab .top_tab ul li{float:left; font-size:11px; line-height:14px; color:#6da8a4; font-weight:bold; text-transform:uppercase; margin-right:5px;}
 #inner_container .view_video .inner_blue_tab .top_tab ul li a{float:left;color:#6da8a4; text-decoration:none; background:url(/images/inner_blue_tab_l_c.gif) no-repeat 0 0; padding-left:10px;}
-#inner_container .view_video .inner_blue_tab .top_tab ul li a span{float:left; background:url(/images/inner_blue_tab_r_c.gif) no-repeat right 0; padding:7px 10px 0 0px; cursor:pointer; height:19px}
-#inner_container .view_video .inner_blue_tab .top_tab ul li a span img{float:none; vertical-align:text-top}
+#inner_container .view_video .inner_blue_tab .top_tab ul li a span{float:left; background:url(/images/inner_blue_tab_r_c.gif) no-repeat right 0; padding:7px 10px 0 0px; cursor:pointer; height:19px;text-align:left;}
 #inner_container .view_video .inner_blue_tab .top_tab ul li a:hover{background-position:0 -26px; color:#fff}
 #inner_container .view_video .inner_blue_tab .top_tab ul li a:hover span{background-position:right -26px; color:#fff}
 #inner_container .view_video .inner_blue_tab .top_tab ul li.active a{background-position:0 -26px; color:#fff;}
 #inner_container .view_video .inner_blue_tab .top_tab ul li.active a span{background-position:right -26px; color:#fff;}
 #inner_container .view_video .inner_blue_tab .top_tab ul li.ui-tabs-selected a {background-position:0 -26px; color:#fff;}
 #inner_container .view_video .inner_blue_tab .top_tab ul li.ui-tabs-selected span {background-position:right -26px; color:#fff;}
+#inner_container .view_video .inner_blue_tab .top_tab ul li a .edit-button {display:none;}
+#inner_container .view_video .inner_blue_tab .top_tab ul li.ui-state-active a .edit-button {display:block;position:relative;top:-8px;float:right;margin-left:0px;padding-left:5px;}
+#inner_container .view_video .inner_blue_tab .top_tab ul li.ui-state-active a {width:100%;}
 #inner_container .view_video .inner_blue_tab .top_tab ul li.ui-tabs-selected {background-position:0 -26px; color:#fff;}
 
-#inner_container .view_video .inner_blue_tab .tab_content{float:left; width:507px; border:1px solid #a0d1ce; height:305px; overflow:auto; padding-bottom:10px}
-#inner_container .view_video .inner_blue_tab .tab_content .into_content{float:left; width:90%; padding:0 0 0 18px;}
+#inner_container .view_video .inner_blue_tab .tab_content{float:left;width:500px; height:305px; overflow:hidden;}
+#inner_container .view_video .inner_blue_tab .tab_content .section-editor {height:250px;} 
+#inner_container .view_video .inner_blue_tab .tab_content .into_content{float:left; width:100%;padding:0;margin:0;}
 #inner_container .view_video .inner_blue_tab .tab_content .into_content p{float:left; width:100%; color:#5f5f5f; line-height:17px; margin-top:15px}
 
 #inner_container .shared_with_me{float:left; width:947px; position:relative; padding-bottom:30px}

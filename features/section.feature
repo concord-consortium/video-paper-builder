@@ -27,14 +27,10 @@ Feature:
     Then I should see "VideoPaper was successfully created."
     When I go to Fake Title's video paper page
     And I follow "Introduction"
-    And I follow "Edit Introduction"
-    When I add "introduction content" to "section_content_editor"
-    And I press "Save"
+    And I press "edit_introduction"
+    When I add "introduction content woo" to "introduction-content_editor"
+    And I press "save-introduction"
     Then I should see "introduction content"
-    And I follow "Introduction"
-    And I follow "Edit Introduction"
-    And I follow "Cancel"
-    Then I should be on Fake Title's video paper page
 
   Scenario: Normal user edits getting started section
     Given I am a user logged in as "test_user@velir.com"
@@ -44,14 +40,10 @@ Feature:
     Then I should see "VideoPaper was successfully created."
     When I go to Fake Title's video paper page
     And I follow "Getting Started"
-    And I follow "Edit Getting Started"
-    When I add "getting started content" to "section_content_editor"    
-    And I press "Save"
+    And I press "edit_getting_started"
+    When I add "getting started content" to "getting_started-content_editor"
+    And I press "save-getting_started"
     Then I should see "getting started content"
-    And I follow "Getting Started"
-    And I follow "Edit Getting Started"
-    And I follow "Cancel"
-    Then I should be on Fake Title's video paper page
     
   Scenario: Normal user edits inquiry section
     Given I am a user logged in as "test_user@velir.com"
@@ -61,14 +53,10 @@ Feature:
     Then I should see "VideoPaper was successfully created."
     When I go to Fake Title's video paper page
     And I follow "Inquiry"
-    And I follow "Edit Inquiry"
-    When I add "inquiry content" to "section_content_editor"    
-    And I press "Save"
+    And I press "edit_inquiry"
+    When I add "inquiry content" to "inquiry-content_editor"
+    And I press "save-inquiry"
     Then I should see "inquiry content"
-    And I follow "Inquiry"
-    And I follow "Edit Inquiry"
-    And I follow "Cancel"
-    Then I should be on Fake Title's video paper page
 
   Scenario: Normal user edits wrapping up section
     Given I am a user logged in as "test_user@velir.com"
@@ -78,14 +66,10 @@ Feature:
     Then I should see "VideoPaper was successfully created."
     When I go to Fake Title's video paper page
     And I follow "Wrapping up"
-    And I follow "Edit Wrapping up"
-    When I add "wrapping up content" to "section_content_editor"    
-    And I press "Save"
+    And I press "edit_wrapping_up"
+    When I add "wrapping up content" to "wrapping_up-content_editor"
+    And I press "save-wrapping_up"
     Then I should see "wrapping up content"
-    And I follow "Wrapping up"
-    And I follow "Edit Wrapping up"
-    And I follow "Cancel"
-    Then I should be on Fake Title's video paper page
 
   Scenario: Normal user edits conclusion section
     Given I am a user logged in as "test_user@velir.com"
@@ -95,29 +79,22 @@ Feature:
     Then I should see "VideoPaper was successfully created."
     When I go to Fake Title's video paper page
     And I follow "Conclusion"
-    And I follow "Edit Conclusion"
-    When I add "conclusion content" to "section_content_editor"    
-    And I press "Save"
+    And I press "edit_conclusion"
+    When I add "conclusion content" to "conclusion-content_editor"
+    And I press "save-conclusion"
     Then I should see "conclusion content"
-    And I follow "Conclusion"
-    And I follow "Edit Conclusion"
-    And I follow "Cancel"
-    Then I should be on Fake Title's video paper page
 
   Scenario: Normal user tries to edit section without title parameter
     Given I am a user logged in as "test_user@velir.com"
     When I go to the new video paper page
     Then I should see "Create a New Video Paper"
     And I create a new video paper named "Fake Title"
-    Then I should see "VideoPaper was successfully created."
-    When I go to edit titleless section on Fake Title
+    When I go to Fake Title's video paper page
     Then I should see "Introduction"
-    When I add "introduction content" to "section_content_editor"    
-    And I press "Save"
+    Then I press "edit_introduction"
+    When I add "introduction content" to "introduction-content_editor"
+    And I press "save-introduction"
     Then I should see "introduction content"
-    And I follow "Edit Introduction"
-    And I follow "Cancel"
-    Then I should be on Fake Title's video paper page
 
   Scenario: Normal user visits video paper conclusion section
     Given I am a user logged in as "test_user@velir.com"

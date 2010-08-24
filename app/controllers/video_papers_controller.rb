@@ -147,7 +147,9 @@ class VideoPapersController < ApplicationController
     # if the section can't be found by title, then use the first
     if @section == nil
       @section = @video_paper.sections.first
-    end    
+    end
+    
+    render :layout => "lightbox"
   end
   
   def update_section_duration
@@ -156,9 +158,10 @@ class VideoPapersController < ApplicationController
     @video = @video_paper.video
   
     if @section.update_attributes(params[:section])
-      redirect_to({:controller=>"video_papers",:action=>"edit_section",:section=>@section.title}, :notice=>"Success!")
+      #redirect_to({:controller=>"video_papers",:action=>"edit_section",:section=>@section.title}, :notice=>"Success!")
+      redirect_to(video_paper_path(@video_paper) + "#" + dom_friend(:id=>@section.title),:notice=>'Timing successfully updated.')
     else
-      render "edit_section_duration"
+      redirect_to(video_paper_path(@video_paper) + "#" + dom_friend(:id=>@section.title),:notice=>'Invalid time!')
     end
   end
   

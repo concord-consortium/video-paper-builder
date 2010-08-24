@@ -19,17 +19,13 @@ VPB = {
 			$j('#section_video_stop_time').attr('value', end);
 		},
 		handleStop:function(event, ui) {
+			// if stopping point is different than what it was previously set to..
 			if(ui.values[0] !== this.prevStart) {
-				$j('#kplayer').get(0).sendNotification('doPlay');
-				$j('#kplayer').get(0).sendNotification('doSeek', ui.values[0]);
-				$j('#kplayer').get(0).sendNotification('doPause');
+				VPB.modalVideoPlayer.seek(ui.values[0]);
 			} else if (ui.values[1] !== this.prevStop) {
-				$j('#kplayer').get(0).sendNotification('doPlay');
-				$j('#kplayer').get(0).sendNotification('doSeek', ui.values[1]);
-				$j('#kplayer').get(0).sendNotification('doPause');
+				VPB.modalVideoPlayer.seek(ui.values[1]);
 			}
-			
-			$j('#kplayer').get(0).sendNotification('doPause');
+			VPB.modalVideoPlayer.pause();
 			
 			// hold this offsets for the next update.
 			this.prevStart = ui.values[0];
@@ -38,23 +34,20 @@ VPB = {
 		init: function() {
 			// make sure we have time data to work with
 			if(!VPB.SectionTimeData) { return; }
-			
 			// configure slider
 			$j('#duration_slider').slider({
 				range: true,
 				min:0,
-				max:VPB.SectionTimeData.length,
-				values:[VPB.SectionTimeData.start,VPB.SectionTimeData.stop],
-				slide:this.handleSlide,
-				stop:this.handleStop
+				max:VPB.SectionTimeData[VPB.currentSection].length,
+				values:[VPB.SectionTimeData[VPB.currentSection].start,VPB.SectionTimeData[VPB.currentSection].stop],
+				slide:VPB.durationSelector.handleSlide,
+				stop:VPB.durationSelector.handleStop
 			});
-			
-			
 		}
 	},
 	homePageSlideShow: {
 		init:function() {
-			// if there's no slideshow to work with, return.
+			// if there's no slideshow to work with, just stop.
 			if(! $j('#slideshow').length) { return; }
 			
 			$j('#slideshow').after('<div class="paging"><ul id="thumbs">').cycle({ 
@@ -69,13 +62,225 @@ VPB = {
 			});
 		}
 	},
+	sectionTabs:{
+		// determine which tab index we should be on based on the url.
+		selectInitialTab:function () {
+		  var tabIndex = 0;
+		  $j('li.tab a').each(
+		    function(idx,el){
+		      if(el.href !== undefined && el.href !== '')
+		        if(window.location.href.match(el.href) !== null) {
+		          tabIndex = idx;
+		        }
+		      }
+		    );
+		// update global section index.
+		VPB.currentSection = tabIndex;
+		  return tabIndex;
+		},
+		getCurrentTab:function() {
+			$j('#tabs .tab').each(function(idx,el) {
+				if($j(el).hasClass('ui-tabs-selected')) {
+					return idx;
+				}
+			});
+		},
+		// tab select callback handler
+		showCallback:function(event,ui) {
+			// update the videoplayer to the appropriate offset.
+			if(VPB.SectionTimeData) {
+				VPB.videoPlayer.seek(VPB.SectionTimeData[ui.index].start);
+			}
+		},
+		updateTabIndex:function(event,ui) {
+			VPB.currentSection = ui.index;
+		},
+		handlePlayahead:function(data,id) {
+		},
+		sectionTabs:undefined,
+		init:function() {
+			// if we don't have section time data and tabs to work on, just stop.
+			if( (! $j('#tabs').length) || !VPB.SectionTimeData) { return; }
+			this.sectionTabs = $j("#tabs").tabs({
+									selected:this.selectInitialTab(), // preselect tab
+					  				show:this.showCallback
+								});
+								
+			$j(document).bind('tabsselect', this.updateTabIndex);
+			// listen for whne the video player is ready, then enable tabs
+			$j(document).bind('videoPlayerReady', function(){});
+		}
+	},
+	sectionEditor:{
+		handleCancel:function(event) {
+			$j(event.target).parents().filter('.tab_content').addClass('view');
+			$j(event.target).parents().filter('.tab_content').removeClass('edit');
+			return false;
+		},
+		handleTiming:function(event) {
+			VPB.videoPlayer.pause();
+			VPB.modalVideoPlayer.init();
+			return false;
+		},
+		handleEdit:function(event) {
+			// get current tab
+			var currentTabIndex = undefined;
+			$j('#tabs .tab').each(function(idx,el) {
+				if($j(el).hasClass('ui-tabs-selected')) {
+					currentTabIndex = idx;
+				}
+			});
+			var currentTab = $j('.tab_content')[currentTabIndex];
+			
+			// set it to edit more
+			$j(currentTab).addClass('edit');
+			$j(currentTab).removeClass('view');
+		},
+		handleTabChange:function(e) {
+			var currentTab = $j('.tab_content').each(function(idx,el) {
+				$j(el).addClass('view');
+				$j(el).removeClass('edit');
+			});
+		},
+		init:function() {
+			// wire up buttons
+			$j('.close').live('click', function() {
+				parent.$j.fancybox.close();
+			});
+			$j('.edit-button').click(this.handleEdit);
+			$j('.cancel-button').click(this.handleCancel);
+			$j('.timing-button').click(this.handleTiming);
+			// hook up modal popup to timing editor
+			$j('.timing-button').fancybox(
+				{
+					modal:false,
+					autoDimensions:false,
+					overlayOpacity:.8,
+					scrolling:'no',
+					width:370,
+					height:235,
+					showCloseButton:true,
+					enableEscapeButton:true
+				}
+			);
+			
+			// listen for tab changes
+			$j(document).bind('tabsselect', this.handleTabChange);
+		}
+	},
+	videoPlayer: {
+		player:undefined, // kdp handle
+		ready:false,
+		changeListener:function(data,id){},
+		handlePlayerUpdatePlayhead:function(data,id) {
+			$j(document).trigger("videoPlayahead", data);
+		},
+		handleScrubberDragEnd:function(data,id) {
+			$j(document).trigger("scrubberDragEnd", data);
+		},
+		handlePlayerSeekEnd:function(date,id) {
+			$j(document).trigger("playerSeekEnd", data);
+		},
+		handlePlayerReady:function(data,id) {
+			$j(document).trigger("videoPlayerReady", data);
+		},
+		play:function(){
+			this.player.sendNotification('doPlay');
+		},
+		stop:function() {
+			this.player.sendNotification('doStop');
+		},
+		pause:function(){
+			this.player.sendNotification('doPause');
+		},
+		seek:function(offset) {
+			if(this.player) {
+				this.player.sendNotification('doPlay');
+				this.player.sendNotification('doSeek', offset);
+				this.player.sendNotification('doPause');
+			}
+		},
+		init:function(){}
+	},
+	modalVideoPlayer: {
+		player:undefined, // kdp handle
+		ready:false,
+		changeListener:function(data,id){},
+		handlePlayerUpdatePlayhead:function(data,id) {
+			$j(document).trigger("videoPlayahead", data);
+		},
+		handleScrubberDragEnd:function(data,id) {
+			$j(document).trigger("scrubberDragEnd", data);
+		},
+		handlePlayerSeekEnd:function(date,id) {
+			$j(document).trigger("playerSeekEnd", data);
+		},
+		handleBytesDownloadedChange:function(data,id){
+			$j(document).trigger("modalVideoPlayerReady", data);
+		},
+		play:function(){
+			this.player.sendNotification('doPlay');
+		},
+		stop:function() {
+			this.player.sendNotification('doStop');
+		},
+		pause:function(){
+			this.player.sendNotification('doPause');
+		},
+		seek:function(offset) {
+			if(this.player) {
+				this.player.sendNotification('doPlay');
+				this.player.sendNotification('doSeek', offset);
+				this.player.sendNotification('doPause');
+			}
+		},
+		init:function(){
+			$j(document).bind('modalVideoPlayerReady', VPB.durationSelector.init);
+		}
+	},
 	// initialize page
 	init:function() {
+		VPB.sectionTabs.init();
 		VPB.homePageSlideShow.init();
-		VPB.durationSelector.init();
+		VPB.sectionEditor.init();
+		// Set video offset to the initial section tab offset.
+		// TODO: should this be wired up somewhere else?
+		if( $j('#tabs').length && VPB.SectionTimeData ) {
+			$j(document).bind('videoPlayerReady', function(){
+				VPB.videoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start);
+			});
+			$j(document).bind('modalVideoPlayerReady', function(){
+				VPB.modalVideoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start);
+			});
+		}
 	}
 };
 
+// TODO: Figure out how to listen for the appropriate offset setting so the player will start and stop on appropriate times.
+$j(document).bind('videoPlayahead',function(e,data){console.log("current time: " + Math.abs(data))});
 
-// kick off page load
+
+// kaltura player callback
+// This is the first call the flash player will make when it's loaded.
+function jsCallbackReady () {
+
+	// set videoplayer handle
+	VPB.videoPlayer.player = $j('#kplayer').get(0);
+	VPB.modalVideoPlayer.player = $j('#kplayer_duration').get(0);
+	
+	// wire up video player listeners
+	VPB.videoPlayer.player.addJsListener("playerStateChange", "VPB.videoPlayer.changeListener");
+	VPB.videoPlayer.player.addJsListener("kdpReady", "VPB.videoPlayer.changeListener");
+	
+	// this is when the player is actually ready for scripting
+	//VPB.videoPlayer.player.addJsListener("bytesDownloadedChange", "VPB.videoPlayer.handleBytesDownloadedChange");
+	VPB.videoPlayer.player.addJsListener("bytesDownloadedChange", "VPB.videoPlayer.handlePlayerReady");
+	VPB.modalVideoPlayer.player.addJsListener("bytesDownloadedChange", "VPB.modalVideoPlayer.handleBytesDownloadedChange");
+	
+	VPB.videoPlayer.player.addJsListener("playerUpdatePlayhead", "VPB.videoPlayer.handlePlayerUpdatePlayhead");
+	VPB.videoPlayer.player.addJsListener("scrubberDragEnd", "VPB.videoPlayer.handleScrubberDragEnd");
+	VPB.videoPlayer.player.addJsListener("playerSeekEnd", "VPB.videoPlayer.handlePlayerSeekEnd");
+
+}
+
 $j(document).ready(VPB.init);

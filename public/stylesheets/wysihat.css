@@ -8,53 +8,58 @@ div.editor_toolbar span {
   display: none; }
 
 .editor_toolbar .button {
-  background-image: url('../images/icons/exclamation.png'); }
+  background-image: url('/images/icons/exclamation.png'); }
 .editor_toolbar .bold {
-  background-image: url('../images/icons/text_bold.png'); }
+  background-image: url('/images/icons/text_bold.png'); }
 .editor_toolbar .italic {
-  background-image: url('../images/icons/text_italic.png'); }
+  background-image: url('/images/icons/text_italic.png'); }
 .editor_toolbar .underline {
-  background-image: url('../images/icons/text_underline.png'); }
+  background-image: url('/images/icons/text_underline.png'); }
 .editor_toolbar .strikethrough {
-  background-image: url('../images/icons/text_strikethrough.png'); }
+  background-image: url('/images/icons/text_strikethrough.png'); }
 .editor_toolbar .justifyleft {
-  background-image: url('../images/icons/text_align_left.png'); }
+  background-image: url('/images/icons/text_align_left.png'); }
 .editor_toolbar .justifycenter {
-  background-image: url('../images/icons/text_align_center.png'); }
+  background-image: url('/images/icons/text_align_center.png'); }
 .editor_toolbar .justifyright {
-  background-image: url('../images/icons/text_align_right.png'); }
+  background-image: url('/images/icons/text_align_right.png'); }
 .editor_toolbar .undo {
-  background-image: url('../images/icons/arrow_undo.png'); }
+  background-image: url('/images/icons/arrow_undo.png'); }
 .editor_toolbar .redo {
-  background-image: url('../images/icons/arrow_redo.png'); }
+  background-image: url('/images/icons/arrow_redo.png'); }
 .editor_toolbar .insertorderedlist {
-  background-image: url('../images/icons/text_list_numbers.png'); }
+  background-image: url('/images/icons/text_list_numbers.png'); }
 .editor_toolbar .insertunorderedlist {
-  background-image: url('../images/icons/text_list_bullets.png'); }
+  background-image: url('/images/icons/text_list_bullets.png'); }
 .editor_toolbar .link {
-  background-image: url('../images/icons/link.png'); }
+  background-image: url('/images/icons/link.png'); }
 .editor_toolbar .image {
-  background-image: url('../images/icons/image.png'); }
+  background-image: url('/images/icons/image.png'); }
 .editor_toolbar .html {
-  background-image: url('../images/icons/page_code.png'); }
+  background-image: url('/images/icons/page_code.png'); }
 .editor_toolbar .h1 {
-  background-image: url('../images/icons/text_heading_1.png'); }
+  background-image: url('/images/icons/text_heading_1.png'); }
 .editor_toolbar .h2 {
-  background-image: url('../images/icons/text_heading_2.png'); }
+  background-image: url('/images/icons/text_heading_2.png'); }
 .editor_toolbar .h3 {
-  background-image: url('../images/icons/text_heading_3.png'); }
+  background-image: url('/images/icons/text_heading_3.png'); }
 .editor_toolbar .h4 {
-  background-image: url('../images/icons/text_heading_4.png'); }
+  background-image: url('/images/icons/text_heading_4.png'); }
 .editor_toolbar .h5 {
-  background-image: url('../images/icons/text_heading_5.png'); }
+  background-image: url('/images/icons/text_heading_5.png'); }
 .editor_toolbar .h6 {
-  background-image: url('../images/icons/text_heading_6.png'); }
+  background-image: url('/images/icons/text_heading_6.png'); }
 .editor_toolbar .p {
-  background-image: url('../images/icons/cancel.png'); }
+  background-image: url('/images/icons/cancel.png'); }
 .editor_toolbar .paste {
-  background-image: url('../images/icons/paste_word.png'); }
+  background-image: url('/images/icons/paste_word.png'); }
+.editor_toolbar .videolink {
+  background-image: url('/images/video_link_icon.png');
+}
 
 iframe.editor {
-  border: 1px solid #999;
-  height: 400px;
+  border:0;
+  height: 250px;
   width: 100%; }
+
+iframe {height:250px;color:red;}
