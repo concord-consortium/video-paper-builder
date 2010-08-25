@@ -345,3 +345,7 @@ input:focus{outline:none;}
 #add_classroom_notes .time_input_bg input{float:left; width:114px; background:none; border:none; padding:3px 10px 3px; height:18px; color:#868686; font:12px/16px Arial, Helvetica, sans-serif; margin:0}
 #add_classroom_notes input.save{float:right; width:95px; background:url(../images/save_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:5px 0; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:0 0 0 7px; display:inline; cursor:pointer}
 #add_classroom_notes input.discard{float:right; width:66px; background:url(../images/discard_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:5px 0; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:0 0 0 7px; display:inline; cursor:pointer}
+
+#messages .msg {position:absolute;left:99999px;}
+#messages .ui-icon-circle-close {display:none;}
+#messages .text {margin:0 auto;width:100%;position:relative;display:block;text-align:center;}

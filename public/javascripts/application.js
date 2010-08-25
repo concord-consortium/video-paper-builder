@@ -1,6 +1,55 @@
 var VPB = VPB || {};
 
 VPB = {
+	// notifications
+	notifications: {
+		constructMessage:function(messageType,message){
+			// create notification for each message
+			$j('#messages').jnotifyAddMessage({
+				type:messageType,
+				text:message,
+				permanent:false,
+			});
+		},
+		init:function(){
+			if($j('#messages .msg').length < 1) {return;}
+			// initialize jnotification plugin
+			$j('#messages')
+			 .jnotifyInizialize({
+           oneAtTime: true,
+           appendType: 'append'
+       })
+       .css({
+          'position': 'absolute',
+          'right': '0px',
+          'width': '100%',
+          'z-index': '9999',
+					'text-align': 'center'
+       });
+
+			// get message data, and construct messages with it
+			$j('#messages .msg').each(function(idx,el){
+				
+					var msg = $j(el);
+					var type = undefined;
+					
+					// sniff out message type by rendered classname
+					if(msg.hasClass('notice') || msg.hasClass('message')){
+						type = 'message';
+					} else if (msg.hasClass('warning') || msg.hasClass('error')) {
+						type = 'error';
+					}
+					
+				// construct a message
+				if(msg.text() !== null || msg.text() !== '') {
+					VPB.notifications.constructMessage(type,msg.text());
+				}
+				
+				// post construction styling - not sure how else to do this.
+				$j('.jnotify-item span:last').addClass('text');
+			});
+		}
+	},
 	// duration selector
 	durationSelector: {
 		convert:function(time) {
@@ -252,6 +301,7 @@ VPB = {
 	},
 	// initialize page
 	init:function() {
+		VPB.notifications.init();
 		VPB.sectionTabs.init();
 		VPB.homePageSlideShow.init();
 		VPB.sectionEditor.init();
