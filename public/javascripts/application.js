@@ -45,7 +45,8 @@ VPB = {
 					VPB.notifications.constructMessage(type,msg.text());
 				}
 				
-				// post construction styling - not sure how else to do this.
+				// post construction styling - not sure how else to apply styling to text.
+				// since this element is created dynamically, and there are 2 spans nested.
 				$j('.jnotify-item span:last').addClass('text');
 			});
 		}
@@ -219,6 +220,7 @@ VPB = {
 			
 			// listen for tab changes
 			$j(document).bind('tabsselect', this.handleTabChange);
+			
 		}
 	},
 	videoPlayer: {

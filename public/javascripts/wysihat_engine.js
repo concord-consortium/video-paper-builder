@@ -300,8 +300,7 @@ WysiHat.Commands = (function() {
   }
 
   function videoLink(url) {
-	console.log(url);
-	url = "javascript:$('kplayer').get(0).sendNotification('doSeek'," + url +");";
+	url = "javascript:VPB.videoPlayer.seek('" + url + "');";
     this.execCommand('createLink', false, url);
   }
 
