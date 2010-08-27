@@ -54,31 +54,31 @@ VPB.SectionTimeData[<%=index-%>] =
           <% @video_paper.sections.each_with_index do |section, index| %>
             <div class="tab_content" id="<%= dom_friend :id => section.title %>">
               <% form_for section, :url => update_section_video_paper_path(@video_paper) do |f| %>
-              <div class="into_content">
-                <div class="section-content content-border">
-                  <%=section.content %>
-                </div>
+                <div class="into_content">
+                  <div class="section-content content-border">
+                    <%=section.content %>
+                  </div>
                 
                 <% if owner_or_admin? %>
-                <div class="section-editor content-border">
-                  <%= hidden_field :section, :title, :value=> section.title %>
-                  <%= f.text_area :content %>
-                  <script type="text/javascript">
-                    // find the content text area and update it's id to something wysihat can use.
-                    // this is needed because wysihat is id dependant, and  rails' text_area formhelper doesn't let you
-                    // manipulate ids.s
-                    $j('#<%= dom_friend :id => section.title %> form textarea').attr("id", "<%= dom_friend :id => section.title %>-content");
+                  <div class="section-editor content-border">
+                    <%= hidden_field :section, :title, :value=> section.title %>
+                    <%= f.text_area :content %>
+                    <script type="text/javascript">
+                      // find the content text area and update it's id to something wysihat can use.
+                      // this is needed because wysihat is id dependant, and  rails' text_area formhelper doesn't let you
+                      // manipulate ids.s
+                      $j('#<%= dom_friend :id => section.title %> form textarea').attr("id", "<%= dom_friend :id => section.title %>-content");
 
-                    // Initialize wysihat editor
-                    Event.observe(window, 'load', function() {
-                      wysiHatify('<%= dom_friend :id => section.title %>-content',
-                                  ['bold', 'italic', 'underline', 'strikethrough',
-                                  'h1', 'h2', 'h3', 'p', 'justify_left', 'justify_center',
-                                  'insert_ordered_list', 'insert_unordered_list', 
-                                  'image', 'undo', 'redo', 'link', 'html', 'videolink']
-                                  );
-                    });
-                  </script>
+                      // Initialize wysihat editor
+                      Event.observe(window, 'load', function() {
+                        wysiHatify('<%= dom_friend :id => section.title %>-content',
+                                    ['bold', 'italic', 'underline', 'strikethrough',
+                                    'h1', 'h2', 'h3', 'p', 'justify_left', 'justify_center',
+                                    'insert_ordered_list', 'insert_unordered_list', 
+                                    'image', 'undo', 'redo', 'link', 'html', 'videolink']
+                                    );
+                      });
+                    </script>
                   <div class="edit-section-toolbar">
                     <%= submit_tag "Save",:id => "save-"+dom_friend(:id => section.title) %>
                     <a href="#" class="cancel-button">Cancel</a>
@@ -89,9 +89,9 @@ VPB.SectionTimeData[<%=index-%>] =
                         :section=> section.title
                       },
                       :class=>"timing-button"-%> 
-                  </div>
+                  </div><!-- edit-section-toolbar -->
+                </div><!-- section-editor -->
                 <% end %><%-# edit form -%>
-                </div>
                 <% end %><%-# /owner-admin -%>
               </div>
             </div>

@@ -250,6 +250,16 @@ VPB = {
 			this.player.sendNotification('doPause');
 		},
 		seek:function(offset) {
+			// if necessary, convert offset into raw seconds.
+			if(typeof(offset) === 'string') {
+				var parts = offset.split(':');
+				if(parts.length < 3) { return; }; // return if not enough time info.
+				var hour, min, sec;
+				hour = parseInt(parts[0]);
+				min = parseInt(parts[1]);
+				sec = parseInt(parts[2]);
+				offset = (hour * 60 * 60) + (min * 60) + (sec);
+			}
 			if(this.player) {
 				this.player.sendNotification('doPlay');
 				this.player.sendNotification('doSeek', offset);
@@ -321,6 +331,8 @@ VPB = {
 		$j('#user-shared').delegate('li', 'hover', function() {
 		  console.log('new li');
 		});
+		// focus on login form
+		$j('#user_email').focus();
 	}
 };
 
