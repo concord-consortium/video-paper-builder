@@ -1,25 +1,14 @@
 <div id="fancy_box">
   <div id="my_video_papers_lightbox">
+    <h3>Sharing Settings for <%= @video_paper.title%></h3>
+    <div id="shared_user_block">
+      <%= render :partial=> "shared_users" %>
+    </div>
     <% remote_form_for @share,:url=>shared_video_paper_path(@video_paper),:html=>{:method=>"put"} do |f| %>
       <fieldset>
       <div>
         <div class="close"><a href="#" onclick="javascript:parent.$j.fancybox.close();"><img src="/images/clear.gif" alt="" /></a></div>
       </div>
-      <h3>Sharing Settings for <%= @video_paper.title%></h3>
-      <% unless @shared_users.empty?%>
-        <h4>Shared With:</h4>
-      	<ul>
-          <% @shared_users.each do |shared_user| %>
-
-          	  <li>
-          	    <h5><%= shared_user.user.name%></h5>
-          	    <p><%= shared_user.user.email%></p>
-          	    <%= link_to "unshare",{:controller=>"video_papers",:action=>'unshare',:id=>@video_paper.id,:user_id=>shared_user.user_id},:class=>"unshare" %></p>
-              </li>      	    
-          <% end %>
-      	</ul>
-    	<% end %>
-
       <label>Share With:</label>
       <div class="email_input_bg">
         <%= f.text_field :user_id %>

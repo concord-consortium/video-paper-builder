@@ -317,6 +317,10 @@ VPB = {
 				VPB.modalVideoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start);
 			});
 		}
+		
+		$j('#user-shared').delegate('li', 'hover', function() {
+		  console.log('new li');
+		});
 	}
 };
 
