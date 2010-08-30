@@ -1,6 +1,40 @@
 var VPB = VPB || {};
 
 VPB = {
+	sharingModal:{
+		handleUnshareSuccess:function(){
+			VPB.notifications.constructMessage('message','Sharing settings updated');
+		},
+		handleUnshareFailure:function(){
+			VPB.notifications.constructMessage('error','Sharing settings not updated');
+		},
+		
+		init:function(){
+			
+			// wire up unsharing button
+			$j('body').delegate('.unshare', 'click',function(e) {
+				var link = $j(e.target);
+				$j.ajax(
+				{
+					url:link.attr('href'),
+					context:document.body,
+					success:VPB.sharingModal.handleUnshareSuccess,
+					failure:VPB.sharingModal.handleUnshareFailure
+				});
+				return false;
+			});
+			
+			// wire up sharig button
+			$j('.video_row .sharing_btn').each(function(idx,el) {
+				$j(el).fancybox(
+					{
+					'scrolling':'no',
+					'showCloseButton':false
+					}
+				);
+			});
+		}
+	},
 	// notifications
 	notifications: {
 		constructMessage:function(messageType,message){
@@ -12,7 +46,7 @@ VPB = {
 			});
 		},
 		init:function(){
-			if($j('#messages .msg').length < 1) {return;}
+			//if($j('#messages .msg').length < 1) {return;}
 			// initialize jnotification plugin
 			$j('#messages')
 			 .jnotifyInizialize({
@@ -313,6 +347,7 @@ VPB = {
 	},
 	// initialize page
 	init:function() {
+		VPB.sharingModal.init();
 		VPB.notifications.init();
 		VPB.sectionTabs.init();
 		VPB.homePageSlideShow.init();

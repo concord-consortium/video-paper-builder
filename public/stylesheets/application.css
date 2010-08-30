@@ -1250,6 +1250,13 @@ button.edit-button {background:none;border:none;margin:0;padding:0;}
 #tabs .ui-tabs-nav {width:100%;}
 #tabs .ui-tabs-nav .ui-state-default{border:none;}
 
+.ui-tabs-panel {text-align:center;height:300px;overflow-y:scroll;width:100%;}
+.ui-tabs-selected {font-weight:bold;}
+.ui-tabs-hide {display:none;}
+.ui-tabs-nav {width:100%;clear:both;display:block;}
+.ui-tabs-nav .tab {list-style:none;float:left;width:22%;text-align:center;}
+
+
 .inner_blue_tab .top_tab{float:left; width:662px;}
 .inner_blue_tab .top_tab ul{float:left; width:100%; list-style:none;}
 .inner_blue_tab .top_tab ul li{float:left; font-size:11px; line-height:14px; color:#6da8a4; font-weight:bold; text-transform:uppercase; margin-right:5px;}

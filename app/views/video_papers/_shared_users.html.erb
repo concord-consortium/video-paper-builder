@@ -1,14 +1,18 @@
+<div id="messages">
+  <%- flash.each do |name, msg| -%>
+    <%= content_tag :div, msg, :class => "#{name} msg" %>
+  <%- end -%>
+</div>
 <div id="user-shared">
-<% unless @shared_users.empty?%>
+<% unless @shared_users.empty? %>
   <h4>Shared With:</h4>
 	<ul>
     <% @shared_users.each do |shared_user| %>
-
     	  <li>
     	    <h5><%= shared_user.user.name%></h5>
     	    <p><%= shared_user.user.email%></p>
-    	    <%= link_to "unshare",{:controller=>"video_papers",:action=>'unshare',:id=>@video_paper.id,:user_id=>shared_user.user_id},:class=>"unshare" %></p>
-        </li>      	    
+    	    <p class="unshare" href="<%= unshare_video_paper_path(@video_paper)-%>?user_id=<%=shared_user.user_id-%>"></p>
+        </li>
     <% end %>
 	</ul>
 <% end %>
@@ -16,5 +20,5 @@
 
 <script type="text/javascript">
   // resize the modal when the content has changed.
-  $j.fancybox.resize()
+  $j.fancybox.resize()  
 </script>

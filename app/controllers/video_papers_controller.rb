@@ -102,17 +102,16 @@ class VideoPapersController < ApplicationController
     @video_paper = VideoPaper.find(params[:id])
     @shared_users = @video_paper.shared_papers    
     if @video_paper.unshare(params[:user_id])
-      redirect_to share_video_paper_path(@video_paper), :notice=> "Removed User from shared list."
+      respond_to do |format|
+        format.js do 
+          render :update do |page|
+            page.replace_html("shared_user_block",:partial=>"shared_users",:object=>@shared_users)
+          end
+        end
+      end    
     else
       redirect_to share_video_paper_path(@video_paper), :notice=> "ruh-roh"
     end
-#    respond_to do |format|
-#      format.js do 
-#        render :update do |page|
-#          page.replace_html("shared_user_block",:partial=>"shared_users",:object=>@shared_users)
-#        end
-#      end
-#    end    
   end
 
   def destroy
@@ -141,17 +140,15 @@ class VideoPapersController < ApplicationController
     end
     @share = @video_paper.share(shared_paper)
     if @share
-      #redirect_to share_video_paper_path(@video_paper),:notice=>"Great Success!"
-    else
-      #render "share"
-    end
-    
-    respond_to do |format|
-      format.js do 
-        render :update do |page|
-          page.replace_html("shared_user_block",:partial=>"shared_users",:object=>@shared_users)
+      respond_to do |format|
+        format.js do 
+          render :update do |page|
+            page.replace_html("shared_user_block",:partial=>"shared_users",:object=>@shared_users)
+          end
         end
       end
+    else
+      #render "share"
     end
   end
   

@@ -1,16 +1,3 @@
-<script type="text/javascript">
-	$j(function() {
-		
-		$j("#various, #various1, #various2, #various3, #various4").fancybox({
-			'transitionIn'	: 'elastic',
-			'transitionOut'	: 'elastic',
-			'showCloseButton' : false,
-			'scrolling'	:	'no',
-		});
-
-	});
-</script>
-
 <div class="content_details bg_change">
   <div class="top_curv">
     <div class="bottom_curv">
@@ -39,7 +26,7 @@
               <p><strong>Created:</strong> <%= video_paper.format_created_date %><br/>
               <strong>Status:</strong> <%= video_paper.status.titlecase%></p>
               <ul>
-                <li class="view_edit_btn"><span><%=link_to "View",video_paper_path(video_paper)%> <%= link_to "Edit",edit_video_paper_path(video_paper)%> <a id="various" href="<%= share_video_paper_path(video_paper) %>" class="last">Sharing</a></span></li>
+                <li class="view_edit_btn"><span><%=link_to "View",video_paper_path(video_paper)%> <%= link_to "Edit",edit_video_paper_path(video_paper)%> <a class="sharing_btn" href="<%= share_video_paper_path(video_paper) %>" class="last">Sharing</a></span></li>
                 <% if video_paper.published? %>
                   <li class="unpublish_btn"><span><%=link_to "Unpublish", unpublish_video_paper_path(video_paper)%></span></li>
                 <% else%>
@@ -57,9 +44,4 @@
       </div>
       <span class="clear"></span> </div>
   </div>
-</div>
-
-
-<div style="display:none;">
-
 </div>
