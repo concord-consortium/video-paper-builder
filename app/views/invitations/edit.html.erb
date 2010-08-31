@@ -2,11 +2,11 @@
   <div class="top_curv">
     <div class="bottom_curv">  
       <div class="admin_panel">
-        <h2>Change your password</h2>
+        <h2>Set your password</h2>
 
-        <% form_for resource_name, resource, :url => password_path(resource_name), :html => { :method => :put } do |f| %>
+        <% form_for resource_name, resource, :url => invitation_path(resource_name), :html => { :method => :put } do |f| %>
           <%= f.error_messages %>
-          <%= f.hidden_field :reset_password_token %>
+          <%= f.hidden_field :invitation_token %>
 
           <p><%= f.label :password %></p>
           <div class="input_bg">
@@ -22,8 +22,6 @@
             <p><%= f.submit "Submit",:class=>"login_btn" %></p>
           </div>
         <% end %>
-
-        <%= render :partial => "shared/devise_links" %>
       </div>
     </div>
   </div>

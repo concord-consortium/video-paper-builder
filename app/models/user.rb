@@ -38,6 +38,11 @@ class User < ActiveRecord::Base
     "#{self.first_name.titlecase} #{self.last_name.titlecase}"
   end
   
+  def generate_reset_password_token!
+    generate_reset_password_token && save(false)
+    self.reset_password_token
+  end
+  
   
   ##################################
   # Class Methods

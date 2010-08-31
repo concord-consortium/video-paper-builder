@@ -88,6 +88,7 @@ input:focus{outline:none;}
 #inner_container .admin_panel  .button{width:178px;}
 #inner_container .admin_panel  input{float:left; width:154px; padding:3px 10px 6px; margin:0; background:none; border:none; color:#868686; font-size:12px;}
 #inner_container .admin_panel  input.login_btn{float:left; width:49px; background:url(../images/login_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:6px 0 4px; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:0;margin-bottom:10px;margin-top:10px; cursor:pointer}
+#inner_container .admin_panel  input.password_btn{float:left; width:100px; background:url(../images/upload_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:5px 0; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:0 8px 0 0; cursor:pointer}
 
 #inner_container{float:left; width:947px; padding-top:28px;}
 #inner_container .tabs{float:left; width:947px; height:37px; margin-bottom:-3px; position:relative;}
