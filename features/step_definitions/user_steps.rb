@@ -5,6 +5,6 @@ Given /^the administrator "([^"]*)" invites a user "([^"]*)"$/ do |admin, user|
     fill_in 'Email', :with=>user
     fill_in 'First name', :with=> "John"
     fill_in 'Last name', :with=> "Doe"
-    click_button 'Send an invitation'
+    click_button 'Invite'
   end
 end

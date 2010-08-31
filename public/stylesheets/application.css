@@ -78,6 +78,17 @@ input:focus{outline:none;}
 #home_banner .paging ul li.active a{background-position:0 -7px}
 #home_banner .paging ul li.active a:hover{background-position:0 -7px}
 
+#inner_container .admin_panel p{width:100%;}
+#inner_container .admin_panel  {float:left; width:410px; margin-top:10px;padding-left:15px;}
+#inner_container .admin_panel  form{float:left; width:100%;}
+#inner_container .admin_panel  fieldset{float:left; width:100%;}
+#inner_container .admin_panel  label{float:left; width:100%;color:#5f5f5f;}
+#inner_container .admin_panel  .input_bg{float:left; width:178px; background:url(../images/login_bg.gif) no-repeat 0 0}
+#inner_container .admin_panel  .checkbox_bg{float:left; width:100%;margin-top:10px;margin-bottom:5px;}
+#inner_container .admin_panel  .button{width:178px;}
+#inner_container .admin_panel  input{float:left; width:154px; padding:3px 10px 6px; margin:0; background:none; border:none; color:#868686; font-size:12px;}
+#inner_container .admin_panel  input.login_btn{float:left; width:49px; background:url(../images/login_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:6px 0 4px; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:0;margin-bottom:10px;margin-top:10px; cursor:pointer}
+
 #inner_container{float:left; width:947px; padding-top:28px;}
 #inner_container .tabs{float:left; width:947px; height:37px; margin-bottom:-3px; position:relative;}
 #inner_container .tabs ul{float:left; width:100%; list-style:none;}

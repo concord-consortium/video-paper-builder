@@ -65,6 +65,6 @@ Feature:
       | First name | John                      |
       | Last name  | Doe                       |
       | Email      | fun_invite_user@velir.com |
-    And I press "Send an invitation"
+    And I press "Invite"
     Then I should see "An email with instructions about how to set the password has been sent."
       
