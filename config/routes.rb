@@ -1,6 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :wysihat_files
 
+  map.admin_console '/admin_console', :controller=>'admins',:action=>"index"
   map.my_video_papers '/my_video_papers', :controller=>'video_papers',:action=>'my_video_papers'
   map.shared_video_papers '/my_shared_video_papers', :controller=>'video_papers',:action=>'shared_video_papers'
 
@@ -20,6 +21,8 @@ ActionController::Routing::Routes.draw do |map|
   map.devise_for :users
   map.devise_for :admins
   map.root :controller => "home"
+  map.resources :admins
+  map.resources :users
 
   #map.connect ':controller/:action/:id'
   #map.connect ':controller/:action/:id.:format'

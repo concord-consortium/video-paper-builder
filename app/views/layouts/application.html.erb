@@ -50,8 +50,8 @@
         <%- end -%>
       </div>
       <div id="body_container">
+        <div id="inner_container">        
         <% if user_signed_in? %>
-        <div id="inner_container">
           <div class="tabs">
             <ul>
               <%= content_tag :li, link_to("<span>Authoring</span>", new_video_paper_path),:class=>is_active?("new") || is_active?("edit")%>
@@ -60,7 +60,7 @@
             </ul>
           </div>
         <% end %>
-        <%= yield%>
+        <%= yield%>        
         </div>
       </div>
     </div>

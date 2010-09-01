@@ -28,6 +28,6 @@ Feature:
     Then I fill in the following within "#body_container":
       | Password | funstuff |
       | Password confirmation | funstuff |
-    And I press "Set my password"
+    And I press "Submit"
     Then I should be on the new video paper page
     And I should see "Your password was set successfully. You are now signed in."

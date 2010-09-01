@@ -16,7 +16,7 @@ Then /^I should be able to invite an administrator$/ do
   fill_in 'First name', :with=>'John'
   fill_in 'Last name', :with=>'Doe'
   fill_in 'Email', :with=>"dummy_vpb_user@velir.com"
-  click_button 'Send an invitation'
+  click_button 'Invite'
   page.should have_content('An email with instructions about how to set the password has been sent')
 end
 
