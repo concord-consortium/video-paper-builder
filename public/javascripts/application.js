@@ -10,17 +10,17 @@ VPB = {
 		},
 		
 		init:function(){
-			
 			// wire up unsharing button
 			$j('body').delegate('.unshare', 'click',function(e) {
 				var link = $j(e.target);
 				$j.ajax(
-				{
-					url:link.attr('href'),
-					context:document.body,
-					success:VPB.sharingModal.handleUnshareSuccess,
-					failure:VPB.sharingModal.handleUnshareFailure
-				});
+					{
+						url:link.attr('href'),
+						context:document.body,
+						success:VPB.sharingModal.handleUnshareSuccess,
+						failure:VPB.sharingModal.handleUnshareFailure
+					}
+				);
 				return false;
 			});
 			
@@ -191,12 +191,26 @@ VPB = {
 			if( (! $j('#tabs').length) || !VPB.SectionTimeData) { return; }
 			this.sectionTabs = $j("#tabs").tabs({
 									selected:this.selectInitialTab(), // preselect tab
-					  				show:this.showCallback
+					  			show:this.showCallback
 								});
-								
-			$j(document).bind('tabsselect', this.updateTabIndex);
+			// disable tabs after init so user cannot click on them before video is ready
+			$j("#tabs").tabs({disabled: [0,1,2,3,4]});
+			
 			// listen for whne the video player is ready, then enable tabs
-			$j(document).bind('videoPlayerReady', function(){});
+			if(VPB.video === true) { // ensure there's a video
+				$j(document).bind('videoPlayahead', function(){
+					VPB.sectionTabs.sectionTabs.tabs("option", "disabled", false);
+				});
+				// if there's a video, but no offset yet, we'll still need to enable the tabs
+				if(VPB.SectionTimeData[VPB.currentSection].start === 0) {
+					VPB.sectionTabs.sectionTabs.tabs("option", "disabled", false);
+				}
+			} else { //otherwise always enable tabs
+				VPB.sectionTabs.sectionTabs.tabs("option", "disabled", false);
+			}
+			
+			// wire up tab select handler
+			$j(document).bind('tabsselect', this.updateTabIndex);
 		}
 	},
 	sectionEditor:{
@@ -220,7 +234,7 @@ VPB = {
 			});
 			var currentTab = $j('.tab_content')[currentTabIndex];
 			
-			// set it to edit more
+			// set it to edit mode
 			$j(currentTab).addClass('edit');
 			$j(currentTab).removeClass('view');
 		},
@@ -236,6 +250,10 @@ VPB = {
 				parent.$j.fancybox.close();
 			});
 			$j('.edit-button').click(this.handleEdit);
+			//TODO: see about refactoring this style hack out
+			if($j.browser.webkit) {
+				$j('.edit-button').css("top", "-15px");
+			}
 			$j('.cancel-button').click(this.handleCancel);
 			$j('.timing-button').click(this.handleTiming);
 			// hook up modal popup to timing editor
@@ -275,29 +293,30 @@ VPB = {
 			$j(document).trigger("videoPlayerReady", data);
 		},
 		play:function(){
-			this.player.sendNotification('doPlay');
+			VPB.videoPlayer.player.sendNotification('doPlay');
 		},
 		stop:function() {
-			this.player.sendNotification('doStop');
+			VPB.videoPlayer.player.sendNotification('doStop');
 		},
 		pause:function(){
-			this.player.sendNotification('doPause');
+			VPB.videoPlayer.player.sendNotification('doPause');
 		},
 		seek:function(offset) {
 			// if necessary, convert offset into raw seconds.
 			if(typeof(offset) === 'string') {
 				var parts = offset.split(':');
-				if(parts.length < 3) { return; }; // return if not enough time info.
-				var hour, min, sec;
-				hour = parseInt(parts[0]);
-				min = parseInt(parts[1]);
-				sec = parseInt(parts[2]);
-				offset = (hour * 60 * 60) + (min * 60) + (sec);
+				if(parts.length === 3) {
+					var hour, min, sec;
+					hour = parseInt(parts[0]);
+					min  = parseInt(parts[1]);
+					sec  = parseInt(parts[2]);
+					offset = (hour * 60 * 60) + (min * 60) + (sec);
+				}
 			}
-			if(this.player) {
-				this.player.sendNotification('doPlay');
-				this.player.sendNotification('doSeek', offset);
-				this.player.sendNotification('doPause');
+			if(VPB.videoPlayer.player) {
+				VPB.videoPlayer.player.sendNotification('doPlay');
+				VPB.videoPlayer.player.sendNotification('doSeek', offset);
+				VPB.videoPlayer.player.sendNotification('doPause');
 			}
 		},
 		init:function(){
@@ -363,9 +382,6 @@ VPB = {
 			});
 		}
 		
-		$j('#user-shared').delegate('li', 'hover', function() {
-		  console.log('new li');
-		});
 		// focus on login form
 		$j('#user_email').focus();
 	}

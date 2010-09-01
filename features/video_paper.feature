@@ -34,7 +34,7 @@ Feature:
   Scenario: Admin attempts to create a new video paper
     Given I am an admin logged in as "videopaperbuilder@gmail.com"
     When I go to the new video paper page
-    Then I should be on the user sign in page    
+    Then I should be on the user sign in page
     
   Scenario: Normal user attempts to access a video paper
     When I am a user logged in as "test_user@velir.com"
@@ -47,6 +47,7 @@ Feature:
     Then I should see "Create a New Video Paper"
     And I create a new video paper named "Fake Title"
     Then I should see "VideoPaper was successfully created."
+    Then I destroy video paper named "Fake Title"
   
   Scenario: Normal user edits video paper
     Given I am a user logged in as "test_user@velir.com"
@@ -55,6 +56,7 @@ Feature:
     And I create a new video paper named "Fake Edit Title"
     When I edit the video paper title named "Fake Edit Title"
     Then I should see "VideoPaper was successfully updated."
+    Then I destroy video paper named "Fake Edit Title"
     
   Scenario: Normal user destroys video paper
     Given I am a user logged in as "test_user@velir.com"

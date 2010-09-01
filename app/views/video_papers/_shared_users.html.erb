@@ -11,7 +11,7 @@
     	  <li>
     	    <h5><%= shared_user.user.name%></h5>
     	    <p><%= shared_user.user.email%></p>
-    	    <p class="unshare" href="<%= unshare_video_paper_path(@video_paper)-%>?user_id=<%=shared_user.user_id-%>"></p>
+    	    <a title="unshare" class="unshare" href="<%= unshare_video_paper_path(@video_paper)-%>?user_id=<%=shared_user.user_id-%>"></a>
         </li>
     <% end %>
 	</ul>

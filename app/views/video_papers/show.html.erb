@@ -8,6 +8,9 @@ VPB.SectionTimeData[<%=index-%>] =
 
 };
 <% end %>
+<% unless @video_paper.video.nil? %>
+VPB.video = true;
+<% end %>
 </script>
 
 <div class="content_details bg_change">
@@ -22,7 +25,11 @@ VPB.SectionTimeData[<%=index-%>] =
         <div class="produced_content">
           <p>Produced by <%=h @video_paper.user.name%>, <%= @video_paper.format_created_date %></p>
           <%= render :partial=>'video_information'%>  
-          <div class="video"><%= render :partial=>'video_embed' %>  </div>
+          <% if @video_paper.video.nil? %>
+            <div class="no-video"></div>
+          <% else %>
+            <div class="video"><%= render :partial=>'video_embed' %></div>
+          <% end %>
         </div>
         <div class="inner_blue_tab">
           <div id="tabs" class="top_tab">
@@ -33,9 +40,9 @@ VPB.SectionTimeData[<%=index-%>] =
                     <span>
                       <%= section.title-%>
                       <% if owner_or_admin? %>
-                      <button class="edit-button" id="edit_<%= dom_friend :id => section.title-%>" type="button">
-                      <img class="edit-button" id="Edit <%=section.title-%> Section" title="Edit <%=section.title-%> Section" src="/images/small_pencil_icon.png" />
-                      </button>
+                      <button class="edit-button" id="edit_<%= dom_friend :id => section.title-%>" type="button">                      
+                        <img id="Edit <%=section.title-%> Section" title="Edit <%=section.title-%> Section" src="/images/small_pencil_icon.png" />
+                       </button>
                       <% end %>
                     </span>
                   </a>
@@ -63,7 +70,7 @@ VPB.SectionTimeData[<%=index-%>] =
                       $j('#<%= dom_friend :id => section.title %> form textarea').attr("id", "<%= dom_friend :id => section.title %>-content");
 
                       // Initialize wysihat editor
-                      Event.observe(window, 'load', function() {
+                     Event.observe(window, 'load', function() {
                         wysiHatify('<%= dom_friend :id => section.title %>-content',
                                     ['bold', 'italic', 'underline', 'strikethrough',
                                     'h1', 'h2', 'h3', 'p', 'justify_left', 'justify_center',
@@ -75,13 +82,15 @@ VPB.SectionTimeData[<%=index-%>] =
                   <div class="edit-section-toolbar">
                     <%= submit_tag "Save",:id => "save-"+dom_friend(:id => section.title) %>
                     <a href="#" class="cancel-button">Cancel</a>
-                    <%= link_to "Edit Timing",
-                      {
-                        :controller=>"video_papers",
-                        :action=>"edit_section_duration",
-                        :section=> section.title
-                      },
-                      :class=>"timing-button"-%> 
+                    <% unless @video_paper.video.nil? %>
+                      <%= link_to "Edit Timing",
+                        {
+                          :controller=>"video_papers",
+                          :action=>"edit_section_duration",
+                          :section=> section.title
+                        },
+                        :class=>"timing-button"-%> 
+                    <% end%>
                   </div><!-- edit-section-toolbar -->
                 </div><!-- section-editor -->
                 <% end %><%-# edit form -%>

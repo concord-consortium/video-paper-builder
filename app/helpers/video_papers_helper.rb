@@ -11,7 +11,7 @@ module VideoPapersHelper
         kaltura_thumbnail(video_paper.video.entry_id,:size=>[120,120])
       end
     else
-      "no video"
+      "<div class=\"no-video\"></div>"
     end
   end
 

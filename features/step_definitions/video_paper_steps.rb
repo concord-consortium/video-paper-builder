@@ -20,3 +20,9 @@ end
 When /^I pre-confirm$/ do
   page.evaluate_script('window.confirm = function() { return true; }')
 end
+
+Then /^I destroy video paper named "([^\"]*)"$/ do |title|
+  When "I go to my video papers page"
+  Then "I pre-confirm"
+  click_link_or_button("Remove")
+end

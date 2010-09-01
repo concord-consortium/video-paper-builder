@@ -140,15 +140,17 @@ class VideoPapersController < ApplicationController
     end
     @share = @video_paper.share(shared_paper)
     if @share
-      respond_to do |format|
-        format.js do 
-          render :update do |page|
-            page.replace_html("shared_user_block",:partial=>"shared_users",:object=>@shared_users)
-          end
-        end
-      end
+      #redirect_to share_video_paper_path(@video_paper),:notice=>"Great Success!"
     else
       #render "share"
+    end
+    
+    respond_to do |format|
+      format.js do 
+        render :update do |page|
+          page.replace_html("shared_user_block",:partial=>"shared_users",:object=>@shared_users)
+        end
+      end
     end
   end
   
