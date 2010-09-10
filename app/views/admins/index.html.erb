@@ -1,8 +1,7 @@
-<div class="content_details bg_change">
+<div class="content_details">
   <div class="top_curv">
     <div class="bottom_curv">  
       <div class="admin_panel">
-        <p><%= link_to "Invite a new user",new_user_invitation_path %> | <%= link_to "Invite a new admin",new_admin_invitation_path %></p><br/>
         <h3>Administrative Users.</h3>
         <% @admins.each do |admin|%>
           <% unless admin == current_admin %>

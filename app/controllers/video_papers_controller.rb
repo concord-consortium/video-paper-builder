@@ -3,15 +3,13 @@ class VideoPapersController < ApplicationController
   before_filter :authenticate_user!, :only=>[:new,:create]
   before_filter :authenticate_owner!, :only=>[:edit,:edit_section,:update,:update_section,:share,:edit_section_duration,:update_setion_duration,:publish,:unpublish]
   before_filter :authenticate_shared!, :only=>[:show]
+  before_filter :authenticate_admin!, :only=>[:index]
   helper_method :owner_or_admin?
   helper_method :owner?
   
   def index
-    if current_admin
-      @video_papers = VideoPaper.all
-    else 
-      @video_papers = current_user.video_papers + VideoPaper.owned_by(current_user)
-    end
+      order_by = VideoPaper.order_by(params[:order_by])
+      @video_papers = VideoPaper.find(:all,:order=>order_by).paginate :page=>params[:page], :per_page=>10
   end
   
   def my_video_papers

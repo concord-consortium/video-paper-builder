@@ -1110,7 +1110,7 @@ input:focus{outline:none;}
 #inner_container .upload_video .left_details .creat_video_details .textarea_content textarea{float:left; width:612px; height:110px; border:1px solid #dad8d8; margin-bottom:5px; display:inline; font:12px/14px Arial, Helvetica, sans-serif}
 #inner_container .upload_video .left_details .creat_video_details .languge{float:left; width:170px; padding-top:26px;}
 #inner_container .upload_video .left_details .creat_video_details .languge select{float:left; width:170px;}
-#inner_container .upload_video .left_details .creat_video_details .button{float:right; width:auto; margin-right:26px; display:inline}
+#inner_container .upload_video .left_details .creat_video_details .button{float:left; width:auto;margin-top:15px;margin-left:16px; margin-right:26px; display:inline}
 #inner_container .upload_video .left_details .creat_video_details .button input.upload_btn{float:left; width:100px; background:url(../images/upload_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:5px 0; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:0 8px 0 0; cursor:pointer}
 #inner_container .upload_video .left_details .creat_video_details .button input.cancel{float:left; width:60px; background:url(../images/logout_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:5px 0; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:0; cursor:pointer}
 #inner_container .upload_video .right_details{float:left; width:200px; padding-left:18px;}

@@ -50,8 +50,17 @@
         <%- end -%>
       </div>
       <div id="body_container">
-        <div id="inner_container">        
-        <% if user_signed_in? %>
+        <div id="inner_container">
+        <% if admin_signed_in? %>  
+          <div class="tabs">
+            <ul>
+              <%= content_tag :li, link_to("<span>Admin Console</span>",admin_console_path) %>
+              <%= content_tag :li, link_to("<span>Invite a new user</span>", new_user_invitation_path) %>
+              <%= content_tag :li, link_to("<span>Invite a new admin</span>",new_admin_invitation_path) %>
+              <%= content_tag :li, link_to("<span>All Video Papers</span>",video_papers_path) %>
+              <%= content_tag :li, link_to("<span>Admin Logout</span>",destroy_admin_session_path) %>              
+            </ul>
+        <% elsif user_signed_in? %>
           <div class="tabs">
             <ul>
               <%= content_tag :li, link_to("<span>Authoring</span>", new_video_paper_path),:class=>is_active?("new") || is_active?("edit")%>
