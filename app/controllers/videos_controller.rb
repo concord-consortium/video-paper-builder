@@ -39,7 +39,7 @@ class VideosController < ApplicationController
     @video = Video.find(params[:id])
     
     if @video_paper.update_attributes(params[:video_paper])
-      redirect_to( video_paper_videos_path(@video_paper),
+      redirect_to( my_video_papers_path,
         :notice=>"Your video was sucessfully updated!"
       )
     else 

@@ -60,6 +60,7 @@
               <%= content_tag :li, link_to("<span>All Video Papers</span>",video_papers_path) %>
               <%= content_tag :li, link_to("<span>Admin Logout</span>",destroy_admin_session_path) %>              
             </ul>
+          </div>
         <% elsif user_signed_in? %>
           <div class="tabs">
             <ul>
