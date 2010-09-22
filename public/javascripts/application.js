@@ -115,7 +115,9 @@ VPB = {
 			this.prevStart = ui.values[0];
 			this.prevStop  = ui.values[1];
 		},
-		init: function() {
+		init: function() {		  
+		  VPB.currentSection = VPB.sectionTabs.selectInitialTab();
+		  if(VPB.currentSection === 'undefined') { return; }  		
 			// make sure we have time data to work with
 			if(!VPB.SectionTimeData) { return; }
 			// configure slider
@@ -342,6 +344,7 @@ VPB = {
 			$j(document).trigger("playerSeekEnd", data);
 		},
 		handleBytesDownloadedChange:function(data,id){
+		  VPB.durationSelector.init();
 			$j(document).trigger("modalVideoPlayerReady", data);
 		},
 		play:function(){
