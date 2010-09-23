@@ -8,7 +8,11 @@ module VideoPapersHelper
       if video_paper.video.thumbnail?
         image_tag(video_paper.video.thumbnail.url(:thumb))
       else
-        kaltura_thumbnail(video_paper.video.entry_id,:size=>[120,120])
+        if video_paper.video.thumbnail_time.nil? || video_paper.video.thumbnail_time.blank?
+          kaltura_thumbnail(video_paper.video.entry_id,:size=>[120,120])
+        else
+          kaltura_thumbnail(video_paper.video.entry_id,:size=>[120,120],:second=> video_paper.video.thumbnail_time)
+        end
       end
     else
       "<div class=\"no-video\"></div>"

@@ -13,9 +13,7 @@ delegate.selectHandler = function()
 	kaltura_array = flashObj.getFiles();
 	last_file = kaltura_array[(kaltura_array.length -1.0)]
 	document.getElementById("title-text").innerHTML = last_file.title;
-	console.log("before upload");
 	flashObj.upload();
-	console.log("after upload");
 }
 
 function setMediaType()
@@ -46,7 +44,6 @@ delegate.entriesAddedHandler = function(entries)
 
 delegate.progressHandler = function(args)
 {
-  console.log("I get here!");
   document.getElementById('progressBar').style.display = "inline";
 	var bob = Math.round(args[0] / args[1] * 100);	
   $j("#progress").progressBar(bob);
@@ -54,7 +51,6 @@ delegate.progressHandler = function(args)
 
 delegate.uiConfErrorHandler = function()
 {
-  alert("OMG WTF MATE ");
 }
 
 function upload()
