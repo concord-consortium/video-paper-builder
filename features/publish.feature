@@ -21,7 +21,7 @@ Feature:
     Then I share "Unpublished Paper" with "sharing_user@velir.com"
     Given I am a user logged in as "sharing_user@velir.com"
     When I go to Unpublished Paper's video paper page
-    Then I should be on the new video paper page
+    Then I should be on the my shared papers page
     When I am a user logged in as "test_user@velir.com"
     Then I unshare "Unpublished Paper" with "sharing_user@velir.com"    
     
@@ -55,7 +55,7 @@ Feature:
     When I follow "Unpublish" within "#unpublished-paper"
     Given I am a user logged in as "sharing_user@velir.com"
     When I go to Unpublished Paper's video paper page
-    Then I should be on the new video paper page
+    Then I should be on the my shared papers page
     When I am a user logged in as "test_user@velir.com"
     Then I unshare "Unpublished Paper" with "sharing_user@velir.com"    
     

@@ -28,7 +28,7 @@ class VideoPapersController < ApplicationController
     @video = @video_paper.video
     
     if @video_paper.unpublished?  && !owner_or_admin?
-      redirect_to root_path, :notice=>"this video paper is currently not published."
+      redirect_to shared_video_papers_path, :notice=>"this video paper is currently not published."
     end
   end
 

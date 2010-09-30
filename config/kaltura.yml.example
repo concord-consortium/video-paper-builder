@@ -1,0 +1,24 @@
+# config/kaltura.yml
+base: &base
+  login_email: 'USER_EMAIL'
+  login_password: 'THE_PASSWORD'
+  partner_id: '101'
+  subpartner_id: '10100'
+  administrator_secret: 'API_ADMIN_SECRET'
+  user_secret: 'API_USER_SECRET'
+  thumb_width: '300'
+  thumb_height: '300'
+  service_url: 'http://kaltura.dev.velir.com'
+  player_conf_id: '1000010'
+
+development:
+  <<: *base
+
+test:
+  <<: *base
+
+cucumber:
+  <<: *base
+
+production:
+  <<: *base

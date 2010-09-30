@@ -35,6 +35,8 @@ module NavigationHelpers
     #VIDEO PAPERS
     when /my video papers page/
       '/my_video_papers'
+    when /my shared papers page/
+      '/my_shared_video_papers'
     when /the video paper page/
       '/video_papers'
     when /the new video paper page/
