@@ -1,6 +1,7 @@
 var VPB = VPB || {};
 
 VPB = {
+	playerReadyCount:0,
 	sharingModal:{
 		handleUnshareSuccess:function(){
 			VPB.notifications.constructMessage('message','Sharing settings updated');
@@ -291,8 +292,11 @@ VPB = {
 			$j(document).trigger("playerSeekEnd", data);
 		},
 		handlePlayerReady:function(data,id) {
-			VPB.videoPlayer.init();
-			$j(document).trigger("videoPlayerReady", data);
+		  VPB.playerReadyCount = VPB.playerReadyCount + 1;
+		  if (VPB.playerReadyCount == 1 || VPB.playerReadyCount == 2) {
+			  VPB.videoPlayer.init();
+			  $j(document).trigger("videoPlayerReady", data);
+			}
 		},
 		play:function(){
 			VPB.videoPlayer.player.sendNotification('doPlay');

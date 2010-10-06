@@ -72,3 +72,7 @@ Then /^(?:|I )should not be on (.+)$/ do |page_name|
     assert_not_equal path_to(page_name), current_path
   end
 end
+
+Given /I perform javascript confirmation box magic$/ do
+  page.evaluate_script('window.confirm = function() { return true; }')
+end

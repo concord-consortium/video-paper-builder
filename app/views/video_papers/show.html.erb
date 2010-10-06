@@ -3,8 +3,8 @@ VPB.SectionTimeData = [];
 <% @video_paper.sections.each_with_index do |section, index| %>
 VPB.SectionTimeData[<%=index-%>] =
 {
-  start:<%= section.video_start_time.nil?    ? 0 : section.video_start_time-%>,
-  stop:<%= section.video_stop_time.nil?      ? 0 : section.video_stop_time-%>
+  start:<%= section.video_start_time.blank?    ? 0 : section.video_start_time-%>,
+  stop:<%= section.video_stop_time.blank?      ? 0 : section.video_stop_time-%>
 
 };
 <% end %>
@@ -87,9 +87,10 @@ VPB.video = true;
                         {
                           :controller=>"video_papers",
                           :action=>"edit_section_duration",
-                          :section=> section.title
+                          :section=> section.title,
                         },
-                        :class=>"timing-button"-%> 
+                        :confirm=> "Please ensure you have saved any changes before submitting timing changes.",                        
+                        :class=>"timing-button"-%>
                     <% end%>
                   </div><!-- edit-section-toolbar -->
                 </div><!-- section-editor -->

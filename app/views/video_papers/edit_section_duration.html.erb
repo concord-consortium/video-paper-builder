@@ -5,8 +5,8 @@
   VPB.SectionTimeData[<%=index-%>] =
   {
     length:<%= @video_paper.video.duration.nil? ? 0 : @video_paper.video.duration-%>,
-    start:<%= section.video_start_time.nil?     ? 0 : section.video_start_time-%>,
-    stop:<%= section.video_stop_time.nil?       ? 0 : section.video_stop_time-%>
+    start:<%= section.video_start_time.blank?     ? 0 : section.video_start_time-%>,
+    stop:<%= section.video_stop_time.blank?       ? @video_paper.video.duration : section.video_stop_time-%>
 
   };
   <% end %>

@@ -92,8 +92,14 @@ class VideoPapersController < ApplicationController
     @section.save!
     #Redirect user to the section they just updated
     #TODO: is there a better way to incorporate dom_friend here?
-    @edited_section_url = url_for(@video_paper) + "#" + dom_friend(:id=>@section.title)
-    redirect_to(@edited_section_url, :notice => 'VideoPaper was successfully updated.')
+    case params[:commit]
+      when "Edit Timing"
+        redirect_to (:controller=>"video_papers",:action=>"edit_section_duration",:section=>@section.title)
+        #render "edit_section_duration"
+    else
+      @edited_section_url = url_for(@video_paper) + "#" + dom_friend(:id=>@section.title)
+      redirect_to(@edited_section_url, :notice => 'VideoPaper was successfully updated.')
+    end
   end
 
   def unshare

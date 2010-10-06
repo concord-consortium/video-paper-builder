@@ -28,6 +28,7 @@ Feature:
     Given I am a user logged in as "test_user@velir.com"
     When I go to Generic Video Paper's video paper page
     When I press "edit_introduction"
+    And I perform javascript confirmation box magic    
     And I follow "Edit Timing"
     And I should see "Start Time (HH:MM:SS)"
     And I should see "Stop Time (HH:MM:SS)"
@@ -36,6 +37,7 @@ Feature:
     Given I am a user logged in as "test_user@velir.com"
     When I go to Generic Video Paper's video paper page
     When I press "edit_introduction"
+    And I perform javascript confirmation box magic     
     And I follow "Edit Timing"
     And I fill in "Start Time (HH:MM:SS)" with "5"
     And I fill in "Stop Time (HH:MM:SS)" with "8"
@@ -47,6 +49,7 @@ Feature:
     Given I am a user logged in as "test_user@velir.com"
     When I go to Generic Video Paper's video paper page
     When I press "edit_introduction"
+    And I perform javascript confirmation box magic     
     And I follow "Edit Timing"
     And I fill in "Start Time (HH:MM:SS)" with "waffles"
     And I fill in "Stop Time (HH:MM:SS)" with "peanuts"
