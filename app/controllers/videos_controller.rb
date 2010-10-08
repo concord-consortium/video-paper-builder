@@ -34,11 +34,17 @@ class VideosController < ApplicationController
   
   def edit
     @video = Video.find(params[:id])
+    KalturaFu.generate_session_key    
   end
   def update
     @video = Video.find(params[:id])
-    
+    old_entry = @video.entry_id    
     if @video.update_attributes(params[:video])
+      unless params[:video][:entry_id] == old_entry
+        @video.processed = false
+        @video.duration = nil
+        @video.save
+      end
       redirect_to( my_video_papers_path,
         :notice=>"Your video was sucessfully updated!"
       )

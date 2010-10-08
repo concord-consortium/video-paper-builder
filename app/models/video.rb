@@ -47,7 +47,7 @@ class Video < ActiveRecord::Base
     def private?
       self.private
     end
-    
+      
     def public?
       !private?
     end
