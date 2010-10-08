@@ -126,13 +126,13 @@ module KalturaFu
     			subPId: \"#{KalturaFu.config[:subpartner_id]}\",
     			entryId: \"-1\",
     			ks: \"#{KalturaFu.session_key}\",
-    			uiConfId: '1000016',
+    			uiConfId: '1727879',
     			jsDelegate: \"delegate\",
     			maxFileSize: \"999999999\",
     			maxTotalSize: \"999999999\"    			
     		};
 
-        swfobject.embedSWF(\"#{service_url}/kupload/ui_conf_id/1000016\", \"uploader\", \"160\", \"26\", \"9.0.0\", \"expressInstall.swf\", flashVars, params,attributes);
+        swfobject.embedSWF(\"#{service_url}/kupload/ui_conf_id/1727879\", \"uploader\", \"160\", \"26\", \"9.0.0\", \"expressInstall.swf\", flashVars, params,attributes);
     	</script>"
     end
     

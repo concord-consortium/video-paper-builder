@@ -30,9 +30,18 @@
                   </div>                
                 </div>
                 <%= f.error_messages %>                
-                <div id="progressBar" style="display:none">
-                	<span class="progressBar" id="progress"></span><br/>
+                <div class="file_select" id="progressBar" style="display:none">
+                  <p><div id="flash_notice" class="success">Uploading to the server now...</div></p>
+                	<p><span class="progressBar" id="progress"></span></p>
               	</div>  
+            	  <div class="file_select" id="upload-complete" style="display:none">
+            			<p><div id="flash_notice" class="success">Processing...</div></p>            	    
+            			<p><img src="/images/spinner.gif" alt="Loading" /></p>
+            		</div>
+            	  <div id="javascript_errors"></div>
+            		<div id="finalize" style="display:none" class="file_select">
+            			<p><div id="flash_notice" class="success">Upload complete!</div></p>
+            		</div>
               </div>
               <div class="vedio_select">              
                 <h3 class="bulet2">Video Status</h3>

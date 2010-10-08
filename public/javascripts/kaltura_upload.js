@@ -29,17 +29,21 @@ delegate.singleUploadCompleteHandler = function(args)
 
 delegate.allUploadsCompleteHandler = function()
 {
+  document.getElementById('upload-complete').style.display = "inline";
 	flashObj.addEntries();
 }
 
 delegate.entriesAddedHandler = function(entries)
 {
   $j("#progress").progressBar(100);
+  document.getElementById('upload-complete').style.display = "none";
+  document.getElementById('progressBar').style.display = "none";  
   var entry_index = entries.length - 1.0;
 	var entry = entries[entry_index];
 	document.getElementById('video_entry_id').value = entry.entryId;
   //document.getElementById('button_submit').style.display = "inline";
   document.getElementById('button_submit').disabled = false;  
+	document.getElementById('finalize').style.display = "inline";  
 }
 
 delegate.progressHandler = function(args)
