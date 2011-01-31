@@ -94,7 +94,7 @@ class VideoPapersController < ApplicationController
     #TODO: is there a better way to incorporate dom_friend here?
     case params[:commit]
       when "Edit Timing"
-        redirect_to (:controller=>"video_papers",:action=>"edit_section_duration",:section=>@section.title)
+        redirect_to(:controller=>"video_papers",:action=>"edit_section_duration",:section=>@section.title)
         #render "edit_section_duration"
     else
       @edited_section_url = url_for(@video_paper) + "#" + dom_friend(:id=>@section.title)

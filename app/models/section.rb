@@ -1,7 +1,7 @@
 class Section < ActiveRecord::Base
   # Constants
   COMPLEX_SECONDS_PATTERN = /^(([0-1]?[0-9])|([2][0-3])):([0-5]?[0-9])(:([0-5]?[0-9]))?$/
-  SIMPLE_SECONDS_PATTERN = /(^-?\d\d*$)/
+  SIMPLE_SECONDS_PATTERN = /^\d*$/
   
   ###################################
   # Associations

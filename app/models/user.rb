@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :video_papers, :foreign_key => 'owner_id'
   has_many :video_papers, :through=> :shared_papers, :uniq=>true
   has_many :shared_papers
+  has_many :wysihat_files
   
   ###################################
   # Validations

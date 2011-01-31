@@ -895,6 +895,7 @@ iframe.editor {
   padding-bottom: 12px;
   margin-bottom: 20px;
   background-color: #f0f0f0;
+  min-height: 100px;
 }
 
 #errorExplanation h2 {

@@ -245,4 +245,20 @@ describe Section do
     section.to_timestamp("3600").should == "01:00:00"
     section.to_timestamp("362624").should == "100:43:44"
   end
+  
+  it "shouldn't allow you to save a negative start/stop time" do
+    invalid_attributes = {
+      :title=> "awesome title",
+      :video_paper_id=> @video_paper.id,
+      :content=> 'AWESOME FREAKIN CONTENT',
+      :video_stop_time=> '00:00:18',
+      :video_start_time => '15'
+    }
+    section = Section.new(invalid_attributes)
+    section.save.should be_true   
+    
+    invalid_attributes[:video_start_time] = '-12'
+    section = Section.new(invalid_attributes)
+    section.save.should be_false    
+  end
 end
