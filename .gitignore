@@ -2,8 +2,6 @@
 *.sqlite3
 vendor/cache/*
 config/database.yml
-config/deploy.rb
-config/deploy/*
 config/kaltura.yml
 .bundle
 public/system/*
