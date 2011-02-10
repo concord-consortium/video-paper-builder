@@ -24,14 +24,14 @@
           <div class="left_curve">
             <div class="right_curve">
               <ul>
-                <li><a href="#">About VPB</a></li>
+                <li><a href="/about">About VPB</a></li>
                 <li class="last"><a href="http://www.concord.org/" title="The Concord Consortium">The&nbsp;Concord&nbsp;Consortium</a></li>
               </ul>
             </div>
           </div>
         </div>
         <div class="logo_login">
-          <div class="logo"><img src="/images/logo.gif" alt=""  /></div>
+          <div class="logo"><a href="/" title="VideoPaper Builder&reg;"><img src="/images/logo.gif" alt="VideoPaper Builder&reg;"  /></a></div>
           <% if user_signed_in? %>
             <div class="logout">
               <%= render :partial =>'sessions/login'%>
@@ -77,9 +77,10 @@
   <div id="footer">
     <div class="footer_inner">
       <div class="col1">
-        <h3>VideoPaper Builder</h3>
+        <h3>VideoPaper Builder<span class="reg">&reg;</span></h3>
         <ul>
-          <li><a href="/about">About VPB</a></li>
+          <li><a href="/" title="VideoPaper Builder&reg;">VPB Home</a></li>
+          <li><a href="/about" title="About VideoPaper Builder&reg;">About VPB</a></li>
           <li><a href="http://vpb.archive.concord.org/" title="Archive of the Previous VPB Website">Archive Site</a></li>
         </ul>
       </div>
