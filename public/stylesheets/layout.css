@@ -7,6 +7,7 @@ img,fieldset{border:none; margin:0; padding:0;}
 .curv{float:left; width:100%}
 .curv img{float:left}
 span.clear{clear:both;}
+span.reg{font-size: xx-small !important; vertical-align: top;}
 
 a:focus{outline:none}
 input:focus{outline:none;}

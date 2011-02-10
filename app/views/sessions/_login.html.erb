@@ -6,16 +6,19 @@
   </div>
 <% else %>
   <div class="login_container">
-    <label>Log in:</label>
+    <label>Login:</label>
     <% form_for :user, @user, :method => 'post', :url => new_user_session_path do |f| -%>
-      <div class="input_bg"> 
-        <%= f.text_field :email -%>
+      <div class="input_bg">
+        <label id="emaillabel" for="user_email" onclick="this.hide();$('user_email').focus()">your email address</label>
+        <%= f.text_field :email, :onfocus => "$('emaillabel').hide();", :onblur => "if (this.value==''){$('emaillabel').show();}" -%>
       </div>
-      <div class="input_bg"> 
-        <%= f.password_field :password -%>
+      <div class="input_bg">
+        <label id="passwordlabel" for="user_password" onclick="this.hide();$(user_password).focus()">your password</label>
+        <%= f.password_field :password, :onfocus => "$('passwordlabel').hide();", :onblur => "if (this.value==''){$('passwordlabel').show();}" -%>
       </div>
         <%= f.submit "Login", :class => "login_btn" %>
         <div>
+          <p id="forgot"><a href="http://0.0.0.0:3001/users/password/new" title="Forgot Password">Forgot Password?</a></p>
         </div>
     <% end %>
   </div>

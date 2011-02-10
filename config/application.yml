@@ -3,11 +3,11 @@ defaults: &defaults
     a:
       title: Introduction
     b: 
-      title: Getting Started
+      title: Lesson
     c: 
-      title: Inquiry
+      title: Student Work
     d: 
-      title: Wrapping up
+      title: Results
     e: 
       title: Conclusion
   
