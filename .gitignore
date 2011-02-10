@@ -1,12 +1,9 @@
 *.log
 *.sqlite3
 vendor/cache/*
-Gemfile.lock
 config/database.yml
-config/deploy.rb
-config/deploy/*
 config/kaltura.yml
-.bundle/environment.rb
+.bundle
 public/system/*
 .DS_Store
 public/.DS_Store
