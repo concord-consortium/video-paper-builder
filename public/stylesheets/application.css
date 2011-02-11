@@ -1300,14 +1300,15 @@ h2{color: #878787; font-size: 1.833em; margin-bottom: 1em;}
 #inner_container .shared_with_me .paging ul li.active a:hover{color:#5f5f5f; text-decoration:none}
 #inner_container .shared_with_me .paging ul li img{vertical-align:middle;}
 
-#inner_container.full p,#inner_container.full li{line-height: 17px; margin-bottom: 1.5em;}
+#inner_container.full p,#inner_container.full li{line-height: 21px; margin-bottom: 1.5em;}
 #inner_container.full ul{margin-left: 20px;}
 
 #footer{float:left; width:100%; padding:60px 0 25px; background:url(../images/footer_bg.gif) repeat-x 0 0;}
 #footer .footer_inner{width:947px; margin:0 auto;}
 #footer .col1{float:left; width:175px; padding-left:10px}
 #footer .col2{float:left; width:220px; padding-left:28px; border-left:1px solid #fbce5d}
-#footer h3{float:left; width:100%; font:17px/20px Georgia, 'Times New Roman', Times, serif; color:#85b150;}
+#footer h3{width:100%; font:17px/20px Georgia, 'Times New Roman', Times, serif; color:#85b150;}
+#footer .col1 h3{margin-top: -6px;}
 #footer ul{float:left; width:100%; list-style:none; margin-top:8px}
 #footer ul li{float:left; width:100%;}
 #footer ul li a{color:#868686; text-decoration:none}
