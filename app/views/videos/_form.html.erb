@@ -65,10 +65,6 @@
               			<%= f.text_field :thumbnail_time %>
                            <label class="space"><img src="/images/bulb.gif" alt="" />Enter a point in the video in seconds, or use a time format like <strong>hh:mm:ss</strong>. <a id="thumbnail-file-show" href="#" >Upload a file instead</a>.</label>                   
                   </div>
-                  <div class="languge">
-                    <label>Language:</label>
-                    <%= f.collection_select :language_id, Language.all, :id,:name %>
-                  </div>
                   <%= f.hidden_field :entry_id %>
                 </div>
                 <% if @video.entry_id.nil?%>
@@ -76,26 +72,11 @@
             		<% else %>
             			<% disabled = false%>
             		<% end %>
+            		<br style="clear: both;" /><br />
                 <div class="button"> <span>
 		<%= f.submit "Upload video", :id=>"button_submit",:class=>"upload_btn",:disabled=>disabled%> | <%= link_to("Cancel",@video_paper,:method=>'get') %>                  
                   </span> </div>
               </div>
-            </div>
-          </div>
-          <div class="right_details">
-            <div class="status_box">
-              <h3>Status</h3>
-              <ul>
-                <li><a href="#">Status</a></li>
-              </ul>
-              <h3>Video</h3>
-              <ul>
-                <li><a href="#">Status</a></li>
-              </ul>
-              <h3>classroom notes <img src="/images/calss_room_arrow.gif" alt="" /></h3>
-              <ul>
-                <li><a href="#">Status</a></li>
-              </ul>
             </div>
           </div>
           </fieldset>
