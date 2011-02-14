@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Section do
+  fixtures :languages
 
   before(:all) do
     @user  = Factory.create(:user, :email=>"spec_test12@velir.com")
