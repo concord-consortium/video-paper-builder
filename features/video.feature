@@ -25,6 +25,5 @@ Feature:
     And I should see "Select Video"
     And I should see "Additional Information"
     And I should see "Video Status"
-    And I should see "Language:"
     
     
