@@ -5,6 +5,10 @@ ActionController::Routing::Routes.draw do |map|
   map.my_video_papers '/my_video_papers', :controller=>'video_papers',:action=>'my_video_papers'
   map.shared_video_papers '/my_shared_video_papers', :controller=>'video_papers',:action=>'shared_video_papers'
 
+  if Rails.env=="cucumber"
+    map.login_for_test '/login_for_test/:id', :controller=>'users',:action=>'login_for_test'
+  end
+
   map.resources :video_papers, :member=> { 
       :share => :get,
       :shared=>:put,:unshare=>:get, 
