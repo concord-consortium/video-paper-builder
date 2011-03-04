@@ -26,3 +26,49 @@ Then /^I destroy video paper named "([^\"]*)"$/ do |title|
   Then "I pre-confirm"
   click_link_or_button("Remove")
 end
+
+Given /^a video paper named "([^\"]*)"$/ do |title|
+  paper = Factory(:video_paper, :title => title, :user => @current_user, :status => "unpublished")
+end
+
+Given /^a published video paper named "([^"]*)" with a private video$/ do |title|
+  paper = Factory(:video_paper, :title => title, :user => @current_user, :status => "published")
+  video = Factory(:video, :video_paper => paper, :private => true)
+end
+
+Given /^the video paper "([^"]*)" is shared with me$/ do |title|
+  paper = VideoPaper.find_by_title title
+  paper.users << @current_user
+end
+
+Given /^my video paper "([^"]*)" is shared with "([^"]*)"$/ do |title, shared_user|
+  paper = VideoPaper.find_by_title title
+  paper.user.should == @current_user
+  paper.users << (User.find_by_email shared_user)
+end
+
+Given /^the following video papers$/ do |table|
+  table.hashes.each do |row|
+    paper = Factory(:video_paper, :title => row["title"], :user => User.find_by_email(row["user"]), :status => row["status"])
+  end
+end
+
+Given /^the following video papers with videos$/ do |table|
+  table.hashes.each do |row|
+    paper = Factory(:video_paper, :title => row["title"], :user => User.find_by_email(row["user"]), :status => row["status"])
+    video = Factory(:video, :video_paper => paper)
+  end
+end
+
+When /^(?:|I )fake upload the test video$/ do
+  # set entry id as if flash video uploader did it
+  # It would be nice if we could the approach below, but capybara and selenium don't support
+  # setting hidden fields:
+  # find('#video_entry_id').set(KalturaUtil.find_test_video_id)
+  #
+  # so instead we do it with javascript this will break if run in a driver that doesn't support javascript
+  page.execute_script(
+    "document.getElementById('video_entry_id').value='#{KalturaUtil.find_test_video_id}';" +
+    "document.getElementById('button_submit').disabled = false;")
+end
+

@@ -10,10 +10,10 @@ Feature:
       | test_user@velir.com         | funstuff | user  |
       | sharing_user@velir.com      | funstuff | user  |
       
-    Given the following video papers
-      | title               | user                |
-      | Generic Video Paper | test_user@velir.com |
-      | Unpublished Paper   | test_user@velir.com |
+    Given the following video papers with videos
+      | title               | user                | status      |
+      | Generic Video Paper | test_user@velir.com | published   |
+      | Unpublished Paper   | test_user@velir.com | unpublished |
       
   Scenario: Shared user of "Unpublished Paper" shouldn't be able to view an unpublished paper
     Given I am a user logged in as "test_user@velir.com"
@@ -47,15 +47,15 @@ Feature:
     When I am a user logged in as "test_user@velir.com"
     Then I unshare "Unpublished Paper" with "sharing_user@velir.com"
     
-  Scenario: Unpublishing "Unpublished Paper" then makes it invisible again
+  Scenario: Unpublishing "Genieric Video Paper" then makes it invisible again
     Given I am a user logged in as "test_user@velir.com"
-    When I go to Unpublished Paper's video paper page
-    Then I share "Unpublished Paper" with "sharing_user@velir.com"
+    When I go to Generic Video Paper's video paper page
+    Then I share "Generic Video Paper" with "sharing_user@velir.com"
     When I go to my video papers page    
-    When I follow "Unpublish" within "#unpublished-paper"
+    When I follow "Unpublish" within "#generic-video-paper"
     Given I am a user logged in as "sharing_user@velir.com"
-    When I go to Unpublished Paper's video paper page
+    When I go to Generic Video Paper's video paper page
     Then I should be on the my shared papers page
     When I am a user logged in as "test_user@velir.com"
-    Then I unshare "Unpublished Paper" with "sharing_user@velir.com"    
+    Then I unshare "Generic Video Paper" with "sharing_user@velir.com"    
     

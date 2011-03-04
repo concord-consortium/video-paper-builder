@@ -15,7 +15,7 @@ Feature:
   	When I go to the new video paper page
     Then I should see "Create a New Video Paper"
   	And I create a new video paper named "Fake Title"
-  	Then I should see "VideoPaper was successfully created."
+  	Then I should see "VideoPaper 'Fake Title' was successfully created."
     When I go to Fake Title's video paper page
   	Then I should have five sections
   	Then I destroy video paper named "Fake Title"
@@ -58,7 +58,7 @@ Feature:
     When I go to the new video paper page
     Then I should see "Create a New Video Paper"
     And I create a new video paper named "Fake Title"
-    Then I should see "VideoPaper was successfully created."
+    Then I should see "VideoPaper 'Fake Title' was successfully created."
     When I go to Fake Title's video paper conclusion section
     Then I should see "Conclusion"
     And the conclusion tab should be current
@@ -69,7 +69,7 @@ Feature:
     When I go to the new video paper page
     Then I should see "Create a New Video Paper"
     And I create a new video paper named "Fake Title"
-    Then I should see "VideoPaper was successfully created."
+    Then I should see "VideoPaper 'Fake Title' was successfully created."
     When I go to Fake Title's video paper introduction section
     Then I should see "Introduction"
     And the introduction tab should be current
@@ -77,6 +77,9 @@ Feature:
     
     
   Scenario: Shared user visits Generic Video Paper's page and sees if he/she can edit sections
+    Given the following video papers with videos
+      | title                    | user                | status    |
+      | Generic Video Paper      | test_user@velir.com | published |
     When I go to Generic Video Paper's video paper page
     Then I share "Generic Video Paper" with "random_user@velir.com"
     Given I am a user logged in as "random_user@velir.com"

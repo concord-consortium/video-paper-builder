@@ -62,9 +62,9 @@ class VideoPapersController < ApplicationController
     if @video_paper.save
       case params[:commit]
         when "Enter in notes"
-          redirect_to(@video_paper, :notice => 'VideoPaper was successfully created.')
+          redirect_to(@video_paper, :notice => "VideoPaper '#{@video_paper.title}' was successfully created.")
         when "Upload a video"
-          redirect_to(new_video_paper_video_path(@video_paper),:notice=>'VideoPaper was succesfully created.')
+          redirect_to(new_video_paper_video_path(@video_paper),:notice=>"VideoPaper '#{@video_paper.title}' was succesfully created.")
         end
     else
       render :action => "new"

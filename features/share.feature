@@ -10,9 +10,9 @@ Feature:
       | test_user@velir.com         | funstuff | user  |
       | sharing_user@velir.com      | funstuff | user  |
       
-    Given the following video papers
-      | title               | user                |
-      | Generic Video Paper | test_user@velir.com |
+    Given the following video papers with videos
+      | title               | user                | status    |
+      | Generic Video Paper | test_user@velir.com | published |
       
   Scenario: Non-owner& non-shared user of 'Generic Video Paper' attempts to access it
     Given I am a user logged in as "sharing_user@velir.com"
@@ -35,11 +35,13 @@ Feature:
     
   Scenario: Non-owner & shared user of 'Generic Video Paper' attempts to access it
     Given I am a user logged in as "sharing_user@velir.com"
+    And the video paper "Generic Video Paper" is shared with me
     When I go to Generic Video Paper's video paper page
     Then I should be on Generic Video Paper's video paper page
     
   Scenario: Owner removes the shared user of 'Generic Video Paper'
     Given I am a user logged in as "test_user@velir.com"
+    And my video paper "Generic Video Paper" is shared with "test_user@velir.com"
     When I go to my video papers page
     When I follow "Sharing" within "#generic-video-paper"
     Then I should see "Shared With"

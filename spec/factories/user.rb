@@ -3,11 +3,12 @@ Factory.sequence :user_email do |e|
 end
 
 Factory.define :user do |u|
-  u.first_name  "Bob"
-  u.last_name  "Smith" 
+  u.first_name  "Robert"
+  u.last_name  "Bobberson" 
   u.email {Factory.next(:user_email)}
   u.password "funstuff"
   u.password_confirmation "funstuff"
+  u.after_create { |u| u.confirm! }
 end
 
 Factory.define :admin do |a|
@@ -16,4 +17,5 @@ Factory.define :admin do |a|
   a.email {Factory.next(:user_email)}
   a.password "funstuff"
   a.password_confirmation "funstuff"
+  a.after_create { |u| u.confirm! }
 end

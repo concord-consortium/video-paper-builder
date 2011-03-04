@@ -10,9 +10,9 @@ Feature:
       | test_user@velir.com         | funstuff | user  |
       | sharing_user@velir.com      | funstuff | user  |
       
-    Given the following video papers
-      | title               | user                |
-      | Generic Video Paper | test_user@velir.com |
+    Given the following video papers with videos
+      | title               | user                | status    |
+      | Generic Video Paper | test_user@velir.com | published |
       
   Scenario: As a shared user, I should not be able to access the timing actions.
     Given I am a user logged in as "test_user@velir.com"
