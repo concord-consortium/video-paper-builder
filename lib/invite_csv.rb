@@ -12,7 +12,7 @@ module InviteCSV
         name[0] = name[0] + " " + name[1]
         name[1] = name[2]
       end
-      invite_user({:first_name => name[0], :last_name => name[1], :email => row[1] }, nil)
+      invite_user({:first_name => name[0], :last_name => name[1], :email => row[1] }, paper)
     }
   end
   
@@ -20,7 +20,7 @@ module InviteCSV
   def self.invite_user(attribs, paper)
     u = User.send_invitation(attribs)
     if u.errors.empty?
-      paper << u if paper
+      paper.users << u if paper
     else
       puts "problem with #{u}"
     end
