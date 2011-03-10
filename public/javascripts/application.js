@@ -229,6 +229,11 @@ VPB = {
 		},
 		handleEdit:function(event) {
 			// get current tab
+			if($j.browser.msie) {
+			  alert("Editing is not supported in Internet Explorer.  Please use Firefox, Chrome, or Safari instead");
+			  return false;
+			}
+
 			var currentTabIndex = undefined;
 			$j('#tabs .tab').each(function(idx,el) {
 				if($j(el).hasClass('ui-tabs-selected')) {
