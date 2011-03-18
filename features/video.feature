@@ -32,3 +32,9 @@ Feature:
     And I fake upload the test video
     And press "Upload video"
     Then I should be on Generic Video Paper's video paper page
+
+  Scenario: Private video shows as private
+    Given I am a user logged in as "test_user@velir.com"
+    And a published video paper named "Private Video" with a private video
+    And I go to the Private Video's edit video page
+    Then the "video_private_true" checkbox should be checked
