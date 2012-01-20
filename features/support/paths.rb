@@ -21,6 +21,8 @@ module NavigationHelpers
       '/admins/confirmation?confirmation_token=' + Admin.find_by_email($1).confirmation_token.to_s
     when /the admin sign out page/
       '/admins/sign_out'
+    when /the admin console/
+      '/admin_console'
     #USERS
     when /the user sign in page/
       '/users/sign_in'

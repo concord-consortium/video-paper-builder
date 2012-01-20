@@ -26,3 +26,15 @@ Then /^I should be able to create an administrator$/ do
   fill_in 'Password confirmation', :with=>"funstuff"
   click_button 'Sign up'
 end
+
+Then /^I should see a list of admin and regular users$/ do
+  all_users = Admin.find(:all) + User.find(:all)
+  all_users.each do | user |
+    if(user == @current_admin)
+      page.should have_content("This is you.")
+    else
+      page.should have_content(user.email)
+    end
+  end
+end
+
