@@ -1162,6 +1162,7 @@ h2{color: #878787; font-size: 1.833em; margin-bottom: 1em;}
 #inner_container .create_screen .right_details .content{float:left; width:180px;}
 #inner_container .create_screen .right_details .content h3{float:left; width:100%; color:#868686; font:16px/17px Georgia, 'Times New Roman', Times, serif;}
 #inner_container .create_screen .right_details .content p{float:left; width:100%; font-size:12px;line-height:17px; color:#5f5f5f; padding:7px 0}
+#inner_container .create_screen .right_details .sidebar-list{clear: both; list-style:none; padding-top:5px;}
 
 
 
