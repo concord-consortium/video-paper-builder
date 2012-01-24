@@ -1162,7 +1162,9 @@ h2{color: #878787; font-size: 1.833em; margin-bottom: 1em;}
 #inner_container .create_screen .right_details .content{float:left; width:180px;}
 #inner_container .create_screen .right_details .content h3{float:left; width:100%; color:#868686; font:16px/17px Georgia, 'Times New Roman', Times, serif;}
 #inner_container .create_screen .right_details .content p{float:left; width:100%; font-size:12px;line-height:17px; color:#5f5f5f; padding:7px 0}
-#inner_container .create_screen .right_details .sidebar-list{clear: both; list-style:none; padding-top:5px;}
+#inner_container .create_screen .right_details .sidebar-list{clear:both;list-style:none;padding-top:5px;}
+#inner_container .create_screen .right_details #help-links{color:#999;}
+#inner_container .create_screen .right_details #help-links li{margin-bottom:10px;}
 
 
 
@@ -1360,6 +1362,12 @@ h2{color: #878787; font-size: 1.833em; margin-bottom: 1em;}
 #add_classroom_notes input.save{float:right; width:95px; background:url(../images/save_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:5px 0; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:0 0 0 7px; display:inline; cursor:pointer}
 #add_classroom_notes input.discard{float:right; width:66px; background:url(../images/discard_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:5px 0; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:0 0 0 7px; display:inline; cursor:pointer}
 
+/* help video pages */
+body.help {background:#fff;}
+body.help #wrapper {text-align:center;}
+body.help #wrapper h1 {margin:20px 0 10px;text-align:center;}
+body.help #wrapper p {margin:10px 0 20px;text-align:center;}
+body.help #video {background:#ccc;height:549px;margin:0 auto;padding:10px;width:853px;}
 
 /* Notifications */
 .jnotify-item

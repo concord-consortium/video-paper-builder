@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png" />
+<title>Uploading Videos - VideoPaper Builder Help</title>
+<link href="/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
+</head>  
+<body class="help">
+<div id="wrapper">
+  <h1>Uploading Videos</h1>
+  <p>The free <a href="http://www.apple.com/quicktime/download/" target="_blank" title="Download Quicktime">Quicktime player</a> is required to view this video tutorial. Make sure to turn up your computer's volume so you can hear the instructions. Close this window/tab to return to the authoring page.</p>
+  <div id="video">
+  <object clasid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" width="853" height="549" codebase="http://www.apple.com/qtactivex/qtplugin.cab">
+  <param name="src" value="vpb-getting-started.mov" />
+  <param name="qtsrc" value="vpb-getting-started.mov" />
+  <param name="autoplay" value="true" />
+  <param name="loop" value="false" />
+  <param name="controller" value="true" />
+  <param name="scale" value="tofit" />
+  <embed src="vpb-getting-started.mov" qtsrc="vpb-getting-started.mov" scale="tofit" width="853" height="549" autoplay="true" loop="false" controller="true" pluginspage="http://www.apple.com/quicktime/"></embed>
+  </object>
+  </div>
+  <p id="close"></p>
+</div>
+<script src="/javascripts/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#close').html('<a href="#" onclick="window.close(); return false;">close this window</a>')
+});
+</script>
+</body>
+</html>
