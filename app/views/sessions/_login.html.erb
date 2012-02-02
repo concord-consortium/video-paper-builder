@@ -1,8 +1,12 @@
 <% if user_signed_in? %>
-  <ul>
-    <li>Welcome, <%= current_user.name -%></li>
-    <li><%= link_to 'Logout', '/users/sign_out/',:class=>'logout_btn'%></li>
-  </ul>
+  <div>
+    <ul>
+      <li>
+        <div id="welcome_user">Welcome, <%= current_user.name -%></div>
+        <div id="change_password"><%= link_to 'Change password', edit_user_registration_path%></div>
+      </li>
+      <li><%= link_to 'Logout', '/users/sign_out/',:class=>'logout_btn'%></li>
+    </ul>
   </div>
 <% else %>
   <div class="login_container">

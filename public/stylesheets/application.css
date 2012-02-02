@@ -1003,8 +1003,10 @@ h2{color: #878787; font-size: 1.833em; margin-bottom: 1em;}
 #header{float:left; width:947px;}
 #header .logout{float:left; width:595px; padding-top:50px;}
 #header .logout ul{float:right; width:auto; list-style:none;}
-#header .logout ul li{float:left; width:auto; font:18px/24px Georgia, 'Times New Roman', Times, serif; color:#85b150; padding-left:10px;}
+#header .logout ul li{float:left; width:auto; padding-left:10px;}
 #header .logout ul li a.logout_btn{float:left; width:60px; background:url(../images/logout_btn.gif) no-repeat 0 0; color:#fff; text-decoration:none; height:18px; text-align:center; padding:6px 0 0; text-transform:uppercase; font:bold 10px Arial, Helvetica, sans-serif;}
+#welcome_user {font:18px/24px Georgia, 'Times New Roman', Times, serif; color:#85b150;}
+#change_password {text-align:right;}
 
 
 #menu{float:right; width:auto; background:url(../images/menu_bg.gif) repeat-x 0 0;}

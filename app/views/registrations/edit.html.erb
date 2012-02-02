@@ -1,3 +1,8 @@
+<div class="content_details bg_change">
+  <div class="top_curv">
+    <div class="bottom_curv">
+      <%# hack to deal with some layout issues the css for this site is way to messy %>
+      <div style="margin-left:15px">
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <% form_for resource_name, resource, :url => registration_path(resource_name), :html => { :method => :put } do |f| -%>
@@ -23,3 +28,7 @@
 <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
 
 <%= render :partial => "shared/devise_links" %>
+</div>
+</div>
+</div>
+</div>
