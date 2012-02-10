@@ -7,12 +7,8 @@ module InviteCSV
   # If the name has 3 parts the first 2 will be joined
   def self.invite_list(file_name, paper)
     CSV.foreach(file_name) { |row|
-      name = row[0].split(' ')
-      if name.size == 3
-        name[0] = name[0] + " " + name[1]
-        name[1] = name[2]
-      end
-      invite_user({:first_name => name[0], :last_name => name[1], :email => row[1] }, paper)
+      puts "first_name: #{row[0]} last_name: #{row[1]} email: #{row[2]}"
+      # invite_user({:first_name => row[0], :last_name => row[1], :email => row[2] }, paper)
     }
   end
   
