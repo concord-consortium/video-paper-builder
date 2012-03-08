@@ -209,10 +209,6 @@ WysiHat.Editor = {
 
       editArea._observeEvents();
 
-      if (Prototype.Browser.Gecko) {
-        editArea.execCommand('undo', false, null);
-      }
-
       if (initializer)
         initializer(editArea);
 
