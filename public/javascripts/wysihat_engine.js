@@ -356,10 +356,19 @@ WysiHat.Commands = (function() {
     var document = this.getDocument();
 
     var handler = this.queryCommands.get(state);
+    var result = false;
     if (handler)
       return handler.bind(this)();
-    else
-      return document.queryCommandState(state);
+    else {
+      // Firefox doesn't handle several queryCommandState arguments that wysihat passes
+      try {
+        result = document.queryCommandState(state);
+        return result;
+      } catch(exception) {
+        // not sure what to return here
+        return false;
+      }
+    }
   }
 
 	function getSelectedStyles() {
