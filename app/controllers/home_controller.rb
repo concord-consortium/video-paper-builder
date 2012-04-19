@@ -8,4 +8,8 @@ class HomeController < ApplicationController
     end
   end
 
+  def test_exception
+    raise 'This is a test. This is only a test.'
+  end
+
 end
