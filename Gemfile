@@ -1,8 +1,14 @@
 source :gemcutter
 
 gem 'bundler'
-gem 'mysql'
 gem 'rails', '2.3.12'
+
+if ENV['RB_MYSQL2']
+  gem "mysql2",             "0.2.7"
+else
+  gem "mysql"
+end
+
 gem 'velir_kaltura-ruby', '~> 0.4.3', :require=> 'kaltura'
 gem 'devise', '1.0.7'
 gem 'devise_invitable', '0.2.3'
