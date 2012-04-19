@@ -11,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
     map.login_for_test '/login_for_test/:id', :controller=>'users',:action=>'login_for_test'
   end
 
+  map.video_papers_report '/video_papers/report', :controller=>'video_papers',:action=>'report'
   map.resources :video_papers, :member=> { 
       :share => :get,
       :shared=>:put,:unshare=>:get, 

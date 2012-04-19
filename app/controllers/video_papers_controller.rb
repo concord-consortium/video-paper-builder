@@ -3,13 +3,29 @@ class VideoPapersController < ApplicationController
   before_filter :authenticate_user!, :only=>[:new,:create]
   before_filter :authenticate_owner!, :only=>[:edit,:edit_section,:update,:update_section,:share,:edit_section_duration,:update_setion_duration,:publish,:unpublish,:destroy]
   before_filter :authenticate_shared!, :only=>[:show]
-  before_filter :authenticate_admin!, :only=>[:index]
+  before_filter :authenticate_admin!, :only=>[:index, :report]
   helper_method :owner_or_admin?
   helper_method :owner?
   
   def index
       order_by = VideoPaper.order_by(params[:order_by])
       @video_papers = VideoPaper.find(:all,:order=>order_by).paginate :page=>params[:page], :per_page=>10
+  end
+  
+  # report that can be pasted from html to google docs
+  def report
+    rows = [["id", "title", "paper update time", "author", "paper status",  "video update time", "video length", 
+       "video private?", "shared with" ]]
+    VideoPaper.all.each{|paper| 
+      rows << [
+        paper.id, paper.title, paper.updated_at, paper.user.name, paper.status,
+        paper.video ? paper.video.updated_at : "",
+        paper.video ? paper.video.duration : "",
+        paper.video ? paper.video.private : "",
+        paper.users.map{|u|u.name}.join(', ')
+        ]
+    }
+    render :text => rows.map{|row|row.join("\t")}.join("<br>")
   end
   
   def my_video_papers
