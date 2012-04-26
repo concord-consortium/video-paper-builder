@@ -22,6 +22,9 @@ gem 'nokogiri'
 gem 'xpath'
 gem 'exception_notification', '2.3.3.0'
 
+group :development do
+  gem 'ruby-debug'
+end
 
 group :test do
   gem 'capybara', :git=>"git://github.com/jnicklas/capybara.git"
