@@ -3,8 +3,17 @@
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+# not sure why this is needed
+require 'exception_notification'
+
 ENV['GMAIL_SMTP_USER'] = 'videopaperbuilder@gmail.com'
 ENV['GMAIL_SMTP_PASSWORD'] = 'funstuff'
+ExceptionNotification::Notifier.exception_recipients = ['scytacki@concord.org']
+ExceptionNotification::Notifier.sender_address = %("Application Error" <#{ENV['GMAIL_SMTP_USER']}>)
+# this is a hack to fix an issue of ExceptionNotification and ActionMailer: 
+#  https://rails.lighthouseapp.com/projects/8994/tickets/2031
+ExceptionNotification::Notifier.view_paths = ActionView::Base.process_view_paths(ExceptionNotification::Notifier.view_paths)
+
 Rails::Initializer.run do |config|
   config.gem 'wysihat-engine'
   # Settings in config/environments/* take precedence over those specified here.

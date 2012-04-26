@@ -20,6 +20,8 @@ gem 'will_paginate'
 gem 'capistrano-ext'
 gem 'nokogiri'
 gem 'xpath'
+gem 'exception_notification', '2.3.3.0'
+
 
 group :test do
   gem 'capybara', :git=>"git://github.com/jnicklas/capybara.git"
