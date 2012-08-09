@@ -1,4 +1,4 @@
-source :gemcutter
+source "http://rubygems.org"
 
 gem 'bundler'
 gem 'rails', '2.3.12'
