@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
 gem 'bundler'
-gem 'rails', '2.3.12'
+gem 'rails', '2.3.15'
 
 if ENV['RB_MYSQL2']
   gem "mysql2",             "0.2.7"
