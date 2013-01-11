@@ -27,10 +27,10 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', :git=>"git://github.com/jnicklas/capybara.git"
+  gem 'capybara', "1.1.1"
   gem 'database_cleaner'
-  gem 'cucumber-rails'
-  gem 'cucumber'
+  gem 'cucumber-rails', "0.3.2"
+  gem 'cucumber', "1.1.0"
   gem 'rspec' , '~>1.3.0'
   gem 'rspec-rails', '~>1.3.0'
   gem 'spork'
