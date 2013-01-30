@@ -53,7 +53,7 @@ VPB.video = true;
           </div>
           <% @video_paper.sections.each_with_index do |section, index| %>
             <div class="tab_content" id="<%= dom_friend :id => section.title %>">
-              <% form_for section, :url => update_section_video_paper_path(@video_paper) do |f| %>
+              <%= form_for section, :url => update_section_video_paper_path(@video_paper) do |f| %>
                 <div class="into_content">
                   <div class="section-content content-border">
                     <%=section.content %>

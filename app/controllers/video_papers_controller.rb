@@ -9,7 +9,7 @@ class VideoPapersController < ApplicationController
   
   def index
       order_by = VideoPaper.order_by(params[:order_by])
-      @video_papers = VideoPaper.find(:all,:order=>order_by).paginate :page=>params[:page], :per_page=>10
+      @video_papers = VideoPaper.order(order_by).page(params[:page]).per_page(10)
   end
   
   # report that can be pasted from html to google docs

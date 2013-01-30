@@ -1,0 +1,22 @@
+<div class="content_details bg_change">
+  <div class="top_curv">
+    <div class="bottom_curv">  
+      <div class="admin_panel">
+        <h2>Send an invitation</h2>
+
+<%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
+  <%= devise_error_messages! %>
+
+<% resource.class.invite_key_fields.each do |field| -%>
+  <p><%= f.label field %></p>
+  <div class="input_bg">
+    <p><%= f.text_field field %></p>
+  </div>
+<% end -%>
+
+  <p><%= f.submit "Invite", :class=>"login_btn" %></p>
+<% end %>
+      </div>
+    </div>
+  </div>
+</div>

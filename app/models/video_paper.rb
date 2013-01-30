@@ -1,4 +1,6 @@
 class VideoPaper < ActiveRecord::Base
+  attr_accessible :title
+
   #Class variables
   @@per_page = 5
   
@@ -24,11 +26,12 @@ class VideoPaper < ActiveRecord::Base
   after_create :construct_video_paper_sections
 
   ###################################
-  # Named Scopes
+  # Scopes
   ###################################
-  named_scope :owned_by, lambda { |owner| 
-    { :conditions => { :owner_id => owner.id}}
-  }
+  # this is the preferred method for doing a scope that takes an argument
+  def self.owned_by(owner)
+    where({:owner_id => owner.id})
+  end
   
   ##################################
   # instance methods
@@ -110,7 +113,7 @@ protected
   def construct_video_paper_sections
     logger.debug("\nConstructing sections for video paper id: #{self.id.to_s} \n\n")
     
-    Settings.sections.each do |section_setting|
+    ::Settings.sections.each do |section_setting|
       section = Section.new
       section.video_paper = self
       section.title = section_setting[1]["title"]

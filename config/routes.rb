@@ -1,35 +1,37 @@
-ActionController::Routing::Routes.draw do |map|
-  map.resources :wysihat_files
+VPB::Application.routes.draw do
+  resources :wysihat_files
 
-  map.admin_console '/admin_console', :controller=>'admins',:action=>"index"
-  map.admin_accept_user_invitation '/admin_accept_user_invitation', :controller=>'admins', :action=>"accept_user_invitation"
-  map.my_video_papers '/my_video_papers', :controller=>'video_papers',:action=>'my_video_papers'
-  map.shared_video_papers '/my_shared_video_papers', :controller=>'video_papers',:action=>'shared_video_papers'
-  map.test_excpetion '/test_exception', :controller=>'home',:action=>"test_exception"
+  match 'admin_console' => 'admins#index'
+  match 'admin_accept_user_invitation' => 'admins#accept_user_invitation'
+  match 'my_video_papers' => 'video_papers#my_video_papers'
+  match 'shared_video_papers' => 'video_papers#shared_video_papers'
+  match 'test_exception' => 'home#test_exception'
 
   if Rails.env=="cucumber"
-    map.login_for_test '/login_for_test/:id', :controller=>'users',:action=>'login_for_test'
+    # check if the name of this is login_for_test???
+    match 'login_for_test/:id' => 'users#login_for_test'
   end
 
-  map.video_papers_report '/video_papers/report', :controller=>'video_papers',:action=>'report'
-  map.resources :video_papers, :member=> { 
-      :share => :get,
-      :shared=>:put,:unshare=>:get, 
-      :edit_section => :get, 
-      :update_section => :put,
-      :edit_section_duration => :get,
-      :update_section_duration => :put,
-      :publish => :get,
-      :unpublish =>:get
-    } do |video_paper|
-    video_paper.resources :videos
+  match 'video_papers/report' => 'video_papers#report'
+  resources :video_papers do
+    member do
+      get 'share'
+      get 'unshare'
+      get 'edit_section'
+      put 'update_section'
+      get 'edit_section_duration'
+      put 'update_section_duration'
+      get 'publish'
+      get 'unpublish'
+    end
+    resources :videos
   end
 
-  map.devise_for :users
-  map.devise_for :admins
-  map.root :controller => "home"
-  map.resources :admins
-  map.resources :users
+  devise_for :users
+  devise_for :admins
+  root :to => 'home#index'
+  resources :admins
+  resources :users
 
   #map.connect ':controller/:action/:id'
   #map.connect ':controller/:action/:id.:format'

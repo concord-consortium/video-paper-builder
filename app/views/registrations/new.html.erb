@@ -4,7 +4,7 @@
       <div class="admin_panel">
         <h2>Sign up</h2>
         <fieldset>
-        <% form_for resource_name, resource, :url => registration_path(resource_name) do |f| -%>
+        <%= form_for resource_name, resource, :url => registration_path(resource_name) do |f| -%>
           <%= f.error_messages %>
 
         	<p><%= f.label :first_name %></p>

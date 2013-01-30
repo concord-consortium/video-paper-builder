@@ -8,7 +8,6 @@
   <%= javascript_include_tag 'libs' %>
   <%= javascript_include_tag 'kaltura_upload' %> 
   <%= javascript_include_tag 'effects' %>
-  <%= javascript_include_tag 'wysihat_engine' %>
   <%= javascript_include_tag 'application' %>
   <!--[if IE 6]>
   <script type="text/javascript" src="/javascripts/jq-png-min.js"></script>
@@ -53,19 +52,19 @@
         <% if admin_signed_in? %>  
           <div class="tabs">
             <ul>
-              <%= content_tag :li, link_to("<span>Admin Console</span>",admin_console_path) %>
-              <%= content_tag :li, link_to("<span>Invite a new user</span>", new_user_invitation_path) %>
-              <%= content_tag :li, link_to("<span>Invite a new admin</span>",new_admin_invitation_path) %>
-              <%= content_tag :li, link_to("<span>All Video Papers</span>",video_papers_path) %>
-              <%= content_tag :li, link_to("<span>Admin Logout</span>",destroy_admin_session_path) %>              
+              <%= content_tag :li, link_to(raw("<span>Admin Console</span>"),admin_console_path) %>
+              <%= content_tag :li, link_to(raw("<span>Invite a new user</span>"), new_user_invitation_path) %>
+              <%= content_tag :li, link_to(raw("<span>Invite a new admin</span>"),new_admin_invitation_path) %>
+              <%= content_tag :li, link_to(raw("<span>All Video Papers</span>"),video_papers_path) %>
+              <%= content_tag :li, link_to(raw("<span>Admin Logout</span>"),destroy_admin_session_path) %>              
             </ul>
           </div>
         <% elsif user_signed_in? %>
           <div class="tabs">
             <ul>
-              <%= content_tag :li, link_to("<span>Authoring</span>", new_video_paper_path),:class=>is_active?("new") || is_active?("edit")%>
-              <%= content_tag :li, link_to("<span>My VideoPapers</span>",my_video_papers_path),:class=>( is_active?("my_video_papers") || my_paper?)%>
-              <%= content_tag :li, link_to("<span>Shared With Me</span>",shared_video_papers_path),:class=>(is_active?("shared_video_papers") || shared_paper?)%>
+              <%= content_tag :li, link_to(raw("<span>Authoring</span>"), new_video_paper_path),:class=>is_active?("new") || is_active?("edit")%>
+              <%= content_tag :li, link_to(raw("<span>My VideoPapers</span>"),my_video_papers_path),:class=>( is_active?("my_video_papers") || my_paper?)%>
+              <%= content_tag :li, link_to(raw("<span>Shared With Me</span>"),shared_video_papers_path),:class=>(is_active?("shared_video_papers") || shared_paper?)%>
             </ul>
           </div>
         <% end %>

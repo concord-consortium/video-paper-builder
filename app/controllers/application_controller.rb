@@ -2,13 +2,18 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  include ExceptionNotification::Notifiable
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   protected
+
+  # this is used so only admins can send invites
+  def authenticate_inviter!
+    authenticate_admin!(:force => true)
+  end
+
   def authenticate_resource!
     authenticate_admin!
   end

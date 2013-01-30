@@ -16,7 +16,7 @@
   <div class="top_curv">
     <div class="bottom_curv">
       <div class="upload_video">
-        <% form_for [@video_paper, @video],:html => { :multipart => true } do |f| %>
+        <%= form_for [@video_paper, @video],:html => { :multipart => true } do |f| %>
           <fieldset>
           <div class="left_details">
             <div class="creat_video_details">

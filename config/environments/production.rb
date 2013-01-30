@@ -28,3 +28,11 @@ config.action_view.cache_template_loading            = true
 # config.threadsafe!
 
 config.action_mailer.default_url_options = { :host => 'vpb.concord.org' }
+
+
+# this is the way to do exception notification now in Rails 3
+config.middleware.use ExceptionNotifier,
+  :email_prefix => "[Exception] ",
+  :sender_address => %{"Exception Notifier" <support@example.com>},
+  :exception_recipients => %w{you@me.com}
+
