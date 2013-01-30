@@ -21,6 +21,7 @@ gem 'capistrano-ext'
 gem 'nokogiri'
 gem 'xpath'
 gem 'exception_notification', '2.3.3.0'
+gem 'rdoc'
 
 group :development do
   gem 'ruby-debug'
