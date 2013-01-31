@@ -8,7 +8,9 @@ module KalturaUtil
     temp_filter = Kaltura::Filter::BaseFilter.new
     pager = Kaltura::FilterPager.new
     pager.page_size = 100000
-    test_video = KalturaFu.client.media_service.list(temp_filter,pager).objects.map!{|c| c if c.categories == 'cucumber'}.compact!.last
+    objects = KalturaFu.client.media_service.list(temp_filter,pager).objects
+    puts "found #{objects.size} videos"
+    test_video = objects.map!{|c| c if c.categories == 'test'}.compact!.last
     @video_id = test_video.id
   end
 end
