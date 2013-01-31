@@ -1,1 +1,0 @@
-require 'kaltura_util'
