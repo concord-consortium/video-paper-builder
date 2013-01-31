@@ -15,6 +15,8 @@ Feature:
 	  Then I should be on the admin sign in page
 	  And I should see "You need to sign in or sign up before continuing"
 
+  # the user signup page is not blocked yet
+  @wip
   Scenario: An unauthenticated user tries to create another user
     Given I am not logged in
     When I go to the user sign up page

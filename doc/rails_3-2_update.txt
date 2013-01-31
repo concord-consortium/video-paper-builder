@@ -1,0 +1,2 @@
+- need to add invitable fields to admin, since they are invited as well and will crash otherwise
+- the user signup page is not blocked yet
