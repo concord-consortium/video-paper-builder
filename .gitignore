@@ -9,3 +9,4 @@ public/system/*
 public/.DS_Store
 tmp/*
 .rvmrc
+bin/*
