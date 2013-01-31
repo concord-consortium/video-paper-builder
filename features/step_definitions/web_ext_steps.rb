@@ -18,3 +18,7 @@ When /^(?:|I )debug$/ do
   debugger
   0
 end
+
+Then /^I wait (\d+) seconds$/ do |seconds|
+  sleep seconds.to_i
+end
