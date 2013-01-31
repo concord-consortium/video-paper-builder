@@ -97,7 +97,7 @@ module KalturaFu
       	};
 
       	swfobject.embedSWF(\"#{service_url}/kwidget/wid/_#{KalturaFu.config[:partner_id]}" + player_conf_parameter + "\",\"#{options[:div_id]}\",\"#{width}\",\"#{height}\",\"9.0.0\",false,flashVars,params,attributes);
-      </script>"
+      </script>".html_safe
     end
     
     def kaltura_upload_embed(options={})
@@ -133,7 +133,7 @@ module KalturaFu
     		};
 
         swfobject.embedSWF(\"#{service_url}/kupload/ui_conf_id/1727879\", \"uploader\", \"160\", \"26\", \"9.0.0\", \"expressInstall.swf\", flashVars, params,attributes);
-    	</script>"
+    	</script>".html_safe
     end
     
     def kaltura_contributor_embed(options={})

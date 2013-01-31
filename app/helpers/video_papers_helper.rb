@@ -15,7 +15,7 @@ module VideoPapersHelper
         end
       end
     else
-      "<div class=\"no-video\"></div>"
+      "<div class=\"no-video\"></div>".html_safe
     end
   end
 
