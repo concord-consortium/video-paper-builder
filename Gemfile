@@ -34,8 +34,8 @@ group :test do
   gem "rspec",              "~> 2.11.0"
   gem "rspec-rails",        "~> 2.11.0"
   gem "factory_girl_rails", "~> 4.0"
+  gem 'launchy'
 #   gem 'spork'
-#   gem 'launchy'
 #   gem 'autotest-rails'
 #   gem 'redgreen'
 end
