@@ -11,8 +11,6 @@ class VideosController < ApplicationController
   
   def new
     @video = Video.new
-    # this shoudl be set as the default on the model
-    @video.language = Language.find_by_code('en')
     # make videos public by default because of confusing UI
     @video.private = false
     KalturaFu.generate_session_key

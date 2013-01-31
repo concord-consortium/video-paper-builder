@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130131020356) do
+ActiveRecord::Schema.define(:version => 20130131032842) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                              :default => "", :null => false
@@ -40,13 +40,6 @@ ActiveRecord::Schema.define(:version => 20130131020356) do
   add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
   add_index "admins", ["invitation_token"], :name => "index_admins_on_invitation_token"
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
-
-  create_table "languages", :force => true do |t|
-    t.string   "name"
-    t.string   "code"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "sections", :force => true do |t|
     t.string   "title"
@@ -113,7 +106,6 @@ ActiveRecord::Schema.define(:version => 20130131020356) do
     t.integer  "video_paper_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "language_id"
     t.string   "thumbnail_file_name"
     t.string   "thumbnail_content_type"
     t.integer  "thumbnail_file_size"

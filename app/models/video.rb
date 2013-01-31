@@ -1,5 +1,5 @@
 class Video < ActiveRecord::Base
-    attr_accessible :private, :thumbnail_time, :entry_id, :language_id
+    attr_accessible :private, :thumbnail_time, :entry_id
     # Constants
     COMPLEX_SECONDS_PATTERN = /^(([0-1]?[0-9])|([2][0-3])):([0-5]?[0-9])(:([0-5]?[0-9]))?$/
     SIMPLE_SECONDS_PATTERN = /(^-?\d\d*$)/
@@ -15,14 +15,12 @@ class Video < ActiveRecord::Base
     # Associations
     ###################################
     belongs_to :video_paper
-    belongs_to :language
   
     ###################################
     # Validations
     ###################################
     #validates_presence_of :description
     validates_presence_of :entry_id, :message=>"You need to upload a video."
-    validates_presence_of :language_id
     validates_inclusion_of :private, :in=>[true,false]
     validates_uniqueness_of :video_paper_id
     #validates_length_of :description, :maximum=>500

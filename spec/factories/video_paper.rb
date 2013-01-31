@@ -13,5 +13,4 @@ Factory.define :video do |v|
   v.association :video_paper
   v.description "this is an awesome description"
   v.private false
-  v.language {Language.find_by_code('en')}
 end
