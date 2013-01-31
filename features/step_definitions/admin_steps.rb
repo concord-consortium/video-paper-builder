@@ -1,12 +1,12 @@
 Then /^I should not be able to invite an admin$/ do  
-  Given "I am on the admin sign in page"
+  step "I am on the admin sign in page"
   page.should_not have_content('Send invitation')
   page.should have_content('Sign in')
 end
 
 
 Then /^I should not be able to create an administrator$/ do
-  Given "I am on the admin sign up page"
+  step "I am on the admin sign up page"
   page.should have_content('You need to sign in or sign up before continuing.')
   page.should have_content('Sign in')
 end
