@@ -1,5 +1,6 @@
 class SharedPaper < ActiveRecord::Base
-  
+  attr_accessible :user_id, :notes
+
   ###################################
   # Associations
   ###################################
