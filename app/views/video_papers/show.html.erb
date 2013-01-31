@@ -24,7 +24,6 @@ VPB.video = true;
         </h2>
         <div class="produced_content">
           <p>Produced by <%=h @video_paper.user.name%>, <%= @video_paper.format_created_date %></p>
-          <%= render :partial=>'video_information'%>  
           <% if @video_paper.video.nil? %>
             <div class="no-video"></div>
           <% else %>
