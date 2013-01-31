@@ -4,7 +4,7 @@ VPB::Application.routes.draw do
   match 'admin_console' => 'admins#index'
   match 'admin_accept_user_invitation' => 'admins#accept_user_invitation'
   match 'my_video_papers' => 'video_papers#my_video_papers'
-  match 'shared_video_papers' => 'video_papers#shared_video_papers'
+  match 'my_shared_video_papers' => 'video_papers#shared_video_papers', :as => :shared_video_papers
   match 'test_exception' => 'home#test_exception'
 
   if Rails.env.test?
