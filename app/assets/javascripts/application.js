@@ -1,5 +1,8 @@
 //= require jquery
 //= require jquery_ujs
+//= require libs
+//= require kaltura_upload
+//= require effects
 
 var VPB = VPB || {};
 
