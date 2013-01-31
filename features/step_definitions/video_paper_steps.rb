@@ -4,7 +4,7 @@ Then /^I create a new video paper named "([^\"]*)"$/ do |title|
 end
 
 When /^I edit the video paper title named "([^\"]*)"$/ do |title|
-  When "I go to #{title}'s video paper edit page"
+  step "I go to #{title}'s video paper edit page"
   fill_in "video_paper_title", :with => "Updated #{title}"
   click_button "Enter in notes"
 end
@@ -22,8 +22,8 @@ When /^I pre-confirm$/ do
 end
 
 Then /^I destroy video paper named "([^\"]*)"$/ do |title|
-  When "I go to my video papers page"
-  Then "I pre-confirm"
+  step "I go to my video papers page"
+  step "I pre-confirm"
   click_link_or_button("Remove")
 end
 

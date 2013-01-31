@@ -7,7 +7,7 @@ VPB::Application.routes.draw do
   match 'shared_video_papers' => 'video_papers#shared_video_papers'
   match 'test_exception' => 'home#test_exception'
 
-  if Rails.env=="cucumber"
+  if Rails.env.test?
     # check if the name of this is login_for_test???
     match 'login_for_test/:id' => 'users#login_for_test'
   end
@@ -16,6 +16,7 @@ VPB::Application.routes.draw do
   resources :video_papers do
     member do
       get 'share'
+      put 'shared'
       get 'unshare'
       get 'edit_section'
       put 'update_section'
