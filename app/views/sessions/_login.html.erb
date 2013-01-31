@@ -8,7 +8,7 @@
       <li><%= link_to 'Logout', '/users/sign_out/',:class=>'logout_btn'%></li>
     </ul>
   </div>
-<% elsif @user && !@user.invited? %>
+<% elsif @user && !@user.invited_to_sign_up? %>
   <div class="login_container">
     <label>Login:</label>
     <%= form_for @user, :method => 'post', :url => user_session_path do |f| -%>
