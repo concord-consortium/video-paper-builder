@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   end
   
   def generate_reset_password_token!
-    generate_reset_password_token && save(false)
+    generate_reset_password_token && save(:validate => false)
     self.reset_password_token
   end
   
