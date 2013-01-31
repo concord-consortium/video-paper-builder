@@ -2,3 +2,5 @@
 - the user signup page is not blocked yet
 - see if we can remove prototype and then get rid of $ -> $j mapping
 - clean up 'unshare' so it uses the built in rails UJS support
+    it does use a javascript view, but it should also use a link_to :remote=>true
+- need to disable admin registration
