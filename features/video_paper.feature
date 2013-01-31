@@ -41,6 +41,7 @@ Feature:
     When I go to the new video paper page
     Then I should see "Create a New Video Paper"
     
+  @javascript
   Scenario: Normal user creates a video paper
     Given I am a user logged in as "test_user@velir.com"
     When I go to the new video paper page
@@ -49,6 +50,7 @@ Feature:
     Then I should see "VideoPaper 'Fake Title' was successfully created."
     Then I destroy video paper named "Fake Title"
   
+  @javascript
   Scenario: Normal user edits video paper
     Given I am a user logged in as "test_user@velir.com"
     Given a video paper named "Fake Edit Title"
@@ -56,6 +58,7 @@ Feature:
     Then I should see "VideoPaper was successfully updated."
     Then I destroy video paper named "Updated Fake Edit Title"
     
+  @javascript
   Scenario: Normal user destroys video paper
     Given I am a user logged in as "test_user@velir.com"
     When I go to the new video paper page
