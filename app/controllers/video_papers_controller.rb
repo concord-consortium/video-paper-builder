@@ -166,11 +166,7 @@ class VideoPapersController < ApplicationController
     end
     
     respond_to do |format|
-      format.js do 
-        render :update do |page|
-          page.replace_html("shared_user_block",:partial=>"shared_users",:object=>@shared_users)
-        end
-      end
+      format.js
     end
   end
   

@@ -4,7 +4,7 @@
     <div id="shared_user_block">
       <%= render :partial=> "shared_users" %>
     </div>
-    <% remote_form_for @share,:url=>shared_video_paper_path(@video_paper),:html=>{:method=>"put"} do |f| %>
+    <%= form_for @share,:url=>shared_video_paper_path(@video_paper),:html=>{:method=>"put"},:remote=>true do |f| %>
       <fieldset>
       <div>
         <div class="close"><a href="#" onclick="javascript:parent.$j.fancybox.close();"><img src="/images/clear.gif" alt="" /></a></div>
