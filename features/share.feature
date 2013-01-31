@@ -19,6 +19,7 @@ Feature:
     When I go to Generic Video Paper's video paper page
     Then I should be on the new video paper page
 
+  @javascript
   Scenario: Owner of 'Generic Video Paper' shares it to 'sharing_user@velir.com'
     Given I am a user logged in as "test_user@velir.com"
     When I go to my video papers page
@@ -28,8 +29,6 @@ Feature:
       | shared_paper_user_id | sharing_user@velir.com  |
       | shared_paper_notes | I like beets |
     Then I press "Share"
-    And I should be on my video papers page
-    Then I follow "Sharing" within "#generic-video-paper"
     Then I should see "Shared With:"
     And I should see "sharing_user@velir.com"
     
