@@ -28,12 +28,12 @@ Then /^I destroy video paper named "([^\"]*)"$/ do |title|
 end
 
 Given /^a video paper named "([^\"]*)"$/ do |title|
-  paper = Factory(:video_paper, :title => title, :user => @current_user, :status => "unpublished")
+  paper = FactoryGirl.create(:video_paper, :title => title, :user => @current_user, :status => "unpublished")
 end
 
 Given /^a published video paper named "([^"]*)" with a private video$/ do |title|
-  paper = Factory(:video_paper, :title => title, :user => @current_user, :status => "published")
-  video = Factory(:video, :video_paper => paper, :private => true)
+  paper = FactoryGirl.create(:video_paper, :title => title, :user => @current_user, :status => "published")
+  video = FactoryGirl.create(:video, :video_paper => paper, :private => true)
 end
 
 Given /^the video paper "([^"]*)" is shared with me$/ do |title|
@@ -49,14 +49,14 @@ end
 
 Given /^the following video papers$/ do |table|
   table.hashes.each do |row|
-    paper = Factory(:video_paper, :title => row["title"], :user => User.find_by_email(row["user"]), :status => row["status"])
+    paper = FactoryGirl.create(:video_paper, :title => row["title"], :user => User.find_by_email(row["user"]), :status => row["status"])
   end
 end
 
 Given /^the following video papers with videos$/ do |table|
   table.hashes.each do |row|
-    paper = Factory(:video_paper, :title => row["title"], :user => User.find_by_email(row["user"]), :status => row["status"])
-    video = Factory(:video, :video_paper => paper)
+    paper = FactoryGirl.create(:video_paper, :title => row["title"], :user => User.find_by_email(row["user"]), :status => row["status"])
+    video = FactoryGirl.create(:video, :video_paper => paper)
   end
 end
 

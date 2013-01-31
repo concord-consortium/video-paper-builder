@@ -3,8 +3,8 @@ require 'spec_helper'
 describe SharedPaper do
   before(:each) do
     @valid_attributes = {
-      :video_paper_id => Factory.create(:video_paper).id,
-      :user_id => Factory.create(:user).id,
+      :video_paper_id => FactoryGirl.create(:video_paper).id,
+      :user_id => FactoryGirl.create(:user).id,
       :notes=>"I like beets."
     }
   end
@@ -16,8 +16,8 @@ describe SharedPaper do
   
   it "shouldn't require a note" do
     valid_attributes = {
-      :video_paper_id => Factory.create(:video_paper).id,
-      :user_id => Factory.create(:user).id
+      :video_paper_id => FactoryGirl.create(:video_paper).id,
+      :user_id => FactoryGirl.create(:user).id
     }
     
     paper = SharedPaper.new(valid_attributes)
@@ -26,7 +26,7 @@ describe SharedPaper do
   
   it "should require a paper ID" do
     invalid_attributes = {
-      :user_id => Factory.create(:user).id,
+      :user_id => FactoryGirl.create(:user).id,
       :notes=>"I will not work yo."
     }
     
@@ -36,7 +36,7 @@ describe SharedPaper do
   
   it "should require a user ID" do
     invalid_attributes = {
-      :video_paper_id => Factory.create(:video_paper).id,
+      :video_paper_id => FactoryGirl.create(:video_paper).id,
       :notes => "This will not work either."
     }
     paper = SharedPaper.new(invalid_attributes)
@@ -52,7 +52,7 @@ describe SharedPaper do
   
   it "shouldn't save a share of a user_id that doesn't exist" do
     invalid_attributes = {
-      :video_paper_id => Factory.create(:video_paper).id,
+      :video_paper_id => FactoryGirl.create(:video_paper).id,
       :user_id=> 'waffles are fantastical'
     }
     paper = SharedPaper.new(invalid_attributes)

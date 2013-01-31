@@ -1,16 +1,18 @@
-Factory.sequence :vp_title do |t|
-  "Test Title: #{t}"
-end
+FactoryGirl.define do
+  sequence :vp_title do |t|
+    "Test Title: #{t}"
+  end
 
-# status == "published" | "unpublished"
-Factory.define :video_paper do |vp|
-  vp.title {Factory.next(:vp_title)}
-  vp.association :user
-end
+  # status == "published" | "unpublished"
+  factory :video_paper do
+    title {Factory.next(:vp_title)}
+    association :user
+  end
 
-Factory.define :video do |v|
-  v.entry_id { KalturaUtil.find_test_video_id }
-  v.association :video_paper
-  v.description "this is an awesome description"
-  v.private false
+  factory :video do
+    entry_id { KalturaUtil.find_test_video_id }
+    association :video_paper
+    description "this is an awesome description"
+    private false
+  end
 end

@@ -15,7 +15,7 @@ Given /^the following user records$/ do |table|
   table.hashes.each do |row|
     if row["role"] == "admin"
       @admins << {:email=>row["email"]}
-      Factory(:admin, :email=>row["email"])
+      FactoryGirl.create(:admin, :email=>row["email"])
     elsif row["role"] == "user"
       @users << {:email=>row["email"]}
 
@@ -26,9 +26,9 @@ Given /^the following user records$/ do |table|
       end
 
       if confirmed
-        Factory(:user, :email=>row["email"])
+        FactoryGirl.create(:user, :email=>row["email"])
       else
-        Factory(:invited_user, :email=>row["email"])
+        FactoryGirl.create(:invited_user, :email=>row["email"])
       end
     end
   end

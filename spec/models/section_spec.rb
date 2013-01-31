@@ -4,8 +4,8 @@ describe Section do
   fixtures :languages
 
   before(:all) do
-    @user  = Factory.create(:user, :email=>"spec_test12@velir.com")
-    @video_paper = Factory.create(:video_paper, :owner_id => @user.id, :title => "valid title")
+    @user  = FactoryGirl.create(:user, :email=>"spec_test12@velir.com")
+    @video_paper = FactoryGirl.create(:video_paper, :owner_id => @user.id, :title => "valid title")
     
     #find a video with the category of "test" to eff with.
     KalturaFu.generate_session_key

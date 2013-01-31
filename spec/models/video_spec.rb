@@ -4,9 +4,9 @@ describe Video do
   fixtures :languages
   
   before(:all) do
-    @user1 = Factory.create(:user)
-    @user2 = Factory.create(:user)
-    @admin = Factory.create(:admin)    
+    @user1 = FactoryGirl.create(:user)
+    @user2 = FactoryGirl.create(:user)
+    @admin = FactoryGirl.create(:admin)    
     
     #find a video with the category of "test" to eff with.
     #if this fails you need to make add the test category and add a video to it on the kaltura server
@@ -22,7 +22,7 @@ describe Video do
     @valid_attributes = {
       :entry_id => @entry,
       :description => "value for description",
-      :video_paper_id => Factory.create(:video_paper).id,
+      :video_paper_id => FactoryGirl.create(:video_paper).id,
       :language_id => Language.find_by_code('en').id,
       :private=> false
     }
@@ -69,7 +69,7 @@ describe Video do
     valid_attributes = {
       :entry_id => @entry,
       :description => description,
-      :video_paper_id => Factory.create(:video_paper).id,
+      :video_paper_id => FactoryGirl.create(:video_paper).id,
       :language_id => Language.find_by_code('en').id,
       :private=>false
     }
@@ -113,7 +113,7 @@ describe Video do
     valid_attributos = {
       :entry_id => @entry,
       :description => "value for description",
-      :video_paper_id => Factory.create(:video_paper).id,
+      :video_paper_id => FactoryGirl.create(:video_paper).id,
       :language_id => Language.find_by_code('en').id,
       :private=> true      
     }
@@ -130,7 +130,7 @@ describe Video do
     valid_attributos = {
       :entry_id => @entry,
       :description => "value for description",
-      :video_paper_id => Factory.create(:video_paper).id,
+      :video_paper_id => FactoryGirl.create(:video_paper).id,
       :language_id => Language.find_by_code('en').id,
       :private=> true      
     }
@@ -143,7 +143,7 @@ describe Video do
     valid_attributes = {
       :entry_id => @entry,
       :description => "a valid description",
-      :video_paper_id => Factory.create(:video_paper).id,
+      :video_paper_id => FactoryGirl.create(:video_paper).id,
       :language_id => Language.find_by_code('en').id,
       :private => false,
       :thumbnail_time => nil
@@ -156,7 +156,7 @@ describe Video do
     valid_attributes = {
       :entry_id => @entry,
       :description => "a valid description",
-      :video_paper_id => Factory.create(:video_paper).id,
+      :video_paper_id => FactoryGirl.create(:video_paper).id,
       :language_id => Language.find_by_code('en').id,
       :private => false,
       :thumbnail_time => ""
@@ -169,7 +169,7 @@ describe Video do
     valid_attributes = {
       :entry_id => @entry,
       :description => "a valid description",
-      :video_paper_id => Factory.create(:video_paper).id,
+      :video_paper_id => FactoryGirl.create(:video_paper).id,
       :language_id => Language.find_by_code('en').id,
       :private => false,
       :thumbnail_time => "150"
@@ -183,7 +183,7 @@ describe Video do
     valid_attributes = {
       :entry_id => @entry,
       :description => "a valid description",
-      :video_paper_id => Factory.create(:video_paper).id,
+      :video_paper_id => FactoryGirl.create(:video_paper).id,
       :language_id => Language.find_by_code('en').id,
       :private => false,
       :thumbnail_time => "00:02:30"
@@ -197,7 +197,7 @@ describe Video do
     invalid_attributes = {
       :entry_id => @entry,
       :description => "a valid description",
-      :video_paper_id => Factory.create(:video_paper).id,
+      :video_paper_id => FactoryGirl.create(:video_paper).id,
       :language_id => Language.find_by_code('en').id,
       :private => false,
       :thumbnail_time => "waffles"
@@ -210,7 +210,7 @@ describe Video do
     invalid_attributes = {
       :entry_id => @entry,
       :description => "a valid description",
-      :video_paper_id => Factory.create(:video_paper).id,
+      :video_paper_id => FactoryGirl.create(:video_paper).id,
       :language_id => Language.find_by_code('en').id,
       :private => false,
       :thumbnail_time => "waffles:05:12"
@@ -223,7 +223,7 @@ describe Video do
     invalid_attributes = {
       :entry_id => @entry,
       :description => "a valid description",
-      :video_paper_id => Factory.create(:video_paper).id,
+      :video_paper_id => FactoryGirl.create(:video_paper).id,
       :language_id => Language.find_by_code('en').id,
       :private => false,
       :thumbnail_time => "00:00:61"
@@ -236,7 +236,7 @@ describe Video do
     invalid_attributes = {
       :entry_id => @entry,
       :description => "a valid description",
-      :video_paper_id => Factory.create(:video_paper).id,
+      :video_paper_id => FactoryGirl.create(:video_paper).id,
       :language_id => Language.find_by_code('en').id,
       :private => false,
       :thumbnail_time => "00:61:05"
@@ -249,7 +249,7 @@ describe Video do
     invalid_attributes = {
       :entry_id => @entry,
       :description => "a valid description",
-      :video_paper_id => Factory.create(:video_paper).id,
+      :video_paper_id => FactoryGirl.create(:video_paper).id,
       :language_id => Language.find_by_code('en').id,
       :private => false,
       :thumbnail_time => "25:00:02"
@@ -262,7 +262,7 @@ describe Video do
     valid_attributes = {
       :entry_id => @entry,
       :description => "a valid description",
-      :video_paper_id => Factory.create(:video_paper).id,
+      :video_paper_id => FactoryGirl.create(:video_paper).id,
       :language_id => Language.find_by_code('en').id,
       :private => false,
       :thumbnail_time => "23:59:59"

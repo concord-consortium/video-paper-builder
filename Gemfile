@@ -26,13 +26,13 @@ end
 
 group :test do
   gem "selenium-webdriver", "2.27.2"
-  gem "cucumber",          "~> 1.1.9"
-  gem "cucumber-rails",    "~> 1.3.0", :require => false
-  gem "database_cleaner",  "~> 0.7.2"
-  gem "capybara",          "~> 1.1.2"
-  gem "rspec",             "~> 2.11.0"
-  gem "rspec-rails",       "~> 2.11.0"
-  gem "factory_girl",      "~> 2.0.5"
+  gem "cucumber",           "~> 1.1.9"
+  gem "cucumber-rails",     "~> 1.3.0", :require => false
+  gem "database_cleaner",   "~> 0.7.2"
+  gem "capybara",           "~> 1.1.2"
+  gem "rspec",              "~> 2.11.0"
+  gem "rspec-rails",        "~> 2.11.0"
+  gem "factory_girl_rails", "~> 4.0"
 #   gem 'spork'
 #   gem 'launchy'
 #   gem 'autotest-rails'

@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe VideoPaper do
   before(:all) do
-    @user = Factory.create(:user, :email=>"spec_test@velir.com")
-    @second_user = Factory.create(:user,:email=>"super_spec_test@velir.com")
+    @user = FactoryGirl.create(:user, :email=>"spec_test@velir.com")
+    @second_user = FactoryGirl.create(:user,:email=>"super_spec_test@velir.com")
   end
   before(:each) do
     @valid_attributes = {
@@ -46,7 +46,7 @@ describe VideoPaper do
   
   
   it "should let you share the paper to another user" do
-    video_paper = Factory.create(:video_paper)
+    video_paper = FactoryGirl.create(:video_paper)
     
     share_attributes = {
       :user_id => @second_user.id,
@@ -58,7 +58,7 @@ describe VideoPaper do
   end
   
   it "shouldn't let you share the paper to the same user twice.  duplicates make kittens sad" do
-    video_paper = Factory.create(:video_paper)
+    video_paper = FactoryGirl.create(:video_paper)
     
     share_attributes = {
       :user_id => @second_user.id,
@@ -76,7 +76,7 @@ describe VideoPaper do
   end
   
   it "should let you unshare the paper when need be." do 
-    video_paper = Factory.create(:video_paper)
+    video_paper = FactoryGirl.create(:video_paper)
     
     share_attributes = {
       :user_id => @second_user.id,
@@ -93,7 +93,7 @@ describe VideoPaper do
   end
   
   it "should indicate a share was unsuccesful when you give it poor attributes" do
-    video_paper = Factory.create(:video_paper)
+    video_paper = FactoryGirl.create(:video_paper)
     
     share_attributes = {
       :user_id => 'I am not right at all',
@@ -106,7 +106,7 @@ describe VideoPaper do
   end
   
   it "should produce a human readable created by date" do
-    video_paper = Factory.create(:video_paper)
+    video_paper = FactoryGirl.create(:video_paper)
     
     pretty_date = Time.now.utc
     pretty_date = pretty_date.strftime("%A %B #{pretty_date.day.ordinalize}, %Y")

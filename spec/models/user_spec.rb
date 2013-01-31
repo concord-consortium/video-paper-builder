@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   before(:all) do
-    @admin = Factory.create(:admin)
+    @admin = FactoryGirl.create(:admin)
   end
   before(:each) do
   end
@@ -34,13 +34,13 @@ describe User do
   end
   
   it "a user should return the full name when I ask for it" do
-    user = Factory.create(:user,:first_name=>"lowercase",:last_name=>"name")
+    user = FactoryGirl.create(:user,:first_name=>"lowercase",:last_name=>"name")
     
     user.name.should == "Lowercase Name"
   end
   
   it "an admin should return the full name when I ask for it" do
-    admin = Factory.create(:admin,:first_name=>"lowERCase",:last_name=>"namE")
+    admin = FactoryGirl.create(:admin,:first_name=>"lowERCase",:last_name=>"namE")
     
     admin.name.should == "Lowercase Name"
   end  
