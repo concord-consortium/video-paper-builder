@@ -26,6 +26,7 @@ Feature:
     And I should see "Additional Information"
     And I should see "Video Status"
 
+  @javascript
   Scenario: Authenticated user creates new video
     Given I am a user logged in as "test_user@velir.com"
     When I go to the Generic Video Paper's new video page
