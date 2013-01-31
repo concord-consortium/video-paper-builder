@@ -4,6 +4,9 @@ class HomeController < ApplicationController
     @user = User.new
     
     if current_user
+      # make sure any flashes that got set on the way here are
+      # persisted
+      flash.keep
       redirect_to new_video_paper_path
     end
   end
