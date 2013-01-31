@@ -40,8 +40,8 @@ Given /^I am a user logged in as "([^\"]*)"$/ do |email|
 end
 
 Given /^I am not logged in$/ do
-  visit '/admins/sign_out'
-  visit '/users/sign_out'
+  visit destroy_admin_session_path
+  visit destroy_user_session_path
 end
 
 Given /^I am an admin logged in as "([^\"]*)"$/ do |email|
