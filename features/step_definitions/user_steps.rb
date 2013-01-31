@@ -1,6 +1,6 @@
 Given /^the administrator "([^"]*)" invites a user "([^"]*)"$/ do |admin, user|
-  Given "I am an admin logged in as \"#{admin}\""
-  When "I go to the user invitation page"
+  step "I am an admin logged in as \"#{admin}\""
+  step "I go to the user invitation page"
   with_scope("#body_container") do
     fill_in 'Email', :with=>user
     fill_in 'First name', :with=> "John"
