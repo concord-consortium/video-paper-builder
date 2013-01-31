@@ -45,7 +45,7 @@ Given /^I am not logged in$/ do
 end
 
 Given /^I am an admin logged in as "([^\"]*)"$/ do |email|
-  Given "I am not logged in"
+  step "I am not logged in"
   user_row  = @admins.map {|admin| admin if admin[:email] == email}
   user_row = user_row.first
   visit '/admins/sign_in'
