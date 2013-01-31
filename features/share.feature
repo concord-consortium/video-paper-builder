@@ -37,7 +37,8 @@ Feature:
     And the video paper "Generic Video Paper" is shared with me
     When I go to Generic Video Paper's video paper page
     Then I should be on Generic Video Paper's video paper page
-    
+
+  @javascript
   Scenario: Owner removes the shared user of 'Generic Video Paper'
     Given I am a user logged in as "test_user@velir.com"
     And my video paper "Generic Video Paper" is shared with "test_user@velir.com"
@@ -45,8 +46,6 @@ Feature:
     When I follow "Sharing" within "#generic-video-paper"
     Then I should see "Shared With"
     Then I follow "unshare" within "#user-shared"
-    And I should be on my video papers page
-    Then I follow "Sharing" within "#generic-video-paper"
     And I should not see "test_user@velir.com" within "#user-shared"
     
   Scenario: Now unshared user tries to access 'Generic Video Paper'

@@ -123,12 +123,10 @@ class VideoPapersController < ApplicationController
     @shared_users = @video_paper.shared_papers    
     if @video_paper.unshare(params[:user_id])
       respond_to do |format|
-        format.js do 
-          render :update do |page|
-            page.replace_html("shared_user_block",:partial=>"shared_users",:object=>@shared_users)
-          end
+        format.js do
+          render 'update_shared_user_block'
         end
-      end    
+      end
     else
       redirect_to share_video_paper_path(@video_paper), :notice=> "ruh-roh"
     end
@@ -166,7 +164,9 @@ class VideoPapersController < ApplicationController
     end
     
     respond_to do |format|
-      format.js
+      format.js do
+        render 'update_shared_user_block'
+      end
     end
   end
   
