@@ -73,7 +73,7 @@ class Section < ActiveRecord::Base
   
   def start_time_is_less_than_stop_time
     unless (self.video_start_time.nil? || self.video_stop_time.nil?) || (self.video_start_time.blank? || self.video_stop_time.blank?)
-      errors.add_to_base("Start time must be less than Stop time") if self.video_start_time.to_i >= self.video_stop_time.to_i
+      errors.add(:base, "Start time must be less than Stop time") if self.video_start_time.to_i >= self.video_stop_time.to_i
     end
   end
   
