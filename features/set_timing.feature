@@ -23,7 +23,8 @@ Feature:
     Then I should be on the new video paper page
     Given I am a user logged in as "test_user@velir.com"
     Then I unshare "Generic Video Paper" with "sharing_user@velir.com"  
-    
+
+  @javascript
   Scenario: As the video paper owner, I should be able to access the timing actions.
     Given I am a user logged in as "test_user@velir.com"
     When I go to Generic Video Paper's video paper page
@@ -32,7 +33,8 @@ Feature:
     And I follow "Edit Timing"
     And I should see "Start Time (HH:MM:SS)"
     And I should see "Stop Time (HH:MM:SS)"
-    
+
+  @javascript
   Scenario: As the video paper owner, I should be able to set the timings
     Given I am a user logged in as "test_user@velir.com"
     When I go to Generic Video Paper's video paper page
@@ -44,7 +46,8 @@ Feature:
     And I press "Save timings"
     Then I should be on Generic Video Paper's video paper page
     And I should see "Timing successfully updated."
-    
+
+  @javascript
   Scenario: As the video paper owner, I should not be able to set silly timings
     Given I am a user logged in as "test_user@velir.com"
     When I go to Generic Video Paper's video paper page
