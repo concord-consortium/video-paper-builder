@@ -19,6 +19,7 @@ Feature:
     When I go to Fake Title's video paper page
   	Then I should have five sections
 
+  @wip
   Scenario Outline: Normal user edits each section
     When I go to the new video paper page
     Then I should see "Create a New Video Paper"
@@ -39,6 +40,7 @@ Feature:
 		| Conclusion  | conclusion   |
 
 
+  @wip
   Scenario: Normal user tries to edit section without title parameter
     When I go to the new video paper page
     Then I should see "Create a New Video Paper"
@@ -50,6 +52,7 @@ Feature:
     And I press "save-introduction"
     Then I should see "introduction content"
 
+  @javascript
   Scenario: Normal user visits video paper conclusion section
     When I go to the new video paper page
     Then I should see "Create a New Video Paper"
@@ -59,6 +62,7 @@ Feature:
     Then I should see "Conclusion"
     And the conclusion tab should be current
 
+  @javascript
   Scenario: Normal user visits video paper introduction section
     When I go to the new video paper page
     Then I should see "Create a New Video Paper"
