@@ -185,7 +185,7 @@ class VideoPapersController < ApplicationController
   
   def update_section_duration
     @video_paper = VideoPaper.find(params[:id])
-    @section = @video_paper.sections.find_by_id(params[:section][:id])
+    @section = @video_paper.sections.find_by_id(params[:section].delete(:id))
     @video = @video_paper.video
   
     if @section.update_attributes(params[:section])

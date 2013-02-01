@@ -20,7 +20,7 @@
 <div class="close"><a href="#"><img src="/images/clear.gif" alt=""></a></div>
 <%= form_for @section, :url=> update_section_duration_video_paper_path do |f| %>
 <fieldset>
-  <%= f.hidden_field :title %><%= f.hidden_field :id%>
+  <%= f.hidden_field :id%>
   <p><%= f.label :video_start_time, "Start Time (HH:MM:SS)"%>
   <%= f.text_field :video_start_time,:value=> @section.to_timestamp(@section.video_start_time)  %></p>
   <p><%= f.label :video_stop_time, "Stop Time (HH:MM:SS)"%>
