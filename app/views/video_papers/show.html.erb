@@ -60,7 +60,7 @@ VPB.video = true;
                   <% if owner_or_admin? %>
                     <div class="section-editor content-border">
                       <%= hidden_field :section, :title, :value=> section.title %>
-                      <%= f.text_area :content %>
+                      <%= f.text_area :content, :rows => 15 %>
                       <div class="edit-section-toolbar">
                         <%= submit_tag "Save",:id => "save-"+dom_friend(:id => section.title) %>
                         <a href="#" class="cancel-button">Cancel</a>
