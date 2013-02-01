@@ -4,3 +4,7 @@
 - clean up 'unshare' so it uses the built in rails UJS support
     it does use a javascript view, but it should also use a link_to :remote=>true
 - need to disable admin registration
+- check if editing works again in IE, there was a alert added to block editing in IE
+- pencil icon to edit section doesn't have the correct mouse cursor
+- close button on edit timings popup doesn't work (and doesn't have a mouse cursor)
+- logout button is broken
