@@ -77,7 +77,7 @@ module KalturaFu
         end
       end
       
-      "<div id=\"#{options[:div_id]}\"></div>
+      ("<div id=\"#{options[:div_id]}\"></div>
       <script type=\"text/javascript\">
       	var params= {
       		allowscriptaccess: \"always\",
@@ -97,7 +97,7 @@ module KalturaFu
       	};
 
       	swfobject.embedSWF(\"#{service_url}/kwidget/wid/_#{KalturaFu.config[:partner_id]}" + player_conf_parameter + "\",\"#{options[:div_id]}\",\"#{width}\",\"#{height}\",\"9.0.0\",false,flashVars,params,attributes);
-      </script>".html_safe
+      </script>").html_safe
     end
     
     def kaltura_upload_embed(options={})

@@ -3,7 +3,7 @@
     <% if @video.private? && !owner? %>
       this video is private.
     <% else %>
-      <%= kaltura_player_embed(@video.entry_id).html_safe %>
+      <%= kaltura_player_embed @video.entry_id %>
     <% end %>
   <% else %>
     <p>The video is still processing.  For large videos, this could take some time!</p>
