@@ -18,7 +18,6 @@ Feature:
   	Then I should see "VideoPaper 'Fake Title' was successfully created."
     When I go to Fake Title's video paper page
   	Then I should have five sections
-  	Then I destroy video paper named "Fake Title"
 
   Scenario Outline: Normal user edits each section
     When I go to the new video paper page
@@ -30,7 +29,6 @@ Feature:
     When I add "<tab_name> content" to "<slug>-content_editor"
     And I press "save-<slug>"
     Then I should see "<tab_name> content"
-    Then I destroy video paper named "Fake Title"
 
  	Examples:
 		| tab_name     | slug         |
@@ -51,8 +49,6 @@ Feature:
     When I add "introduction content" to "introduction-content_editor"
     And I press "save-introduction"
     Then I should see "introduction content"
-    Then I destroy video paper named "Fake Title"
-    
 
   Scenario: Normal user visits video paper conclusion section
     When I go to the new video paper page
@@ -62,8 +58,6 @@ Feature:
     When I go to Fake Title's video paper conclusion section
     Then I should see "Conclusion"
     And the conclusion tab should be current
-    Then I destroy video paper named "Fake Title"
-    
 
   Scenario: Normal user visits video paper introduction section
     When I go to the new video paper page
@@ -73,9 +67,6 @@ Feature:
     When I go to Fake Title's video paper introduction section
     Then I should see "Introduction"
     And the introduction tab should be current
-    Then I destroy video paper named "Fake Title"
-    
-    
   Scenario: Shared user visits Generic Video Paper's page and sees if he/she can edit sections
     Given the following video papers with videos
       | title                    | user                | status    |
