@@ -1,6 +1,14 @@
 //= require jquery
 //= require jquery_ujs
-//= require libs
+//= require prototype
+//= require swfobject
+//= require jquery-ui-1.8.4
+//= require jquery-progressbar
+//= require jquery-cycle
+//= require fancybox
+//= require mousewheel
+//= require jquery-jnotify
+//= require jquery-noconflict
 //= require kaltura_upload
 //= require effects
 
@@ -235,11 +243,6 @@ VPB = {
 		},
 		handleEdit:function(event) {
 			// get current tab
-			if($j.browser.msie) {
-			  alert("Editing is not supported in Internet Explorer.  Please use Firefox, Chrome, or Safari instead");
-			  return false;
-			}
-
 			var currentTabIndex = undefined;
 			$j('#tabs .tab').each(function(idx,el) {
 				if($j(el).hasClass('ui-tabs-selected')) {
@@ -260,14 +263,10 @@ VPB = {
 		},
 		init:function() {
 			// wire up buttons
-			$j('.close').live('click', function() {
+			$j('.close').on('click', function() {
 				parent.$j.fancybox.close();
 			});
 			$j('.edit-button').click(this.handleEdit);
-			//TODO: see about refactoring this style hack out
-			if($j.browser.webkit) {
-				$j('.edit-button').css("top", "-15px");
-			}
 			$j('.cancel-button').click(this.handleCancel);
 			$j('.timing-button').click(this.handleTiming);
 			// hook up modal popup to timing editor
