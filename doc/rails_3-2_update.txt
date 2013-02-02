@@ -12,3 +12,5 @@
 - need to add in image uploading from tinymce
 - logging in on the top right is broken (at least some times)
 - need to setup the mailer configuration for AWS
+- need to figure out the correct image magik configuration for the aws server
+- add configuration of kaltura.yml to littlechef
