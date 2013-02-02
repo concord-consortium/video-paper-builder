@@ -1,7 +1,6 @@
 set :application, "vpb"
 set :branch,  source_branch('rails-3.2')
 set :deploy_to, "/web/portal"
-set :rails_env,:production
 set :user, 'deploy'
 
 # set :password

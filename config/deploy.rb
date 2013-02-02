@@ -4,8 +4,8 @@ require 'bundler/capistrano'
 def source_branch(default)
   ENV['BRANCH'] or default
 end
-
-set :stages, %w(development staging production)
+set :rails_env, "production"
+set :stages, %w(aws-staging production)
 set :default_stage, "development"
 default_run_options[:pty] = true
 set :use_sudo, false
