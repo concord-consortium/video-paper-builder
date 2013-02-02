@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
+//= require jquery-noconflict
 //= require prototype
 //= require swfobject
 //= require jquery-ui-1.8.4
@@ -8,7 +9,6 @@
 //= require fancybox
 //= require mousewheel
 //= require jquery-jnotify
-//= require jquery-noconflict
 //= require kaltura_upload
 //= require effects
 //= require tinymce
