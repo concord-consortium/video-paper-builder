@@ -17,6 +17,22 @@ namespace :devise do
     
   end
   
+  desc 'create default admin user'
+  task :create_admin => ['environment'] do
+    admin = Admin.new do |u|
+      u.first_name = 'Bob'
+      u.last_name = 'Bobberino'
+      u.email = 'videopaperbuilder@gmail.com'
+      u.password = 'funstuff'
+      u.password_confirmation = 'funstuff'
+    end
+    admin.skip_confirmation!
+    admin.save
+    puts 'New admin created!'
+    puts 'Email : ' << admin.email
+    puts 'Password: ' << admin.password
+  end
+
   desc 'setup test database fixtures'
   task :test => ['devise:setup'] do
     user = User.create! do |u|
