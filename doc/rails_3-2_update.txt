@@ -1,6 +1,4 @@
 Critical
-- the user signup page is not blocked yet
-- need to disable admin registration
 - logout button is broken
 - after uploading an image the user is logged out, I'd guess that is the result of this issue:
 
