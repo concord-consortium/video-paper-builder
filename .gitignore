@@ -10,3 +10,4 @@ public/.DS_Store
 tmp/*
 .rvmrc
 bin/*
+public/assets
