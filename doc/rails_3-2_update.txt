@@ -1,13 +1,14 @@
 Important
 - need to add invitable fields to admin, since they are invited as well and will crash otherwise
+- add configuration of kaltura.yml to littlechef
+- exception notification is not configured correctly
 - pencil icon to edit section doesn't have the correct mouse cursor
 - close button on edit timings popup doesn't work (and doesn't have a mouse cursor)
 - scrubber to set the timing for a section is broken
 - logging in on the top right is broken (at least some times)
 - need to figure out the correct image magik configuration for the aws server
-- add configuration of kaltura.yml to littlechef
 - uploaded images should be stored on S3 and their access restricted
-- exception notification is not configured correctly
+- need to get migrations working from scratch again, currently they will break because of devise migration helpers
 
 Nice To Have
 - see if we can remove prototype and then get rid of $ -> $j mapping
