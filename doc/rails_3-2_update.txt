@@ -1,5 +1,4 @@
 Important
-- need to add invitable fields to admin, since they are invited as well and will crash otherwise
 - add configuration of kaltura.yml to littlechef
 - exception notification is not configured correctly
 - pencil icon to edit section doesn't have the correct mouse cursor

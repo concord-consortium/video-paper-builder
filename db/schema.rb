@@ -11,29 +11,33 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130131032842) do
+ActiveRecord::Schema.define(:version => 20130202211928) do
 
   create_table "admins", :force => true do |t|
-    t.string   "email",                              :default => "", :null => false
-    t.string   "encrypted_password",                 :default => ""
-    t.string   "password_salt",                      :default => ""
+    t.string   "email",                                :default => "", :null => false
+    t.string   "encrypted_password",                   :default => ""
+    t.string   "password_salt",                        :default => ""
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      :default => 0
+    t.integer  "sign_in_count",                        :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "invitation_token",     :limit => 20
+    t.string   "invitation_token",       :limit => 60
     t.datetime "invitation_sent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "first_name"
     t.string   "last_name"
+    t.datetime "invitation_accepted_at"
+    t.integer  "invitation_limit"
+    t.integer  "invited_by_id"
+    t.string   "invited_by_type"
   end
 
   add_index "admins", ["confirmation_token"], :name => "index_admins_on_confirmation_token", :unique => true
