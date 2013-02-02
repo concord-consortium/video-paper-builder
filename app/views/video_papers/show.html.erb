@@ -36,8 +36,8 @@ VPB.video = true;
               <% @video_paper.sections.each_with_index do |section, index| %>
                 <li id="<%= dom_friend :id => section.title %>_tab" class="tab">
                   <a href="#<%= dom_friend :id => section.title %>">
-                    <%# note the packed in tags below are necessary to keep the edit-button from 
-                        having space between it and the section.title this space causes the button 
+                    <%# note the lack of indentation below is necessary to keep the edit-button from
+                        having space between it and the section.title this space causes the button
                         to wrap to a new line %>
                     <span><%= section.title %><% if owner_or_admin? %><button class="edit-button" id="edit_<%= dom_friend :id => section.title-%>" type="button">
                           <img id="Edit <%=section.title-%> Section" title="Edit <%=section.title-%> Section" src="/images/small_pencil_icon.png" />
@@ -54,13 +54,13 @@ VPB.video = true;
               <%= form_for section, :url => update_section_video_paper_path(@video_paper) do |f| %>
                 <div class="into_content">
                   <div class="section-content content-border">
-                    <%=section.content %>
+                    <%=section.content ? section.content.html_safe : ''%>
                   </div>
 
                   <% if owner_or_admin? %>
                     <div class="section-editor content-border">
                       <%= hidden_field :section, :title, :value=> section.title %>
-                      <%= f.text_area :content, :rows => 15 %>
+                      <%= f.text_area :content, :class => "tinymce", :id => "section_#{section.id}_content", :rows => 19 %>
                       <div class="edit-section-toolbar">
                         <%= submit_tag "Save",:id => "save-"+dom_friend(:id => section.title) %>
                         <a href="#" class="cancel-button">Cancel</a>
@@ -81,6 +81,8 @@ VPB.video = true;
               <% end # edit form %>
             </div>
           <% end %>
+          <%# initialize tinymce just once for the page%>
+          <%= tinymce :width => 500, :height => 260 %>
         </div>
       </div>
       <span class="clear"></span>

@@ -5,27 +5,17 @@ class WysihatFilesController < ApplicationController
   end
 
   def create
-    @wysihat_file = WysihatFile.new(:file => params[:wysihat_file][:file])
+    @wysihat_file = WysihatFile.new
+    @wysihat_file.file = params[:file]
     @wysihat_file.user = current_user
+    @wysihat_file.save
 
-    responds_to_parent do
-      render :update do |page|
-        if(@wysihat_file.save)
-          page.insert_html :bottom, :wysihat_files, :partial => 'wysihat_file', :object => @wysihat_file
-        end
-      end
-    end
-  end
-
-  def destroy
-    @wysihat_file = WysihatFile.find(params[:id])
-    respond_to do |wants|
-      wants.js {
-        render :update do |page|
-          page.remove "wysihat_file_#{@wysihat_file.id}"
-        end
+    render json: {
+      image: {
+        url: @wysihat_file.file.url
       }
-    end
-    @wysihat_file.destroy
+    }, content_type: "text/html"
+
   end
+
 end

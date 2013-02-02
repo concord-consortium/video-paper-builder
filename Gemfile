@@ -20,6 +20,8 @@ gem 'xpath', "~> 0.1.4"
 gem 'exception_notification'
 gem 'rdoc'
 gem "dynamic_form"
+gem "tinymce-rails"
+gem 'tinymce-rails-imageupload', '~> 3.5.6.3'
 
 group :development do
   gem 'debugger'

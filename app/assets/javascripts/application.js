@@ -11,6 +11,7 @@
 //= require jquery-noconflict
 //= require kaltura_upload
 //= require effects
+//= require tinymce
 
 var VPB = VPB || {};
 
