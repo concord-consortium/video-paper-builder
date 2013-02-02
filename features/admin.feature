@@ -13,8 +13,6 @@ Feature:
     When I go to the admin invitation page
     Then I should not be able to invite an admin
     
-  # need to disable admin registration
-  @wip
   Scenario: An unauthenticated admin tries to create a new administrator
     Given I am not logged in
     When I go to the admin sign up page

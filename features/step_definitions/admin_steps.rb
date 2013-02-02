@@ -7,8 +7,8 @@ end
 
 Then /^I should not be able to create an administrator$/ do
   step "I am on the admin sign up page"
-  page.should have_content('You need to sign in or sign up before continuing.')
-  page.should have_content('Sign in')
+  page.should have_content('You must be invited to use Video Paper Builder')
+  page.should have_content('Login')
 end
 
 
