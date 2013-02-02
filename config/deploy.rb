@@ -13,17 +13,14 @@ set :use_sudo, false
 set :scm, :git
 set :repository,  "git://github.com/concord-consortium/video-paper-builder.git"
 
-after 'deploy:update_code',   'deploy:link_database_yml'
-after 'deploy:update_code',   'deploy:link_kaltura_yml'
+after 'deploy:update_code',   'deploy:link_configs'
 namespace(:deploy) do
 
-  task :link_database_yml do
-    run "ln -nsf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+  task :link_configs do
+    run "ln -nsf #{shared_path}/config/database.yml #{release_path}/config/database.yml &&
+         ln -nsf #{shared_path}/config/kaltura.yml #{release_path}/config/kaltura.yml &&
+         ln -nsf #{shared_path}/config/mailer.yml #{release_path}/config/mailer.yml"
   end  
-
-  task :link_kaltura_yml do
-    run "ln -nsf #{shared_path}/config/kaltura.yml #{release_path}/config/kaltura.yml"
-  end 
 
   task :start do ; end
   task :stop do ; end
