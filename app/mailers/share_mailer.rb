@@ -1,5 +1,5 @@
 class ShareMailer < ActionMailer::Base
-  default :from => 'videopaperbuilder@gmail.com'
+  default :from => 'vpb@concord.org'
   
   def share_email(user,shared_paper,sender,note)
     @user = user
