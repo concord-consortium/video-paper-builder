@@ -53,7 +53,7 @@
               <%= content_tag :li, link_to(raw("<span>Invite a new user</span>"), new_user_invitation_path) %>
               <%= content_tag :li, link_to(raw("<span>Invite a new admin</span>"),new_admin_invitation_path) %>
               <%= content_tag :li, link_to(raw("<span>All Video Papers</span>"),video_papers_path) %>
-              <%= content_tag :li, link_to(raw("<span>Admin Logout</span>"),destroy_admin_session_path) %>              
+              <%= content_tag :li, link_to(raw("<span>Admin Logout</span>"), destroy_admin_session_path, :method => :delete) %>
             </ul>
           </div>
         <% elsif user_signed_in? %>
