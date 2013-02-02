@@ -8,3 +8,7 @@
 - pencil icon to edit section doesn't have the correct mouse cursor
 - close button on edit timings popup doesn't work (and doesn't have a mouse cursor)
 - logout button is broken
+- scrubber to set the timing for a section is broken
+- need to add in image uploading from tinymce
+- logging in on the top right is broken (at least some times)
+- need to setup the mailer configuration for AWS
