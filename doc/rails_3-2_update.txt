@@ -14,3 +14,13 @@
 - need to setup the mailer configuration for AWS
 - need to figure out the correct image magik configuration for the aws server
 - add configuration of kaltura.yml to littlechef
+
+- after uploading an image the user is logged out, I'd guess that is the result of this issue:
+Started PUT "/video_papers/1/update_section" for 98.217.66.166 at 2013-02-02 06:39:12 +0000
+Processing by VideoPapersController#update_section as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"....", "section"=>{"title"=>"Introduction", "content"=>"<p>This is my introduction using TinyMCE.</p>\r\n<p><br /><img src=\"../system/wysihat_files/files/000/000/001/original/IMG_5315.JPG?1359787108\" alt=\"\" width=\"150\" height=\"100\" /></p>\r\n<p>And a picture from me.</p>"}, "commit"=>"Save", "id"=>"1"}
+WARNING: Can't verify CSRF token authenticity
+Completed 401 Unauthorized in 1ms
+
+- perhaps after the error above the tabs for the paper become unclickable (probably those sections got deleted from the paper???)
+- video start time can become invalid
