@@ -1,6 +1,7 @@
 Critical
 - logout button is broken
 - after uploading an image the user is logged out, I'd guess that is the result of this issue:
+- removing a video paper causes the user to be logged out
 
 Important
 - need to add invitable fields to admin, since they are invited as well and will crash otherwise
