@@ -66,7 +66,7 @@ VPB::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # set a host name for emails
-  config.action_mailer.default_url_options = { :host => 'vpb.concord.org' }
+  config.action_mailer.default_url_options = { :host => 'vpb.staging.concord.org' }
 
   # this is the way to do exception notification now in Rails 3
   # config.middleware.use ExceptionNotifier,

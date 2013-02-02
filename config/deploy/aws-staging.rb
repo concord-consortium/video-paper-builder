@@ -5,4 +5,4 @@ set :user, 'deploy'
 
 # set :password
 # Add public keys to the deploy users authorized list.
-server 'ec2-54-242-16-78.compute-1.amazonaws.com', :app, :web, :db, :primary=>true
+server 'vpb.staging.concord.org', :app, :web, :db, :primary=>true
