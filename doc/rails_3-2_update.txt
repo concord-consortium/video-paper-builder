@@ -5,7 +5,6 @@ Important
 - logging in on the top right is broken (at least some times)
 - need to figure out the correct image magik configuration for the aws server
 - uploaded images should be stored on S3 and their access restricted
-- need to get migrations working from scratch again, currently they will break because of devise migration helpers
 
 Nice To Have
 - see if we can remove prototype and then get rid of $ -> $j mapping
