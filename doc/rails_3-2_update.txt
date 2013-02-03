@@ -1,5 +1,4 @@
 Important
-- exception notification is not configured correctly
 - pencil icon to edit section doesn't have the correct mouse cursor
 - close button on edit timings popup doesn't work (and doesn't have a mouse cursor)
 - scrubber to set the timing for a section is broken

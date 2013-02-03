@@ -71,7 +71,7 @@ VPB::Application.configure do
   # this is the way to do exception notification now in Rails 3
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[Exception] ",
-    :sender_address => %{"Exception Notifier" <support@vpb.concord.org>},
+    :sender_address => %{"Exception Notifier" <vpb-support@concord.org>},
     :exception_recipients => %w{scytacki@concord.org}
 
 end
