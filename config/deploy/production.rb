@@ -1,5 +1,5 @@
 set :application, "vpb"
-set :branch,  source_branch('development')
+set :branch,  source_branch('master')
 set :deploy_to, "/var/www/#{application}/production"
 set :gateway, "otto.concord.org"
 set :rails_env,:production
