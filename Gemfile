@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
 gem 'bundler'
-gem 'rails', '2.3.12'
+gem 'rails', '2.3.15'
 
 if ENV['RB_MYSQL2']
   gem "mysql2",             "0.2.7"
@@ -21,16 +21,17 @@ gem 'capistrano-ext'
 gem 'nokogiri'
 gem 'xpath'
 gem 'exception_notification', '2.3.3.0'
+gem 'rdoc'
 
 group :development do
   gem 'ruby-debug'
 end
 
 group :test do
-  gem 'capybara', :git=>"git://github.com/jnicklas/capybara.git"
+  gem 'capybara', "1.1.1"
   gem 'database_cleaner'
-  gem 'cucumber-rails'
-  gem 'cucumber'
+  gem 'cucumber-rails', "0.3.2"
+  gem 'cucumber', "1.1.0"
   gem 'rspec' , '~>1.3.0'
   gem 'rspec-rails', '~>1.3.0'
   gem 'spork'

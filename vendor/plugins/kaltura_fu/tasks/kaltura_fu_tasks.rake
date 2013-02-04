@@ -33,8 +33,7 @@ namespace :kaltura_fu do
       end
     end
     
-    task :all,
-         :needs => ['kaltura_fu:install:config','kaltura_fu:install:js'] do
+    task :all => ['kaltura_fu:install:config','kaltura_fu:install:js'] do
       puts "Kaltura Fu has been installed!"
       puts "---"
     end
