@@ -8,7 +8,7 @@ end
 
 Then /^the (.+) tab should be current$/ do |current_tab|  
   sections.each{|section|
-    css = "##{section}_tab.ui-tabs-selected"
+    css = "##{section}_tab.ui-tabs-active"
     if current_tab == section
       page.should have_css(css)
     else
@@ -40,4 +40,7 @@ When /^I add "([^"]*)" to "([^"]*)"$/ do |content,finder|
   page.evaluate_script("document.getElementById(\"#{finder}\").contentWindow.document.body.innerHTML = \"#{content}\";") 
 end
 
+When /^(?:|I )click the edit icon for the (.*)$/ do |section|
+  find("#edit_#{section.downcase}").click
+end
 

@@ -28,7 +28,7 @@ Feature:
   Scenario: As the video paper owner, I should be able to access the timing actions.
     Given I am a user logged in as "test_user@velir.com"
     When I go to Generic Video Paper's video paper page
-    When I press "edit_introduction"
+    When I click the edit icon for the Introduction
     And I perform javascript confirmation box magic    
     And I follow "Edit Timing"
     And I should see "Start Time (HH:MM:SS)"
@@ -38,7 +38,7 @@ Feature:
   Scenario: As the video paper owner, I should be able to set the timings
     Given I am a user logged in as "test_user@velir.com"
     When I go to Generic Video Paper's video paper page
-    When I press "edit_introduction"
+    When I click the edit icon for the Introduction
     And I perform javascript confirmation box magic     
     And I follow "Edit Timing"
     And I fill in "Start Time (HH:MM:SS)" with "5"
@@ -51,7 +51,7 @@ Feature:
   Scenario: As the video paper owner, I should not be able to set silly timings
     Given I am a user logged in as "test_user@velir.com"
     When I go to Generic Video Paper's video paper page
-    When I press "edit_introduction"
+    When I click the edit icon for the Introduction
     And I perform javascript confirmation box magic     
     And I follow "Edit Timing"
     And I fill in "Start Time (HH:MM:SS)" with "waffles"
