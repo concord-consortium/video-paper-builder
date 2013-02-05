@@ -1,10 +1,24 @@
 /*
  * =require fancybox
- * =require jquery-ui-1.8.4
+ * =require jquery.ui.slider
+ * =require jquery.ui.tabs
  * =require facebox
  */
 
+/* override default jquery.ui styles */
+.ui-widget {
+  font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+  font-size: 1.1em;
+}
 
+.ui-tabs .ui-tabs-nav li a {
+  padding: 0em 0em;
+}
+
+.ui-tabs .ui-tabs-panel {
+  padding: 0em 0em;
+}
+/* end of jquery.ui changes*/
 
 #flash_error {
   background-color: #FCC;

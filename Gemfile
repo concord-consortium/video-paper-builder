@@ -2,6 +2,7 @@ source "http://rubygems.org"
 
 gem 'rails', '~> 3.2'
 gem 'jquery-rails', '~> 2.1'
+gem 'jquery-ui-rails', '~> 4.0'
 
 gem "mysql2"
 

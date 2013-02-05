@@ -1,15 +1,15 @@
 Important
-- scrubber to set the timing for a section is broken (works in firefox)
-- logging in on the top right is broken (haven't seen this in a while)
 - uploaded images should be stored in S3
 - look for broken images (these might cause errors on production)
 - fix help pages so they are dynamic
+- pencil icon is offset in firefox now after update of jquery-ui
 
 The Move
 - transfer database, and migrate
 - transfer images to S3 and update any old urls to them
 
 Nice To Have
+- logging in on the top right is broken (haven't seen this in a while)
 - images in S3 should be restricted based on the paper permissions
 - need to figure out the correct image magik configuration for the aws server, this is to shrink the uploaded images
 - pencil icon to edit section doesn't have the correct mouse cursor

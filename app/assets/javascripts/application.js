@@ -3,9 +3,13 @@
 //= require jquery-noconflict
 //= require prototype
 //= require swfobject
-//= require jquery-ui-1.8.4
+
+//= require jquery.ui.slider
+//= require jquery.ui.tabs
+
 //= require jquery-progressbar
 //= require jquery-cycle
+
 //= require fancybox
 //= require mousewheel
 //= require jquery-jnotify
@@ -184,13 +188,6 @@ VPB = {
 
 			return tabIndex;
 		},
-		getCurrentTab:function() {
-			$j('#tabs .tab').each(function(idx,el) {
-				if($j(el).hasClass('ui-tabs-selected')) {
-					return idx;
-				}
-			});
-		},
 		// tab select callback handler
 		showCallback:function(event,ui) {
 			// update the videoplayer to the appropriate offset.
@@ -244,12 +241,7 @@ VPB = {
 		},
 		handleEdit:function(event) {
 			// get current tab
-			var currentTabIndex = undefined;
-			$j('#tabs .tab').each(function(idx,el) {
-				if($j(el).hasClass('ui-tabs-selected')) {
-					currentTabIndex = idx;
-				}
-			});
+			var currentTabIndex = $j('#tabs').tabs().tabs('option', 'selected');
 			var currentTab = $j('.tab_content')[currentTabIndex];
 			
 			// set it to edit mode

@@ -48,39 +48,39 @@ VPB.video = true;
                 </li>
               <% end %>
             </ul>
-          </div>
-          <% @video_paper.sections.each_with_index do |section, index| %>
-            <div class="tab_content" id="<%= dom_friend :id => section.title %>">
-              <%= form_for section, :url => update_section_video_paper_path(@video_paper) do |f| %>
-                <div class="into_content">
-                  <div class="section-content content-border">
-                    <%=section.content ? section.content.html_safe : ''%>
-                  </div>
+            <% @video_paper.sections.each_with_index do |section, index| %>
+              <div class="tab_content" id="<%= dom_friend :id => section.title %>">
+                <%= form_for section, :url => update_section_video_paper_path(@video_paper) do |f| %>
+                  <div class="into_content">
+                    <div class="section-content content-border">
+                      <%=section.content ? section.content.html_safe : ''%>
+                    </div>
 
-                  <% if owner_or_admin? %>
-                    <div class="section-editor content-border">
-                      <%= hidden_field :section, :title, :value=> section.title %>
-                      <%= f.text_area :content, :class => "tinymce", :id => "section_#{section.id}_content", :rows => 19 %>
-                      <div class="edit-section-toolbar">
-                        <%= submit_tag "Save",:id => "save-"+dom_friend(:id => section.title) %>
-                        <a href="#" class="cancel-button">Cancel</a>
-                        <% unless @video_paper.video.nil? %>
-                          <%= link_to "Edit Timing",
-                            {
-                              :controller=>"video_papers",
-                              :action=>"edit_section_duration",
-                              :section=> section.title,
-                            },
-                            :confirm=> "Please ensure you have saved any changes before submitting timing changes.",                        
-                            :class=>"timing-button"-%>
-                        <% end%>
-                      </div><!-- edit-section-toolbar -->
-                    </div><!-- section-editor -->
-                  <% end # owner_or_admin %>
-                </div>
-              <% end # edit form %>
-            </div>
-          <% end %>
+                    <% if owner_or_admin? %>
+                      <div class="section-editor content-border">
+                        <%= hidden_field :section, :title, :value=> section.title %>
+                        <%= f.text_area :content, :class => "tinymce", :id => "section_#{section.id}_content", :rows => 19 %>
+                        <div class="edit-section-toolbar">
+                          <%= submit_tag "Save",:id => "save-"+dom_friend(:id => section.title) %>
+                          <a href="#" class="cancel-button">Cancel</a>
+                          <% unless @video_paper.video.nil? %>
+                            <%= link_to "Edit Timing",
+                              {
+                                :controller=>"video_papers",
+                                :action=>"edit_section_duration",
+                                :section=> section.title,
+                              },
+                              :confirm=> "Please ensure you have saved any changes before submitting timing changes.",                        
+                              :class=>"timing-button"-%>
+                          <% end%>
+                        </div><!-- edit-section-toolbar -->
+                      </div><!-- section-editor -->
+                    <% end # owner_or_admin %>
+                  </div>
+                <% end # edit form %>
+              </div>
+            <% end %>
+          </div>
           <%# initialize tinymce just once for the page%>
           <%= tinymce :width => 500, :height => 260 %>
         </div>
