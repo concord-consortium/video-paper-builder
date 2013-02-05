@@ -263,10 +263,6 @@ VPB = {
 			});
 		},
 		init:function() {
-			// wire up buttons
-			$j('.close').on('click', function() {
-				parent.$j.fancybox.close();
-			});
 			$j('.edit-button').click(this.handleEdit);
 			$j('.cancel-button').click(this.handleCancel);
 			$j('.timing-button').click(this.handleTiming);

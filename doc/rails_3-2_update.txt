@@ -1,7 +1,5 @@
 Important
-- edit timings link has stopped working in chrome, works in firefox
-- close button on edit timings popup doesn't work (and doesn't have a mouse cursor)
-- scrubber to set the timing for a section is broken
+- scrubber to set the timing for a section is broken (works in firefox)
 - logging in on the top right is broken (haven't seen this in a while)
 - uploaded images should be stored in S3
 - look for broken images (these might cause errors on production)

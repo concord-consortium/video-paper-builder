@@ -114,7 +114,7 @@
 	_background: url(close_btn.gif) no-repeat 0 0 ;
 	cursor: pointer;
 	z-index: 1103!important;
-	display: none; float:left!important;
+	float:left!important;
 }
 
 #fancybox_error {
