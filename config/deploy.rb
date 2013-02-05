@@ -1,11 +1,12 @@
 require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
+require 'capistrano/maintenance'
 
 def source_branch(default)
   ENV['BRANCH'] or default
 end
 set :rails_env, "production"
-set :stages, %w(aws-staging production)
+set :stages, %w(aws-staging aws-production production)
 set :default_stage, "development"
 default_run_options[:pty] = true
 set :use_sudo, false

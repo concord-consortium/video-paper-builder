@@ -16,6 +16,7 @@ gem 'settingslogic'
 # gem 'wysihat-engine', '0.1.12'
 gem 'will_paginate'
 gem 'capistrano'
+gem 'capistrano-maintenance'
 gem 'nokogiri'
 gem 'xpath', "~> 0.1.4"
 gem 'exception_notification'
