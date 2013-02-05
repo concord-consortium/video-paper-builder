@@ -36,12 +36,9 @@ VPB.video = true;
               <% @video_paper.sections.each_with_index do |section, index| %>
                 <li id="<%= dom_friend :id => section.title %>_tab" class="tab">
                   <a href="#<%= dom_friend :id => section.title %>">
-                    <%# note the lack of indentation below is necessary to keep the edit-button from
-                        having space between it and the section.title this space causes the button
-                        to wrap to a new line in webkit browsers %>
-                    <span><%= section.title %><% if owner_or_admin? %><button class="edit-button" id="edit_<%= dom_friend :id => section.title-%>" type="button">
-                          <img id="Edit <%=section.title-%> Section" title="Edit <%=section.title-%> Section" src="/images/small_pencil_icon.png" />
-                        </button>
+                    <span><%= section.title %>
+                      <% if owner_or_admin? %>
+                        <img class="edit-button" id="edit_<%= dom_friend :id => section.title %>" title="Edit <%=section.title-%> Section" src="/images/small_pencil_icon.png" />
                       <%- end -%>
                     </span>
                   </a>

@@ -241,7 +241,7 @@ VPB = {
 		},
 		handleEdit:function(event) {
 			// get current tab
-			var currentTabIndex = $j('#tabs').tabs().tabs('option', 'selected');
+			var currentTabIndex = $j('#tabs').tabs().tabs('option', 'active');
 			var currentTab = $j('.tab_content')[currentTabIndex];
 			
 			// set it to edit mode
@@ -273,7 +273,7 @@ VPB = {
 			);
 			
 			// listen for tab changes
-			$j(document).bind('tabsselect', this.handleTabChange);
+			$j(document).bind('tabsactivate', this.handleTabChange);
 			
 		}
 	},
