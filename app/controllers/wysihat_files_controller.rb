@@ -19,6 +19,10 @@ class WysihatFilesController < ApplicationController
   end
 
   def show
+    # we ought to check if a user should have permission to view this file
+    # otherwise people can discover this url and share it with the world
+    # but to do that we need to know what paper the file is supposed to be
+    # associated with.
     @wysihat_file = WysihatFile.find(params[:id])
     # this is a bit of a hacky way to use the show method
     # it allows us to store the path to this resource in the content
