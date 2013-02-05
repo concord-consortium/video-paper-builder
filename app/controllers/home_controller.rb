@@ -15,4 +15,10 @@ class HomeController < ApplicationController
     raise 'This is a test. This is only a test.'
   end
 
+  def help_videos
+    video_name = params[:video_name]
+    # remove slashes to prevent someone from trying to hack into other tempates
+    video_name.gsub('/','')
+    render "help_videos/#{video_name}", :layout => "help_videos"
+  end
 end

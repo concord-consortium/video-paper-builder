@@ -1,8 +1,6 @@
 Important
 - uploaded images should be stored in S3
 - look for broken images (these might cause errors on production)
-- fix help pages so they are dynamic
-- pencil icon is offset in firefox now after update of jquery-ui
 
 The Move
 - transfer database, and migrate

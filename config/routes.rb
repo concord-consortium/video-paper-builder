@@ -34,6 +34,8 @@ VPB::Application.routes.draw do
   resources :admins
   resources :users
 
+  get 'help_videos/:video_name' => 'home#help_videos', :as => :help_video
+
   #map.connect ':controller/:action/:id'
   #map.connect ':controller/:action/:id.:format'
 end

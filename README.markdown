@@ -40,6 +40,13 @@ Profit!
 
     $ script/server
     
+
+Uploading Help Video:
+    [Jing Video](http://screencast.com/t/lxUHFk3a)
+    An addendum to this is that you should delete the flavors that were created automatically. Otherwise the play will use a lower quality flavor
+    and the video will look blurry.
+
+
 License
 -------
 
