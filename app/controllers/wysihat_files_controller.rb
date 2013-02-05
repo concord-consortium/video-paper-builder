@@ -12,10 +12,17 @@ class WysihatFilesController < ApplicationController
 
     render json: {
       image: {
-        url: @wysihat_file.file.url
+        url: url_for(@wysihat_file)
       }
     }, content_type: "text/html"
 
   end
 
+  def show
+    @wysihat_file = WysihatFile.find(params[:id])
+    # this is a bit of a hacky way to use the show method
+    # it allows us to store the path to this resource in the content
+    # instead of the actual url which will be to a an expiring s3 url
+    redirect_to @wysihat_file.file.url
+  end
 end
