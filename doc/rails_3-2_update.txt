@@ -1,12 +1,20 @@
 Important
-- pencil icon to edit section doesn't have the correct mouse cursor
+- edit timings link has stopped working in chrome, works in firefox
 - close button on edit timings popup doesn't work (and doesn't have a mouse cursor)
 - scrubber to set the timing for a section is broken
-- logging in on the top right is broken (at least some times)
-- need to figure out the correct image magik configuration for the aws server
-- uploaded images should be stored on S3 and their access restricted
+- logging in on the top right is broken (haven't seen this in a while)
+- uploaded images should be stored in S3
+- look for broken images (these might cause errors on production)
+- fix help pages so they are dynamic
+
+The Move
+- transfer database, and migrate
+- transfer images to S3 and update any old urls to them
 
 Nice To Have
+- images in S3 should be restricted based on the paper permissions
+- need to figure out the correct image magik configuration for the aws server, this is to shrink the uploaded images
+- pencil icon to edit section doesn't have the correct mouse cursor
 - see if we can remove prototype and then get rid of $ -> $j mapping
 - clean up 'unshare' so it uses the built in rails UJS support
     it does use a javascript view, but it should also use a link_to :remote=>true
