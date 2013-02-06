@@ -6,8 +6,8 @@ def source_branch(default)
   ENV['BRANCH'] or default
 end
 set :rails_env, "production"
-set :stages, %w(aws-staging aws-production production)
-set :default_stage, "development"
+set :stages, %w(production staging)
+set :default_stage, "need_to_specify_a_stage"
 default_run_options[:pty] = true
 set :use_sudo, false
 

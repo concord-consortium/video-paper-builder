@@ -1,10 +1,9 @@
 Important
 - uploaded images should be stored in S3
 - look for broken images (these might cause errors on production)
-
-The Move
-- transfer database, and migrate
 - transfer images to S3 and update any old urls to them
+- pull mailer information from the settings file so staging and production have the correct
+   host name
 
 Nice To Have
 - logging in on the top right is broken (haven't seen this in a while)
