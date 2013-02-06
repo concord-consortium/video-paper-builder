@@ -31,7 +31,13 @@ Feature:
     Then I press "Share"
     Then I should see "Shared With:"
     And I should see "sharing_user@velir.com"
-    
+
+  Scenario: A user can see the list of papers shared with them
+    Given I am a user logged in as "sharing_user@velir.com"
+    And the video paper "Generic Video Paper" is shared with me
+    When I go to my shared papers page
+    Then I should see "Generic Video Paper"
+
   Scenario: Non-owner & shared user of 'Generic Video Paper' attempts to access it
     Given I am a user logged in as "sharing_user@velir.com"
     And the video paper "Generic Video Paper" is shared with me

@@ -20,7 +20,7 @@
           <ul>
             <% li_count = 1 %>
             <% @video_papers.each do |video_paper| %>
-              <% content_tag :li ,:class=> is_last?(li_count) do %>            
+              <%= content_tag :li ,:class=> is_last?(li_count) do %>
                 <%= get_video_paper_thumbnail(video_paper)%>
                 <h3><%=link_to video_paper.title, video_paper_path(video_paper)%></h3>
                 <p><%=video_paper.user.name%><br />
