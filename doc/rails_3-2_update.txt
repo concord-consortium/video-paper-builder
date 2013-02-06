@@ -1,5 +1,5 @@
 Critical
-- copy asset files from old server to AWS server
+- delete the rails-3.2 and development branches in github
 
 Important
 - uploaded images should be stored in S3
