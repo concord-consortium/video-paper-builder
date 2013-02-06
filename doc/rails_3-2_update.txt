@@ -1,3 +1,6 @@
+Critical
+- copy asset files from old server to AWS server
+
 Important
 - uploaded images should be stored in S3
 - look for broken images (these might cause errors on production)
