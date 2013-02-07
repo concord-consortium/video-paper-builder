@@ -18,10 +18,12 @@ after 'deploy:update_code',   'deploy:link_configs'
 namespace(:deploy) do
 
   task :link_configs do
-    run "ln -nsf #{shared_path}/config/database.yml #{release_path}/config/database.yml &&
-         ln -nsf #{shared_path}/config/kaltura.yml #{release_path}/config/kaltura.yml &&
-         ln -nsf #{shared_path}/config/mailer.yml #{release_path}/config/mailer.yml"
-  end  
+    command = [ 'database', 'kaltura', 'mailer', 'paperclip', 'aws_s3'].map{|file|
+      "ln -nsf #{shared_path}/config/#{file}.yml #{release_path}/config/#{file}.yml"
+    }.join(' && ')
+
+    run command
+  end
 
   task :start do ; end
   task :stop do ; end
