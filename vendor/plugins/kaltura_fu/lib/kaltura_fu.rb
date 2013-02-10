@@ -54,6 +54,12 @@ module KalturaFu
     
     def generate_session_key
       self.check_for_client_session
+
+      # need to clear the old signature. Otherwise if the old signature is expired a new one won't be generated.
+      # I haven't proved this though, but it a guess based on the code.
+      #  what is counter intuitive about this is that the call is that session_server.start is genreating a new
+      #  signature itself, so it shouldn't mater if the old one is expired.
+      @@client.ks = nil
       
       @@session_key = @@client.session_service.start(@@config[:administrator_secret],'',Kaltura::Constants::SessionType::ADMIN)
       @@client.ks = @@session_key
