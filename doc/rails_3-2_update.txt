@@ -2,7 +2,6 @@ Critical
 - change password link is broken for users
 - sharing intro to physics (58), doesn't work, but others do
 - upload video button does nothing when no video is selected
-- change exception notification to point to a list that Noah, I, and Aaron are on
 
 Important
 - remove edit timing links it seems broken
