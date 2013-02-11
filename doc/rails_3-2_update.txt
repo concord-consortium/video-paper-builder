@@ -1,9 +1,9 @@
 Critical
-- change password link is broken for users
 - sharing intro to physics (58), doesn't work, but others do
 - upload video button does nothing when no video is selected
 
 Important
+- add test to verify users can change password
 - remove edit timing links it seems broken
 - uploaded images should be stored in S3
 - look for broken images (these might cause errors on production)

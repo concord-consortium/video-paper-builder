@@ -31,3 +31,12 @@ Feature:
     And I press "Submit"
     Then I should be on the new video paper page
     And I should see "Your password was set successfully. You are now signed in."
+
+  Scenario: A user can change their password
+    Given the following user records
+      | email                     | role |
+      | undecideduser@example.com | user |
+    And I am a user logged in as "undecideduser@example.com"
+    And I am on the home page
+    When I follow "Change password"
+    Then I should see "password"
