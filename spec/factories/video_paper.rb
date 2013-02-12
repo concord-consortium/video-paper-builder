@@ -5,7 +5,7 @@ FactoryGirl.define do
 
   # status == "published" | "unpublished"
   factory :video_paper do
-    title {Factory.next(:vp_title)}
+    title {generate(:vp_title)}
     association :user
   end
 
