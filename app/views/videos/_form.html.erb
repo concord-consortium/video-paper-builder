@@ -23,6 +23,18 @@
               <h2><%=@video_paper.title%></h2>
               <div class="create_video">
                 <h3>Select Video</h3>
+                <% if @video.entry_id %>
+                  <div class="textarea_content">
+                    A video has already been uploaded.
+                    <% if @video.processed %>
+                      This video is <%= @video.duration %> seconds long.
+                    <% else %>
+                      This video is still processing.
+                    <% end %>
+                    <br/>
+                    Use the button below to replace it with another video.
+                  </div>
+                <% end %>
                 <div id="flashContainer">
                   <div class="file_select"> <a href="#" class="browse_select_btn">Browse &amp; Select</a>
                     <p><span id="selected-title" style="display:none"> Selected Video: <span id="title-text">Filename selected</span></span></p>
