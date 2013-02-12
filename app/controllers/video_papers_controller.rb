@@ -29,13 +29,13 @@ class VideoPapersController < ApplicationController
   end
   
   def my_video_papers
-    order_by = VideoPaper.order_by(params[:order_by])
-    @video_papers = VideoPaper.owned_by(current_user).paginate :page=>params[:page], :per_page=>5, :order=>order_by
+    order_by_sql = VideoPaper.order_by(params[:order_by])
+    @video_papers = current_user.my_video_papers.paginate :page=>params[:page], :per_page=>5, :order=>order_by_sql
   end
   
   def shared_video_papers
-    order_by = VideoPaper.order_by(params[:order_by])
-    @video_papers = current_user.video_papers.paginate :page=>params[:page], :per_page=>8, :order=>order_by
+    order_by_sql = VideoPaper.order_by(params[:order_by])
+    @video_papers = current_user.video_papers.paginate :page=>params[:page], :per_page=>8, :order=>order_by_sql
   end
 
   def show

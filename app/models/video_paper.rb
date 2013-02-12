@@ -25,14 +25,6 @@ class VideoPaper < ActiveRecord::Base
   ###################################
   after_create :construct_video_paper_sections
 
-  ###################################
-  # Scopes
-  ###################################
-  # this is the preferred method for doing a scope that takes an argument
-  def self.owned_by(owner)
-    where({:owner_id => owner.id})
-  end
-  
   ##################################
   # instance methods
   ##################################
