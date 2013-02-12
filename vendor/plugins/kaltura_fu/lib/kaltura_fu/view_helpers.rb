@@ -132,7 +132,7 @@ module KalturaFu
     			maxTotalSize: \"999999999\"    			
     		};
 
-        swfobject.embedSWF(\"#{service_url}/kupload/ui_conf_id/1727879\", \"uploader\", \"160\", \"26\", \"9.0.0\", \"expressInstall.swf\", flashVars, params,attributes);
+        swfobject.embedSWF(\"#{service_url}/kupload/ui_conf_id/1727879\", \"uploader\", \"100%\", \"100%\", \"9.0.0\", \"expressInstall.swf\", flashVars, params,attributes);
     	</script>".html_safe
     end
     

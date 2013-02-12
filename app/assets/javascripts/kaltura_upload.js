@@ -13,6 +13,9 @@ delegate.selectHandler = function()
 	kaltura_array = flashObj.getFiles();
 	last_file = kaltura_array[(kaltura_array.length -1.0)]
 	document.getElementById("title-text").innerHTML = last_file.title;
+    document.getElementById('button_submit').disabled = true;
+    document.getElementById('button_disabled_no_video').style.display = "none";
+    document.getElementById('button_disabled_video_uploading').style.display = "block";
 	flashObj.upload();
 }
 
@@ -43,7 +46,9 @@ delegate.entriesAddedHandler = function(entries)
   document.getElementById('video_entry_id').value = entry.entryId;
   //document.getElementById('button_submit').style.display = "inline";
   document.getElementById('button_submit').disabled = false;  
-  document.getElementById('finalize').style.display = "inline";  
+  document.getElementById('finalize').style.display = "block";  
+  document.getElementById('button_disabled_no_video').style.display = "none";
+  document.getElementById('button_disabled_video_uploading').style.display = "none";
 }
 
 delegate.progressHandler = function(args)

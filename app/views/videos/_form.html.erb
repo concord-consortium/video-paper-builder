@@ -35,11 +35,12 @@
                     Use the button below to replace it with another video.
                   </div>
                 <% end %>
-                <div id="flashContainer">
-                  <div class="file_select"> <a href="#" class="browse_select_btn">Browse &amp; Select</a>
-                    <p><span id="selected-title" style="display:none"> Selected Video: <span id="title-text">Filename selected</span></span></p>
+                <div class="file_select">
+                  <div id="flashContainer">
+                    <a href="#" class="browse_select_btn">Browse &amp; Select</a>
                     <%= kaltura_upload_embed %>                   	
                   </div>                
+                  <p><span id="selected-title" style="display:none"> Selected Video: <span id="title-text">Filename selected</span></span></p>
                 </div>
                 <%= f.error_messages %>                
                 <div class="file_select" id="progressBar" style="display:none">
@@ -71,7 +72,10 @@
                 <h3 class="bulet3">Additional Information</h3>
                 <div class="textarea_content">
                   <div id="thumbnail-image">
-                    <%=f.file_field :thumbnail%> <label class="space"><img src="/images/bulb.gif" alt="" />If you do not have a thumbnail, one will automatically be created from the video. You can <a id="thumbnail-time-code-show"href="#" >specify a point in time in your video to use as your thumbnail</a> instead.</label>
+                    <%=f.file_field :thumbnail%><br/>
+                    <label class="space">
+                    <img src="/images/bulb.gif" alt="" />
+                    If you do not have a thumbnail, one will automatically be created from the video. You can <a id="thumbnail-time-code-show"href="#" >specify a point in time in your video to use as your thumbnail</a> instead.</label>
                   </div>
                   <div id="thumbnail-time-code" style="display:none">
               			<%= f.text_field :thumbnail_time %>
@@ -79,15 +83,20 @@
                   </div>
                   <%= f.hidden_field :entry_id %>
                 </div>
-                <% if @video.entry_id.nil?%>
-            			<% disabled = true %>
-            		<% else %>
-            			<% disabled = false%>
-            		<% end %>
-            		<br style="clear: both;" /><br />
-                <div class="button"> <span>
-		<%= f.submit "Upload video", :id=>"button_submit",:class=>"upload_btn",:disabled=>disabled%> | <%= link_to("Cancel",@video_paper,:method=>'get') %>                  
-                  </span> </div>
+              </div>
+              <% if @video.entry_id.nil?%>
+          			<% disabled = true %>
+          		<% else %>
+          			<% disabled = false%>
+          		<% end %>
+          		<br style="clear: both;" /><br />
+              <div class="button">
+                <span>
+	                <%= f.submit "Upload video", :id=>"button_submit",:class=>"upload_btn",:disabled=>disabled%> 
+                  | <%= link_to("Cancel",@video_paper,:method=>'get') %>
+                </span>
+                <div class="disabled_button_msg" id="button_disabled_no_video" style="<%= disabled ? '': 'display:none' %>">No video selected.</div>
+                <div class="disabled_button_msg" id="button_disabled_video_uploading" style="display:none">Your video is still uploading.</div>
               </div>
             </div>
           </div>

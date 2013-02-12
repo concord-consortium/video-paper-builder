@@ -20,6 +20,10 @@
 }
 /* end of jquery.ui changes*/
 
+.disabled_button_msg {
+  color: #CF0000;
+}
+
 #flash_error {
   background-color: #FCC;
   border: solid 1px #C66;
@@ -67,11 +71,11 @@
 
 
 /* Kaltura Specific CSS Styles */
-#flashContainer{ position:relative; }
-#flashContainer span{ color:#333; font-size:16px; }
+#flashContainer{ position:relative; display: inline-block; margin:5px 0; }
+#selected-title{color:#333; font-size:16px;}
 /*object, embed{ position:absolute; top:0; left:0; z-index:999;}*/
 
-#inner_container .content_details .left_details .creat_video_details .create_video #progressBar{float:left;padding-left:56px;}
+#inner_container .content_details .left_details .creat_video_details .create_video #progressBar{padding-left:56px;}
 
 /* Duration Selector Modal */
 #duration_slider {width:360px;margin-left:5px;position:relative;}
@@ -243,30 +247,30 @@ h2{color: #878787; font-size: 1.833em; margin-bottom: 1em;}
 #inner_container .upload_video{float:left; width:947px; padding-bottom:15px;}
 #inner_container .upload_video .left_details{float:left; width:700px; padding:0 0 0 25px;}
 #inner_container .upload_video .left_details .creat_video_details{float:left; width:694px;}
-#inner_container .upload_video .left_details .creat_video_details h2{float:left; width:98%; font:23px/25px Georgia, 'Times New Roman', Times, serif; color:#f69208; padding:0 0 20px 7px;}
-#inner_container .upload_video .left_details .creat_video_details .create_video{float:left; width:694px;}
+#inner_container .upload_video .left_details .creat_video_details h2{width:98%; font:23px/25px Georgia, 'Times New Roman', Times, serif; color:#f69208; padding:0 0 20px 7px;}
+#inner_container .upload_video .left_details .creat_video_details .create_video{width:694px;}
 #inner_container .upload_video .left_details .creat_video_details h3{display:block; font:18px/20px Georgia, 'Times New Roman', Times, serif; color:#85b150; background:url(../images/inner_bulet1.gif) no-repeat 0 0; padding:15px 0 15px 55px;}
 #inner_container .upload_video .left_details .creat_video_details h3.bulet2{background:url(../images/inner_bulet2.gif) no-repeat 0 0;}
 #inner_container .upload_video .left_details .creat_video_details h3.bulet3{background:url(../images/inner_bulet3.gif) no-repeat 0 0;}
-#inner_container .upload_video .left_details .creat_video_details .create_video .file_select{float:left; width:360px; padding-left:56px;}
-#inner_container .upload_video .left_details .creat_video_details .create_video .file_select a.browse_select_btn{float:left; width:121px; background:url(../images/browse_select_btn.gif) no-repeat 0 0; color:#fff; text-decoration:none; text-align:center; padding:5px 0; text-transform:uppercase; font-size:10px; line-height:14px; font-weight:bold}
-#inner_container .upload_video .left_details .creat_video_details .create_video .file_select p{float:left; width:auto; font-size:12px;line-height:14px; color:#5f5f5f; padding:4px 0 0 12px;}
-#inner_container .upload_video .left_details .creat_video_details .create_video .file_select img{float:left;}
+#inner_container .upload_video .left_details .creat_video_details .create_video .file_select{width:360px; padding-left:56px;}
+#inner_container .upload_video .left_details .creat_video_details .create_video .file_select a.browse_select_btn{display:inline-block; width:121px; height:24px; background:url(../images/browse_select_btn.gif) no-repeat 0 0; color:#fff; text-decoration:none; text-align:center; text-transform:uppercase; font-size:10px; line-height:23px; font-weight:bold}
+#inner_container .upload_video .left_details .creat_video_details .create_video .file_select p{width:auto; font-size:12px;line-height:14px; color:#5f5f5f; padding:4px 0 0 12px;}
 #inner_container .upload_video .left_details .creat_video_details .vedio_select{float:left; width:250px;}
 #inner_container .upload_video .left_details .creat_video_details .vedio_select p{float:left; width:70px; font-size:12px;line-height:14px; color:#5f5f5f;}
 #inner_container .upload_video .left_details .creat_video_details .vedio_select p.space{padding-left:50px;}
 #inner_container .upload_video .left_details .creat_video_details .vedio_select img{float:left;}
 #inner_container .upload_video .left_details .creat_video_details .textarea_box{float:left; width:694px; padding-top:30px;}
-#inner_container .upload_video .left_details .creat_video_details .textarea_content{float:left; width:610px; padding-left:55px;}
-#inner_container .upload_video .left_details .creat_video_details .textarea_content label{float:left; width:100%; font-size:12px;line-height:14px; color:#5f5f5f; margin-bottom:5px;}
-#inner_container .upload_video .left_details .creat_video_details .textarea_content label img{float:left; padding-right:10px;}
+#inner_container .upload_video .left_details .creat_video_details .textarea_content{width:610px; padding-left:55px;}
+#inner_container .upload_video .left_details .creat_video_details .textarea_content label{width:100%; font-size:12px;line-height:14px; color:#5f5f5f; margin-bottom:5px;}
+#inner_container .upload_video .left_details .creat_video_details .textarea_content label img{padding-right:10px;}
 #inner_container .upload_video .left_details .creat_video_details .textarea_content label.space{padding-top:10px;}
 #inner_container .upload_video .left_details .creat_video_details .textarea_content a.thumbnail_btn{float:left; width:121px; background:url(../images/browse_select_btn.gif) no-repeat 0 0; color:#fff; text-decoration:none; height:20px; text-align:center; padding:5px 0; margin-right:8px; text-transform:uppercase; font-size:10px; line-height:14px; font-weight:bold}
 #inner_container .upload_video .left_details .creat_video_details .textarea_content textarea{float:left; width:612px; height:110px; border:1px solid #dad8d8; margin-bottom:5px; display:inline; font:12px/14px Arial, Helvetica, sans-serif}
 #inner_container .upload_video .left_details .creat_video_details .languge{float:left; width:170px; padding-top:26px;}
 #inner_container .upload_video .left_details .creat_video_details .languge select{float:left; width:170px;}
-#inner_container .upload_video .left_details .creat_video_details .button{float:left; width:auto;margin-top:15px;margin-left:16px; margin-right:26px; display:inline}
-#inner_container .upload_video .left_details .creat_video_details .button input.upload_btn{float:left; width:100px; background:url(../images/upload_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:5px 0; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:0 8px 0 0; cursor:pointer}
+#inner_container .upload_video .left_details .creat_video_details .button{width:auto;margin-top:15px;margin-left:16px; margin-right:26px}
+#inner_container .upload_video .left_details .creat_video_details .button input.upload_btn{width:100px; background:url(../images/upload_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:5px 0; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:0 8px 0 0; cursor:pointer}
+#inner_container .upload_video .left_details .creat_video_details .button input.upload_btn[disabled=disabled]{background:url(../images/upload_btn_disabled.gif); cursor:default}
 #inner_container .upload_video .left_details .creat_video_details .button input.cancel{float:left; width:60px; background:url(../images/logout_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:5px 0; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:0; cursor:pointer}
 #inner_container .upload_video .right_details{float:left; width:200px; padding-left:18px;}
 #inner_container .upload_video .right_details .status_box{float:left; width:200px;}
