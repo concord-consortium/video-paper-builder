@@ -1,23 +1,18 @@
 require 'spec_helper'
 
 describe VideoPaper do
-  before(:all) do
+  before(:each) do
     @user = FactoryGirl.create(:user, :email=>"spec_test@velir.com")
     @second_user = FactoryGirl.create(:user,:email=>"super_spec_test@velir.com")
-  end
-  before(:each) do
     @valid_attributes = {
       :title => "value for title",
       :owner_id => @user.id
     }
   end
 
-  it "should create a new instance given valid attributes" do
-    VideoPaper.create!(@valid_attributes)
-  end
-  
   it "should have a title" do 
-    video_paper = VideoPaper.new(:owner_id=>@user.id)
+    video_paper = VideoPaper.new
+    video_paper.user = @user
     video_paper.save.should be_false
   end
   
@@ -26,17 +21,8 @@ describe VideoPaper do
     video_paper.save.should be_false
   end
   
-  it "should belong to a user" do 
-    user_video_paper = VideoPaper.new(:title=>"Awesome Title",
-      :owner_id=>@user.id
-    )
-    user_video_paper.save    
-    user_video_paper.user.should == @user
-  end
-  
   it "should have preset sections" do
-    video_paper = VideoPaper.new(:title=>"I have sections", :owner_id=> 1)
-    video_paper.save!
+    video_paper = FactoryGirl.create(:video_paper)
     Settings.sections.each do |section_setting|
       section = video_paper.sections.find_by_title(section_setting[1]["title"])
       section.should_not be nil
@@ -116,8 +102,7 @@ describe VideoPaper do
   end
   
   it "should default to unpublished when a new video paper is created" do
-    video_paper = VideoPaper.new(@valid_attributes)
-    video_paper.save.should be_true
+    video_paper = FactoryGirl.create(:video_paper)
     
     video_paper.published?.should be_false
     video_paper.unpublished?.should be_true
@@ -125,8 +110,7 @@ describe VideoPaper do
   end
   
   it "should display as published when published! is called" do
-    video_paper = VideoPaper.new(@valid_attributes)
-    video_paper.save.should be_true
+    video_paper = FactoryGirl.create(:video_paper)
     
     video_paper.publish!
     video_paper.published?.should be_true
@@ -135,8 +119,7 @@ describe VideoPaper do
   end
   
   it "should display as unpublished when unpublish! is called" do
-    video_paper = VideoPaper.new(@valid_attributes)
-    video_paper.save.should be_true
+    video_paper = FactoryGirl.create(:video_paper)
     
     video_paper.publish!
     video_paper.unpublish!

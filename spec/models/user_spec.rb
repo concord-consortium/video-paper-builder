@@ -1,10 +1,8 @@
 require 'spec_helper'
 
 describe User do
-  before(:all) do
-    @admin = FactoryGirl.create(:admin)
-  end
   before(:each) do
+    @admin = FactoryGirl.create(:admin)
   end
   it "should require a first and last name for an admin account" do
     admin = Admin.new
