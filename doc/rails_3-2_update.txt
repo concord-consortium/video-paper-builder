@@ -1,6 +1,5 @@
 Critical
-- sharing intro to physics (58), doesn't work, but others do
-- upload video button does nothing when no video is selected
+- upload video button does nothing when no video has been uploaded yet
 
 Important
 - add test to verify users can change password
