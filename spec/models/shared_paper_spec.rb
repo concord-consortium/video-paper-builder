@@ -1,14 +1,6 @@
 require 'spec_helper'
 
 describe SharedPaper do
-  before(:each) do
-    @valid_attributes = {
-      :video_paper_id => FactoryGirl.create(:video_paper).id,
-      :user_id => FactoryGirl.create(:user).id,
-      :notes=>"I like beets."
-    }
-  end
-
   it "shouldn't require a note" do
     paper = FactoryGirl.create(:shared_paper)
 
@@ -38,4 +30,13 @@ describe SharedPaper do
     paper = FactoryGirl.build(:shared_paper, :user => nil, :user_id => 'waffles are fantastical')
     paper.save.should be_false
   end
+
+  it "should be destroyed when the user is destroyed" do
+    paper = FactoryGirl.create(:shared_paper)
+    paper_id = paper.id
+    puts("Testing user destroy")
+    paper.user.destroy
+    SharedPaper.find_by_id(paper_id).should be_nil
+  end
+
 end

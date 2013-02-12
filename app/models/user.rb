@@ -14,9 +14,9 @@ class User < ActiveRecord::Base
   # Associations
   ###################################
   
-  has_many :video_papers, :foreign_key => 'owner_id'
+  has_many :my_video_papers, :foreign_key => 'owner_id', :class_name => 'VideoPaper'
   has_many :video_papers, :through=> :shared_papers, :uniq=>true
-  has_many :shared_papers
+  has_many :shared_papers, :dependent => :destroy
   has_many :wysihat_files
   
   ###################################
@@ -25,7 +25,6 @@ class User < ActiveRecord::Base
   
   validates_presence_of :first_name
   validates_presence_of :last_name
-  validates_associated :shared_papers
 
   ##################################
   # instance methods
