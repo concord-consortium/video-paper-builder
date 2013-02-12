@@ -78,6 +78,18 @@ class VideoPaper < ActiveRecord::Base
     retval
   end
 
+  def video_status
+    if video
+      if video.private?
+        "Private"
+      else
+        "Public"
+      end
+    else
+      "No video uploaded"
+    end
+  end
+
   ##################################
   # Class methods
   ##################################

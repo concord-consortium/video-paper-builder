@@ -24,7 +24,8 @@
             <div class="details">
               <h3><%= video_paper.title %></h3>
               <p><strong>Created:</strong> <%= video_paper.format_created_date %><br/>
-              <strong>Status:</strong> <%= video_paper.status.titlecase%></p>
+              <strong>Paper Status:</strong> <%= video_paper.status.titlecase%>,
+              <strong>Video Status:</strong> <%= video_paper.video_status%></p>
               <ul>
                 <li class="view_edit_btn"><span><%=link_to "View",video_paper_path(video_paper)%> <%= link_to "Edit",edit_video_paper_path(video_paper)%> <a class="sharing_btn" href="<%= share_video_paper_path(video_paper) %>" class="last">Sharing</a></span></li>
                 <% if video_paper.published? %>
