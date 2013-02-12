@@ -39,11 +39,11 @@ delegate.entriesAddedHandler = function(entries)
   document.getElementById('upload-complete').style.display = "none";
   document.getElementById('progressBar').style.display = "none";  
   var entry_index = entries.length - 1.0;
-	var entry = entries[entry_index];
-	document.getElementById('video_entry_id').value = entry.entryId;
+  var entry = entries[entry_index];
+  document.getElementById('video_entry_id').value = entry.entryId;
   //document.getElementById('button_submit').style.display = "inline";
   document.getElementById('button_submit').disabled = false;  
-	document.getElementById('finalize').style.display = "inline";  
+  document.getElementById('finalize').style.display = "inline";  
 }
 
 delegate.progressHandler = function(args)
