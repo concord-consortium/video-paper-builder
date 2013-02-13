@@ -49,11 +49,11 @@ own kaltura video server. This is a long and involved process, so avoid it if yo
 ### Uploading Help Video
 
 The code references some help videos that are uploaded to the CC kaltura server. This
-[Jing Video](http://screencast.com/t/lxUHFk3a) describeds how to add more. You'll need
+[Jing video](http://screencast.com/t/lxUHFk3a) describeds how to add more. You'll need
 admin access to the CC Kaltura server to do this.
 
 An addendum to this is that you should delete the flavors that were created automatically.
-Otherwise the play will use a lower quality flavor and the video will look blurry.
+Otherwise the player will use a lower quality flavor and the video will look blurry.
 
 License
 -------
