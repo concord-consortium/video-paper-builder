@@ -13,35 +13,26 @@ Check out the application:
     $ git clone git://github.com/concord-consortium/video-paper-builder.git
     $ cd video-paper-builder
 
-Use rvm gemsets:
-    
-    # We need to build image-magic.  Its hard to build on 1.9.2
-    # So lets use 1.8.7 instead.
-    
-    $ rvm use 1.8.7
-    $ rvm gemset create video_paper
-    $ rvm use video_paper
-    $ echo "rvm use 1.8.7@video_paper" > ./.rvmrc
-    
-Make sure you have bundler:
-    
-    $ gem install bundler
-    
+Use rvm:
+
+    $ rvm --rvmrc 1.9.3
+    $ cd ..; cd -
+
 Run bundler install:
 
     $ bundle install
-    
+
 Test:
 
-    $ rake db:test:prepare;rake devise:test RAILS_ENV=test;bundle exec spec spec/models/*.rb
-    $ rake devise:test RAILS_ENV=test;bundle exec cucumber
-    
+    $ rake spec
+    $ rake cucumber
+
 Profit!
 
-    $ script/server
-    
+    $ rails s
 
 Uploading Help Video:
+
     [Jing Video](http://screencast.com/t/lxUHFk3a)
     An addendum to this is that you should delete the flavors that were created automatically. Otherwise the play will use a lower quality flavor
     and the video will look blurry.
@@ -50,4 +41,4 @@ Uploading Help Video:
 License
 -------
 
-Currently under MIT license until told otherwise.
+Currently under MIT license
