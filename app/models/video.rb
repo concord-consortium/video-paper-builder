@@ -29,7 +29,6 @@ class Video < ActiveRecord::Base
     ###################################
     # Callbacks
     ###################################
-    before_validation :convert_complex_pattern_to_simple_pattern
     before_create :set_kaltura_metadata_fields
     after_create :update_kaltura_metadata
 
@@ -43,27 +42,24 @@ class Video < ActiveRecord::Base
       return self.processed
     end
     
-    def private?
-      self.private
-    end
-      
     def public?
       !private?
     end
     
-    # Protected Methods
-    protected
-    
-    def convert_complex_pattern_to_simple_pattern
-      unless self.thumbnail_time.nil? || self.thumbnail_time.blank?
-        if self.thumbnail_time.to_s.match(COMPLEX_SECONDS_PATTERN)
-          seconds = self.thumbnail_time
-  
+    def thumbnail_time=(time)
+      unless time.nil? || time.blank?
+        if time.to_s.match(COMPLEX_SECONDS_PATTERN)
+          seconds = time
+
           parsed_seconds_array = seconds.split(":")
-          self.thumbnail_time = (parsed_seconds_array.at(0).to_i * 3600) + (parsed_seconds_array.at(1).to_i * 60) + parsed_seconds_array.at(2).to_i
+          time = (parsed_seconds_array.at(0).to_i * 3600) + (parsed_seconds_array.at(1).to_i * 60) + parsed_seconds_array.at(2).to_i
         end
       end
+      write_attribute(:thumbnail_time, time)
     end
+
+    # Protected Methods
+    protected
     
     def set_kaltura_metadata_fields
       KalturaFu.set_video_description(self.entry_id,self.description)
