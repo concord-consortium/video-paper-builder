@@ -10,7 +10,7 @@ module KalturaUtil
     pager.page_size = 100000
     objects = KalturaFu.client.media_service.list(temp_filter,pager).objects
     puts "found #{objects.size} videos"
-    test_video = objects.map!{|c| c if c.categories == 'test'}.compact!.last
+    test_video = objects.map!{|c| c if c.categories == 'test' || c.categories == 'cucumber'}.compact!.last
     @video_id = test_video.id
   end
 end
