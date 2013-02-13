@@ -8,11 +8,4 @@ FactoryGirl.define do
     title {generate(:vp_title)}
     association :user
   end
-
-  factory :video do
-    entry_id { KalturaUtil.find_test_video_id }
-    association :video_paper
-    description "this is an awesome description"
-    private false
-  end
 end

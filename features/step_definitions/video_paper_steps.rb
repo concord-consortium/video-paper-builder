@@ -33,7 +33,7 @@ end
 
 Given /^a published video paper named "([^"]*)" with a private video$/ do |title|
   paper = FactoryGirl.create(:video_paper, :title => title, :user => @current_user, :status => "published")
-  video = FactoryGirl.create(:video, :video_paper => paper, :private => true)
+  video = FactoryGirl.create(:real_video, :video_paper => paper, :private => true)
 end
 
 Given /^the video paper "([^"]*)" is shared with me$/ do |title|
@@ -56,7 +56,7 @@ end
 Given /^the following video papers with videos$/ do |table|
   table.hashes.each do |row|
     paper = FactoryGirl.create(:video_paper, :title => row["title"], :user => User.find_by_email(row["user"]), :status => row["status"])
-    video = FactoryGirl.create(:video, :video_paper => paper)
+    video = FactoryGirl.create(:real_video, :video_paper => paper)
   end
 end
 

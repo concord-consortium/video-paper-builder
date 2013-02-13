@@ -78,7 +78,7 @@ class Section < ActiveRecord::Base
   end
   
   def reset_start_and_stop_times
-    video = VideoPaper.find(self.video_paper_id).video
+    video = video_paper.video
     unless video.nil?
       if self.video_start_time.to_i >= video.duration.to_i
         self.video_start_time = (video.duration.to_i - 1)
