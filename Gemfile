@@ -36,12 +36,15 @@ group :test do
   gem "database_cleaner",   "~> 0.7.2"
   gem "capybara",           "~> 1.1.2"
   gem "rspec",              "~> 2.11.0"
-  gem "rspec-rails",        "~> 2.11.0"
   gem "factory_girl_rails", "~> 4.0"
   gem 'launchy'
 #   gem 'spork'
 #   gem 'autotest-rails'
 #   gem 'redgreen'
+end
+
+group :development, :test do
+  gem "rspec-rails",        "~> 2.11.0"
 end
 
 group :assets do
