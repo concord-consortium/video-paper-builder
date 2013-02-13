@@ -1,6 +1,3 @@
-Critical
-- upload video button does nothing when no video has been uploaded yet
-
 Important
 - add test to verify users can change password
 - remove edit timing links it seems broken
