@@ -13,6 +13,9 @@ set :use_sudo, false
 
 set :scm, :git
 set :repository,  "git://github.com/concord-consortium/video-paper-builder.git"
+# uses a shared/cached_copy repository so the whole repo doesn't need to be cloned
+# each time
+set :deploy_via, :remote_cache
 
 after 'deploy:update_code',   'deploy:link_configs'
 namespace(:deploy) do
