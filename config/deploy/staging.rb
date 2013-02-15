@@ -1,5 +1,5 @@
 set :application, "vpb"
-set :branch,  source_branch('s3_attachments')
+set :branch,  source_branch('master')
 set :deploy_to, "/web/portal"
 set :user, 'deploy'
 
