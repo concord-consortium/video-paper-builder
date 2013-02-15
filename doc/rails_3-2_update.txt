@@ -1,9 +1,7 @@
 Important
 - add test to verify users can change password
 - remove edit timing links it seems broken
-- uploaded images should be stored in S3
 - look for broken images (these might cause errors on production)
-- transfer images to S3 and update any old urls to them
 - pull mailer information from the settings file so staging and production have the correct
    host name
 
