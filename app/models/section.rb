@@ -78,8 +78,8 @@ class Section < ActiveRecord::Base
   end
   
   def reset_start_and_stop_times
-    video = video_paper.video
-    unless video.nil?
+    video = video_paper ? video_paper.video : nil
+    unless video.nil? or video.duration.to_i < 1
       if self.video_start_time.to_i >= video.duration.to_i
         self.video_start_time = (video.duration.to_i - 1)
       end
