@@ -10,7 +10,7 @@
             <p><%= admin.name %> | This is you. </p>
           <% end %>
         <% end %><br/>
-        <h3>Normal Users.</h3>
+        <h3>Normal Users. <%= link_to "(CSV report)", users_url(:format => :csv) %></h3>
         <% @users.each do |user| %>
           <!-- FIXME: the link to change a users password used to be generated with -->
           <% # link_to "Set Password", :controller=>"passwords",:action=>"edit",:reset_password_token=>user.generate_reset_password_token! %>

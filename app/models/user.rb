@@ -48,4 +48,40 @@ class User < ActiveRecord::Base
     [:first_name, :last_name, :email]
   end
   
+  comma do
+    id
+    created_at
+    first_name
+    last_name
+    email
+    my_video_papers :size => 'Number of Papers'
+    my_video_papers 'Last Paper: Title' do |papers|
+      if papers.empty?
+        ''
+      else
+        papers.last.title
+      end
+    end
+    my_video_papers 'Last Paper: Video Length' do |papers|
+      if papers.empty? || papers.last.video.nil?
+        ''
+      else
+        papers.last.video.duration
+      end
+    end
+    my_video_papers 'Last Paper: Last Text Edit' do |papers|
+      if papers.empty? || papers.last.sections.empty?
+        ''
+      else
+        papers.last.sections.sort{ |x,y| x.updated_at <=> y.updated_at}.last.updated_at
+      end
+    end
+    my_video_papers 'Last Paper: Number of Shares' do |papers|
+      if papers.empty?
+        ''
+      else
+        papers.last.users.size
+      end
+    end
+  end
 end

@@ -25,6 +25,7 @@ gem 'rdoc'
 gem "dynamic_form"
 gem "tinymce-rails"
 gem 'tinymce-rails-imageupload', '~> 3.5.6.3'
+gem "comma", "~> 3.0"
 
 group :development do
   gem 'debugger'

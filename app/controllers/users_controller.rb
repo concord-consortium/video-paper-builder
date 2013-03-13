@@ -13,4 +13,10 @@ class UsersController < ApplicationController
     sign_in(user)
     render :text => "OK"
   end
+
+  def index
+    respond_to do |format|
+       format.csv { render :csv => User.limit(500)}
+    end
+  end
 end
