@@ -19,4 +19,17 @@ class UsersController < ApplicationController
        format.csv { render :csv => User.limit(500)}
     end
   end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(params[:user])
+      redirect_to admin_console_path, :notice => "User was update successfully"
+    else
+      render :action => 'edit'
+    end
+  end
+
 end

@@ -30,4 +30,12 @@ Feature:
     And I press "Submit"
     Then I should be on the admin console page
     And I should not see "Accept Invitation"
-  
+
+  Scenario: An admin can change a users email
+    Given I am an admin logged in as "videopaperbuilder@gmail.com"
+    When I go to the admin console page
+    And I follow "Edit"
+    Then I fill in "Email" with "user+modified@example.com" within "#inner_container"
+    And I press "Update User"
+    Then I should be on the admin console page
+    And I should see "user+modified@example.com"
