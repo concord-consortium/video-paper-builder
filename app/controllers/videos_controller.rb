@@ -2,13 +2,22 @@ class VideosController < ApplicationController
   before_filter :authenticate_any_user!
   before_filter :get_video_paper_and_owner_from_request
   before_filter :authenticate_owner!  
+  before_filter :authenticate_admin!, :only=>[:show]
   before_filter :video_exists?, :only=>[:new,:create]
   before_filter :no_video?,:only=>[:index]
   
   def index
     @video = @video_paper.video
   end
-  
+
+  def show
+    @video = Video.find(params[:id])
+
+    if @video.entry_id
+      @kaltura_info = KalturaFu.get_video_info(@video.entry_id)
+    end
+  end
+
   def new
     @video = Video.new
     # make videos public by default because of confusing UI
