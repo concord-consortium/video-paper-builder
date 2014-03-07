@@ -4,7 +4,7 @@ gem 'rails', '~> 3.2'
 gem 'jquery-rails', '~> 2.1'
 gem 'jquery-ui-rails', '~> 4.0'
 
-gem "mysql2"
+gem "mysql2", '~>0.3.15'
 
 gem 'velir_kaltura-ruby', '~> 0.4.3', :require=> 'kaltura'
 gem 'devise'
@@ -54,7 +54,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', :platforms => :ruby
+  gem 'therubyracer', '~> 0.12.1', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
   gem "turbo-sprockets-rails3", "~> 0.3.6"
