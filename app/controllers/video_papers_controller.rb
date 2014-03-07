@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class VideoPapersController < ApplicationController
   before_filter :authenticate_any_user!, :except=>[:new,:create,:show]
   before_filter :authenticate_user!, :only=>[:new,:create]
@@ -30,7 +32,12 @@ class VideoPapersController < ApplicationController
   
   def my_video_papers
     order_by_sql = VideoPaper.order_by(params[:order_by])
-    @video_papers = current_user.my_video_papers.paginate :page=>params[:page], :per_page=>5, :order=>order_by_sql
+    if current_user
+      @video_papers = current_user.my_video_papers.paginate :page=>params[:page], :per_page=>5, :order=>order_by_sql
+    else
+      # this can hapen if an admin is logged in and they aren't also logged in as a user
+      @video_papers = [].paginate
+    end
   end
   
   def shared_video_papers
