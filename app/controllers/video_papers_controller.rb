@@ -11,7 +11,12 @@ class VideoPapersController < ApplicationController
   
   def index
       order_by = VideoPaper.order_by(params[:order_by])
-      @video_papers = VideoPaper.order(order_by).page(params[:page]).per_page(10)
+      if params[:user]
+        user = User.find(params[:user].to_i)
+        @video_papers = user.my_video_papers.paginate :page=>params[:page], :per_page=>10, :order=>order_by
+      else
+        @video_papers = VideoPaper.order(order_by).page(params[:page]).per_page(10)
+      end
   end
   
   # report that can be pasted from html to google docs

@@ -13,6 +13,7 @@ VPB::Application.routes.draw do
   end
 
   match 'video_papers/report' => 'video_papers#report'
+  match 'video_papers/user/:user' => 'video_papers#index', :as => :user_video_papers
   resources :video_papers do
     member do
       get 'share'
