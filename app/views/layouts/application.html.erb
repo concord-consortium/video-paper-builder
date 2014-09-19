@@ -46,7 +46,7 @@
         <%- end -%>
       </div>
       <div id="body_container">
-        <div id="inner_container">
+        <div id="inner_container"<%= ' class=full' if @full_width_page %>>
         <% if admin_signed_in? %>  
           <div class="tabs">
             <ul>
