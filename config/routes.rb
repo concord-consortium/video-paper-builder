@@ -35,8 +35,10 @@ VPB::Application.routes.draw do
   resources :admins
   resources :users
 
+  get 'about/' => 'home#about', :as => :about
   get 'about/index' => 'home#about', :as => :about
 
+  get 'contact/' => 'home#contact', :as => :contact
   get 'contact/index' => 'home#contact', :as => :contact
 
   get 'help_videos/:video_name' => 'home#help_videos', :as => :help_video
