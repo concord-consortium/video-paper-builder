@@ -36,6 +36,9 @@ own kaltura video server. This is a long and involved process, so avoid it if yo
 1. Copy config/database.yml.example to config/database.yml
 2. Update username and password
 3. Run rake db:create:all
+4. Copy config/kaltura.yml.example to config/kaltura.yml
+5. Optionally update kaltura configuration values (the kaltura.yml file just needs to exist for step 6)
+6. Run rake db:migrate
 
 ### Test
 
