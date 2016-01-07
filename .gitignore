@@ -3,6 +3,7 @@
 vendor/cache/*
 config/database.yml
 config/kaltura.yml
+config/aws.yml
 .bundle/*
 public/system/*
 .DS_Store

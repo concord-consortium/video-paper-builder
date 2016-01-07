@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130202211928) do
+ActiveRecord::Schema.define(:version => 20160107120711) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                                :default => "", :null => false
@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(:version => 20130202211928) do
     t.string   "title"
     t.text     "content"
     t.integer  "video_paper_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.string   "video_start_time"
     t.string   "video_stop_time"
   end
@@ -59,8 +59,8 @@ ActiveRecord::Schema.define(:version => 20130202211928) do
     t.integer  "video_paper_id"
     t.integer  "user_id"
     t.text     "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -98,8 +98,8 @@ ActiveRecord::Schema.define(:version => 20130202211928) do
 
   create_table "video_papers", :force => true do |t|
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "owner_id"
     t.string   "status",     :default => "unpublished"
   end
@@ -108,8 +108,8 @@ ActiveRecord::Schema.define(:version => 20130202211928) do
     t.string   "entry_id"
     t.text     "description"
     t.integer  "video_paper_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
     t.string   "thumbnail_file_name"
     t.string   "thumbnail_content_type"
     t.integer  "thumbnail_file_size"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(:version => 20130202211928) do
     t.boolean  "processed"
     t.string   "thumbnail_time"
     t.boolean  "private"
+    t.string   "upload_uri"
   end
 
   create_table "wysihat_files", :force => true do |t|
@@ -125,8 +126,8 @@ ActiveRecord::Schema.define(:version => 20130202211928) do
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "user_id"
   end
 

@@ -1,0 +1,19 @@
+# config/aws.yml
+base: &base
+  s3:
+    access_key_id: ''       # your access key id
+    secret_access_key: ''   # your secret access key
+    bucket: ''              # your bucket name
+    region: 's3'            # region prefix of your bucket url, eg. "s3-eu-west-1"
+
+development:
+  <<: *base
+
+test:
+  <<: *base
+
+cucumber:
+  <<: *base
+
+production:
+  <<: *base
