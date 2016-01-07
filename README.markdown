@@ -58,6 +58,24 @@ admin access to the CC Kaltura server to do this.
 An addendum to this is that you should delete the flavors that were created automatically.
 Otherwise the player will use a lower quality flavor and the video will look blurry.
 
+## Customizing Edit Notes Tab Labels
+
+To customize the labels for the tabs in the Edit Notes page edit the title property of the
+sections setting in the config/application.yml file.  By default the title settings are:
+
+    defaults: &defaults
+      sections:
+        a:
+          title: Introduction
+        b:
+          title: Lesson
+        c:
+          title: Student Work
+        d:
+          title: Results
+        e:
+          title: Conclusion
+
 License
 -------
 
