@@ -1,7 +1,7 @@
 require 'uri'
 
 class Video < ActiveRecord::Base
-    attr_accessible :private, :thumbnail_time, :entry_id, :upload_uri
+    attr_accessible :private, :thumbnail_time, :entry_id, :upload_uri, :transcoded_uri, :aws_transcoder_job
 
     before_save :parse_upload_uri
 

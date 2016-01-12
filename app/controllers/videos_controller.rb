@@ -1,4 +1,7 @@
 class VideosController < ApplicationController
+
+  WEB_MP4_PRESET_ID = '1351620000000-100070'
+
   before_filter :authenticate_any_user!
   before_filter :get_video_paper_and_owner_from_request
   before_filter :authenticate_owner!
@@ -18,7 +21,6 @@ class VideosController < ApplicationController
     @video = Video.new
     # make videos public by default because of confusing UI
     @video.private = false
-    KalturaFu.generate_session_key
   end
 
   def create
@@ -32,6 +34,7 @@ class VideosController < ApplicationController
       end
 
       if @video.save
+        start_transcoding_job()
         redirect_to(@video_paper,:notice=>"Your video was successfully updated!")
       else
         respond_to do |format|
@@ -45,7 +48,6 @@ class VideosController < ApplicationController
 
   def edit
     @video = Video.find(params[:id])
-    KalturaFu.generate_session_key
   end
 
   def update
@@ -53,9 +55,14 @@ class VideosController < ApplicationController
     old_upload_uri = @video.upload_uri
     if @video.update_attributes(params[:video])
       unless params[:video][:upload_uri] == old_upload_uri
+        if !@video.processed
+          cancel_transcoding_job()
+        end
+        @video.transcoded_uri = nil
         @video.processed = false
         @video.duration = nil
         @video.save
+        start_transcoding_job()
       end
       redirect_to(my_video_papers_path, :notice=>"Your video was sucessfully updated!")
     else
@@ -94,8 +101,44 @@ class VideosController < ApplicationController
     (@owner == current_user && current_user) || current_admin
   end
 
-  def upload_successful(success)
-    # just return nothing - the s3 uploader has events that are listened to for success/failure
-    render :nothing => true, :status => (success ? 200 : 500)
+  def cancel_transcoding_job
+    if !@video.aws_transcoder_job.nil?
+      transcoder = AWS::ElasticTranscoder::Client.new
+      transcoder.cancel_job id: @video.aws_transcoder_job
+      @video.aws_transcoder_job = nil
+      @video.aws_transcoder_state = 'cancelled'
+      @video.aws_transcoder_submitted_at = nil
+      @video.aws_transcoder_last_notification = nil
+      @video.save!
+    end
+  end
+
+  def start_transcoding_job
+    transcoded_uri = "transcoded/#{@video.id}/#{Time.now.to_i}/#{@video.upload_filename}"
+    @video.transcoded_uri = transcoded_uri
+
+    transcoder = AWS::ElasticTranscoder::Client.new
+    result = transcoder.create_job(
+      pipeline_id: VPB::Application.config.aws[:transcoder][:pipeline_id],
+      input: {
+        key: @video.upload_uri,
+        frame_rate: 'auto',
+        resolution: 'auto',
+        aspect_ratio: 'auto',
+        interlaced: 'auto',
+        container: 'auto'
+      },
+      output: {
+        key: transcoded_uri,
+        preset_id: WEB_MP4_PRESET_ID,
+        thumbnail_pattern: "",
+        rotate: 'auto'
+      }
+    )
+    @video.aws_transcoder_job = result[:job][:id]
+    @video.aws_transcoder_state = 'submitted'
+    @video.aws_transcoder_submitted_at = Time.now
+    @video.aws_transcoder_last_notification = nil;
+    @video.save!
   end
 end

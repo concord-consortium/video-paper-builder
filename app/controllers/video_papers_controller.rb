@@ -1,7 +1,7 @@
 require 'will_paginate/array'
 
 class VideoPapersController < ApplicationController
-  before_filter :authenticate_any_user!, :except=>[:new,:create,:show]
+  before_filter :authenticate_any_user!, :except=>[:new,:create,:show,:transcoding_status]
   before_filter :authenticate_user!, :only=>[:new,:create]
   before_filter :authenticate_owner!, :only=>[:edit,:edit_section,:update,:update_section,:share,:edit_section_duration,:update_setion_duration,:publish,:unpublish,:destroy]
   before_filter :authenticate_shared!, :only=>[:show]
@@ -218,6 +218,18 @@ class VideoPapersController < ApplicationController
     video_paper = VideoPaper.find(params[:id])
     video_paper.unpublish!
     redirect_to my_video_papers_url, :notice=> "#{video_paper.title} was sucessfully unpublished!"
+  end
+
+  def transcoding_status
+    video_paper = VideoPaper.find(params[:id])
+    @video = video_paper.video
+    @duration = @video && @video.aws_transcoder_submitted_at != nil ? Time.now.to_i - @video.aws_transcoder_submitted_at.to_i : 0
+
+    respond_to do |format|
+      format.js do
+        render 'transcoding_status'
+      end
+    end
   end
 
   protected

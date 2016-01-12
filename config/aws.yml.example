@@ -1,10 +1,13 @@
 # config/aws.yml
 base: &base
-  s3:
+  credentials:
     access_key_id: ''       # your access key id
     secret_access_key: ''   # your secret access key
+  s3:
     bucket: ''              # your bucket name
     region: 's3'            # region prefix of your bucket url, eg. "s3-eu-west-1"
+  transcoder:
+    pipeline_id: ''         # transcoder pipeline id (created in aws console)
 
 development:
   <<: *base

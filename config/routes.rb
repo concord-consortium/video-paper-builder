@@ -25,6 +25,7 @@ VPB::Application.routes.draw do
       put 'update_section_duration'
       get 'publish'
       get 'unpublish'
+      get 'transcoding_status'
     end
     resources :videos
   end
@@ -42,6 +43,8 @@ VPB::Application.routes.draw do
   get 'contact/index' => 'home#contact', :as => :contact
 
   get 'help_videos/:video_name' => 'home#help_videos', :as => :help_video
+
+  post 'sns/transcoder_update' => 'sns#transcoder_update'
 
   #map.connect ':controller/:action/:id'
   #map.connect ':controller/:action/:id.:format'

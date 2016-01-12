@@ -1,0 +1,30 @@
+<% if @video %>
+  <% if @video.aws_transcoder_state == 'error'%>
+    status = "<p>There was an error processing the uploaded video.  Please upload another video.</p>";
+  <% elsif @video.aws_transcoder_state == 'warning' %>
+    status = "<p>The video processing reported a warning.  Please ask the site admins for more information.</p>"
+  <% elsif @video.aws_transcoder_state == 'completed' %>
+    status = "<p>The video has completed processing.</p>"
+  <% elsif @video.aws_transcoder_state == 'cancelled' %>
+    status = "<p>The video processing job has been cancelled.</p>"
+  <% elsif @video.aws_transcoder_state == 'submitted' || @video.aws_transcoder_state == 'progressing' %>
+    <% if @duration > 0 %>
+      status = "<p>The video has been processing for <%= @duration %> second<%= @duration == 1 ? '' : 's' %>.  Please wait as this could take some time for large videos!</p>"
+    <% else %>
+      status = "<p>The video is processing.  For large videos, this could take some time!</p>"
+    <% end %>
+    setTimeout(function () {
+      $j.ajax("<%= transcoding_status_video_paper_url :format => :js %>")
+    }, 1000)
+  <% else  %>
+    status = "<p>The video is in an unknown state (<% @video.aws_transcoder_state %>).  Please ask the site admins for more information</p>"
+  <% end %>
+<% else  %>
+  status = "<p>The video has not been uploaded yet.</p>"
+<% end %>
+
+$j('#transcoding_status').html(status);
+
+<% if @video && @video.aws_transcoder_state == 'completed' %>
+  VPB && VPB.show_video_player  && VPB.show_video_player();
+<% end %>

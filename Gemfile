@@ -12,7 +12,7 @@ gem 'devise_invitable'
 gem 'devise-encryptable'
 gem 'warden'
 gem 'paperclip'
-gem 'aws-sdk', '~> 1.3.4'
+gem 'aws-sdk', '~> 1.66'
 gem 'settingslogic'
 # gem 'wysihat-engine', '0.1.12'
 gem 'will_paginate'
@@ -27,6 +27,7 @@ gem "tinymce-rails"
 gem 'tinymce-rails-imageupload', '~> 3.5.6.3'
 gem "comma", "~> 3.0"
 gem 's3_direct_upload', "~> 0.1.7"
+gem 'httparty'
 
 group :development do
   gem 'debugger'
