@@ -9,7 +9,7 @@ module VideoPapersHelper
         image_tag(video_paper.video.thumbnail.url(:thumb))
       else
         # TODO:
-        "<div>TODO: Get thumbnail from AWS</div>"
+        "TODO: Get thumbnail from AWS"
       end
     else
       "<div class=\"no-video\"></div>".html_safe

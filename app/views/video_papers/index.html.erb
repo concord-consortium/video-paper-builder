@@ -30,7 +30,7 @@
                   <strong>Created:</strong> <%= video_paper.format_created_date %><br/>
                   <strong>Paper Status:</strong> <%= video_paper.status.titlecase%>,
                   <strong>Video Status:</strong> <%= video_paper.video_status%>,
-                  <strong>Transcoder Status:</strong> <%= video_paper.video.aws_transcoder_state ? video_paper.video.aws_transcoder_state.titleize : 'Unknown' %>,
+                  <strong>Transcoder Status:</strong> <%= video_paper.video && video_paper.video.aws_transcoder_state ? video_paper.video.aws_transcoder_state.titleize : 'Unknown' %>,
                   <%= link_to 'Video Info', [video_paper, video_paper.video] %>
                 </p>
                 <ul>
