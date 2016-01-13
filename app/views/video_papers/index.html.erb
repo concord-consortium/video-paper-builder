@@ -12,7 +12,7 @@
             <strong>Date</strong>
             <span>
               <%=link_to pick_arrow("date_asc",:position=>"top"), {:controller=>"video_papers",:action=>"index",:order_by=>'date_asc'}%>
-              <%=link_to pick_arrow("date_desc"), video_papers_path %>              
+              <%=link_to pick_arrow("date_desc"), video_papers_path %>
             </span>
           </p>
         </div>
@@ -30,6 +30,7 @@
                   <strong>Created:</strong> <%= video_paper.format_created_date %><br/>
                   <strong>Paper Status:</strong> <%= video_paper.status.titlecase%>,
                   <strong>Video Status:</strong> <%= video_paper.video_status%>,
+                  <strong>Transcoder Status:</strong> <%= video_paper.video.aws_transcoder_state ? video_paper.video.aws_transcoder_state.titleize : 'Unknown' %>,
                   <%= link_to 'Video Info', [video_paper, video_paper.video] %>
                 </p>
                 <ul>
@@ -39,12 +40,12 @@
                   <% else%>
                     <li class="unpublish_btn"><span><%= link_to "Publish",publish_video_paper_path(video_paper)%></span></li>
                     <li class="unpublish_btn"><span><%= link_to 'Remove', video_paper, :confirm => 'Are you sure?', :method => :delete , :title => "Remove" %></span></li>
-                  <%end%>                  
+                  <%end%>
                 </ul>
               </div>
             </div>
           <% end %>
-            <div class="paging"><ul><%= will_paginate @video_papers, 
+            <div class="paging"><ul><%= will_paginate @video_papers,
               :next_label=> image_tag('next_arrow.gif'),
               :previous_label=>image_tag('pre_arrow.gif')%></ul></div>
 

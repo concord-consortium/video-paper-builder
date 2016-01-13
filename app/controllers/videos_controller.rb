@@ -1,3 +1,5 @@
+require 'yaml'
+
 class VideosController < ApplicationController
 
   WEB_MP4_PRESET_ID = '1351620000000-100070'
@@ -15,6 +17,14 @@ class VideosController < ApplicationController
 
   def show
     @video = Video.find(params[:id])
+    @info = {
+      :upload_uri => @video.upload_uri,
+      :transcoded_uri => @video.transcoded_uri,
+      :aws_transcoder_state => @video.aws_transcoder_state,
+      :aws_transcoder_submitted_at => @video.aws_transcoder_submitted_at,
+      :aws_transcoder_job => @video.aws_transcoder_job,
+      :aws_transcoder_last_notification => @video.aws_transcoder_last_notification ? YAML.load(@video.aws_transcoder_last_notification) : null
+    }
   end
 
   def new
