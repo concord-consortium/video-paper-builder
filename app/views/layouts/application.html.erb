@@ -11,7 +11,7 @@
   <script type="text/javascript" src="/javascripts/jq-png-min.js"></script>
   <script type="text/javascript" src="/javascripts/png.js"></script>
   <![endif]-->
-</head>  
+</head>
 <body>
 <div id="wrapper">
   <div id="main">
@@ -32,11 +32,11 @@
           <% if user_signed_in? %>
             <div class="logout">
               <%= render :partial =>'sessions/login'%>
-            </div>          
+            </div>
           <% else %>
             <div class="login">
               <%= render :partial =>'sessions/login'%>
-            </div>            
+            </div>
           <% end %>
         </div>
       </div>
@@ -46,8 +46,16 @@
         <%- end -%>
       </div>
       <div id="body_container">
+        <div id='browser_not_supported'>
+          <%# this div is replace with a message in application.js if the browser is not supported #%>
+          <noscript>
+            <div id='inner_browser_not_supported'>
+              Please enable Javascript in your browser to use this site.
+            </div>
+          </noscript>
+        </div>
         <div id="inner_container"<%= ' class=full' if @full_width_page %>>
-        <% if admin_signed_in? %>  
+        <% if admin_signed_in? %>
           <div class="tabs">
             <ul>
               <%= content_tag :li, link_to(raw("<span>Admin Console</span>"),admin_console_path) %>
@@ -66,7 +74,7 @@
             </ul>
           </div>
         <% end %>
-        <%= yield%>        
+        <%= yield%>
         </div>
       </div>
     </div>

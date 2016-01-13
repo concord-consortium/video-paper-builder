@@ -74,6 +74,23 @@ VPB = {
           return null;
         }
 	    };
+
+			// do the browser check
+			var el = document.createElement('video');
+			var notSupported = {
+				file: !('File' in window),
+				video: !el || !el.canPlayType || !el.canPlayType('video/mp4').replace(/no/, ''),
+				messages: []
+			}
+			if (notSupported.file) {
+				notSupported.messages.push('file uploads');
+			}
+			if (notSupported.video) {
+				notSupported.messages.push('native mp4 video');
+			}
+			if (notSupported.messages.length > 0) {
+				$j("#browser_not_supported").html("<div id='inner_browser_not_supported'>This site may not work well for you as your browser does not support " + (notSupported.messages.join(' or ') + '.  Please use another browser if you can.</div>')).show();
+			}
 		}
 	},
 	// notifications
