@@ -17,6 +17,7 @@
 //= require tinymce
 //= require s3_direct_upload
 //= require aws-upload
+//= require video-js-5.4.6
 
 var VPB = VPB || {};
 

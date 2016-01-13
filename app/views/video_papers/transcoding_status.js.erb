@@ -26,5 +26,7 @@
 $j('#transcoding_status').html(status);
 
 <% if @video && @video.aws_transcoder_state == 'completed' %>
-  VPB && VPB.show_video_player  && VPB.show_video_player();
+  <% signed_url = @video.generate_signed_url(); if signed_url != nil %>
+    VPB && VPB.show_video_player && VPB.show_video_player('<%= signed_url %>');
+  <% end %>
 <% end %>

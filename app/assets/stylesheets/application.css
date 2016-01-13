@@ -4,6 +4,7 @@
  * =require jquery.ui.tabs
  * =require facebox
  * =require s3_direct_upload_progress_bars
+ * =require video-js-5.4.6
  */
 
 /* override default jquery.ui styles */

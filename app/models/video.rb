@@ -64,6 +64,17 @@ class Video < ActiveRecord::Base
       end
     end
 
+    def generate_signed_url
+      if self.transcoded_uri != nil
+        s3 = AWS::S3.new
+        bucket = s3.buckets[VPB::Application.config.aws[:s3][:bucket]]
+        obj = bucket ? bucket.objects[self.transcoded_uri] : nil
+        obj ? obj.url_for(:read).to_s : nil #, :response_content_type => 'video/mp4') # also think about setting endpoint to hostname
+      else
+        nil
+      end
+    end
+
     # Protected Methods
 
     def parse_upload_uri
