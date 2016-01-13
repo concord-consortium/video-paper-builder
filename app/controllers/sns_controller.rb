@@ -17,7 +17,7 @@ class SnsController < ApplicationController
       state = message["state"].downcase
       video.aws_transcoder_state = state
       video.aws_transcoder_last_notification = message
-      video.processed = state == 'completed'
+      video.processed = (state == 'completed') || (state == 'warning')
       video.save!
 
     when "UnsubscribeConfirmation"
