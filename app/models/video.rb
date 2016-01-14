@@ -66,16 +66,24 @@ class Video < ActiveRecord::Base
 
     def generate_signed_url
       if self.transcoded_uri != nil
-        s3 = AWS::S3.new
-        bucket = s3.buckets[VPB::Application.config.aws[:s3][:bucket]]
-        obj = bucket ? bucket.objects[self.transcoded_uri] : nil
-        obj ? obj.url_for(:read).to_s : nil #, :response_content_type => 'video/mp4') # also think about setting endpoint to hostname
+        signed_url self.transcoded_uri
       else
         nil
       end
     end
 
+    def generate_signed_thumbnail_url
+      nil
+    end
+
     # Protected Methods
+
+    def signed_url(url)
+      s3 = AWS::S3.new
+      bucket = s3.buckets[VPB::Application.config.aws[:s3][:bucket]]
+      obj = bucket ? bucket.objects[url] : nil
+      obj ? obj.url_for(:read).to_s : nil #, :response_content_type => 'video/mp4') # also think about setting endpoint to hostname
+    end
 
     def parse_upload_uri
       # the upload uri is set to the full url by s3_uploader - this removes the domain and bucket

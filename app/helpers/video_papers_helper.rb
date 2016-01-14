@@ -8,8 +8,12 @@ module VideoPapersHelper
       if video_paper.video.thumbnail?
         image_tag(video_paper.video.thumbnail.url(:thumb))
       else
-        # TODO:
-        "TODO: Get thumbnail from AWS"
+        thumbnail_url = video_paper.video.generate_signed_thumbnail_url()
+        if thumbnail_url
+          image_tag(thumbnail_url)
+        else
+          "<div class=\"no-thumbnail\"></div>".html_safe    
+        end
       end
     else
       "<div class=\"no-video\"></div>".html_safe

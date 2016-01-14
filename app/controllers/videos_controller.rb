@@ -141,7 +141,7 @@ class VideosController < ApplicationController
       output: {
         key: transcoded_uri,
         preset_id: WEB_MP4_PRESET_ID,
-        thumbnail_pattern: "",
+        thumbnail_pattern: "#{transcoded_uri}-{count}",
         rotate: 'auto'
       }
     )

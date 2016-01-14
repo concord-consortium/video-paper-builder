@@ -83,13 +83,13 @@ VPB = {
 				messages: []
 			}
 			if (notSupported.file) {
-				notSupported.messages.push('file uploads');
+				notSupported.messages.push('video uploads');
 			}
 			if (notSupported.video) {
-				notSupported.messages.push('native mp4 video');
+				notSupported.messages.push('video playback');
 			}
 			if (notSupported.messages.length > 0) {
-				$j("#browser_not_supported").html("<div id='inner_browser_not_supported'>This site may not work well for you as your browser does not support " + (notSupported.messages.join(' or ') + '.  Please use another browser if you can.</div>')).show();
+				$j("#browser_not_supported").html("<div id='inner_browser_not_supported'>This site may not work well for you as your browser does not support " + (notSupported.messages.join(' or ') + '.  <a href="https://browser-update.org/update.html">Please upgrade your browser.</a></div>')).show();
 			}
 		}
 	},
