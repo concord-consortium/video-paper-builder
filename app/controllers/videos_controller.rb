@@ -113,8 +113,12 @@ class VideosController < ApplicationController
 
   def cancel_transcoding_job
     if !@video.aws_transcoder_job.nil?
-      transcoder = AWS::ElasticTranscoder::Client.new
-      transcoder.cancel_job id: @video.aws_transcoder_job
+      begin
+        transcoder = AWS::ElasticTranscoder::Client.new
+        transcoder.cancel_job id: @video.aws_transcoder_job
+      rescue AWS::ElasticTranscoder::Errors::ResourceInUseException
+        # this is raised if the job is current transcoding
+      end
       @video.aws_transcoder_job = nil
       @video.aws_transcoder_state = 'cancelled'
       @video.aws_transcoder_submitted_at = nil

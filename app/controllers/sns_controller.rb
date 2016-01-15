@@ -14,11 +14,14 @@ class SnsController < ApplicationController
     when "Notification"
       message = JSON.parse notification["Message"]
       video = Video.find_by_aws_transcoder_job message["jobId"]
-      state = message["state"].downcase
-      video.aws_transcoder_state = state
-      video.aws_transcoder_last_notification = message
-      video.processed = (state == 'completed') || (state == 'warning')
-      video.save!
+      # the video will be nil for jobs that were cancelled due to an immediate re-upload of a new video
+      if video != nil
+        state = message["state"].downcase
+        video.aws_transcoder_state = state
+        video.aws_transcoder_last_notification = message
+        video.processed = (state == 'completed') || (state == 'warning')
+        video.save!
+      end
 
     when "UnsubscribeConfirmation"
       # nothing for now
