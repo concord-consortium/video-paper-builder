@@ -29,9 +29,10 @@
                   <strong>Author:</strong> <%= video_paper.user.name%>,
                   <strong>Created:</strong> <%= video_paper.format_created_date %><br/>
                   <strong>Paper Status:</strong> <%= video_paper.status.titlecase%>,
-                  <strong>Video Status:</strong> <%= video_paper.video_status%>,
-                  <strong>Transcoder Status:</strong> <%= video_paper.video && video_paper.video.aws_transcoder_state ? video_paper.video.aws_transcoder_state.titleize : 'Unknown' %>,
-                  <%= link_to 'Video Info', [video_paper, video_paper.video] %>
+                  <strong>Video Status:</strong> <%= video_paper.video_status%><% if admin_signed_in? %>,
+                    <strong>Transcoder Status:</strong> <%= video_paper.video && video_paper.video.aws_transcoder_state ? video_paper.video.aws_transcoder_state.titleize : 'Unknown' %>,
+                    <%= link_to 'Video Info', [video_paper, video_paper.video] %>
+                  <% end %>
                 </p>
                 <ul>
                   <li class="view_edit_btn"><span><%= link_to 'View', video_paper %> <%= link_to 'Edit', edit_video_paper_path(video_paper) %> <a class="sharing_btn" href="<%= share_video_paper_path(video_paper) %>" class="last">Sharing</a></span></li>
