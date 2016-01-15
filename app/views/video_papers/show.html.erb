@@ -17,7 +17,7 @@ VPB.video = true;
   <div class="top_curv">
     <div class="bottom_curv">
       <div class="view_video">
-        <h2><%=@video_paper.title%> 
+        <h2><%=@video_paper.title%>
           <% if owner_or_admin? %>
             <%= link_to image_tag('big_pencil_icon.png'),edit_video_paper_path(@video_paper)%>
           <% end %>
@@ -28,6 +28,9 @@ VPB.video = true;
             <div class="no-video"></div>
           <% else %>
             <div class="video"><%= render :partial=>'video_embed' %></div>
+            <% if owner_or_admin? %>
+              <p class="upload_btn"><%= link_to 'Change video', edit_video_paper_video_path(@video_paper, @video_paper.video) %></p>
+            <% end %>
           <% end %>
         </div>
         <div class="inner_blue_tab">
@@ -68,7 +71,7 @@ VPB.video = true;
                                 :action=>"edit_section_duration",
                                 :section=> section.title,
                               },
-                              :confirm=> "Please ensure you have saved any changes before submitting timing changes.",                        
+                              :confirm=> "Please ensure you have saved any changes before submitting timing changes.",
                               :class=>"timing-button"-%>
                           <% end%>
                         </div><!-- edit-section-toolbar -->

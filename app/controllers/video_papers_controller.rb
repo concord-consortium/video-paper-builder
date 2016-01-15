@@ -107,6 +107,8 @@ class VideoPapersController < ApplicationController
           redirect_to(@video_paper, :notice => 'VideoPaper was successfully updated.')
         when "Upload a video"
           redirect_to(new_video_paper_video_path(@video_paper),:notice=>'VideoPaper was succesfully updated.')
+        when "Change video"
+          redirect_to(edit_video_paper_video_path(@video_paper, @video_paper.video),:notice=>'VideoPaper was succesfully updated.')
         end
     else
       render :action => "edit"
