@@ -1,0 +1,3 @@
+# config/google-analytics.yml
+production:
+  tracker: ''  # enter your Google Analytics tracking code here

@@ -114,6 +114,7 @@ GEM
     ffi (1.4.0)
     gherkin (2.9.3)
       json (>= 1.4.6)
+    google-analytics-rails (1.0.0)
     hashie (1.2.0)
     highline (1.6.15)
     hike (1.2.1)
@@ -292,6 +293,7 @@ DEPENDENCIES
   dynamic_form
   exception_notification
   factory_girl_rails (~> 4.0)
+  google-analytics-rails (= 1.0.0)
   httparty
   jquery-rails (~> 2.1)
   jquery-ui-rails (~> 4.0)

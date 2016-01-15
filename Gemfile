@@ -28,6 +28,7 @@ gem 'tinymce-rails-imageupload', '~> 3.5.6.3'
 gem "comma", "~> 3.0"
 gem 's3_direct_upload', "~> 0.1.7"
 gem 'httparty'
+gem 'google-analytics-rails', '1.0.0'
 
 group :development do
   gem 'debugger'
