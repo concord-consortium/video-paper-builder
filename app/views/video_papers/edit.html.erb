@@ -20,7 +20,7 @@
               <ul>
                 <li class="col1">
                   <h4>Uploading a classroom video</h4>
-                  <img src="/images/video1.jpg" alt="" />
+                  <%= get_video_paper_thumbnail_with_default(@video_paper, "/images/video1.jpg") %>
                   <% if @video.nil? %>
                     <p>If your classroom video is ready, we recommend starting by uploading and editing your video with our video editing tool. You can then add in your materials later.</p>
                     <p class="upload_btn">

@@ -363,7 +363,7 @@ h2{color: #878787; font-size: 1.833em; margin-bottom: 1em;}
 #inner_container .my_video_papers .no-thumbnail{width:120px;height:73px;}
 #inner_container .my_video_papers .video_row{float:left; width:884px; padding:18px 32px 7px 31px}
 #inner_container .my_video_papers .video_row .photo{float:left; width:138px;}
-#inner_container .my_video_papers .video_row .photo img{float:left;}
+#inner_container .my_video_papers .video_row .photo object{float:left; width: 120px; height: 73px; border: 0;}
 #inner_container .my_video_papers .video_row .details{float:left; width:740px;}
 #inner_container .my_video_papers .video_row .details h3{float:left; width:100%; color:#868686; font:15px/17px Georgia, 'Times New Roman', Times, serif;}
 #inner_container .my_video_papers .video_row .details h3 a{color:#868686; text-decoration:none}

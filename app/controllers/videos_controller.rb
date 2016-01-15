@@ -128,8 +128,8 @@ class VideosController < ApplicationController
   end
 
   def start_transcoding_job
-    transcoded_uri = "transcoded/#{@video.id}/#{Time.now.to_i}/#{@video.upload_filename}"
-    @video.transcoded_uri = transcoded_uri
+    key_prefix = "transcoded_local/#{@video.id}/#{Time.now.to_i}/"
+    @video.transcoded_uri = "#{key_prefix}#{@video.upload_filename}"
 
     transcoder = AWS::ElasticTranscoder::Client.new
     result = transcoder.create_job(
@@ -142,12 +142,13 @@ class VideosController < ApplicationController
         interlaced: 'auto',
         container: 'auto'
       },
-      output: {
-        key: transcoded_uri,
+      output_key_prefix: key_prefix,
+      outputs: [{
+        key: @video.upload_filename,
         preset_id: WEB_MP4_PRESET_ID,
-        thumbnail_pattern: "#{transcoded_uri}-{count}",
+        thumbnail_pattern: "#{@video.upload_filename}-{count}",
         rotate: 'auto'
-      }
+      }]
     )
     @video.aws_transcoder_job = result[:job][:id]
     @video.aws_transcoder_state = 'submitted'

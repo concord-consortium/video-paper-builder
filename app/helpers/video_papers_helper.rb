@@ -10,13 +10,31 @@ module VideoPapersHelper
       else
         thumbnail_url = video_paper.video.generate_signed_thumbnail_url()
         if thumbnail_url
-          image_tag(thumbnail_url)
+          # use an object tag so a broken thumbnail doesn't show
+          "<object data='#{thumbnail_url}' type='image/png'></object>".html_safe
         else
-          "<div class=\"no-thumbnail\"></div>".html_safe    
+          "<div class=\"no-thumbnail\"></div>".html_safe
         end
       end
     else
       "<div class=\"no-video\"></div>".html_safe
+    end
+  end
+
+  def get_video_paper_thumbnail_with_default(video_paper, default_img_url)
+    unless video_paper.video.nil?
+      if video_paper.video.thumbnail?
+        image_tag(video_paper.video.thumbnail.url(:thumb))
+      else
+        thumbnail_url = video_paper.video.generate_signed_thumbnail_url()
+        if thumbnail_url
+          "<object data='#{thumbnail_url}' type='image/png'>#{image_tag(default_img_url)}</object>".html_safe
+        else
+          image_tag(default_img_url)
+        end
+      end
+    else
+      image_tag(default_img_url)
     end
   end
 
