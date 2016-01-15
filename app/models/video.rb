@@ -80,6 +80,16 @@ class Video < ActiveRecord::Base
       end
     end
 
+    def generate_thumbnail_url
+      if self.thumbnail?
+        self.thumbnail.url(:thumb)
+      elsif (self.transcoded_uri != nil) && ((self.aws_transcoder_state == 'completed') || (self.aws_transcoder_state == 'warning'))
+        signed_url "#{self.transcoded_uri}-00001.png"
+      else
+        nil
+      end
+    end
+
     # Protected Methods
 
     def signed_url(url)

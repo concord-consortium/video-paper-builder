@@ -8,13 +8,14 @@
         $j.ajax("<%= transcoding_status_video_paper_url :format => :js %>")
       </script>
     <% end %>
-    <% signed_url = @video.generate_signed_url() %>
+    <% video_url = @video.generate_signed_url() %>
+    <% thumbnail_url = @video.generate_thumbnail_url() %>
     <div id="video_player_container" style="display: none"></div>
     <script>
-      VPB.show_video_player = function (signed_url) {
+      VPB.show_video_player = function (video_url, thumbnail_url) {
         $j("#video_player_container").html([
-          '<video id="video_player" class="video-js vjs-default-skin" controls preload="auto" width="360" height="202" poster="">',
-            '<source src="', signed_url, '" type="video/mp4" />',
+          '<video id="video_player" class="video-js vjs-default-skin" controls preload="auto" width="360" height="202" poster="', thumbnail_url, '">',
+            '<source src="', video_url, '" type="video/mp4" />',
           '</video>'
         ].join(''));
         videojs("video_player", {}, function() {
@@ -22,8 +23,8 @@
           $j("#video_player_container").show();
         });
       };
-      <% if @video.processed && signed_url %>
-        VPB.show_video_player("<%= signed_url %>");
+      <% if @video.processed && video_url %>
+        VPB.show_video_player("<%= video_url %>", "<%= thumbnail_url %>");
       <% end %>
     </script>
     <noscript>Please enable Javascript.</noscript>

@@ -128,7 +128,7 @@ class VideosController < ApplicationController
   end
 
   def start_transcoding_job
-    key_prefix = "transcoded_local/#{@video.id}/#{Time.now.to_i}/"
+    key_prefix = "transcoded/#{@video.id}/#{Time.now.to_i}/"
     @video.transcoded_uri = "#{key_prefix}#{@video.upload_filename}"
 
     transcoder = AWS::ElasticTranscoder::Client.new
