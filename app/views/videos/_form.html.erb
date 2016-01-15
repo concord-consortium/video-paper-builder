@@ -35,7 +35,7 @@
                       <div>Please do not navigate away from this page. The video upload will be lost!</div>
                     </div>
                     </script>
-                    <div>
+                    <div class="note">
                       <img src="/images/bulb.gif" alt="" />Do not upload video without signed permissions from students.
                     </div>
                   </fieldset>
@@ -49,21 +49,6 @@
             <%= form_for [@video_paper, @video],:html => { :multipart => true } do |f| %>
               <%= hidden_field_tag  "video[upload_uri]", @video.upload_uri %>
               <fieldset>
-                <div class="textarea_box">
-                  <h3 class="bulet2">Additional Information</h3>
-                  <div class="textarea_content">
-                    <div id="thumbnail-image">
-                      <%=f.file_field :thumbnail%><br/>
-                      <label class="space">
-                      <img src="/images/bulb.gif" alt="" />
-                      If you do not have a thumbnail, one will automatically be created from the video. You can <a id="thumbnail-time-code-show"href="#" >specify a point in time in your video to use as your thumbnail</a> instead.</label>
-                    </div>
-                    <div id="thumbnail-time-code" style="display:none">
-                			<%= f.text_field :thumbnail_time %>
-                      <label class="space"><img src="/images/bulb.gif" alt="" />Enter a point in the video in seconds, or use a time format like <strong>hh:mm:ss</strong>. <a id="thumbnail-file-show" href="#" >Upload a file instead</a>.</label>
-                    </div>
-                  </div>
-                </div>
           			<% disabled = @video.upload_uri.nil? %>
             		<br style="clear: both;" /><br />
                 <div class="button">
