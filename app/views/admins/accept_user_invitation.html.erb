@@ -2,7 +2,7 @@
   <div class="top_curv">
     <div class="bottom_curv">
       <div class="admin_panel">
-        <h2>Accept the invitation of #{@user.email}</h2>
+        <h2>Accept the invitation of <%= @user.first_name %> <%= @user.last_name %> (<%= @user.email %>)</h2>
 
         <%= form_for @user, :url => admin_accept_user_invitation_url, :html => { :method => :put } do |f| %>
           <%= f.error_messages %>
