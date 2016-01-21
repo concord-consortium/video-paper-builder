@@ -26,6 +26,9 @@ VPB.video = true;
           <p>Produced by <%=h @video_paper.user.name%>, <%= @video_paper.format_created_date %></p>
           <% if @video_paper.video.nil? %>
             <div class="no-video"></div>
+            <% if owner_or_admin? %>
+              <p class="upload_btn" style="margin-left: 115px;"><%= link_to 'Upload video', new_video_paper_video_path(@video_paper) %></p>
+            <% end %>
           <% else %>
             <div class="video"><%= render :partial=>'video_embed' %></div>
             <% if owner_or_admin? %>

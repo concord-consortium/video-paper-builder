@@ -53,7 +53,7 @@
             		<br style="clear: both;" /><br />
                 <div class="button">
                   <span>
-  	                <%= f.submit "Upload video", :id=>"button_submit",:class=>"upload_btn",:disabled=>disabled%>
+  	                <%= f.submit "Save video", :id=>"button_submit",:class=>"upload_btn",:disabled=>disabled%>
                     | <%= link_to("Cancel",@video_paper,:method=>'get') %>
                   </span>
                   <div class="disabled_button_msg" id="button_disabled_no_video" style="<%= disabled ? '': 'display:none' %>">No video selected.</div>
