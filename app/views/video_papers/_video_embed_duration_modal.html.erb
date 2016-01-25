@@ -1,11 +1,13 @@
 <% unless @video.nil? %>
   <% if @video.processed? %>
     <% if @video.private? && !owner? %>
-      this video is private.
+      This video is private.
     <% else %>
-      <%= kaltura_player_embed @video.entry_id, :div_id => "kplayer_duration", :player_conf_id => KalturaFu.config[:duration_modal_player_conf_id] %>
+      <div id="modal_video_player_container" style="display: none"></div>
+      <script>
+        VPB.modalVideoPlayer.show("<%= @video.generate_signed_url() %>", "<%= @video.generate_thumbnail_url() %>");
+      </script>
+      <noscript>Please enable Javascript.</noscript>
     <% end %>
-  <% else %>
-    The video is still processing.
   <% end %>
 <% end %>

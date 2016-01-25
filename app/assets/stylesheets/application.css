@@ -80,9 +80,14 @@
 #inner_container .content_details .left_details .creat_video_details .create_video #progressBar{padding-left:56px;}
 
 /* Duration Selector Modal */
-#duration_slider {width:360px;margin-left:5px;position:relative;}
+#duration_slider {width:320px;margin:5px 0 0 10px;position:relative;}
 #duration_slider_wrapper {height:15px;}
-#kplayer_duration {margin-left:5px;margin-top:5px;position:relative;}
+#duration_buttons {margin: 5px 0 10px 0;}
+#duration_buttons button {width: 60px; }
+#position_slider {width:200px;margin:5px 10px 0 10px;position:relative;display:inline-block}
+#modal_video_player_container {position:relative;}
+.modal_video_wrapper {padding: 10px;}
+.modal_video_wrapper p {margin: 5px 0;}
 .modal_video_wrapper .close{float:left; width:34px; height:34px; position:absolute; right:-15px; top:-15px; z-index:99999999; background:url(/images/close_btn.png) no-repeat 0 0;padding:0;}
 button.edit-button {background:none;border:none;margin:0;padding:0;}
 

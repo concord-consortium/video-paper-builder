@@ -23,6 +23,6 @@ $j('#transcoding_status').html(status);
 
 <% if @video && @video.processed %>
   <% video_url = @video.generate_signed_url(); if video_url != nil %>
-    VPB && VPB.show_video_player && VPB.show_video_player('<%= video_url %>', '<%= @video.generate_thumbnail_url() %>');
+    VPB.videoPlayer.show('<%= video_url %>', '<%= @video.generate_thumbnail_url() %>');
   <% end %>
 <% end %>

@@ -155,19 +155,19 @@ VPB = {
 		prevStart:undefined,
 		prevStop:undefined,
 		handleSlide:function(event, ui) {
-			var start = VPB.durationSelector.convert(ui.values[0]);
-			var end   = VPB.durationSelector.convert(ui.values[1]);
-			$j('#section_video_start_time').attr('value', start);
-			$j('#section_video_stop_time').attr('value', end);
+			VPB.SectionTimeData[VPB.currentSection].start = ui.values[0];
+			VPB.SectionTimeData[VPB.currentSection].stop = ui.values[1];
+			$j('#section_video_start_time').attr('value', VPB.durationSelector.convert(ui.values[0]));
+			$j('#section_video_stop_time').attr('value', VPB.durationSelector.convert(ui.values[1]));
+			VPB.positionSelector.reset();
 		},
 		handleStop:function(event, ui) {
 			// if stopping point is different than what it was previously set to..
 			if(ui.values[0] !== this.prevStart) {
 				VPB.modalVideoPlayer.seek(ui.values[0]);
-			} else if (ui.values[1] !== this.prevStop) {
-				VPB.modalVideoPlayer.seek(ui.values[1]);
 			}
 			VPB.modalVideoPlayer.pause();
+			VPB.positionSelector.reset();
 
 			// hold this offsets for the next update.
 			this.prevStart = ui.values[0];
@@ -186,6 +186,40 @@ VPB = {
 				values:[VPB.SectionTimeData[VPB.currentSection].start,VPB.SectionTimeData[VPB.currentSection].stop],
 				slide:VPB.durationSelector.handleSlide,
 				stop:VPB.durationSelector.handleStop
+			});
+		}
+	},
+	// position selector
+	positionSelector: {
+		percentage: 0,
+		slider: null,
+		getRange:function() {
+			return VPB.SectionTimeData[VPB.currentSection].stop - VPB.SectionTimeData[VPB.currentSection].start;
+		},
+		seek:function(event, ui) {
+			VPB.positionSelector.percentage = Math.min(1, Math.max(0, (ui.values[0] / 100)));
+			VPB.modalVideoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start + (VPB.positionSelector.getRange() * VPB.positionSelector.percentage));
+		},
+		updateTimePosition:function(time) {
+			VPB.positionSelector.percentage = Math.min(1, Math.max(0, (time - VPB.SectionTimeData[VPB.currentSection].start) / VPB.positionSelector.getRange()));
+			VPB.positionSelector.updateSlider(100 * VPB.positionSelector.percentage);
+		},
+		reset:function() {
+			VPB.positionSelector.percentage = 0;
+			VPB.modalVideoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start);
+		},
+		updateSlider:function(value) {
+			VPB.positionSelector.slider.slider("values", 0, value);
+		},
+		init: function() {
+			// configure slider
+			VPB.positionSelector.slider = $j('#position_slider').slider({
+				range: false,
+				min:0,
+				max:100,
+				values:[0],
+				slide:VPB.positionSelector.seek,
+				stop:VPB.positionSelector.seek
 			});
 		}
 	},
@@ -304,7 +338,7 @@ VPB = {
 					overlayOpacity:.8,
 					scrolling:'no',
 					width:370,
-					height:235,
+					height:275,
 					showCloseButton:true,
 					enableEscapeButton:true
 				}
@@ -342,7 +376,7 @@ VPB = {
 			VPB.videoPlayer.player.sendNotification('doStop');
 		},
 		pause:function(){
-			VPB.videoPlayer.player.sendNotification('doPause');
+			//VPB.videoPlayer.player.sendNotification('doPause');
 		},
 		seek:function(offset) {
 			// if necessary, convert offset into raw seconds.
@@ -362,6 +396,17 @@ VPB = {
 				VPB.videoPlayer.player.sendNotification('doPause');
 			}
 		},
+		show: function (video_url, thumbnail_url) {
+			$j("#video_player_container").html([
+				'<video id="video_player" class="video-js vjs-default-skin" controls preload="auto" width="360" height="202" poster="', thumbnail_url, '">',
+					'<source src="', video_url, '" type="video/mp4" />',
+				'</video>'
+			].join(''));
+			videojs("video_player", {}, function() {
+				$j("#transcoding_status").hide();
+				$j("#video_player_container").show();
+			});
+		},
 		init:function(){
 			// Listen for when the player section is over and pause.
 			$j(document).bind('videoPlayahead',function(e,data){
@@ -375,37 +420,69 @@ VPB = {
 		player:undefined, // kdp handle
 		ready:false,
 		changeListener:function(data,id){},
-		handlePlayerUpdatePlayhead:function(data,id) {
-			$j(document).trigger("videoPlayahead", data);
-		},
-		handleScrubberDragEnd:function(data,id) {
-			$j(document).trigger("scrubberDragEnd", data);
-		},
-		handlePlayerSeekEnd:function(date,id) {
-			$j(document).trigger("playerSeekEnd", data);
-		},
-		handleBytesDownloadedChange:function(data,id){
-		  VPB.durationSelector.init();
-			$j(document).trigger("modalVideoPlayerReady", data);
-		},
 		play:function(){
-			this.player.sendNotification('doPlay');
+			this.player.play();
 		},
 		stop:function() {
-			this.player.sendNotification('doStop');
+			this.player.pause();
 		},
 		pause:function(){
-			this.player.sendNotification('doPause');
+			this.player.pause();
 		},
 		seek:function(offset) {
 			if(this.player) {
-				this.player.sendNotification('doPlay');
-				this.player.sendNotification('doSeek', offset);
-				this.player.sendNotification('doPause');
+				this.player.play();
+				this.player.currentTime(offset);
+				this.player.pause();
 			}
 		},
+		changedDuration: function () {
+
+		},
+		show: function (video_url, thumbnail_url) {
+			$j("#modal_video_player_container").html([
+				'<video id="modal_video_player" class="video-js vjs-default-skin" controls preload="auto" width="267" height="150" poster="', thumbnail_url, '">',
+					'<source src="', video_url, '" type="video/mp4" />',
+				'</video>'
+			].join(''));
+			VPB.modalVideoPlayer.player = videojs("modal_video_player", {controls: false}, function() {
+				$j("#modal_video_player_container").show();
+				VPB.durationSelector.init();
+				VPB.positionSelector.init();
+				VPB.modalVideoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start);
+				$(this).on("timeupdate", function (e) {
+					VPB.positionSelector.updateTimePosition(VPB.modalVideoPlayer.player.currentTime());
+					$j("#duration_position").html(VPB.durationSelector.convert(Math.round(VPB.modalVideoPlayer.player.currentTime())));
+
+					if (VPB.modalVideoPlayer.player.currentTime() >= VPB.SectionTimeData[VPB.currentSection].stop) {
+						VPB.modalVideoPlayer.pause();
+						if (VPB.SectionTimeData[VPB.currentSection].stop != VPB.SectionTimeData[VPB.currentSection].start) {
+							VPB.modalVideoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start);
+						}
+						$j("#duration_play").show();
+						$j("#duration_pause").hide();
+					}
+					else if (VPB.modalVideoPlayer.player.ended()) {
+						$j("#duration_play").show();
+						$j("#duration_pause").hide();
+						if (VPB.SectionTimeData[VPB.currentSection].stop != VPB.SectionTimeData[VPB.currentSection].start) {
+							VPB.modalVideoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start);
+						}
+					}
+				});
+				$j("#duration_play").on("click", function () {
+					VPB.modalVideoPlayer.play();
+					$j(this).hide();
+					$j("#duration_pause").show();
+				});
+				$j("#duration_pause").on("click", function () {
+					VPB.modalVideoPlayer.pause();
+					$j(this).hide();
+					$j("#duration_play").show();
+				});
+			});
+		},
 		init:function(){
-			$j(document).bind('modalVideoPlayerReady', VPB.durationSelector.init);
 		}
 	},
 	// initialize page
@@ -421,9 +498,6 @@ VPB = {
 			$j(document).bind('videoPlayerReady', function(){
 				VPB.videoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start);
 			});
-			$j(document).bind('modalVideoPlayerReady', function(){
-				VPB.modalVideoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start);
-			});
 		}
 
 		// focus on login form
@@ -436,10 +510,6 @@ VPB = {
 // This is the first call the flash player will make when it's loaded.
 function jsCallbackReady () {
 
-	// set videoplayer handle
-	VPB.videoPlayer.player = $j('#kplayer').get(0);
-	VPB.modalVideoPlayer.player = $j('#kplayer_duration').get(0);
-
 	// wire up video player listeners
 	VPB.videoPlayer.player.addJsListener("playerStateChange", "VPB.videoPlayer.changeListener");
 	VPB.videoPlayer.player.addJsListener("kdpReady", "VPB.videoPlayer.changeListener");
@@ -447,7 +517,6 @@ function jsCallbackReady () {
 
 	// this is when the player is actually ready for scripting
 	VPB.videoPlayer.player.addJsListener("bytesDownloadedChange", "VPB.videoPlayer.handlePlayerReady");
-	VPB.modalVideoPlayer.player.addJsListener("bytesDownloadedChange", "VPB.modalVideoPlayer.handleBytesDownloadedChange");
 
 	VPB.videoPlayer.player.addJsListener("scrubberDragEnd", "VPB.videoPlayer.handleScrubberDragEnd");
 	VPB.videoPlayer.player.addJsListener("playerSeekEnd", "VPB.videoPlayer.handlePlayerSeekEnd");

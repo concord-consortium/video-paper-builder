@@ -6,14 +6,19 @@
   {
     length:<%= @video_paper.video.duration.nil? ? 0 : @video_paper.video.duration-%>,
     start:<%= section.video_start_time.blank?     ? 0 : section.video_start_time-%>,
-    stop:<%= section.video_stop_time.blank?       ? @video_paper.video.duration : section.video_stop_time-%>
-
+    stop:<%= section.video_stop_time.blank?       ? (@video_paper.video.duration || 0) : section.video_stop_time-%>
   };
   <% end %>
   </script>
 <% if @video_paper.video%>
   <%= render :partial=> 'video_embed_duration_modal'%>
 <% end %>
+<div id="duration_buttons">
+  <button id="duration_play">Play</button>
+  <button id="duration_pause" style="display: none;">Pause</button>
+  <div id="position_slider"></div>
+  <span id="duration_position"></span>
+</div>
 <div id="duration_slider_wrapper">
   <div id="duration_slider"></div>
 </div>
@@ -21,9 +26,9 @@
 <fieldset>
   <%= f.hidden_field :id%>
   <p><%= f.label :video_start_time, "Start Time (HH:MM:SS)"%>
-  <%= f.text_field :video_start_time,:value=> @section.to_timestamp(@section.video_start_time)  %></p>
+  <%= f.text_field :video_start_time,:value=> @section.to_timestamp(@section.video_start_time.blank? ? 0 : @section.video_start_time)  %></p>
   <p><%= f.label :video_stop_time, "Stop Time (HH:MM:SS)"%>
-  <%= f.text_field :video_stop_time,:value=> @section.to_timestamp(@section.video_stop_time)  %></p>
+  <%= f.text_field :video_stop_time,:value=> @section.to_timestamp(@section.video_stop_time.blank? ? (@video_paper.video.duration || 0) : @section.video_stop_time)  %></p>
   <div class="button">
     <%= f.submit "Save timings",:class=>'upload_btn'%>
   </div>

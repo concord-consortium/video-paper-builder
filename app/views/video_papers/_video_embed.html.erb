@@ -12,19 +12,8 @@
     <% thumbnail_url = @video.generate_thumbnail_url() %>
     <div id="video_player_container" style="display: none"></div>
     <script>
-      VPB.show_video_player = function (video_url, thumbnail_url) {
-        $j("#video_player_container").html([
-          '<video id="video_player" class="video-js vjs-default-skin" controls preload="auto" width="360" height="202" poster="', thumbnail_url, '">',
-            '<source src="', video_url, '" type="video/mp4" />',
-          '</video>'
-        ].join(''));
-        videojs("video_player", {}, function() {
-          $j("#transcoding_status").hide();
-          $j("#video_player_container").show();
-        });
-      };
       <% if @video.processed && video_url %>
-        VPB.show_video_player("<%= video_url %>", "<%= thumbnail_url %>");
+        VPB.videoPlayer.show("<%= video_url %>", "<%= thumbnail_url %>");
       <% end %>
     </script>
     <noscript>Please enable Javascript.</noscript>

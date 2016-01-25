@@ -67,7 +67,7 @@ VPB.video = true;
                           <%= submit_tag "Save",:id => "save-"+dom_friend(:id => section.title) %>
                           <a href="#" class="cancel-button">Cancel</a>
                           <% # This is disabled until it works better %>
-                          <% if false #unless @video_paper.video.nil? %>
+                          <% unless @video_paper.video.nil? %>
                             <%= link_to "Edit Timing",
                               {
                                 :controller=>"video_papers",
