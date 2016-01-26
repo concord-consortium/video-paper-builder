@@ -20,8 +20,8 @@ class SnsController < ApplicationController
         video.aws_transcoder_state = state
         video.aws_transcoder_last_notification = message
         video.processed = (state == 'completed') || (state == 'warning')
-        if !message["outputs"].nil? && !message["outputs"][0].nil? && message["outputs"][0].has_key? "duration"
-          video.duration = message["outputs"][0].duration
+        if !message["outputs"].nil? && !message["outputs"][0].nil? && message["outputs"][0].has_key?("duration")
+          video.duration = message["outputs"][0]["duration"]
         else
           video.duration = 0
         end
