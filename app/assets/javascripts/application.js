@@ -332,6 +332,8 @@ VPB = {
 	},
 	videoPlayer: {
 		player:undefined,
+		id:undefined,
+		idIndex:1,
 		play:function(){
 			this.player.play();
 		},
@@ -360,15 +362,18 @@ VPB = {
 			}
 		},
 		show: function (video_url, thumbnail_url) {
+			// video.js won't reuse video elements so we need to give it a new id each time
+			VPB.videoPlayer.id = "video_player_" + VPB.videoPlayer.idIndex++;
 			$j("#video_player_container").html([
-				'<video id="video_player" class="video-js vjs-default-skin" controls preload="auto" width="360" height="202" poster="', thumbnail_url, '">',
+				'<video id="', VPB.videoPlayer.id, '" class="video-js vjs-default-skin" controls preload="auto" width="360" height="202" poster="', thumbnail_url, '">',
 					'<source src="', video_url, '" type="video/mp4" />',
 				'</video>'
 			].join(''));
-			VPB.videoPlayer.player = videojs("video_player", {}, function() {
+			VPB.videoPlayer.player = videojs(VPB.videoPlayer.id, {}, function() {
 				VPB.videoPlayer.seek(VPB.currentStart);
 				$j("#transcoding_status").hide();
 				$j("#video_player_container").show();
+
 				$(this).on("timeupdate", function (e) {
 					// Listen for when the player section is over and pause.
 					if(VPB.videoPlayer.player.currentTime() > VPB.currentStop && VPB.currentStop !== 0) {
@@ -382,6 +387,8 @@ VPB = {
 	},
 	modalVideoPlayer: {
 		player:undefined, // kdp handle
+		id:undefined,
+		idIndex:1,
 		play:function(){
 			this.player.play();
 		},
@@ -398,13 +405,20 @@ VPB = {
 				this.player.pause();
 			}
 		},
+		seekSectionStart:function() {
+			if (Math.round(VPB.SectionTimeData[VPB.currentSection].stop) != Math.round(VPB.SectionTimeData[VPB.currentSection].start)) {
+				VPB.modalVideoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start);
+			}
+		},
 		show: function (video_url, thumbnail_url) {
+			// video.js won't reuse video elements so we need to give it a new id each time
+			VPB.modalVideoPlayer.id = "modal_video_player_" + VPB.modalVideoPlayer.idIndex++;
 			$j("#modal_video_player_container").html([
-				'<video id="modal_video_player" class="video-js vjs-default-skin" controls preload="auto" width="267" height="150" poster="', thumbnail_url, '">',
+				'<video id="', VPB.modalVideoPlayer.id, '" class="video-js vjs-default-skin" controls preload="auto" width="267" height="150" poster="', thumbnail_url, '">',
 					'<source src="', video_url, '" type="video/mp4" />',
 				'</video>'
 			].join(''));
-			VPB.modalVideoPlayer.player = videojs("modal_video_player", {controls: false}, function() {
+			VPB.modalVideoPlayer.player = videojs(VPB.modalVideoPlayer.id, {controls: false}, function() {
 				$j("#modal_video_player_container").show();
 				VPB.durationSelector.init();
 				VPB.positionSelector.init();
@@ -413,20 +427,16 @@ VPB = {
 					VPB.positionSelector.updateTimePosition(VPB.modalVideoPlayer.player.currentTime());
 					$j("#duration_position").html(VPB.durationSelector.convert(Math.round(VPB.modalVideoPlayer.player.currentTime())));
 
-					if (VPB.modalVideoPlayer.player.currentTime() >= VPB.SectionTimeData[VPB.currentSection].stop) {
+					if (VPB.modalVideoPlayer.player.currentTime() > VPB.SectionTimeData[VPB.currentSection].stop) {
 						VPB.modalVideoPlayer.pause();
-						if (VPB.SectionTimeData[VPB.currentSection].stop != VPB.SectionTimeData[VPB.currentSection].start) {
-							VPB.modalVideoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start);
-						}
+						VPB.modalVideoPlayer.seekSectionStart();
 						$j("#duration_play").show();
 						$j("#duration_pause").hide();
 					}
 					else if (VPB.modalVideoPlayer.player.ended()) {
+						VPB.modalVideoPlayer.seekSectionStart();
 						$j("#duration_play").show();
 						$j("#duration_pause").hide();
-						if (VPB.SectionTimeData[VPB.currentSection].stop != VPB.SectionTimeData[VPB.currentSection].start) {
-							VPB.modalVideoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start);
-						}
 					}
 				});
 				$j("#duration_play").on("click", function () {
