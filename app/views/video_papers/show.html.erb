@@ -8,7 +8,7 @@ VPB.SectionTimeData[<%=index-%>] =
 
 };
 <% end %>
-<% unless @video_paper.video.nil? %>
+<% unless @video_paper.video.nil? || !@video_paper.video.transcoded? %>
 VPB.video = true;
 <% end %>
 </script>
@@ -67,7 +67,7 @@ VPB.video = true;
                           <%= submit_tag "Save",:id => "save-"+dom_friend(:id => section.title) %>
                           <a href="#" class="cancel-button">Cancel</a>
                           <% # This is disabled until it works better %>
-                          <% unless @video_paper.video.nil? %>
+                          <% unless @video_paper.video.nil? || !@video_paper.video.transcoded? %>
                             <%= link_to "Edit Timing",
                               {
                                 :controller=>"video_papers",

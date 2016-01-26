@@ -40,6 +40,10 @@ class Video < ActiveRecord::Base
       return self.processed
     end
 
+    def transcoded?
+      return (self.transcoded_uri != nil) && ((self.aws_transcoder_state == 'completed') || (self.aws_transcoder_state == 'warning'))
+    end
+
     def public?
       !private?
     end
@@ -65,7 +69,7 @@ class Video < ActiveRecord::Base
     end
 
     def generate_signed_url
-      if self.transcoded_uri != nil
+      if self.transcoded?
         signed_url self.transcoded_uri
       else
         nil
@@ -73,7 +77,7 @@ class Video < ActiveRecord::Base
     end
 
     def generate_signed_thumbnail_url
-      if (self.transcoded_uri != nil) && ((self.aws_transcoder_state == 'completed') || (self.aws_transcoder_state == 'warning'))
+      if self.transcoded?
         signed_url "#{self.transcoded_uri}-00001.png"
       else
         nil
@@ -83,7 +87,7 @@ class Video < ActiveRecord::Base
     def generate_thumbnail_url
       if self.thumbnail?
         self.thumbnail.url(:thumb)
-      elsif (self.transcoded_uri != nil) && ((self.aws_transcoder_state == 'completed') || (self.aws_transcoder_state == 'warning'))
+      elsif self.transcoded?
         signed_url "#{self.transcoded_uri}-00001.png"
       else
         nil
