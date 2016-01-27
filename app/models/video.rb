@@ -98,7 +98,7 @@ class Video < ActiveRecord::Base
 
     def signed_url(url)
       s3 = AWS::S3.new
-      bucket = s3.buckets[VPB::Application.config.aws[:s3][:bucket]]
+      bucket = s3.buckets[VPB::Application.config.aws["s3"]["bucket"]]
       obj = bucket ? bucket.objects[url] : nil
       obj ? obj.url_for(:read).to_s : nil #, :response_content_type => 'video/mp4') # also think about setting endpoint to hostname
     end

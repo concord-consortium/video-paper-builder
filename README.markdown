@@ -22,23 +22,16 @@ Installation:
 
     $ bundle install
 
-### Setup kaltura connection
+### Setup AWS connection
 
-In most cases you will want to copy the kalutra.yml file from the production or staging server.
-It is safe to do development with the same configuration settings as the real servers. Any uploaded
-videos will go in either the 'dev', 'test', or 'cucumber' categories in the server.
-
-If you can't get access to the CC real servers to get this kaltura.yml, then you'll need to setup your
-own kaltura video server. This is a long and involved process, so avoid it if you can.
+TODO
 
 ### Setup database
 
 1. Copy config/database.yml.example to config/database.yml
 2. Update username and password
 3. Run rake db:create:all
-4. Copy config/kaltura.yml.example to config/kaltura.yml
-5. Optionally update kaltura configuration values (the kaltura.yml file just needs to exist for step 6)
-6. Run rake db:migrate
+4. Run rake db:migrate
 
 ### Test
 
@@ -51,12 +44,8 @@ own kaltura video server. This is a long and involved process, so avoid it if yo
 
 ### Uploading Help Video
 
-The code references some help videos that are uploaded to the CC kaltura server. This
-[Jing video](http://screencast.com/t/lxUHFk3a) describeds how to add more. You'll need
-admin access to the CC Kaltura server to do this.
-
-An addendum to this is that you should delete the flavors that were created automatically.
-Otherwise the player will use a lower quality flavor and the video will look blurry.
+TODO: Update
+This [Jing video](http://screencast.com/t/lxUHFk3a) describes how to add more.
 
 ## Customizing Edit Notes Tab Labels
 

@@ -12,7 +12,7 @@ class VideosController < ApplicationController
   before_filter :no_video?,:only=>[:index]
 
   def index
-    @video = @video_paper.video
+    redirect_to video_paper_path(@video_paper)
   end
 
   def show
@@ -133,7 +133,7 @@ class VideosController < ApplicationController
 
     transcoder = AWS::ElasticTranscoder::Client.new
     result = transcoder.create_job(
-      pipeline_id: VPB::Application.config.aws[:transcoder][:pipeline_id],
+      pipeline_id: VPB::Application.config.aws["transcoder"]["pipeline_id"],
       input: {
         key: @video.upload_uri,
         frame_rate: 'auto',

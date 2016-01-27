@@ -6,7 +6,7 @@ FactoryGirl.define do
   end
 
   factory :real_video, :parent => :video do
-    entry_id {KalturaUtil.find_test_video_id}
+    entry_id 1 # TODO: update for AWS
     association :video_paper
     description "this is an awesome description"
     private false

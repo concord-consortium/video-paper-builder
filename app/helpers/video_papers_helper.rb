@@ -1,7 +1,7 @@
 module VideoPapersHelper
 
   ##
-  # gets the paperclip thumbnail if it's there, otherwise uses kaltura.
+  # gets the paperclip thumbnail if it's there, otherwise uses aws.
   #
   def get_video_paper_thumbnail(video_paper)
     unless video_paper.video.nil?

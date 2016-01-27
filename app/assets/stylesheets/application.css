@@ -70,12 +70,7 @@
   list-style: disc;
 }
 
-
-
-/* Kaltura Specific CSS Styles */
-#flashContainer{ position:relative; display: inline-block; margin:5px 0; }
 #selected-title{color:#333; font-size:16px;}
-/*object, embed{ position:absolute; top:0; left:0; z-index:999;}*/
 
 #inner_container .content_details .left_details .creat_video_details .create_video #progressBar{padding-left:56px;}
 

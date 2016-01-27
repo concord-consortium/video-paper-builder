@@ -61,14 +61,8 @@ Given /^the following video papers with videos$/ do |table|
 end
 
 When /^(?:|I )fake upload the test video$/ do
-  # set entry id as if flash video uploader did it
-  # It would be nice if we could the approach below, but capybara and selenium don't support
-  # setting hidden fields:
-  # find('#video_entry_id').set(KalturaUtil.find_test_video_id)
-  #
-  # so instead we do it with javascript this will break if run in a driver that doesn't support javascript
+  # TODO: update for AWS
   page.execute_script(
-    "document.getElementById('video_entry_id').value='#{KalturaUtil.find_test_video_id}';" +
+    "document.getElementById('video_entry_id').value='1';" +
     "document.getElementById('button_submit').disabled = false;")
 end
-

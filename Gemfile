@@ -6,7 +6,6 @@ gem 'jquery-ui-rails', '~> 4.0'
 
 gem "mysql2", '~>0.3.15'
 
-gem 'velir_kaltura-ruby', '~> 0.4.3', :require=> 'kaltura'
 gem 'devise'
 gem 'devise_invitable'
 gem 'devise-encryptable'

@@ -9,7 +9,7 @@ VPB = {
 		handleUnshareFailure:function(){
 			VPB.notifications.constructMessage('error','Sharing settings not updated');
 		},
-		
+
 		init:function(){
 			// wire up unsharing button
 			$j('body').delegate('.unshare', 'click',function(e) {
@@ -24,7 +24,7 @@ VPB = {
 				);
 				return false;
 			});
-			
+
 			// wire up sharig button
 			$j('.video_row .sharing_btn').each(function(idx,el) {
 				$j(el).fancybox(
@@ -64,22 +64,22 @@ VPB = {
 
 			// get message data, and construct messages with it
 			$j('#messages .msg').each(function(idx,el){
-				
+
 					var msg = $j(el);
 					var type = undefined;
-					
+
 					// sniff out message type by rendered classname
 					if(msg.hasClass('notice') || msg.hasClass('message')){
 						type = 'message';
 					} else if (msg.hasClass('warning') || msg.hasClass('error')) {
 						type = 'error';
 					}
-					
+
 				// construct a message
 				if(msg.text() !== null || msg.text() !== '') {
 					VPB.notifications.constructMessage(type,msg.text());
 				}
-				
+
 				// post construction styling - not sure how else to apply styling to text.
 				// since this element is created dynamically, and there are 2 spans nested.
 				$j('.jnotify-item span:last').addClass('text');
@@ -111,14 +111,14 @@ VPB = {
 				VPB.modalVideoPlayer.seek(ui.values[1]);
 			}
 			VPB.modalVideoPlayer.pause();
-			
+
 			// hold this offsets for the next update.
 			this.prevStart = ui.values[0];
 			this.prevStop  = ui.values[1];
 		},
-		init: function() {		  
+		init: function() {
 		  VPB.currentSection = VPB.sectionTabs.selectInitialTab();
-		  if(VPB.currentSection === 'undefined') { return; }  		
+		  if(VPB.currentSection === 'undefined') { return; }
 			// make sure we have time data to work with
 			if(!VPB.SectionTimeData) { return; }
 			// configure slider
@@ -136,8 +136,8 @@ VPB = {
 		init:function() {
 			// if there's no slideshow to work with, just stop.
 			if(! $j('#slideshow').length) { return; }
-			
-			$j('#slideshow').after('<div class="paging"><ul id="thumbs">').cycle({ 
+
+			$j('#slideshow').after('<div class="paging"><ul id="thumbs">').cycle({
 				fx: 'fade',
 				pager: '#thumbs',
 				pagerAnchorBuilder: function(idx, slide) {
@@ -198,7 +198,7 @@ VPB = {
 								});
 			// disable tabs after init so user cannot click on them before video is ready
 			$j("#tabs").tabs({disabled: [0,1,2,3,4]});
-			
+
 			// listen for whne the video player is ready, then enable tabs
 			if(VPB.video === true) { // ensure there's a video
 				$j(document).bind('videoPlayahead', function(){
@@ -211,7 +211,7 @@ VPB = {
 			} else { //otherwise always enable tabs
 				VPB.sectionTabs.sectionTabs.tabs("option", "disabled", false);
 			}
-			
+
 			// wire up tab select handler
 			$j(document).bind('tabsselect', this.updateTabIndex);
 		}
@@ -241,7 +241,7 @@ VPB = {
 				}
 			});
 			var currentTab = $j('.tab_content')[currentTabIndex];
-			
+
 			// set it to edit mode
 			$j(currentTab).addClass('edit');
 			$j(currentTab).removeClass('view');
@@ -277,10 +277,10 @@ VPB = {
 					enableEscapeButton:true
 				}
 			);
-			
+
 			// listen for tab changes
 			$j(document).bind('tabsselect', this.handleTabChange);
-			
+
 		}
 	},
 	videoPlayer: {
@@ -393,32 +393,10 @@ VPB = {
 				VPB.modalVideoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start);
 			});
 		}
-		
+
 		// focus on login form
 		$j('#user_email').focus();
 	}
 };
-
-
-// kaltura player callback
-// This is the first call the flash player will make when it's loaded.
-function jsCallbackReady () {
-
-	// set videoplayer handle
-	VPB.videoPlayer.player = $j('#kplayer').get(0);
-	VPB.modalVideoPlayer.player = $j('#kplayer_duration').get(0);
-	
-	// wire up video player listeners
-	VPB.videoPlayer.player.addJsListener("playerStateChange", "VPB.videoPlayer.changeListener");
-	VPB.videoPlayer.player.addJsListener("kdpReady", "VPB.videoPlayer.changeListener");
-	VPB.videoPlayer.player.addJsListener("playerUpdatePlayhead", "VPB.videoPlayer.handlePlayerUpdatePlayhead");
-	
-	// this is when the player is actually ready for scripting
-	VPB.videoPlayer.player.addJsListener("bytesDownloadedChange", "VPB.videoPlayer.handlePlayerReady");
-	VPB.modalVideoPlayer.player.addJsListener("bytesDownloadedChange", "VPB.modalVideoPlayer.handleBytesDownloadedChange");
-	
-	VPB.videoPlayer.player.addJsListener("scrubberDragEnd", "VPB.videoPlayer.handleScrubberDragEnd");
-	VPB.videoPlayer.player.addJsListener("playerSeekEnd", "VPB.videoPlayer.handlePlayerSeekEnd");
-}
 
 $j(document).ready(VPB.init);
