@@ -19,4 +19,11 @@ cucumber:
   <<: *base
 
 production:
-  <<: *base
+  credentials:
+    access_key_id: <%= ENV['ACCESS_KEY_ID'] %>
+    secret_access_key: <%= ENV['SECRET_ACCESS_KEY'] %>
+  s3:
+    bucket: <%= ENV['S3_BUCKET'] %>
+    region: <%= ENV['S3_REGION'] %>
+  transcoder:
+    pipeline_id: <%= ENV['PIPELINE_ID'] %>
