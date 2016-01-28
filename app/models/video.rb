@@ -100,7 +100,7 @@ class Video < ActiveRecord::Base
       s3 = AWS::S3.new
       bucket = s3.buckets[VPB::Application.config.aws["s3"]["bucket"]]
       obj = bucket ? bucket.objects[url] : nil
-      obj ? obj.url_for(:read).to_s : nil #, :response_content_type => 'video/mp4') # also think about setting endpoint to hostname
+      obj ? obj.url_for(:read, :expires => VPB::Application.config.aws["s3"]["expires"].to_f).to_s : nil #, :response_content_type => 'video/mp4') # also think about setting endpoint to hostname
     end
 
     def parse_upload_uri

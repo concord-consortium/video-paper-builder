@@ -6,6 +6,7 @@ base: &base
   s3:
     bucket: ''              # your bucket name
     region: 's3'            # region prefix of your bucket url, eg. "s3-eu-west-1"
+    expires: '60'           # number of seconds from now when signed urls expire
   transcoder:
     pipeline_id: ''         # transcoder pipeline id (created in aws console)
 
@@ -25,5 +26,6 @@ production:
   s3:
     bucket: <%= ENV['S3_BUCKET'] %>
     region: <%= ENV['S3_REGION'] %>
+    expires: '60'
   transcoder:
     pipeline_id: <%= ENV['PIPELINE_ID'] %>
