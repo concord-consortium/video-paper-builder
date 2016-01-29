@@ -9,13 +9,8 @@ S3DirectUpload.config do |c|
   c.secret_access_key = aws_config["secret_access_key"]
   c.bucket = aws_config["s3"]["bucket"]
   c.region = aws_config["s3"]["region"] || "s3"
-  c.url = "https://#{c.region}.amazonaws.com/#{c.bucket}/"
+  c.url = aws_config["s3"]["bucket_url"] || "https://s3.amazonaws.com/#{c.bucket}/"
 end
-
-#AWS.config(
-#  :access_key_id => aws_config["access_key_id"],
-#  :secret_access_key => aws_config["secret_access_key"]
-#)
 
 # save the config for use in video controller
 VPB::Application.config.aws = aws_config
