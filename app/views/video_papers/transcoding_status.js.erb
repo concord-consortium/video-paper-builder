@@ -12,7 +12,7 @@
       status = "<p>The video is processing.  For large videos, this could take some time!</p>"
     <% end %>
     setTimeout(function () {
-      $j.ajax("<%= transcoding_status_video_paper_url :format => :js, :secure => Rails.env.production? %>")
+      $j.ajax("<%= transcoding_status_video_paper_path(:format => :js) %>")
     }, 1000)
   <% end %>
 <% else %>
