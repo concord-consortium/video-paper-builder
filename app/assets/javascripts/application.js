@@ -282,14 +282,31 @@ VPB = {
 		}
 	},
 	sectionEditor:{
+		editing: false,
+		setEditing: function(editing) {
+			VPB.sectionEditor.editing = editing;
+			if (editing) {
+				$j(window).on("beforeunload", this.handleBeforeUnload);
+			}
+			else {
+				$j(window).off("beforeunload", this.handleBeforeUnload);
+			}
+		},
+		handleBeforeUnload:function(event) {
+			var message = 'Do you have any changes to section text to save before leaving this page?';
+			event.returnValue = message;
+			return message;
+		},
 		handleCancel:function(event) {
 			$j(event.target).parents().filter('.tab_content').addClass('view');
 			$j(event.target).parents().filter('.tab_content').removeClass('edit');
+			VPB.sectionEditor.setEditing(false);
 			return false;
 		},
 		handleTiming:function(event) {
 			VPB.videoPlayer.pause();
 			VPB.modalVideoPlayer.init();
+			alert("Please ensure you have saved any changes to the section text before submitting timing changes.");
 			return false;
 		},
 		handleEdit:function(event) {
@@ -300,17 +317,30 @@ VPB = {
 			// set it to edit mode
 			$j(currentTab).addClass('edit');
 			$j(currentTab).removeClass('view');
+
+			VPB.sectionEditor.setEditing(true);
+		},
+		handleSave:function(event) {
+			VPB.sectionEditor.setEditing(false);
 		},
 		handleTabChange:function(e) {
-			var currentTab = $j('.tab_content').each(function(idx,el) {
-				$j(el).addClass('view');
-				$j(el).removeClass('edit');
-			});
+			var changeTab = !VPB.sectionEditor.editing || confirm("Do you have any changes to save before leaving this section?  Click cancel to stay on the section you are editing.");
+			if (changeTab) {
+				VPB.sectionEditor.setEditing(false);
+				$j('.tab_content').each(function(idx,el) {
+					$j(el).addClass('view');
+					$j(el).removeClass('edit');
+				});
+			}
+			else {
+				e.preventDefault();
+			}
 		},
 		init:function() {
 			$j('.edit-button').click(this.handleEdit);
 			$j('.cancel-button').click(this.handleCancel);
 			$j('.timing-button').click(this.handleTiming);
+			$j("input[name='commit']").click(this.handleSave);
 			// hook up modal popup to timing editor
 			$j('.timing-button').fancybox(
 				{
@@ -326,7 +356,7 @@ VPB = {
 			);
 
 			// listen for tab changes
-			$j(document).bind('tabsactivate', this.handleTabChange);
+			$j(document).bind('tabsbeforeactivate', this.handleTabChange);
 
 		}
 	},
