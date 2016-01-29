@@ -74,7 +74,7 @@ class VideosController < ApplicationController
         @video.save
         start_transcoding_job()
       end
-      redirect_to(my_video_papers_path, :notice=>"Your video was sucessfully updated!")
+      redirect_to(@video_paper, :notice=>"Your video was sucessfully updated!")
     else
       render "edit"
     end
