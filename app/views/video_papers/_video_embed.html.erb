@@ -5,7 +5,7 @@
     <% if !@video.processed? %>
       <div id="transcoding_status"></div>
       <script>
-        $j.ajax("<%= transcoding_status_video_paper_url :format => :js %>")
+        $j.ajax("<%= transcoding_status_video_paper_url :format => :js, :secure => Rails.env.production? %>")
       </script>
     <% end %>
     <% video_url = @video.generate_signed_url() %>
