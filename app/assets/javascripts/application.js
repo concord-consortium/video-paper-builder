@@ -283,6 +283,11 @@ VPB = {
 	},
 	sectionEditor:{
 		editing: false,
+		tinyMceInit: function (editor) {
+			editor.onClick.add(function () {
+				VPB.sectionEditor.setEditing(true);
+			});
+		},
 		setEditing: function(editing) {
 			VPB.sectionEditor.editing = editing;
 			if (editing) {
@@ -318,7 +323,7 @@ VPB = {
 			$j(currentTab).addClass('edit');
 			$j(currentTab).removeClass('view');
 
-			VPB.sectionEditor.setEditing(true);
+			//VPB.sectionEditor.setEditing(true);
 		},
 		handleSave:function(event) {
 			VPB.sectionEditor.setEditing(false);

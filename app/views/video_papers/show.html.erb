@@ -85,7 +85,7 @@ VPB.video = true;
             <% end %>
           </div>
           <%# initialize tinymce just once for the page%>
-          <%= tinymce :width => 500, :height => 260 %>
+          <%= tinymce :width => 500, :height => 260, :setup => "VPB.sectionEditor.tinyMceInit" %>
         </div>
       </div>
       <span class="clear"></span>
