@@ -546,3 +546,6 @@ body.help #video {background:#ccc;height:549px;margin:0 auto;padding:10px;width:
 
 #inner_browser_not_supported {background-color: red; text-align: center; padding: 10px; font-weight: bold; color: #fff;}
 #inner_browser_not_supported a { color: #fff; }
+
+#help_video_player_container {width: 853px; height: 549px; margin: 20px auto; }
+#help_video_player_container .video-js {width: 853px; height: 549px;}
