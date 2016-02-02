@@ -10,11 +10,11 @@ When /^I edit the video paper title named "([^\"]*)"$/ do |title|
 end
 
 Then /^I should see an embedded video$/ do
-  page.should have_css('#kplayer')
+  page.should have_css('#video_player_container')
 end
 
 Then /^I should not see an embedded video$/ do
-  page.should_not have_css('#kplayer')
+  page.should_not have_css('#video_player_container')
 end
 
 When /^I pre-confirm$/ do
