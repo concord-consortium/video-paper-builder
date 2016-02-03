@@ -145,12 +145,23 @@ VPB = {
 	},
 	// duration selector
 	durationSelector: {
+		slider: null,
 		convert:function(time) {
 			hours = parseInt( time / 3600 ) % 24;
 			minutes = parseInt( time / 60 ) % 60;
 			seconds = time % 60;
 			result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 			return result;
+		},
+		parse:function(time) {
+			var parts = time.split(':'),
+					hours = parseInt(parts[0] || "", 10),
+					mins = parseInt(parts[1] || "", 10),
+					secs = parseInt(parts[2] || "", 10);
+			if ((parts.length != 3) || isNaN(hours) || isNaN(mins) || isNaN(secs)) {
+				return -1;
+			}
+			return (hours * 60 * 60) + (mins * 60) + secs;
 		},
 		prevStart:undefined,
 		prevStop:undefined,
@@ -173,19 +184,33 @@ VPB = {
 			this.prevStart = ui.values[0];
 			this.prevStop  = ui.values[1];
 		},
+		handleTimeInput:function(when, time) {
+			var offset = VPB.durationSelector.parse(time);
+			if (offset != -1) {
+				VPB.SectionTimeData[VPB.currentSection][when] = offset;
+				VPB.durationSelector.slider.slider("values", when == "start" ? 0 : 1, offset);
+				VPB.positionSelector.reset();
+			}
+		},
 		init: function() {
 		  VPB.currentSection = VPB.sectionTabs.selectInitialTab();
 		  if(VPB.currentSection === 'undefined') { return; }
 			// make sure we have time data to work with
 			if(!VPB.SectionTimeData) { return; }
 			// configure slider
-			$j('#duration_slider').slider({
+			VPB.durationSelector.slider = $j('#duration_slider').slider({
 				range: true,
 				min:0,
 				max:VPB.SectionTimeData[VPB.currentSection].length,
 				values:[VPB.SectionTimeData[VPB.currentSection].start,VPB.SectionTimeData[VPB.currentSection].stop],
 				slide:VPB.durationSelector.handleSlide,
 				stop:VPB.durationSelector.handleStop
+			});
+			$j('#section_video_start_time').on("keyup", function (e) {
+				VPB.durationSelector.handleTimeInput("start", e.target.value);
+			});
+			$j('#section_video_stop_time').on("keyup", function (e) {
+				VPB.durationSelector.handleTimeInput("stop", e.target.value);
 			});
 		}
 	},
@@ -360,6 +385,26 @@ VPB = {
 						else {
 							return false;
 						}
+					},
+					onComplete: function () {
+						$j(".modal_video_wrapper form").on("submit", function () {
+							var startTime = $j("#section_video_start_time").val(),
+							    stopTime = $j("#section_video_stop_time").val(),
+									validateTime = function (when, time) {
+										var valid = VPB.durationSelector.parse(time) != -1;
+										if (!valid) {
+											alert("The " + when + " time is invalid - it must be in the form HH:MM:SS.")
+										}
+										return valid;
+									};
+							if (!validateTime("start", startTime) || !validateTime("stop", stopTime)) {
+								return false;
+							}
+							if (VPB.durationSelector.parse(startTime) > VPB.durationSelector.parse(stopTime)) {
+								alert("The start time cannot be greater than the stop time");
+								return false;
+							}
+						});
 					}
 				}
 			);
@@ -448,7 +493,9 @@ VPB = {
 			}
 		},
 		seekSectionStart:function() {
-			if (Math.round(VPB.SectionTimeData[VPB.currentSection].stop) != Math.round(VPB.SectionTimeData[VPB.currentSection].start)) {
+			var stop = Math.round(VPB.SectionTimeData[VPB.currentSection].stop),
+			    start = Math.round(VPB.SectionTimeData[VPB.currentSection].start);
+			if ((stop != start) && (start < stop)) {
 				VPB.modalVideoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start);
 			}
 		},
