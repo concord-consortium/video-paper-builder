@@ -405,6 +405,9 @@ VPB = {
 								return false;
 							}
 						});
+						$j("#fancybox-close").on("click", function () {
+							return confirm("Are you sure you want to close without saving?");
+						});
 					}
 				}
 			);
