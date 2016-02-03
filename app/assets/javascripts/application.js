@@ -282,36 +282,33 @@ VPB = {
 		}
 	},
 	sectionEditor:{
+		changed: false,
 		editing: false,
 		tinyMceInit: function (editor) {
 			editor.onClick.add(function () {
-				VPB.sectionEditor.setEditing(true);
+				VPB.sectionEditor.editing = true;
+			});
+			editor.onChange.add(function () {
+				VPB.sectionEditor.changed = true;
 			});
 		},
-		setEditing: function(editing) {
-			VPB.sectionEditor.editing = editing;
-			if (editing) {
-				$j(window).on("beforeunload", this.handleBeforeUnload);
-			}
-			else {
-				$j(window).off("beforeunload", this.handleBeforeUnload);
-			}
+		clearFlags: function() {
+			VPB.sectionEditor.changed = false;
+			VPB.sectionEditor.editing = false;
 		},
 		handleBeforeUnload:function(event) {
-			var message = 'Do you have any changes to section text to save before leaving this page?';
-			event.returnValue = message;
-			return message;
+			if (VPB.sectionEditor.editing || VPB.sectionEditor.changed) {
+				var message = 'Do you have any changes to section text to save before leaving this page?';
+				event.returnValue = message;
+				return message;
+			}
 		},
 		handleCancel:function(event) {
-			$j(event.target).parents().filter('.tab_content').addClass('view');
-			$j(event.target).parents().filter('.tab_content').removeClass('edit');
-			VPB.sectionEditor.setEditing(false);
-			return false;
-		},
-		handleTiming:function(event) {
-			VPB.videoPlayer.pause();
-			VPB.modalVideoPlayer.init();
-			alert("Please ensure you have saved any changes to the section text before submitting timing changes.");
+			if (!VPB.sectionEditor.changed || confirm("Are you sure you want to cancel and lose your changes?")) {
+				$j(event.target).parents().filter('.tab_content').addClass('view');
+				$j(event.target).parents().filter('.tab_content').removeClass('edit');
+				VPB.sectionEditor.clearFlags();
+			}
 			return false;
 		},
 		handleEdit:function(event) {
@@ -322,16 +319,14 @@ VPB = {
 			// set it to edit mode
 			$j(currentTab).addClass('edit');
 			$j(currentTab).removeClass('view');
-
-			//VPB.sectionEditor.setEditing(true);
 		},
 		handleSave:function(event) {
-			VPB.sectionEditor.setEditing(false);
+			VPB.sectionEditor.clearFlags();
 		},
 		handleTabChange:function(e) {
-			var changeTab = !VPB.sectionEditor.editing || confirm("Do you have any changes to save before leaving this section?  Click cancel to stay on the section you are editing.");
+			var changeTab = !VPB.sectionEditor.changed || confirm("Do you have any changes to save before leaving this section?  Click cancel to stay on the section you are editing.");
 			if (changeTab) {
-				VPB.sectionEditor.setEditing(false);
+				VPB.sectionEditor.clearFlags();
 				$j('.tab_content').each(function(idx,el) {
 					$j(el).addClass('view');
 					$j(el).removeClass('edit');
@@ -344,7 +339,6 @@ VPB = {
 		init:function() {
 			$j('.edit-button').click(this.handleEdit);
 			$j('.cancel-button').click(this.handleCancel);
-			$j('.timing-button').click(this.handleTiming);
 			$j("input[name='commit']").click(this.handleSave);
 			// hook up modal popup to timing editor
 			$j('.timing-button').fancybox(
@@ -356,13 +350,24 @@ VPB = {
 					width:370,
 					height:275,
 					showCloseButton:true,
-					enableEscapeButton:true
+					enableEscapeButton:true,
+					onStart: function () {
+						VPB.videoPlayer.pause();
+						if (!VPB.sectionEditor.changed || confirm("Are you sure you want to edit the timing without saving your section changes?")) {
+							VPB.sectionEditor.clearFlags();
+							VPB.modalVideoPlayer.init();
+						}
+						else {
+							return false;
+						}
+					}
 				}
 			);
 
+			$j(window).on("beforeunload", this.handleBeforeUnload);
+
 			// listen for tab changes
 			$j(document).bind('tabsbeforeactivate', this.handleTabChange);
-
 		}
 	},
 	videoPlayer: {
@@ -438,6 +443,8 @@ VPB = {
 				this.player.play();
 				this.player.currentTime(offset);
 				this.player.pause();
+				$j("#duration_play").show();
+				$j("#duration_pause").hide();
 			}
 		},
 		seekSectionStart:function() {
