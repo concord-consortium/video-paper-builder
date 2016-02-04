@@ -497,13 +497,16 @@ VPB = {
 		pause:function(){
 			this.player.pause();
 		},
+		showPlay:function(show){
+			$j("#duration_play")[show ? "show" : "hide"]();
+			$j("#duration_pause")[show ? "hide" : "show"]();
+		},
 		seek:function(offset) {
 			if ((this.player) && (offset < VPB.modalVideoPlayer.duration)) {
 				this.player.play();
 				this.player.currentTime(offset);
 				this.player.pause();
-				$j("#duration_play").show();
-				$j("#duration_pause").hide();
+				VPB.modalVideoPlayer.showPlay(true);
 			}
 		},
 		seekSectionStart:function() {
@@ -534,28 +537,27 @@ VPB = {
 					if (VPB.modalVideoPlayer.player.currentTime() > VPB.SectionTimeData[VPB.currentSection].stop) {
 						VPB.modalVideoPlayer.pause();
 						VPB.modalVideoPlayer.seekSectionStart();
-						$j("#duration_play").show();
-						$j("#duration_pause").hide();
+						VPB.modalVideoPlayer.showPlay(true);
 					}
 					else if (VPB.modalVideoPlayer.player.ended()) {
 						VPB.modalVideoPlayer.seekSectionStart();
-						$j("#duration_play").show();
-						$j("#duration_pause").hide();
+						VPB.modalVideoPlayer.showPlay(true);
 					}
 				});
 				$j("#duration_play").on("click", function () {
 					VPB.modalVideoPlayer.play();
 					$j(this).hide();
-					$j("#duration_pause").show();
+					VPB.modalVideoPlayer.showPlay(false);
 				});
 				$j("#duration_pause").on("click", function () {
 					VPB.modalVideoPlayer.pause();
 					$j(this).hide();
-					$j("#duration_play").show();
+					VPB.modalVideoPlayer.showPlay(true);
 				});
 			});
 		},
 		init:function(){
+			VPB.modalVideoPlayer.showPlay(true);
 		}
 	},
 	// initialize page
