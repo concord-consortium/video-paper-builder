@@ -390,6 +390,8 @@ VPB = {
 						$j(".modal_video_wrapper form").on("submit", function () {
 							var startTime = $j("#section_video_start_time").val(),
 							    stopTime = $j("#section_video_stop_time").val(),
+									parsedStartTime = VPB.durationSelector.parse(startTime),
+									parsedStopTime = VPB.durationSelector.parse(stopTime),
 									validateTime = function (when, time) {
 										var valid = VPB.durationSelector.parse(time) != -1;
 										if (!valid) {
@@ -400,8 +402,16 @@ VPB = {
 							if (!validateTime("start", startTime) || !validateTime("stop", stopTime)) {
 								return false;
 							}
-							if (VPB.durationSelector.parse(startTime) > VPB.durationSelector.parse(stopTime)) {
+							if (parsedStartTime > parsedStopTime) {
 								alert("The start time cannot be greater than the stop time");
+								return false;
+							}
+							if (parsedStartTime > VPB.modalVideoPlayer.duration) {
+								alert("The start time cannot be greater than the video duration");
+								return false;
+							}
+							if (parsedStopTime > VPB.modalVideoPlayer.duration) {
+								alert("The stop time cannot be greater than the video duration");
 								return false;
 							}
 						});
@@ -477,6 +487,7 @@ VPB = {
 		player:undefined, // kdp handle
 		id:undefined,
 		idIndex:1,
+		duration:0,
 		play:function(){
 			this.player.play();
 		},
@@ -487,7 +498,7 @@ VPB = {
 			this.player.pause();
 		},
 		seek:function(offset) {
-			if(this.player) {
+			if ((this.player) && (offset < VPB.modalVideoPlayer.duration)) {
 				this.player.play();
 				this.player.currentTime(offset);
 				this.player.pause();
@@ -502,7 +513,8 @@ VPB = {
 				VPB.modalVideoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start);
 			}
 		},
-		show: function (video_url, thumbnail_url) {
+		show: function (video_url, thumbnail_url, duration) {
+			VPB.modalVideoPlayer.duration = duration;
 			// video.js won't reuse video elements so we need to give it a new id each time
 			VPB.modalVideoPlayer.id = "modal_video_player_" + VPB.modalVideoPlayer.idIndex++;
 			$j("#modal_video_player_container").html([
