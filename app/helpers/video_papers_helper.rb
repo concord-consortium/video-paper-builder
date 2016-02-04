@@ -10,8 +10,7 @@ module VideoPapersHelper
       else
         thumbnail_url = video_paper.video.generate_signed_thumbnail_url()
         if thumbnail_url
-          # use an object tag so a broken thumbnail doesn't show
-          "<object data='#{thumbnail_url}' type='image/png'></object>".html_safe
+          "<img src='#{thumbnail_url}' onerror='this.src=\"#{image_path('blank_fallback.png')}\"' onabort='this.src=\"#{image_path('blank_fallback.png')}\"'/>".html_safe
         else
           "<div class=\"no-thumbnail\"></div>".html_safe
         end
