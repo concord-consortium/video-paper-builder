@@ -12,14 +12,14 @@
             <strong>Date</strong>
             <span>
               <%=link_to pick_arrow("date_asc",:position=>"top"), {:controller=>"video_papers",:action=>"my_video_papers",:order_by=>'date_asc'}%>
-              <%=link_to pick_arrow("date_desc"), my_video_papers_path %>              
+              <%=link_to pick_arrow("date_desc"), my_video_papers_path %>
             </span>
           </p>
         </div>
         <% @video_papers.each do |video_paper| %>
           <div id="<%=video_paper.title.downcase.gsub(" ","-")%>" class="video_row">
             <div class="span-4">
-              <div class="photo"><%= get_video_paper_thumbnail(video_paper)%></div>
+              <div class="photo"><a href="<%= video_paper_path(video_paper) %>"><%= get_video_paper_thumbnail(video_paper)%></a></div>
             </div>
             <div class="details">
               <h3><%= video_paper.title %></h3>
@@ -37,8 +37,8 @@
               </ul>
             </div>
           </div>
-        <% end %>        
-        <div class="paging"><ul><%= will_paginate @video_papers, 
+        <% end %>
+        <div class="paging"><ul><%= will_paginate @video_papers,
           :next_label=> image_tag('next_arrow.gif'),
           :previous_label=>image_tag('pre_arrow.gif')%></ul></div>
 

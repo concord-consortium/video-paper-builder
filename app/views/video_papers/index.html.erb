@@ -21,7 +21,7 @@
           <% @video_papers.each do |video_paper| %>
             <div class="video_row">
               <div class="span-4">
-                <div class="photo"><%= get_video_paper_thumbnail(video_paper)%></div>
+                <div class="photo"><a href="<%= video_paper_path(video_paper) %>"><%= get_video_paper_thumbnail(video_paper)%></a></div>
               </div>
               <div class="details">
                 <h3><%= video_paper.title %></h3>
