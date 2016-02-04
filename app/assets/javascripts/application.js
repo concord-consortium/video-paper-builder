@@ -168,8 +168,8 @@ VPB = {
 		handleSlide:function(event, ui) {
 			VPB.SectionTimeData[VPB.currentSection].start = ui.values[0];
 			VPB.SectionTimeData[VPB.currentSection].stop = ui.values[1];
-			$j('#section_video_start_time').attr('value', VPB.durationSelector.convert(ui.values[0]));
-			$j('#section_video_stop_time').attr('value', VPB.durationSelector.convert(ui.values[1]));
+			$j('#section_video_start_time').val(VPB.durationSelector.convert(ui.values[0]));
+			$j('#section_video_stop_time').val(VPB.durationSelector.convert(ui.values[1]));
 			VPB.positionSelector.reset();
 		},
 		handleStop:function(event, ui) {
