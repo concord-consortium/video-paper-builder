@@ -115,7 +115,7 @@ button.edit-button {background:none;border:none;margin:0;padding:0;}
 .section-editor {display:none;}
 .section-content {overflow:auto;height:290px;padding:10px;}
 .section-editor, .section-content{background: #eeeeee url(/images/ui-bg_highlight-soft_100_eeeeee_1x100.png) 50% top repeat-x;}
-.edit-section-toolbar{border-top:1px solid #a0d1ce;}
+.edit-section-toolbar{border-top:1px solid #a0d1ce; padding: 0 5px;}
 .edit-section-toolbar button, .edit-section-toolbar input {margin-top:5px;}
 .inner_blue_tab .tab_content {border:1px solid #a0d1ce;}
 
@@ -553,3 +553,5 @@ body.help #video {background:#ccc;height:549px;margin:0 auto;padding:10px;width:
 #help_video_player_container .video-js {width: 853px; height: 549px;}
 
 .untabbed-content h1 { margin-top: 60px; }
+
+.highlight_btn{width:100px; background:url(../images/upload_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:5px 0; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:12px 0 0; cursor:pointer}

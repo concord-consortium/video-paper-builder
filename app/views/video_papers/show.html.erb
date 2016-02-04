@@ -64,7 +64,7 @@ VPB.video = true;
                         <%= hidden_field :section, :title, :value=> section.title %>
                         <%= f.text_area :content, :class => "tinymce", :id => "section_#{section.id}_content", :rows => 19 %>
                         <div class="edit-section-toolbar">
-                          <%= submit_tag "Save",:id => "save-"+dom_friend(:id => section.title) %>
+                          <%= submit_tag "Save",:id => "save-"+dom_friend(:id => section.title), :class => 'highlight_btn' %>
                           <a href="#" class="cancel-button">Cancel</a>
                           <% # This is disabled until it works better %>
                           <% unless @video_paper.video.nil? || !@video_paper.video.transcoded? %>
