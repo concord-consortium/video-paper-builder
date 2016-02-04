@@ -14,10 +14,13 @@
   <%= render :partial=> 'video_embed_duration_modal'%>
 <% end %>
 <div id="duration_buttons">
-  <button id="duration_play">Play</button>
-  <button id="duration_pause" style="display: none;">Pause</button>
+  <button id="duration_play" class="highlight_btn" style="width: 100px">Play Range</button>
+  <button id="duration_pause" class="highlight_btn" style="width: 100px" style="display: none;">Pause</button>
   <div id="position_slider"></div>
   <span id="duration_position"></span>
+</div>
+<div class="select_range_label">
+  Select a timing range
 </div>
 <div id="duration_slider_wrapper">
   <div id="duration_slider"></div>
@@ -25,12 +28,19 @@
 <%= form_for @section, :url=> update_section_duration_video_paper_path do |f| %>
 <fieldset>
   <%= f.hidden_field :id%>
-  <p><%= f.label :video_start_time, "Start Time (HH:MM:SS)"%>
-  <%= f.text_field :video_start_time,:value=> @section.to_timestamp(@section.video_start_time.blank? ? 0 : @section.video_start_time)  %></p>
-  <p><%= f.label :video_stop_time, "Stop Time (HH:MM:SS)"%>
-  <%= f.text_field :video_stop_time,:value=> @section.to_timestamp(@section.video_stop_time.blank? ? (@video_paper.video.duration || 0) : @section.video_stop_time)  %></p>
+  <div class="timer_ranges">
+    <div class="timer_range">
+      <%= f.label :video_start_time, "Start Time (HH:MM:SS)"%>
+      <%= f.text_field :video_start_time,:value=> @section.to_timestamp(@section.video_start_time.blank? ? 0 : @section.video_start_time)  %>
+    </div>
+    <div class="timer_range">
+      <%= f.label :video_stop_time, "Stop Time (HH:MM:SS)"%>
+      <%= f.text_field :video_stop_time,:value=> @section.to_timestamp(@section.video_stop_time.blank? ? (@video_paper.video.duration || 0) : @section.video_stop_time)  %>
+    </div>
+  </div>
+
   <div class="button">
-    <%= f.submit "Save timings",:class=>'upload_btn'%>
+    <%= f.submit "Save timings",:class=>'highlight_btn'%>
   </div>
 </fieldset>
 <% end %>

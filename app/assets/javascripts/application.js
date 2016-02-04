@@ -373,7 +373,7 @@ VPB = {
 					overlayOpacity:.8,
 					scrolling:'no',
 					width:370,
-					height:275,
+					height:320,
 					showCloseButton:true,
 					enableEscapeButton:true,
 					onStart: function () {
@@ -518,7 +518,7 @@ VPB = {
 			// video.js won't reuse video elements so we need to give it a new id each time
 			VPB.modalVideoPlayer.id = "modal_video_player_" + VPB.modalVideoPlayer.idIndex++;
 			$j("#modal_video_player_container").html([
-				'<video id="', VPB.modalVideoPlayer.id, '" class="video-js vjs-default-skin" controls preload="auto" width="267" height="150" poster="', thumbnail_url, '">',
+				'<video id="', VPB.modalVideoPlayer.id, '" class="video-js vjs-default-skin" controls preload="auto" width="350" height="197" poster="', thumbnail_url, '">',
 					'<source src="', video_url, '" type="video/mp4" />',
 				'</video>'
 			].join(''));

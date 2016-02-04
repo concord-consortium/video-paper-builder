@@ -79,7 +79,7 @@
 #duration_slider_wrapper {height:15px;}
 #duration_buttons {margin: 5px 0 10px 0;}
 #duration_buttons button {width: 60px; }
-#position_slider {width:200px;margin:5px 10px 0 10px;position:relative;display:inline-block}
+#position_slider {width:160px;margin:5px 10px 0 10px;position:relative;display:inline-block}
 #modal_video_player_container {position:relative;}
 .modal_video_wrapper {padding: 10px;}
 .modal_video_wrapper p {margin: 5px 0;}
@@ -554,4 +554,9 @@ body.help #video {background:#ccc;height:549px;margin:0 auto;padding:10px;width:
 
 .untabbed-content h1 { margin-top: 60px; }
 
-.highlight_btn{width:100px; background:url(../images/upload_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:5px 0; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:12px 0 0; cursor:pointer}
+.highlight_btn{width:100px; background:url(../images/upload_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:5px 0; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:0; cursor:pointer}
+
+.select_range_label {font-weight: bold;}
+.timer_ranges .timer_range {float: left; margin: 10px 10px 10px 0;}
+.timer_ranges .timer_range label { display: block; }
+.timer_ranges .timer_range input {width: 160px;}
