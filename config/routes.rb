@@ -30,7 +30,7 @@ VPB::Application.routes.draw do
     resources :videos
   end
 
-  devise_for :users, :controllers => { :registrations => "registrations" }
+  devise_for :users, :controllers => { :registrations => "registrations", :omniauth_callbacks => "authentications" }
   devise_for :admins, :controllers => { :registrations => "registrations" }
   root :to => 'home#index'
   resources :admins

@@ -23,7 +23,13 @@
       </div>
         <%= f.submit "Login", :class => "login_btn" %>
         <div>
-          <p id="forgot"><a href="/users/password/new" title="Forgot Password">Forgot Password?</a></p>
+          <p id="forgot">
+            <% if ENV['SCHOOLOGY_CONSUMER_KEY'] && ENV['SCHOOLOGY_CONSUMER_SECRET'] %>
+            <%= link_to "Sign in with Schoology", omniauth_authorize_path('user', 'schoology') %>
+            |
+            <% end %>
+            <a href="/users/password/new" title="Forgot Password">Forgot Password?</a>
+          </p>
         </div>
     <% end %>
   </div>

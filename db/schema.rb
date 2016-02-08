@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160113144127) do
+ActiveRecord::Schema.define(:version => 20160208223514) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                                :default => "", :null => false
@@ -44,6 +44,15 @@ ActiveRecord::Schema.define(:version => 20160113144127) do
   add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
   add_index "admins", ["invitation_token"], :name => "index_admins_on_invitation_token"
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
+
+  create_table "schoology_realms", :force => true do |t|
+    t.string   "realm_type"
+    t.integer  "schoology_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "schoology_realms", ["realm_type", "schoology_id"], :name => "index_schoology_realms_on_realm_type_and_schoology_id", :unique => true
 
   create_table "sections", :force => true do |t|
     t.string   "title"
@@ -89,6 +98,8 @@ ActiveRecord::Schema.define(:version => 20160113144127) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.datetime "reset_password_sent_at"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

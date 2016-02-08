@@ -24,4 +24,5 @@ FactoryGirl.define do
     password_confirmation "funstuff"
     after(:create) { |u| u.confirm! }
   end
+
 end
