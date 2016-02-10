@@ -13,7 +13,9 @@ class HomeController < ApplicationController
       end
       # check if the course or group realm is allowed
       if params[:realm] && params[:realm_id] && !SchoologyRealm.allowed?(params[:realm], params[:realm_id])
-        render :partial => 'unauthorized_schoology_realm'
+        @hide_login_form = true
+        @full_width_page = true
+        render '_unauthorized_schoology_realm'
         return
       end
       session[:schoology_realm] = params[:realm]

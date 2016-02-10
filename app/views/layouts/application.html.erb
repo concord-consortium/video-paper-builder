@@ -30,15 +30,17 @@
         </div>
         <div class="logo_login">
           <div class="logo"><a href="/" title="VideoPaper Builder&reg;"><img src="/images/logo.gif" alt="VideoPaper Builder&reg;"  /></a></div>
-          <% if user_signed_in? %>
-            <div class="logout">
-              <%= render :partial =>'sessions/login'%>
-            </div>
-          <% else %>
-            <div class="login">
-              <%= render :partial =>'sessions/login'%>
-            </div>
-          <% end %>
+          <%- unless @hide_login_form %>
+            <% if user_signed_in? %>
+              <div class="logout">
+                <%= render :partial =>'sessions/login'%>
+              </div>
+            <% else %>
+              <div class="login">
+                <%= render :partial =>'sessions/login'%>
+              </div>
+            <% end %>
+          <%- end %>
         </div>
       </div>
       <div id="messages">
