@@ -17,6 +17,7 @@ $j(document).ready(function() {
   var $s3Uploader = $j('#s3-uploader');
   $s3Uploader.S3Uploader({
     remove_completed_progress_bar: false,
+    remove_failed_progress_bar: true,
     before_add: function (file) {
       // TODO: potentially check extension on file.name for valid video types - return false if not supported
       return true;
@@ -38,6 +39,7 @@ $j(document).ready(function() {
     enableUploadButton(true);
   });
   $s3Uploader.bind('s3_upload_failed', function (e, content) {
+    alert('Sorry, the upload of the video failed');
     $j("button_disabled_video_uploading").hide();
     enableUploadButton(false);
   });
