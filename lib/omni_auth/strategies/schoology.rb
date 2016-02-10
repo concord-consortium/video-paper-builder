@@ -29,7 +29,8 @@ module OmniAuth
       extra do
         {
           :first_name => raw_info['name_first'],
-          :last_name  => raw_info['name_last']
+          :last_name  => raw_info['name_last'],
+          :in_authorized_realm? => in_authorized_realm?
         }
       end
 
@@ -42,6 +43,26 @@ module OmniAuth
 
         resp_body = resp.body
         @raw_info ||= JSON.parse(resp_body)
+      end
+
+      def in_authorized_realm?
+        return @in_authorized_realm if @in_authorized_realm_checked
+        @in_authorized_realm_checked = true
+        @in_authorized_realm = false
+        SchoologyRealm.all_courses_and_groups().each do |realm|
+          resp = access_token.get("/v1/#{realm.realm_type}s/#{realm.schoology_id}/enrollments?uid=#{raw_info['uid']}")
+          if resp.kind_of?(Net::HTTPRedirection) && resp["Location"]
+            resp = access_token.get(resp["Location"])
+          end
+          if resp.code == "200"
+            json = JSON.parse(resp.body)
+            if json.has_key?("enrollment") && (json["enrollment"].count > 0)
+              @in_authorized_realm = true
+              break
+            end
+          end
+        end
+        @in_authorized_realm
       end
     end
   end

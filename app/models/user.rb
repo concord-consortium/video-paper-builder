@@ -95,6 +95,9 @@ class User < ActiveRecord::Base
 
       user = User.find_by_provider_and_uid auth.provider, auth.uid
       if user
+        if !auth.extra.in_authorized_realm?
+          raise "you are not part of a class or group that has access to this application"
+        end
         return user
       end
 
