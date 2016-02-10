@@ -58,4 +58,10 @@ class HomeController < ApplicationController
     # oauth required for any non-matching current users
     return !current_user || (current_user != (User.find_by_provider_and_uid('schoology', params[:realm_id]) rescue nil))
   end
+
+  # for https://developers.schoology.com/app-platform/allowing-cookies
+  def preflight
+    session['preflighted'] = '1'
+    render layout: 'lightbox'
+  end
 end

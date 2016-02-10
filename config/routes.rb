@@ -46,6 +46,8 @@ VPB::Application.routes.draw do
 
   post 'sns/transcoder_update' => 'sns#transcoder_update'
 
+  get 'preflight' => 'home#preflight'
+
   #map.connect ':controller/:action/:id'
   #map.connect ':controller/:action/:id.:format'
 end
