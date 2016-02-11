@@ -21,7 +21,7 @@ after 'deploy:update_code',   'deploy:link_configs'
 namespace(:deploy) do
 
   task :link_configs do
-    command = [ 'database', 'kaltura', 'mailer', 'paperclip', 'aws_s3'].map{|file|
+    command = [ 'database', 'mailer', 'paperclip', 'aws_s3'].map{|file|
       "ln -nsf #{shared_path}/config/#{file}.yml #{release_path}/config/#{file}.yml"
     }.join(' && ')
 

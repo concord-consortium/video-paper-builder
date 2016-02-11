@@ -12,7 +12,7 @@
             <strong>Date</strong>
             <span>
               <%=link_to pick_arrow("date_asc",:position=>"top"), {:controller=>"video_papers",:action=>"shared_video_papers",:order_by=>'date_asc'}%>
-              <%=link_to pick_arrow("date_desc"), shared_video_papers_path %>              
+              <%=link_to pick_arrow("date_desc"), shared_video_papers_path %>
             </span>
           </p>
         </div>
@@ -21,7 +21,7 @@
             <% li_count = 1 %>
             <% @video_papers.each do |video_paper| %>
               <%= content_tag :li ,:class=> is_last?(li_count) do %>
-                <%= get_video_paper_thumbnail(video_paper)%>
+                <a href="<%= video_paper_path(video_paper) %>"><%= get_video_paper_thumbnail(video_paper)%></a>
                 <h3><%=link_to video_paper.title, video_paper_path(video_paper)%></h3>
                 <p><%=video_paper.user.name%><br />
                   <%= video_paper.format_created_date %></p>
@@ -32,9 +32,9 @@
           </ul>
         </div>
         <div>
-          <div class="paging"><ul><%= will_paginate @video_papers, 
+          <div class="paging"><ul><%= will_paginate @video_papers,
             :next_label=> image_tag('next_arrow.gif'),
-            :previous_label=>image_tag('pre_arrow.gif')%></ul></div>          
+            :previous_label=>image_tag('pre_arrow.gif')%></ul></div>
 
         </div>
       </div>

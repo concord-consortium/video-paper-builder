@@ -11,7 +11,7 @@ class AdminsController < ApplicationController
       @user = User.find_by_invitation_token params[:invitation_token]
     else
       @user = User.accept_invitation!(params[:user])
-      redirect_to admin_console_url
+      redirect_to admin_console_url if @user.errors.empty?
     end
   end
 

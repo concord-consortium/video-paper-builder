@@ -1,11 +1,21 @@
 <% unless @video.nil? %>
-  <% if @video.processed? %>
-    <% if @video.private? && !owner? %>
-      this video is private.
-    <% else %>
-      <%= kaltura_player_embed @video.entry_id %>
-    <% end %>
+  <% if @video.private? && !owner? %>
+    This video is private.
   <% else %>
-    <p>The video is still processing.  For large videos, this could take some time!</p>
+    <% if !@video.processed? %>
+      <div id="transcoding_status"></div>
+      <script>
+        $j.ajax("<%= transcoding_status_video_paper_path(:format => :js) %>")
+      </script>
+    <% end %>
+    <% video_url = @video.generate_signed_url() %>
+    <% thumbnail_url = @video.generate_thumbnail_url() %>
+    <div id="video_player_container" style="display: none"></div>
+    <script>
+      <% if @video.processed && video_url %>
+        VPB.videoPlayer.show("<%= video_url %>", "<%= thumbnail_url %>");
+      <% end %>
+    </script>
+    <noscript>Please enable Javascript.</noscript>
   <% end %>
 <% end %>

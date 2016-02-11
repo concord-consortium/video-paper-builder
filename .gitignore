@@ -2,7 +2,9 @@
 *.sqlite3
 vendor/cache/*
 config/database.yml
-config/kaltura.yml
+config/aws.yml
+config/google-analytics.yml
+config/paperclip.yml
 .bundle/*
 public/system/*
 .DS_Store
@@ -12,3 +14,8 @@ tmp/*
 bin/*
 public/assets
 .rspec
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

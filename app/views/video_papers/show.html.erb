@@ -8,7 +8,7 @@ VPB.SectionTimeData[<%=index-%>] =
 
 };
 <% end %>
-<% unless @video_paper.video.nil? %>
+<% unless @video_paper.video.nil? || !@video_paper.video.transcoded? %>
 VPB.video = true;
 <% end %>
 </script>
@@ -17,7 +17,7 @@ VPB.video = true;
   <div class="top_curv">
     <div class="bottom_curv">
       <div class="view_video">
-        <h2><%=@video_paper.title%> 
+        <h2><%=@video_paper.title%>
           <% if owner_or_admin? %>
             <%= link_to image_tag('big_pencil_icon.png'),edit_video_paper_path(@video_paper)%>
           <% end %>
@@ -26,8 +26,14 @@ VPB.video = true;
           <p>Produced by <%=h @video_paper.user.name%>, <%= @video_paper.format_created_date %></p>
           <% if @video_paper.video.nil? %>
             <div class="no-video"></div>
+            <% if owner_or_admin? %>
+              <p class="upload_btn" style="margin-left: 115px;"><%= link_to 'Upload video', new_video_paper_video_path(@video_paper) %></p>
+            <% end %>
           <% else %>
             <div class="video"><%= render :partial=>'video_embed' %></div>
+            <% if owner_or_admin? %>
+              <p class="upload_btn"><%= link_to 'Change video', edit_video_paper_video_path(@video_paper, @video_paper.video) %></p>
+            <% end %>
           <% end %>
         </div>
         <div class="inner_blue_tab">
@@ -58,17 +64,16 @@ VPB.video = true;
                         <%= hidden_field :section, :title, :value=> section.title %>
                         <%= f.text_area :content, :class => "tinymce", :id => "section_#{section.id}_content", :rows => 19 %>
                         <div class="edit-section-toolbar">
-                          <%= submit_tag "Save",:id => "save-"+dom_friend(:id => section.title) %>
+                          <%= submit_tag "Save",:id => "save-"+dom_friend(:id => section.title), :class => 'highlight_btn' %>
                           <a href="#" class="cancel-button">Cancel</a>
                           <% # This is disabled until it works better %>
-                          <% if false #unless @video_paper.video.nil? %>
+                          <% unless @video_paper.video.nil? || !@video_paper.video.transcoded? %>
                             <%= link_to "Edit Timing",
                               {
                                 :controller=>"video_papers",
                                 :action=>"edit_section_duration",
                                 :section=> section.title,
                               },
-                              :confirm=> "Please ensure you have saved any changes before submitting timing changes.",                        
                               :class=>"timing-button"-%>
                           <% end%>
                         </div><!-- edit-section-toolbar -->
@@ -80,7 +85,7 @@ VPB.video = true;
             <% end %>
           </div>
           <%# initialize tinymce just once for the page%>
-          <%= tinymce :width => 500, :height => 260 %>
+          <%= tinymce :width => 500, :height => 260, :setup => "VPB.sectionEditor.tinyMceInit" %>
         </div>
       </div>
       <span class="clear"></span>

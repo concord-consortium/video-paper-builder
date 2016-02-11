@@ -36,4 +36,10 @@ en:
     invitations:
       send_instructions: 'An email with instructions about how to set the password has been sent.'
       updated: 'Your password was set successfully. You are now signed in.'
-
+    authentications:
+      user:
+        success: 'Successfully authenticated from %{kind} account.'
+        failure: 'Could not authenticate you from %{kind} because "%{reason}".'
+    omniauth_callbacks:
+      success: 'Successfully authenticated from %{kind} account.'
+      failure: 'Could not authenticate you from %{kind} because "%{reason}".'

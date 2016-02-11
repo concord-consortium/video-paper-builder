@@ -1,14 +1,14 @@
 require 'will_paginate/array'
 
 class VideoPapersController < ApplicationController
-  before_filter :authenticate_any_user!, :except=>[:new,:create,:show]
+  before_filter :authenticate_any_user!, :except=>[:new,:create,:show,:transcoding_status]
   before_filter :authenticate_user!, :only=>[:new,:create]
   before_filter :authenticate_owner!, :only=>[:edit,:edit_section,:update,:update_section,:share,:edit_section_duration,:update_setion_duration,:publish,:unpublish,:destroy]
   before_filter :authenticate_shared!, :only=>[:show]
   before_filter :authenticate_admin!, :only=>[:index, :report]
   helper_method :owner_or_admin?
   helper_method :owner?
-  
+
   def index
       order_by = VideoPaper.order_by(params[:order_by])
       if params[:user]
@@ -18,12 +18,12 @@ class VideoPapersController < ApplicationController
         @video_papers = VideoPaper.order(order_by).page(params[:page]).per_page(10)
       end
   end
-  
+
   # report that can be pasted from html to google docs
   def report
-    rows = [["id", "title", "paper update time", "author", "paper status",  "video update time", "video length", 
+    rows = [["id", "title", "paper update time", "author", "paper status",  "video update time", "video length",
        "video private?", "shared with" ]]
-    VideoPaper.all.each{|paper| 
+    VideoPaper.all.each{|paper|
       rows << [
         paper.id, paper.title, paper.updated_at, paper.user.name, paper.status,
         paper.video ? paper.video.updated_at : "",
@@ -34,7 +34,7 @@ class VideoPapersController < ApplicationController
     }
     render :text => rows.map{|row|row.join("\t")}.join("<br>")
   end
-  
+
   def my_video_papers
     order_by_sql = VideoPaper.order_by(params[:order_by])
     if current_user
@@ -44,17 +44,17 @@ class VideoPapersController < ApplicationController
       @video_papers = [].paginate
     end
   end
-  
+
   def shared_video_papers
     order_by_sql = VideoPaper.order_by(params[:order_by])
     @video_papers = current_user.video_papers.paginate :page=>params[:page], :per_page=>8, :order=>order_by_sql
   end
 
   def show
-    @video_paper = VideoPaper.find(params[:id]) 
+    @video_paper = VideoPaper.find(params[:id])
     @sections = @video_paper.sections
     @video = @video_paper.video
-    
+
     if @video_paper.unpublished?  && !owner_or_admin?
       redirect_to shared_video_papers_path, :notice=>"this video paper is currently not published."
     end
@@ -67,9 +67,9 @@ class VideoPapersController < ApplicationController
 
   def edit
     @video_paper = VideoPaper.find(params[:id])
-    @video = @video_paper.video    
+    @video = @video_paper.video
   end
-  
+
   def edit_section
     @video_paper = VideoPaper.find(params[:id])
     @section = @video_paper.sections.find_by_title(params[:section])
@@ -78,7 +78,7 @@ class VideoPapersController < ApplicationController
     # if the section can't be found by title, then use the first
     if @section == nil
       @section = @video_paper.sections.first
-    end  
+    end
   end
 
   def create
@@ -107,12 +107,14 @@ class VideoPapersController < ApplicationController
           redirect_to(@video_paper, :notice => 'VideoPaper was successfully updated.')
         when "Upload a video"
           redirect_to(new_video_paper_video_path(@video_paper),:notice=>'VideoPaper was succesfully updated.')
+        when "Change video"
+          redirect_to(edit_video_paper_video_path(@video_paper, @video_paper.video),:notice=>'VideoPaper was succesfully updated.')
         end
     else
-      render :action => "edit" 
+      render :action => "edit"
     end
   end
-  
+
   def update_section
     @video_paper = VideoPaper.find(params[:id])
     @section = @video_paper.sections.find_by_title(params[:section][:title])
@@ -132,7 +134,7 @@ class VideoPapersController < ApplicationController
 
   def unshare
     @video_paper = VideoPaper.find(params[:id])
-    @shared_users = @video_paper.shared_papers    
+    @shared_users = @video_paper.shared_papers
     if @video_paper.unshare(params[:user_id])
       respond_to do |format|
         format.js do
@@ -147,21 +149,21 @@ class VideoPapersController < ApplicationController
   def destroy
     @video_paper = VideoPaper.find(params[:id])
     @video_paper.destroy
-    redirect_to(my_video_papers_url,:notice=>'VideoPaper was successfully destroyed.') 
+    redirect_to(my_video_papers_url,:notice=>'VideoPaper was successfully destroyed.')
   end
-  
+
   def share
     @video_paper = VideoPaper.find(params[:id])
     @shared_users = @video_paper.shared_papers
     @share = SharedPaper.new(params[:shared_paper])
     render :layout=> 'lightbox'
   end
-  
+
   def shared
     @video_paper = VideoPaper.find(params[:id])
     @shared_users = @video_paper.shared_papers
     @share = SharedPaper.new(params[:shared_paper])
-    
+
     shared_paper = params[:shared_paper]
     #massage the attributes into an acceptable format for the share method
     user = User.find_by_email(params[:shared_paper][:user_id])
@@ -174,14 +176,14 @@ class VideoPapersController < ApplicationController
     else
       #render "share"
     end
-    
+
     respond_to do |format|
       format.js do
         render 'update_shared_user_block'
       end
     end
   end
-  
+
   def edit_section_duration
     @video_paper = VideoPaper.find(params[:id])
     @section = @video_paper.sections.find_by_title(params[:section])
@@ -191,15 +193,15 @@ class VideoPapersController < ApplicationController
     if @section == nil
       @section = @video_paper.sections.first
     end
-    
+
     render :layout => "lightbox"
   end
-  
+
   def update_section_duration
     @video_paper = VideoPaper.find(params[:id])
     @section = @video_paper.sections.find_by_id(params[:section].delete(:id))
     @video = @video_paper.video
-  
+
     if @section.update_attributes(params[:section])
       #redirect_to({:controller=>"video_papers",:action=>"edit_section",:section=>@section.title}, :notice=>"Success!")
       redirect_to(video_paper_path(@video_paper) + "#" + dom_friend(:id=>@section.title),:notice=>'Timing successfully updated.')
@@ -207,23 +209,37 @@ class VideoPapersController < ApplicationController
       redirect_to(video_paper_path(@video_paper) + "#" + dom_friend(:id=>@section.title),:notice=>'Invalid time!')
     end
   end
-  
+
   def publish
     video_paper = VideoPaper.find(params[:id])
     video_paper.publish!
     redirect_to my_video_papers_url, :notice=> "#{video_paper.title} was sucessfully published!"
   end
-  
+
   def unpublish
     video_paper = VideoPaper.find(params[:id])
     video_paper.unpublish!
     redirect_to my_video_papers_url, :notice=> "#{video_paper.title} was sucessfully unpublished!"
   end
+
+  def transcoding_status
+    video_paper = VideoPaper.find(params[:id])
+    @video = video_paper.video
+    @duration = @video && @video.aws_transcoder_submitted_at != nil ? Time.now.to_i - @video.aws_transcoder_submitted_at.to_i : 0
+
+    respond_to do |format|
+      format.js do
+        render 'transcoding_status'
+      end
+    end
+  end
+
   protected
+
   def authenticate_owner!
     unless owner_or_admin?
       redirect_to(root_path, :notice => "You aren't authorized for this action.")
-    end    
+    end
   end
   def authenticate_shared!
     video = VideoPaper.find(params[:id])
@@ -237,7 +253,7 @@ class VideoPapersController < ApplicationController
   end
   def owner_or_admin?
     admin? || owner?
-  end  
+  end
   def admin?
    admin_signed_in?
   end

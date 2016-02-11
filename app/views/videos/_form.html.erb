@@ -1,33 +1,20 @@
-<style>object, embed{ position:absolute; top:0; left:0; z-index:999;}</style> 
-<script type="text/javascript">
-  $j(document).ready(function(){
-   $j('#thumbnail-time-code-show').click(function(){
-     $j('#thumbnail-image').hide();
-     $j('#thumbnail-time-code').show();
-   });
-   $j('#thumbnail-file-show').click(function(){
-     $j('#thumbnail-image').show();
-     $j('#thumbnail-time-code').hide();
-   });
-  });
-</script>
+<style>object, embed{ position:absolute; top:0; left:0; z-index:999;}</style>
 
 <div class="content_details">
   <div class="top_curv">
     <div class="bottom_curv">
       <div class="upload_video">
-        <%= form_for [@video_paper, @video],:html => { :multipart => true } do |f| %>
-          <fieldset>
-          <div class="left_details">
-            <div class="creat_video_details">
-              <h2><%=@video_paper.title%></h2>
-              <div class="create_video">
-                <h3>Select Video</h3>
-                <% if @video.entry_id %>
-                  <div class="textarea_content">
-                    A video has already been uploaded.
+        <div class="left_details">
+          <div class="creat_video_details">
+            <h2><%=@video_paper.title%></h2>
+            <div class="create_video">
+              <h3>Select Video</h3>
+              <div class="file_select">
+                <% if @video.upload_uri %>
+                  <div class="upload_preamble">
+                    A video has already been uploaded (<strong><span id="video_filename"><%= @video.upload_filename %></span></strong>).
                     <% if @video.processed %>
-                      This video is <%= @video.duration %> seconds long.
+                      This video has been processed.
                     <% else %>
                       This video is still processing.
                     <% end %>
@@ -35,73 +22,48 @@
                     Use the button below to replace it with another video.
                   </div>
                 <% end %>
-                <div class="file_select">
-                  <div id="flashContainer">
-                    <a href="#" class="browse_select_btn">Browse &amp; Select</a>
-                    <%= kaltura_upload_embed %>                   	
-                  </div>                
-                  <p><span id="selected-title" style="display:none"> Selected Video: <span id="title-text">Filename selected</span></span></p>
-                </div>
-                <%= f.error_messages %>                
-                <div class="file_select" id="progressBar" style="display:none">
-                  <p><div id="flash_notice" class="success">Uploading to the server now...</div></p>
-                	<p><span class="progressBar" id="progress"></span></p>
-                  <p>Please don't navigate away from this page.  The video upload will be lost!</p>                	
-              	</div>  
-            	  <div class="file_select" id="upload-complete" style="display:none">
-            			<p><div id="flash_notice" class="success">Processing...</div></p>            	    
-            			<p><img src="/images/spinner.gif" alt="Loading" /></p>
-            			<p>Please don't navigate away from this page.  The video upload will be lost!</p>
-            		</div>
-            	  <div id="javascript_errors"></div>
-            		<div id="finalize" style="display:none" class="file_select">
-            			<p><div id="flash_notice" class="success">Upload complete!</div></p>
-            		</div>              	
+                <%= s3_uploader_form id: "s3-uploader" do %>
+                  <%= hidden_field_tag  "Content-Type", "" %> <%# Needed by s3 but not added by s3_uploader_form helper %>
+                  <%= hidden_field_tag  "do-not-serialize-file", "" %> <%# This flags code in application.js to strip out the file when the form is serialized - if it isn't stripped it won't upload to s3  %>
+                  <fieldset>
+                    <%= file_field_tag :file, multiple: false, data: { url: S3DirectUpload.config.url } %>
+                    <script id="template-upload" type="text/x-tmpl">
+                    <div id="file-{%=o.unique_id%}" class="upload">
+                      <div>Uploading to the server now...</div>
+                      {%=o.name%}
+                      <div class="progress"><div class="bar" style="width: 0%"></div></div>
+                      <div>Please do not navigate away from this page. The video upload will be lost!</div>
+                    </div>
+                    </script>
+                    <div class="note">
+                      <img src="/images/bulb.gif" alt="" />Do not upload video without signed permissions from students.
+                    </div>
+                  </fieldset>
+                <% end %>
               </div>
-              <div class="vedio_select">              
-                <h3 class="bulet2">Video Status</h3>
-                <span class="clear"></span>
-                <p class="space">
-                   <%= f.radio_button :private, true %>
-                  Private</p>
-                <p>
-                  <%= f.radio_button :private, false %>
-                  Public</p>
-              </div>
-              <div class="textarea_box">
-                <h3 class="bulet3">Additional Information</h3>
-                <div class="textarea_content">
-                  <div id="thumbnail-image">
-                    <%=f.file_field :thumbnail%><br/>
-                    <label class="space">
-                    <img src="/images/bulb.gif" alt="" />
-                    If you do not have a thumbnail, one will automatically be created from the video. You can <a id="thumbnail-time-code-show"href="#" >specify a point in time in your video to use as your thumbnail</a> instead.</label>
-                  </div>
-                  <div id="thumbnail-time-code" style="display:none">
-              			<%= f.text_field :thumbnail_time %>
-                           <label class="space"><img src="/images/bulb.gif" alt="" />Enter a point in the video in seconds, or use a time format like <strong>hh:mm:ss</strong>. <a id="thumbnail-file-show" href="#" >Upload a file instead</a>.</label>                   
-                  </div>
-                  <%= f.hidden_field :entry_id %>
-                </div>
-              </div>
-              <% if @video.entry_id.nil?%>
-          			<% disabled = true %>
-          		<% else %>
-          			<% disabled = false%>
-          		<% end %>
-          		<br style="clear: both;" /><br />
-              <div class="button">
-                <span>
-	                <%= f.submit "Upload video", :id=>"button_submit",:class=>"upload_btn",:disabled=>disabled%> 
-                  | <%= link_to("Cancel",@video_paper,:method=>'get') %>
-                </span>
-                <div class="disabled_button_msg" id="button_disabled_no_video" style="<%= disabled ? '': 'display:none' %>">No video selected.</div>
-                <div class="disabled_button_msg" id="button_disabled_video_uploading" style="display:none">Your video is still uploading.</div>
+              <div id="video-selected" class="textarea_content" style="display:none">
+                <span id="selected-title">Selected Video: <span id="title-text">Filename selected</span></span>
+                <a href="#" id="change-video">Select a different video...</a>
               </div>
             </div>
-          </div>
-          </fieldset>
-        <% end %>
+            <%= form_for [@video_paper, @video],:html => { :multipart => true } do |f| %>
+              <%= hidden_field_tag  "video[upload_uri]", @video.upload_uri %>
+              <fieldset>
+          			<% disabled = @video.upload_uri.nil? %>
+            		<br style="clear: both;" /><br />
+                <div class="button">
+                  <span>
+  	                <%= f.submit "Save video", :id=>"button_submit",:class=>"upload_btn",:disabled=>disabled%>
+                    | <%= link_to("Cancel",@video_paper,:method=>'get') %>
+                  </span>
+                  <div class="disabled_button_msg" id="button_disabled_no_video" style="<%= disabled ? '': 'display:none' %>">No video selected.</div>
+                  <div class="disabled_button_msg" id="button_disabled_video_uploading" style="display:none">Your video is still uploading.</div>
+                </div>
+              </fieldset>
+              <%= f.error_messages %>
+            </div>
+          <% end %>
+        </div>
       </div>
       <span class="clear"></span> </div>
   </div>

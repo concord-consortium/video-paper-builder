@@ -20,12 +20,18 @@
               <ul>
                 <li class="col1">
                   <h4>Uploading a classroom video</h4>
-                  <img src="/images/video1.jpg" alt="" />
-                  <p>If your classroom video is ready, we recommend starting by uploading and editing your video with our video editing tool. You can then add in your materials later.</p>
-                  <p class="upload_btn">
-                  <%= f.submit 'Upload a video',:controller=>'videos', :action=>'new',:class=>"upload_btn" %>  
-                  </p>
-  
+                  <%= get_video_paper_thumbnail_with_default(@video_paper, "/images/video1.jpg") %>
+                  <% if @video.nil? %>
+                    <p>If your classroom video is ready, we recommend starting by uploading and editing your video with our video editing tool. You can then add in your materials later.</p>
+                    <p class="upload_btn">
+                    <%= f.submit 'Upload a video',:controller=>'videos', :action=>'new',:class=>"upload_btn" %>
+                    </p>
+                  <% else %>
+                    <p>If you would like to change your classroom video, click the button below to upload a new file and replace your video.</p>
+                    <p class="upload_btn">
+                    <%= f.submit 'Change video',:controller=>'videos', :action=>'new',:class=>"upload_btn" %>
+                    </p>
+                  <% end %>
                 </li>
                 <li class="col2"> <span>or</span>
                   <h4>Entering classroom notes</h4>

@@ -12,7 +12,7 @@
             <strong>Date</strong>
             <span>
               <%=link_to pick_arrow("date_asc",:position=>"top"), {:controller=>"video_papers",:action=>"index",:order_by=>'date_asc'}%>
-              <%=link_to pick_arrow("date_desc"), video_papers_path %>              
+              <%=link_to pick_arrow("date_desc"), video_papers_path %>
             </span>
           </p>
         </div>
@@ -21,7 +21,7 @@
           <% @video_papers.each do |video_paper| %>
             <div class="video_row">
               <div class="span-4">
-                <div class="photo"><%= get_video_paper_thumbnail(video_paper)%></div>
+                <div class="photo"><a href="<%= video_paper_path(video_paper) %>"><%= get_video_paper_thumbnail(video_paper)%></a></div>
               </div>
               <div class="details">
                 <h3><%= video_paper.title %></h3>
@@ -29,8 +29,10 @@
                   <strong>Author:</strong> <%= video_paper.user.name%>,
                   <strong>Created:</strong> <%= video_paper.format_created_date %><br/>
                   <strong>Paper Status:</strong> <%= video_paper.status.titlecase%>,
-                  <strong>Video Status:</strong> <%= video_paper.video_status%>,
-                  <%= link_to 'Video Info', [video_paper, video_paper.video] %>
+                  <strong>Video Status:</strong> <%= video_paper.video_status%><% if admin_signed_in? %>,
+                    <strong>Transcoder Status:</strong> <%= video_paper.video && video_paper.video.aws_transcoder_state ? video_paper.video.aws_transcoder_state.titleize : 'Unknown' %>,
+                    <%= link_to 'Video Info', [video_paper, video_paper.video] %>
+                  <% end %>
                 </p>
                 <ul>
                   <li class="view_edit_btn"><span><%= link_to 'View', video_paper %> <%= link_to 'Edit', edit_video_paper_path(video_paper) %> <a class="sharing_btn" href="<%= share_video_paper_path(video_paper) %>" class="last">Sharing</a></span></li>
@@ -39,12 +41,12 @@
                   <% else%>
                     <li class="unpublish_btn"><span><%= link_to "Publish",publish_video_paper_path(video_paper)%></span></li>
                     <li class="unpublish_btn"><span><%= link_to 'Remove', video_paper, :confirm => 'Are you sure?', :method => :delete , :title => "Remove" %></span></li>
-                  <%end%>                  
+                  <%end%>
                 </ul>
               </div>
             </div>
           <% end %>
-            <div class="paging"><ul><%= will_paginate @video_papers, 
+            <div class="paging"><ul><%= will_paginate @video_papers,
               :next_label=> image_tag('next_arrow.gif'),
               :previous_label=>image_tag('pre_arrow.gif')%></ul></div>
 

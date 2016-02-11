@@ -1,0 +1,31 @@
+# config/aws.yml
+base: &base
+  credentials:
+    access_key_id: ''       # your access key id
+    secret_access_key: ''   # your secret access key
+  s3:
+    bucket: ''              # your bucket name
+    region: 'us-east-1'     # region prefix of your bucket url, eg. "s3-eu-west-1"
+    expires: '3600'         # number of seconds from now when signed urls expire
+  transcoder:
+    pipeline_id: ''         # transcoder pipeline id (created in aws console)
+
+development:
+  <<: *base
+
+test:
+  <<: *base
+
+cucumber:
+  <<: *base
+
+production:
+  credentials:
+    access_key_id: <%= ENV['ACCESS_KEY_ID'] %>
+    secret_access_key: <%= ENV['SECRET_ACCESS_KEY'] %>
+  s3:
+    bucket: <%= ENV['S3_BUCKET'] %>
+    region: <%= ENV['S3_REGION'] %>
+    expires: '3600'
+  transcoder:
+    pipeline_id: <%= ENV['PIPELINE_ID'] %>

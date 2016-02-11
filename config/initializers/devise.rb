@@ -239,4 +239,15 @@ Devise.setup do |config|
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
+
+  if ENV['SCHOOLOGY_CONSUMER_KEY'] && ENV['SCHOOLOGY_CONSUMER_SECRET']
+    require 'omni_auth/strategies/schoology'
+    SETUP_PROC = lambda do |env|
+      host = env['rack.session'][:schoology_host]
+      if host
+        env['omniauth.strategy'].options[:client_options][:authorize_url] = "https://#{host}/oauth/authorize"
+      end
+    end
+    config.omniauth 'schoology', ENV['SCHOOLOGY_CONSUMER_KEY'], ENV['SCHOOLOGY_CONSUMER_SECRET'], scope: 'user', strategy_class: 'OmniAuth::Strategies::Schoology', setup: SETUP_PROC
+  end
 end

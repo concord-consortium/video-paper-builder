@@ -25,11 +25,12 @@ VPB::Application.routes.draw do
       put 'update_section_duration'
       get 'publish'
       get 'unpublish'
+      get 'transcoding_status'
     end
     resources :videos
   end
 
-  devise_for :users, :controllers => { :registrations => "registrations" }
+  devise_for :users, :controllers => { :registrations => "registrations", :omniauth_callbacks => "authentications" }
   devise_for :admins, :controllers => { :registrations => "registrations" }
   root :to => 'home#index'
   resources :admins
@@ -42,6 +43,10 @@ VPB::Application.routes.draw do
   get 'contact/index' => 'home#contact', :as => :contact
 
   get 'help_videos/:video_name' => 'home#help_videos', :as => :help_video
+
+  post 'sns/transcoder_update' => 'sns#transcoder_update'
+
+  get 'preflight' => 'home#preflight'
 
   #map.connect ':controller/:action/:id'
   #map.connect ':controller/:action/:id.:format'

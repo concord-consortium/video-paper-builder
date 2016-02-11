@@ -72,8 +72,6 @@ describe Section do
   describe "A section with an uploaded video" do
     before(:each) do
       @video = FactoryGirl.build(:video, :duration => '100')
-      @video.stub(:update_kaltura_metadata).and_return(true)
-      @video.stub(:set_kaltura_metadata_fields).and_return(true)
     end
 
     it "should set the video start time to the video's duration - 1 second if the start time is too large" do

@@ -2,17 +2,6 @@ require 'spec_helper'
 
 describe Video do
 
-  before(:each) do
-    KalturaFu.stub(:set_video_description)
-    KalturaFu.stub(:set_category)
-    KalturaFu.stub_chain(:get_video_info, :duration).and_return(100)
-  end
-
-  it "should require a kaltura entry" do
-    video = FactoryGirl.build(:video, :entry_id => nil)
-    video.should be_invalid
-  end
-
   it "should only have one video per video paper" do
     paper = FactoryGirl.build(:video_paper)
 
@@ -21,39 +10,6 @@ describe Video do
 
     second_video = FactoryGirl.build(:video, :video_paper => paper)
     second_video.save.should be_false
-  end
-
-  it "should add the description to the Kaltura metadata" do
-    description = rand(100).to_s + "waffles yo."
-    video = FactoryGirl.build(:video, :description => description)
-    KalturaFu.should_receive(:set_video_description).with(video.entry_id, description)
-    video.save.should be_true
-  end
-
-  it "should set the kaltura category to the rails environment" do
-    video = FactoryGirl.build(:video)
-    KalturaFu.should_receive(:set_category).with(video.entry_id, Rails.env)
-    video.save.should be_true
-  end
-
-  it "should snag the video duration from kaltura after saving" do
-    KalturaFu.stub_chain(:get_video_info, :duration).and_return(999)
-    video = FactoryGirl.build(:video)
-    video.save.should be_true
-
-    video.duration.should == 999
-  end
-
-  it "should update the processing status from kaltura" do
-    video = FactoryGirl.build(:video, :processed => false)
-    KalturaFu.should_receive(:check_video_status).and_return(KalturaFu::READY)
-    video.processed?.should == true
-  end
-
-  it "should ask Kaltura about the status only if it has not been processed" do
-    video = FactoryGirl.build(:video, :processed => true)
-    KalturaFu.should_not_receive(:check_video_status)
-    video.processed?.should == true
   end
 
   it "should respond appropriately to public?" do
