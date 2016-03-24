@@ -88,22 +88,20 @@ class User < ActiveRecord::Base
 
   class <<self
     def find_for_omniauth(auth, schoology_realm = nil, schoology_realm_id = nil)
-      # the session vars are set when the app is iframed in schoology via a course or group
+
       if schoology_realm && schoology_realm_id && !SchoologyRealm.allowed?(schoology_realm, schoology_realm_id)
         raise "your #{schoology_realm} does not have access to this application"
       end
 
-      user = User.find_by_provider_and_uid auth.provider, auth.uid
-      if user
-        if !auth.extra.in_authorized_realm?
-          raise "you are not part of a class or group that has access to this application"
-        end
-        return user
+      if !auth.extra.in_authorized_realm?
+        raise "you are not part of a class or group that has access to this application"
       end
 
-      email = auth.info.email || "#{Devise.friendly_token[0,20]}@example.com"
+      user = User.find_by_provider_and_uid auth.provider, auth.uid
+      return user if user
 
       # the devise validatable model enforces unique emails, so no need find_all
+      email = auth.info.email || "#{Devise.friendly_token[0,20]}@example.com"
       existing_user_by_email = User.find_by_email email
 
       if existing_user_by_email
@@ -113,10 +111,6 @@ class User < ActiveRecord::Base
         # There is no authentication for this provider and user
         user = existing_user_by_email
       else
-        unless schoology_realm && schoology_realm_id && SchoologyRealm.allowed?(schoology_realm, schoology_realm_id)
-          raise "you can only register for this application through an allowed course or group"
-        end
-
         # no user with this email, so make a new user with a random password
         pw = Devise.friendly_token.first(12)
         user = User.new do |u|
