@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160208223514) do
+ActiveRecord::Schema.define(:version => 20160425152422) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                                :default => "", :null => false
@@ -135,6 +135,8 @@ ActiveRecord::Schema.define(:version => 20160208223514) do
     t.string   "aws_transcoder_state"
     t.datetime "aws_transcoder_submitted_at"
     t.text     "aws_transcoder_last_notification"
+    t.integer  "aws_transcoder_retries",            :default => 0
+    t.datetime "aws_transcoder_first_submitted_at"
   end
 
   create_table "wysihat_files", :force => true do |t|
