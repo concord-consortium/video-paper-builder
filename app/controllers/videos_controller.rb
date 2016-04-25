@@ -23,6 +23,8 @@ class VideosController < ApplicationController
       :aws_transcoder_state => @video.aws_transcoder_state,
       :aws_transcoder_submitted_at => @video.aws_transcoder_submitted_at,
       :aws_transcoder_job => @video.aws_transcoder_job,
+      :aws_transcoder_retries => @video.aws_transcoder_retries,
+      :aws_transcoder_first_submitted_at => @video.aws_transcoder_first_submitted_at,
       :aws_transcoder_last_notification => @video.aws_transcoder_last_notification ? YAML.load(@video.aws_transcoder_last_notification) : null
     }
   end
@@ -44,7 +46,7 @@ class VideosController < ApplicationController
       end
 
       if @video.save
-        start_transcoding_job()
+        @video.start_transcoding_job
         redirect_to(@video_paper,:notice=>"Your video was successfully updated!")
       else
         respond_to do |format|
@@ -66,13 +68,13 @@ class VideosController < ApplicationController
     if @video.update_attributes(params[:video])
       unless params[:video][:upload_uri] == old_upload_uri
         if !@video.processed
-          cancel_transcoding_job()
+          @video.cancel_transcoding_job
         end
         @video.transcoded_uri = nil
         @video.processed = false
         @video.duration = nil
         @video.save
-        start_transcoding_job()
+        @video.start_transcoding_job
       end
       redirect_to(@video_paper, :notice=>"Your video was sucessfully updated!")
     else
@@ -109,51 +111,5 @@ class VideosController < ApplicationController
 
   def owner_or_admin
     (@owner == current_user && current_user) || current_admin
-  end
-
-  def cancel_transcoding_job
-    if !@video.aws_transcoder_job.nil?
-      begin
-        transcoder = AWS::ElasticTranscoder::Client.new
-        transcoder.cancel_job id: @video.aws_transcoder_job
-      rescue AWS::ElasticTranscoder::Errors::ResourceInUseException
-        # this is raised if the job is current transcoding
-      end
-      @video.aws_transcoder_job = nil
-      @video.aws_transcoder_state = 'cancelled'
-      @video.aws_transcoder_submitted_at = nil
-      @video.aws_transcoder_last_notification = nil
-      @video.save!
-    end
-  end
-
-  def start_transcoding_job
-    key_prefix = "transcoded/#{@video.id}/#{Time.now.to_i}/"
-    @video.transcoded_uri = "#{key_prefix}#{@video.upload_filename}"
-
-    transcoder = AWS::ElasticTranscoder::Client.new
-    result = transcoder.create_job(
-      pipeline_id: VPB::Application.config.aws["transcoder"]["pipeline_id"],
-      input: {
-        key: @video.upload_uri,
-        frame_rate: 'auto',
-        resolution: 'auto',
-        aspect_ratio: 'auto',
-        interlaced: 'auto',
-        container: 'auto'
-      },
-      output_key_prefix: key_prefix,
-      outputs: [{
-        key: @video.upload_filename,
-        preset_id: WEB_MP4_PRESET_ID,
-        thumbnail_pattern: "#{@video.upload_filename}-{count}",
-        rotate: 'auto'
-      }]
-    )
-    @video.aws_transcoder_job = result[:job][:id]
-    @video.aws_transcoder_state = 'submitted'
-    @video.aws_transcoder_submitted_at = Time.now
-    @video.aws_transcoder_last_notification = nil;
-    @video.save!
   end
 end

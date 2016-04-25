@@ -225,7 +225,7 @@ class VideoPapersController < ApplicationController
   def transcoding_status
     video_paper = VideoPaper.find(params[:id])
     @video = video_paper.video
-    @duration = @video && @video.aws_transcoder_submitted_at != nil ? Time.now.to_i - @video.aws_transcoder_submitted_at.to_i : 0
+    @duration = @video && @video.aws_transcoder_first_submitted_at != nil ? Time.now.to_i - @video.aws_transcoder_first_submitted_at.to_i : 0
 
     respond_to do |format|
       format.js do

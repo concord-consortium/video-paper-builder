@@ -94,6 +94,59 @@ class Video < ActiveRecord::Base
       end
     end
 
+    def start_transcoding_job(first_time = true)
+      key_prefix = "transcoded/#{id}/#{Time.now.to_i}/"
+      @video.transcoded_uri = "#{key_prefix}#{upload_filename}"
+
+      transcoder = AWS::ElasticTranscoder::Client.new
+      result = transcoder.create_job(
+        pipeline_id: VPB::Application.config.aws["transcoder"]["pipeline_id"],
+        input: {
+          key: upload_uri,
+          frame_rate: 'auto',
+          resolution: 'auto',
+          aspect_ratio: 'auto',
+          interlaced: 'auto',
+          container: 'auto'
+        },
+        output_key_prefix: key_prefix,
+        outputs: [{
+          key: upload_filename,
+          preset_id: WEB_MP4_PRESET_ID,
+          thumbnail_pattern: "#{upload_filename}-{count}",
+          rotate: 'auto'
+        }]
+      )
+      aws_transcoder_job = result[:job][:id]
+      aws_transcoder_state = 'submitted'
+      aws_transcoder_submitted_at = Time.now
+      if first_time
+        aws_transcoder_first_submitted_at = aws_transcoder_submitted_at
+      end
+      save!
+    end
+
+    def retry_transcoding_job
+      start_transcoding_job(false)
+    end
+
+    def cancel_transcoding_job
+      if !aws_transcoder_job.nil?
+        begin
+          transcoder = AWS::ElasticTranscoder::Client.new
+          transcoder.cancel_job id: aws_transcoder_job
+        rescue AWS::ElasticTranscoder::Errors::ResourceInUseException
+          # this is raised if the job is current transcoding
+        end
+        aws_transcoder_job = nil
+        aws_transcoder_state = 'cancelled'
+        aws_transcoder_submitted_at = nil
+        aws_transcoder_first_submitted_at = nil
+        aws_transcoder_retries = 0
+        save!
+      end
+    end
+
     # Protected Methods
 
     def signed_url(url)
