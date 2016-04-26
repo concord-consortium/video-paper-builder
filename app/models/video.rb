@@ -163,7 +163,7 @@ class Video < ActiveRecord::Base
       # the upload uri is set to the full url by s3_uploader - this removes the domain and bucket
       prefix = S3DirectUpload.config.url
       if self.upload_uri[0 ... prefix.length] == prefix
-        self.upload_uri = URI.decode(self.upload_uri[prefix.length .. -1])
+        self.upload_uri = CGI.unescape(self.upload_uri[prefix.length .. -1])
       end
     end
 
