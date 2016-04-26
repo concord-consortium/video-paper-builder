@@ -47,13 +47,13 @@ class SnsController < ApplicationController
 
   # retry_transcoding is counting on retry_transcoding_job as well as the caller to save the video
   def retry_transcoding(video)
-    if video.retries < retry_limit
+    if video.aws_transcoder_retries < retry_limit
       # sleep a while, the most likely cause of the retry is because the file isn't available in S3 yet
       # generally this is bad practice to sleep because it ties up a web process, but this app is not intended for
       # high usage and it is better to keep it simple without adding in background processing
       # SNS requires a response in 15 seconds so we sleep roughly half of that to be safe
       sleep 7
-      video.retries += 1
+      video.aws_transcoder_retries += 1
       video.retry_transcoding_job
     end
   end
