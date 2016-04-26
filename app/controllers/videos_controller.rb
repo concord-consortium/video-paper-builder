@@ -2,8 +2,6 @@ require 'yaml'
 
 class VideosController < ApplicationController
 
-  WEB_MP4_PRESET_ID = '1351620000000-100070'
-
   before_filter :authenticate_any_user!
   before_filter :get_video_paper_and_owner_from_request
   before_filter :authenticate_owner!

@@ -9,6 +9,9 @@ class Video < ActiveRecord::Base
     COMPLEX_SECONDS_PATTERN = /^(([0-1]?[0-9])|([2][0-3])):([0-5]?[0-9])(:([0-5]?[0-9]))?$/
     SIMPLE_SECONDS_PATTERN = /(^-?\d\d*$)/
 
+    WEB_MP4_PRESET_ID = '1351620000000-100070'
+
+
     ###################################
     # AR Plugins/gems
     ###################################
@@ -96,7 +99,7 @@ class Video < ActiveRecord::Base
 
     def start_transcoding_job(first_time = true)
       key_prefix = "transcoded/#{id}/#{Time.now.to_i}/"
-      @video.transcoded_uri = "#{key_prefix}#{upload_filename}"
+      self.transcoded_uri = "#{key_prefix}#{upload_filename}"
 
       transcoder = AWS::ElasticTranscoder::Client.new
       result = transcoder.create_job(
@@ -117,11 +120,11 @@ class Video < ActiveRecord::Base
           rotate: 'auto'
         }]
       )
-      aws_transcoder_job = result[:job][:id]
-      aws_transcoder_state = 'submitted'
-      aws_transcoder_submitted_at = Time.now
+      self.aws_transcoder_job = result[:job][:id]
+      self.aws_transcoder_state = 'submitted'
+      self.aws_transcoder_submitted_at = Time.now
       if first_time
-        aws_transcoder_first_submitted_at = aws_transcoder_submitted_at
+        self.aws_transcoder_first_submitted_at = aws_transcoder_submitted_at
       end
       save!
     end
@@ -138,11 +141,11 @@ class Video < ActiveRecord::Base
         rescue AWS::ElasticTranscoder::Errors::ResourceInUseException
           # this is raised if the job is current transcoding
         end
-        aws_transcoder_job = nil
-        aws_transcoder_state = 'cancelled'
-        aws_transcoder_submitted_at = nil
-        aws_transcoder_first_submitted_at = nil
-        aws_transcoder_retries = 0
+        self.aws_transcoder_job = nil
+        self.aws_transcoder_state = 'cancelled'
+        self.aws_transcoder_submitted_at = nil
+        self.aws_transcoder_first_submitted_at = nil
+        self.aws_transcoder_retries = 0
         save!
       end
     end
