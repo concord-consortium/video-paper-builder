@@ -27,7 +27,11 @@ VPB::Application.routes.draw do
       get 'unpublish'
       get 'transcoding_status'
     end
-    resources :videos
+    resources :videos do
+      member do
+        post 'start_transcoding_job'
+      end
+    end
   end
 
   devise_for :users, :controllers => { :registrations => "registrations", :omniauth_callbacks => "authentications" }

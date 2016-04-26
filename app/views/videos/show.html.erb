@@ -2,6 +2,10 @@
 <br>
 <br>
 <h2>Video Info</h2>
+<%= link_to 'Re submit source video to Elastic Transcoder',
+      start_transcoding_job_video_paper_video_path(@video.video_paper, @video),
+      :method => :post %>
+
 <pre>
 <%= JSON.pretty_generate(@info) %>
 </pre>

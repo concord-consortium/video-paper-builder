@@ -5,7 +5,7 @@ class VideosController < ApplicationController
   before_filter :authenticate_any_user!
   before_filter :get_video_paper_and_owner_from_request
   before_filter :authenticate_owner!
-  before_filter :authenticate_admin!, :only=>[:show]
+  before_filter :authenticate_admin!, :only=>[:show, :start_transcoding_job]
   before_filter :video_exists?, :only=>[:new,:create]
   before_filter :no_video?,:only=>[:index]
 
@@ -78,6 +78,16 @@ class VideosController < ApplicationController
     else
       render "edit"
     end
+  end
+
+  # this can be used by admins to fixed failed transcodings
+  def start_transcoding_job
+    @video = Video.find(params[:id])
+    @video.start_transcoding_job
+
+    redirect_to( video_paper_video_path(@video.video_paper, @video),
+      :notice=>"New encoding job has been started in Elastic Transcoder"
+    )
   end
 
   protected
