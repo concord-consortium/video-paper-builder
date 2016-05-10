@@ -39,7 +39,7 @@ $j(document).ready(function() {
     enableUploadButton(true);
   });
   $s3Uploader.bind('s3_upload_failed', function (e, content) {
-    alert('Sorry, the upload of the video failed');
+    alert('Sorry, the upload of the video failed.');
     $j("button_disabled_video_uploading").hide();
     enableUploadButton(false);
   });

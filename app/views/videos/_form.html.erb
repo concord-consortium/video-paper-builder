@@ -22,7 +22,8 @@
                     Use the button below to replace it with another video.
                   </div>
                 <% end %>
-                <%= s3_uploader_form id: "s3-uploader" do %>
+                <%= s3_uploader_form id: "s3-uploader",
+                                     max_file_size: 2.gigabytes do %>
                   <%= hidden_field_tag  "Content-Type", "" %> <%# Needed by s3 but not added by s3_uploader_form helper %>
                   <%= hidden_field_tag  "do-not-serialize-file", "" %> <%# This flags code in application.js to strip out the file when the form is serialized - if it isn't stripped it won't upload to s3  %>
                   <fieldset>
