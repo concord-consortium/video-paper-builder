@@ -65,6 +65,11 @@ sections setting in the config/application.yml file.  By default the title setti
         e:
           title: Conclusion
 
+Configuration Notes
+-------------------
+
+I have a theory that if the `AWS_*` env variables are not set then the signed video URLs do not work correctly until someone tries to upload a video. This is because the S3 uploader is configured with these credentials which probably then calls AWS.config with them. And then that global config picked up by everything else.
+
 License
 -------
 
