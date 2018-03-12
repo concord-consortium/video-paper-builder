@@ -28,6 +28,11 @@ class User < ActiveRecord::Base
   validates_presence_of :last_name
 
   ##################################
+  # Callbaks
+  ##################################
+  after_create :add_common_shared_paper
+
+  ##################################
   # instance methods
   ##################################
 
@@ -126,6 +131,15 @@ class User < ActiveRecord::Base
         user.save
       end
       user
+    end
+  end
+
+  protected
+
+  def add_common_shared_paper
+    if ENV['COMMON_SHARED_PAPER_ID'].present?
+      paper = VideoPaper.find(ENV['COMMON_SHARED_PAPER_ID'])
+      paper.users << self if paper
     end
   end
 end
