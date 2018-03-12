@@ -56,7 +56,10 @@ class User < ActiveRecord::Base
 
   comma do
     id
-    created_at
+    created_at 'First Sign In'
+    current_sign_in_at 'Most Recent Sign In'
+    sign_in_count 'Number of Sign Ins'
+    provider 'Initial Sign In Provider'
     first_name
     last_name
     email
