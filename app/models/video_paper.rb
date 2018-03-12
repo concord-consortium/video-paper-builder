@@ -8,9 +8,9 @@ class VideoPaper < ActiveRecord::Base
   # Associations
   ###################################
   belongs_to :user, :foreign_key=> "owner_id"
-  has_many :sections
-  has_one :video
-  has_many :shared_papers
+  has_many :sections, :dependent => :destroy
+  has_one :video, :dependent => :destroy
+  has_many :shared_papers, :dependent => :destroy
   has_many :users, :through=>:shared_papers, :uniq=>true
 
   ###################################

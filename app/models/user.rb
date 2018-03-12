@@ -15,10 +15,10 @@ class User < ActiveRecord::Base
   # Associations
   ###################################
 
-  has_many :my_video_papers, :foreign_key => 'owner_id', :class_name => 'VideoPaper'
+  has_many :my_video_papers, :foreign_key => 'owner_id', :class_name => 'VideoPaper', :dependent => :destroy
   has_many :video_papers, :through=> :shared_papers, :uniq=>true
   has_many :shared_papers, :dependent => :destroy
-  has_many :wysihat_files
+  has_many :wysihat_files, :dependent => :destroy
 
   ###################################
   # Validations
