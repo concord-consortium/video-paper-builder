@@ -82,6 +82,11 @@ Document server should be available at:
 http://localhost:3000
 
 
+Running Tests in Docker
+-----------------------
+
+$ docker-compose run app /bin/bash -c "/vpb/test.sh"
+
 License
 -------
 
