@@ -19,3 +19,6 @@ public/assets
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# has secrets in it but used in development
+config/aws.yml.docker

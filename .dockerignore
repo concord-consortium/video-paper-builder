@@ -1,0 +1,15 @@
+.git*
+log/*
+tmp/*
+log/*
+config/database.yml
+config/aws.yml
+config/aws.yml.docker
+config/app_environment_variables.rb
+docker-compose.yml
+Dockerfile
+README.markdown
+upgrade-steps.md
+.ebextensions
+Capfile
+

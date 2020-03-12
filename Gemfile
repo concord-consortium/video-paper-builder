@@ -32,7 +32,8 @@ gem 'httparty'
 gem 'google-analytics-rails', '1.0.0'
 
 group :development do
-  gem 'debugger'
+#  debugger not installing in docker, removed for now
+#  gem 'debugger'
 end
 
 group :test do
