@@ -32,8 +32,9 @@ gem 'httparty'
 gem 'google-analytics-rails', '1.0.0'
 
 group :development do
-#  debugger not installing in docker, removed for now
-#  gem 'debugger'
+  # debugger-ruby_core_source is needed for headers to install debugger as docker image does not have source
+  gem 'debugger-ruby_core_source'
+  gem 'debugger'
 end
 
 group :test do
