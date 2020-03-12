@@ -1,0 +1,11 @@
+sudo: false
+language: ruby
+rvm:
+ - 1.9.3
+dist: precise
+before_script:
+  - cp config/database.yml.travis config/database.yml
+  - cp config/aws.yml.travis config/aws.yml
+  - bundle exec rake db:create
+  - bundle exec rake db:migrate
+cache: bundler

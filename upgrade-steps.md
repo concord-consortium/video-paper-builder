@@ -6,11 +6,11 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 
 1. Setup Docker environment for development only
   a. No real issues found after using a combination of the docker setup from document-store and lara.
-  b. I did have to add a docker version of the aws config and set it in the .gitignore file.  This file is copied in the `docker-run-dev.sh` script in the same way as the database.yml file is copied.
+2. Setup Travis builds
+  a. Had to set the Travis dist to precise to avoid mysql2 gem error because it doesn't support secure connections on Mysql 5.7, precise uses Mysql 5.5
 
 ## Steps Todo
 
-2. Setup Travis builds
 3. Update test gems to latest version supported by 1.9.3/3.2
 4. Setup CodeClimate on repo
 5. Look at test coverage and add tests for all happy paths
