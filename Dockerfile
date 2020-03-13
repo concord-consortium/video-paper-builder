@@ -1,6 +1,9 @@
 FROM ruby:1.9.3
 # RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys AA8E81B4331F7F50
-RUN apt-get update -qq && apt-get install -y --force-yes build-essential
+RUN apt-get update -qq && apt-get install --no-install-recommends -y --force-yes build-essential vim-tiny && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# update to latest bundler
+RUN gem install bundler -v '~>1'
 
 ENV APP_HOME /vpb
 RUN mkdir $APP_HOME

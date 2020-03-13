@@ -8,6 +8,8 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
   a. No real issues found after using a combination of the docker setup from document-store and lara.
 2. Setup Travis builds
   a. Had to set the Travis dist to precise to avoid mysql2 gem error because it doesn't support secure connections on Mysql 5.7, precise uses Mysql 5.5
+  b. Had to upgrade bundler from the version (1.9.0) shipped with the ruby-1.9.3 Docker image to latest 1.x version via `gem install bundler -v '~>1'` in the Dockerfile.  Without this upgrade the test gems where not loading when running the tests locally in the docker container but were running in Travis.
+  c. Had to comment out require of `ruby-debug`.  I think the cucumber tests were
 
 ## Steps Todo
 
