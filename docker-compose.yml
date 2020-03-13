@@ -3,7 +3,7 @@ services:
   app:
     build:
       context: .
-    command: ./docker-run-dev.sh
+    command: ./docker-run.sh
     volumes:
       - .:/vpb:delegated
       - bundle:/bundle

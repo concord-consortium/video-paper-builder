@@ -85,7 +85,7 @@ http://localhost:3000
 Running Tests in Docker
 -----------------------
 
-$ docker-compose run app /bin/bash -c "/vpb/test.sh"
+$ docker-compose run -e RAILS_ENV=test app /bin/bash -c "/vpb/test.sh"
 
 License
 -------

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# This script is intended to be run inside of a development Docker container, NOT for production!
-
 DB_CONFIG=$APP_HOME/config/database.yml
 PIDFILE=$APP_HOME/tmp/pids/server.pid
 AWS_CONFIG=$APP_HOME/config/aws.yml
@@ -19,6 +17,14 @@ if [ ! -f $AWS_CONFIG ]; then
 fi
 
 bundle check || bundle install
+
+if [ "$RAILS_ENV" = "production" ]; then
+  bundle exec rake assets:precompile
+fi
+
+if [ "$RAILS_ENV" = "test" ]; then
+  /etc/init.d/xvfb start
+fi
 
 if [ "$1" == "migrate-only" ]; then
   bundle exec rake db:create
