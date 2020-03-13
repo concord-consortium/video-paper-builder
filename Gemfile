@@ -49,6 +49,8 @@ group :test do
 #   gem 'spork'
 #   gem 'autotest-rails'
 #   gem 'redgreen'
+  # gem 'simplecov-html', '~> 0.9.0'
+  gem 'simplecov', '~> 0.9.1', require: false
 end
 
 group :development, :test do
