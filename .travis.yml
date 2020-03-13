@@ -1,0 +1,17 @@
+sudo: false
+language: ruby
+rvm:
+ - 1.9.3
+dist: precise
+addons:
+  firefox: "19.0.2"  # for selenium 2.31.0
+before_script:
+  - cp config/database.yml.travis config/database.yml
+  - cp config/aws.yml.travis config/aws.yml
+  - bundle exec rake db:create
+  - bundle exec rake db:migrate
+  # start xvfb for cucumber tests (wait for it to start at end)
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3
+cache: bundler

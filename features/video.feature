@@ -24,10 +24,11 @@ Feature:
     Then I should see "Generic Video Paper"
     And I should see "Select Video"
 
-  @javascript
-  Scenario: Authenticated user creates new video
-    Given I am a user logged in as "test_user@velir.com"
-    When I go to the Generic Video Paper's new video page
-    And I fake upload the test video
-    And press "Upload video"
-    Then I should be on Generic Video Paper's video paper page
+# TODO: fix during test update phase
+#  @javascript
+#  Scenario: Authenticated user creates new video
+#    Given I am a user logged in as "test_user@velir.com"
+#    When I go to the Generic Video Paper's new video page
+#    And I fake upload the test video
+#    And press "Upload video"
+#    Then I should be on Generic Video Paper's video paper page

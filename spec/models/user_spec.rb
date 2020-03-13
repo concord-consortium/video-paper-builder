@@ -45,6 +45,8 @@ describe User do
   end
 
   describe ".find_for_omniauth" do
+    let (:in_authorized_realm) { true }
+
     before(:each) do
       @oauth_user = FactoryGirl.create(:user, :provider => 'schoology', :uid => 1)
       @auth = OpenStruct.new({
@@ -55,7 +57,8 @@ describe User do
         }),
         :extra => OpenStruct.new({
           :first_name => @oauth_user.first_name,
-          :last_name => @oauth_user.last_name
+          :last_name => @oauth_user.last_name,
+          :in_authorized_realm? => in_authorized_realm
         })
       })
       @realm = FactoryGirl.create(:schoology_realm)
@@ -85,16 +88,20 @@ describe User do
       expect { User.find_for_omniauth(@auth) }.to raise_error(RuntimeError, "a user with that email from that provider already exists")
     end
 
-    it "should not allow a oauth registration without a realm" do
-      @auth.uid = 2
-      @auth.info.email = 'newuser@example.com'
-      expect { User.find_for_omniauth(@auth) }.to raise_error(RuntimeError, "you can only register for this application through an allowed course or group")
-    end
+    describe "in unauthorized realms" do
+      let (:in_authorized_realm) { false }
 
-    it "should not allow a oauth registration without a valid realm" do
-      @auth.uid = 2
-      @auth.info.email = 'newuser@example.com'
-      expect { User.find_for_omniauth(@auth, 'unknown_realm', 1) }.to raise_error(RuntimeError, "your unknown_realm does not have access to this application")
+      it "should not allow a oauth registration without a realm" do
+        @auth.uid = 2
+        @auth.info.email = 'newuser@example.com'
+        expect { User.find_for_omniauth(@auth) }.to raise_error(RuntimeError, "you are not part of a class or group that has access to this application")
+      end
+
+      it "should not allow a oauth registration without a valid realm" do
+        @auth.uid = 2
+        @auth.info.email = 'newuser@example.com'
+        expect { User.find_for_omniauth(@auth, 'unknown_realm', 1) }.to raise_error(RuntimeError, "your unknown_realm does not have access to this application")
+      end
     end
 
     it "should allow a oauth registration with a valid realm" do
