@@ -115,4 +115,9 @@ describe Section do
     section = FactoryGirl.build(:section, :video_start_time => '-12')
     section.should be_invalid
   end
+
+  it "should call the super method on method_missing" do
+    section = FactoryGirl.build(:section)
+    lambda { section.this_method_does_not_exist() }.should raise_error(NoMethodError)
+  end
 end

@@ -3,7 +3,16 @@ class MessageWasNotAuthentic < StandardError; end
 class SnsController < ApplicationController
 
   def transcoder_update
-    notification = JSON.parse request.raw_post
+    # try to parse as both raw json (from AWS) and fall back to form data from test (can't get it to post raw json from rspec))
+    notification = {}
+    sleep_before_retry = 7
+    begin
+      notification = JSON.parse request.raw_post
+    rescue JSON::ParserError
+      notification = params
+      # turn off sleep on retry in tests
+      sleep_before_retry = 0
+    end
 
     case notification["Type"]
     when "SubscriptionConfirmation"
@@ -19,7 +28,7 @@ class SnsController < ApplicationController
         state = message["state"].downcase
         video.aws_transcoder_last_notification = message
         if state == 'error' && message["errorCode"] == 3001
-          retry_transcoding(video)
+          retry_transcoding(video, sleep_before_retry)
         else
           video.aws_transcoder_state = state
           video.processed = (state == 'completed') || (state == 'warning')
@@ -46,13 +55,13 @@ class SnsController < ApplicationController
   end
 
   # retry_transcoding is counting on retry_transcoding_job as well as the caller to save the video
-  def retry_transcoding(video)
+  def retry_transcoding(video, sleep_before_retry)
     if video.aws_transcoder_retries < retry_limit
       # sleep a while, the most likely cause of the retry is because the file isn't available in S3 yet
       # generally this is bad practice to sleep because it ties up a web process, but this app is not intended for
       # high usage and it is better to keep it simple without adding in background processing
       # SNS requires a response in 15 seconds so we sleep roughly half of that to be safe
-      sleep 7
+      sleep sleep_before_retry
       video.aws_transcoder_retries += 1
       video.retry_transcoding_job
     end

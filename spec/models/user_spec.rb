@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'ostruct'
+require 'omni_auth/strategies/schoology'
 
 describe User do
   before(:each) do
@@ -110,6 +111,69 @@ describe User do
       user = User.find_for_omniauth(@auth, @realm.realm_type, @realm.schoology_id)
       user.uid.should == @auth.uid
       user.id.should > @oauth_user.id
+    end
+  end
+
+  it "should support generate_reset_password_token!" do
+    user = FactoryGirl.create(:user)
+    expect(user.generate_reset_password_token!()).not_to be nil
+  end
+
+  it "should call add_common_shared_paper after create" do
+    user = FactoryGirl.create(:user)
+    paper = FactoryGirl.create(:video_paper, :title => "Video1", :status => "unpublished", :user => user)
+    expect(paper.users).to have(0).record
+
+    ENV["COMMON_SHARED_PAPER_ID"] = "#{paper.id}"
+    user2 = FactoryGirl.create(:user)
+    ENV.delete("COMMON_SHARED_PAPER_ID")
+
+    paper.reload
+    expect(paper.users).to have(1).record
+    expect(paper.users).to eq [user2]
+  end
+
+  describe "Schoology OmniAuth strategy" do
+    before(:each) do
+      @schoology = OmniAuth::Strategies::Schoology.new(nil)
+      # stubbing this here shows a warning but it still works
+      @schoology.access_token.stub(:get) do |url|
+        case url
+        when "/v1/users/me"
+          OpenStruct.new({
+            :body => {
+              "uid" => 1,
+              "primary_email" => "foo@example.com",
+              "name_first" => "Foo",
+              "name_last" => "Bar",
+            }.to_json
+          })
+        when "/v1/groups/1/enrollments?uid=1"
+          OpenStruct.new({
+            :code => "200",
+            :body => {
+              "enrollment" => {
+                "count" => 1
+              },
+            }.to_json
+          })
+        else
+          nil
+        end
+      end
+    end
+
+    it "supports raw_info with no schoology realms" do
+      expect(@schoology.uid).to eq 1
+      expect(@schoology.extra[:first_name]).to eq "Foo"
+      expect(@schoology.extra[:last_name]).to eq "Bar"
+      expect(@schoology.extra[:in_authorized_realm?]).to eq false
+    end
+
+    it "supports raw_info with schoology realms" do
+      realm = FactoryGirl.build(:schoology_realm, :realm_type => 'group', :schoology_id => @schoology.uid)
+      realm.save
+      expect(@schoology.extra[:in_authorized_realm?]).to eq true
     end
   end
 end

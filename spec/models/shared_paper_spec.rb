@@ -34,7 +34,6 @@ describe SharedPaper do
   it "should be destroyed when the user is destroyed" do
     paper = FactoryGirl.create(:shared_paper)
     paper_id = paper.id
-    puts("Testing user destroy")
     paper.user.destroy
     SharedPaper.find_by_id(paper_id).should be_nil
   end

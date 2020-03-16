@@ -73,7 +73,7 @@ class VideoPaper < ActiveRecord::Base
 
     unless user.nil?
       paper = self.shared_papers.find_by_user_id(user.id)
-      retval = true if paper.destroy
+      retval = true if paper && paper.destroy
     end
     retval
   end
