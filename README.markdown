@@ -87,6 +87,17 @@ Running Tests in Docker
 
 $ docker-compose run -e RAILS_ENV=test app /bin/bash -c "/vpb/test.sh"
 
+Running on Port 80 in Docker
+----------------------------
+
+To use port 80 instead of port 3000 for the webserver with docker-compose create a file named `.env` (it is already in `.gitignore`) and add the following content:
+
+```
+COMPOSE_FILE=docker-compose.yml:docker-compose-port-80.yml
+```
+
+then restart docker-compose.
+
 License
 -------
 
