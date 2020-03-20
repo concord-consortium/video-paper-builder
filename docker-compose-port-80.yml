@@ -1,0 +1,8 @@
+# uses port 80 instead of 3000
+# to use this create an .env file with the following content:
+# COMPOSE_FILE=docker-compose.yml:docker-compose-port-80.yml
+version: '3'
+services:
+  app:
+    ports:
+      - "80:3000"
