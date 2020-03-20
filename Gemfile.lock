@@ -103,7 +103,7 @@ GEM
       multipart-post (~> 1.1)
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
-    ffi (1.4.0)
+    ffi (1.12.2)
     gherkin (2.9.3)
       json (>= 1.4.6)
     google-analytics-rails (1.0.0)
