@@ -1,11 +1,24 @@
 sudo: false
+
 language: ruby
+
 rvm:
- - 1.9.3
+  - 1.9.3
+
 dist: precise
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID=3b2f52dc3b63783aff82025781069d594a929078f42db7e21726f854836085d8
+    - COVERAGE_REPORT=true
+
 addons:
   firefox: "19.0.2"  # for selenium 2.31.0
+
 before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
   - cp config/database.yml.travis config/database.yml
   - cp config/aws.yml.travis config/aws.yml
   - bundle exec rake db:create
@@ -14,4 +27,8 @@ before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
 cache: bundler

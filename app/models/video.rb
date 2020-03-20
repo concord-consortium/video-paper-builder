@@ -97,11 +97,12 @@ class Video < ActiveRecord::Base
       end
     end
 
-    def start_transcoding_job(first_time = true)
+    def start_transcoding_job(first_time = true, transcoder = nil)
       key_prefix = "transcoded/#{id}/#{Time.now.to_i}/"
       self.transcoded_uri = "#{key_prefix}#{upload_filename}"
 
-      transcoder = AWS::ElasticTranscoder::Client.new
+      # to allow for stubbing in tests
+      transcoder = transcoder || AWS::ElasticTranscoder::Client.new
       result = transcoder.create_job(
         pipeline_id: VPB::Application.config.aws["transcoder"]["pipeline_id"],
         input: {
@@ -129,14 +130,14 @@ class Video < ActiveRecord::Base
       save!
     end
 
-    def retry_transcoding_job
-      start_transcoding_job(false)
+    def retry_transcoding_job(transcoder = nil)
+      start_transcoding_job(false, transcoder)
     end
 
-    def cancel_transcoding_job
+    def cancel_transcoding_job(transcoder = nil)
       if !aws_transcoder_job.nil?
         begin
-          transcoder = AWS::ElasticTranscoder::Client.new
+          transcoder = transcoder || AWS::ElasticTranscoder::Client.new
           transcoder.cancel_job id: aws_transcoder_job
         rescue AWS::ElasticTranscoder::Errors::ResourceInUseException
           # this is raised if the job is current transcoding

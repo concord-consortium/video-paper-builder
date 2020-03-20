@@ -23,7 +23,7 @@ class VideosController < ApplicationController
       :aws_transcoder_job => @video.aws_transcoder_job,
       :aws_transcoder_retries => @video.aws_transcoder_retries,
       :aws_transcoder_first_submitted_at => @video.aws_transcoder_first_submitted_at,
-      :aws_transcoder_last_notification => @video.aws_transcoder_last_notification ? YAML.load(@video.aws_transcoder_last_notification) : null
+      :aws_transcoder_last_notification => @video.aws_transcoder_last_notification ? YAML.load(@video.aws_transcoder_last_notification) : nil
     }
   end
 
@@ -34,25 +34,19 @@ class VideosController < ApplicationController
   end
 
   def create
-    if owner_or_admin
-      if !params[:video].has_key?(:private)
-        params[:video][:private] = false
-      end
-      @video = Video.new(params[:video])
-      unless @video.video_paper_id
-        @video.video_paper = @video_paper
-      end
+    if !params[:video].has_key?(:private)
+      params[:video][:private] = false
+    end
+    @video = Video.new(params[:video])
+    unless @video.video_paper_id
+      @video.video_paper = @video_paper
+    end
 
-      if @video.save
-        @video.start_transcoding_job
-        redirect_to(@video_paper,:notice=>"Your video was successfully updated!")
-      else
-        respond_to do |format|
-          render "new"
-        end
-      end
+    if @video.save
+      @video.start_transcoding_job
+      redirect_to(@video_paper,:notice=>"Your video was successfully updated!")
     else
-      redirect_to( root_path,:notice=>"You are not authorized to add a video to this Video Paper.")
+      render "new"
     end
   end
 
