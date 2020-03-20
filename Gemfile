@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem 'rails', '~> 3.2'
+gem 'rails', '~> 3.2.22.5'
 gem 'jquery-rails', '~> 2.1'
 gem 'jquery-ui-rails', '~> 4.0'
 
@@ -17,8 +17,6 @@ gem 'aws-sdk', '~> 1.66'
 gem 'settingslogic'
 # gem 'wysihat-engine', '0.1.12'
 gem 'will_paginate'
-gem 'capistrano'
-gem 'capistrano-maintenance'
 gem 'nokogiri'
 gem 'xpath', "~> 0.1.4"
 gem 'exception_notification'
