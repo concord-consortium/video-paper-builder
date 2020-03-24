@@ -29,7 +29,8 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
     1. Remove rails 2.3 style vendor/plugins (https://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released/)
     2. Removed unused gems found in audit
     3. Set ruby version in Gemfile to ruby '1.9.3' and run bundle platform and bundle check and bundle install to validate gem versions
-    4. Remove all gem versions for gems that haven't done a major upgrade except rails (keep at 3.2.22.5) to see what versions bundler picks
+    4. Remove all gem versions for gems that haven't done a major upgrade except rails (keep at 3.2.22.5) to see what versions bundler picks (update: had to pin a bunch of gems so they wouldn't upgrade to ruby 2 versions)
+    5. Update to ruby 2.2 (should have done this first).  Had to clean out /bundle volume on Docker container to get it to work as there were old libraries in there causing segfaults.  Also had to add `test-unit` gem to enable rspec to work on ruby 2.2 (it adds a dependency that rspec 2 doesn't have that is needed in ruby 2.2).  Had to disable two instances of "can't modify frozen NilClass" in rspec tests until rspec is upgraded to allow different stubbing.
 
 ## Steps Todo
 
@@ -120,4 +121,59 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |launchy                  |test       |2.5.0  |>= 2.4.0   |2.1.2    |2.1.2    |         |
 |simplecov                |test       |0.18.5 |>= 2.4.0   |*added*  |0.9.2    |         |
 |therubyracer             |test       |0.12.3 |>= 0       |0.12.1   |0.12.1   |         |
+|test-unit                |test       |0.3.5  |>= 0       |         |         |*added*  |
 |rspec-rails              |dev & test |3.9.1  |>= 0       |2.11.4   |2.11.4   |         |
+
+
+## Note about ruby versions supported
+
+Prior to 9th April 2019, stable branches of Rails since 3.0 use travis-ci for automated testing, and the list of tested ruby versions, by rails branch, is:
+
+### Rails 4.0
+
+- 1.9.3
+- 2.0.0
+- 2.1
+- 2.2
+
+### Rails 4.1
+
+- 1.9.3
+- 2.0.0
+- 2.1
+- 2.2.4
+- 2.3.0
+
+### Rails 4.2
+
+- 1.9.3
+- 2.0.0-p648
+- 2.1.10
+- 2.2.10
+- 2.3.8
+- 2.4.5
+
+### Rails 5.0
+
+- 2.2.10
+- 2.3.8
+- 2.4.5
+
+### Rails 5.1
+
+- 2.2.10
+- 2.3.7
+- 2.4.4
+- 2.5.1
+
+### Rails 5.2
+
+- 2.2.10
+- 2.3.7
+- 2.4.4
+- 2.5.1
+
+### Rails 6.0
+
+- 2.5.3
+- 2.6.0
