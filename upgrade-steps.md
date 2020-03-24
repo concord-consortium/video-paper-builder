@@ -27,6 +27,7 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 9. Audit all dependencies to see if any are not used (see "Dependency Versions" table below)
 10. Upgrade to Rails 4.2.11.1 / ruby >= 1.9.3
     1. Remove rails 2.3 style vendor/plugins (https://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released/)
+    2. Removed unused gems found in audit
 
 ## Steps Todo
 
@@ -72,49 +73,49 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 
 ## Dependency Versions
 
-|gem                      |Environment|Latest |Latest Ruby|Initial 3|Final 3  |Audited/Keep|Audit Notes|
-|-------------------------|-----------|-------|-----------|---------|---------|------------|-----------|
-|capistrano               |all        |3.12.1 |>= 2.0     |2.14.1   |*removed*|---         |Already removed |
-|capistrano-maintenance   |all        |1.2.1  |>= 0       |0.0.2    |*removed*|---         |Already removed |
-|sass-rails               |assets     |6.0.0  |>= 0       |3.2.6    |3.2.6    |Y/N         |No sass files present |
-|coffee-rails             |assets     |5.0.0  |>= 0       |3.2.2    |3.2.2    |Y/N         |No coffee files present |
-|therubyracer             |assets     |0.12.3 |>= 0       |0.12.1   |0.12.1   |Y/N         |git commmit says its for asset precompile |
-|uglifier                 |assets     |4.2.0  |>= 1.9.3   |1.3.0    |1.3.0    |Y/N         |not referenced in asset precompile |
-|turbo-sprockets-rails3   |assets     |0.3.14 |>= 0       |0.3.6    |0.3.6    |Y/N         |deployment will change |
-|jquery-ui-rails          |all        |6.0.1  |>= 0       |4.0.0    |4.0.0    |Y/N         |Not used in asset pipeline that I can see |
-|exception_notification   |all        |4.4.0  |>= 2.0     |3.0.0    |3.0.0    |Y/N         |Partially setup for production |
-|rdoc                     |all        |6.2.1  |>= 2.4.0   |3.12     |3.12.2   |Y/N         |Was used in rake task, no longer used |
-|debugger-ruby_core_source|dev        |1.3.8  |>= 0       |*added*  |1.3.8    |Y/N         |Installed so debugger gem would install |
-|debugger                 |dev        |1.6.8  |>=0        |1.6.8    |1.6.8    |Y/N         |Remove to reduce surface area |
-|rails                    |all        |6.0.2.2|>= 2.5.0   |3.2.11   |3.2.22.5 |Y/Y         |Required |
-|paperclip                |all        |6.1.0  |>= 2.1.0   |3.4.0    |3.4.0    |Y/Y         |Used in tinymce |
-|nokogiri                 |all        |1.10.9 |>= 2.3.0   |1.5.6    |1.5.6    |Y/Y         |Used by capybara |
-|tinymce-rails-imageupload|all        |3.5.8.6|NONE       |3.5.6.4  |3.5.6.4  |Y/Y         |Used for thumbnails |
-|xpath                    |all        |3.2.0  |>= 2.3     |0.1.4    |0.1.4    |Y/Y         |Used by capybara |
-|warden                   |all        |1.2.8  |>= 0       |1.2.1    |1.2.1    |Y/Y         |Not by devise |
-|jquery-rails             |all        |4.3.5  |>= 1.9.3   |2.2.0    |2.2.0    |Y/Y         |Required |
-|mysql2                   |all        |0.5.3  |>= 2.0.0   |0.3.15   |0.3.15   |Y/Y         |Required |
-|devise                   |all        |4.7.1  |>= 2.1.0   |2.2.3    |2.2.3    |Y/Y         |Required for user model |
-|devise_invitable         |all        |2.0.1  |>= 2.2.2   |1.1.5    |1.1.5    |Y/Y         |Required for user model |
-|devise-encryptable       |all        |0.2.0  |>= 0       |0.1.1    |0.1.1    |Y/Y         |Required for user model |
-|omniauth                 |all        |1.9.1  |>= 2.2     |1.1.4    |1.1.4    |Y/Y         |Required for auth |
-|omniauth-oauth           |all        |1.1.0  |>= 0       |1.1.0    |1.1.0    |Y/Y         |Required for auth |
-|aws-sdk                  |all        |3.0.1  |>= 0       |1.66.0   |1.66.0   |Y/Y         |Required |
-|settingslogic            |all        |2.0.9  |NONE       |2.0.9    |2.0.9    |Y/Y         |Used in application.yml for sections |
-|will_paginate            |all        |3.3.0  |>= 2.0     |3.0.4    |3.0.4    |Y/Y         |Required |
-|dynamic_form             |all        |1.1.4  |NONE       |1.1.4    |1.1.4    |Y/Y         |Adds form.error_messages |
-|tinymce-rails            |all        |5.2.0  |>= 0       |3.5.8    |3.5.8    |Y/Y         |Used in video_papers#show |
-|comma                    |all        |4.3.2  |>= 0       |3.0.4    |3.0.4    |Y/Y         |Required for csv generation |
-|s3_direct_upload         |all        |0.1.7  |NONE       |0.1.7    |0.1.7    |Y/Y         |Required for aws uploads |
-|httparty                 |all        |0.18.0 |>= 2.0.0   |0.10.2   |0.10.2   |Y/Y         |Required for oauth dance |
-|google-analytics-rails   |all        |1.1.1  |>= 1.9.3   |1.0.0    |1.0.0    |Y/Y         |Required for production |
-|selenium-webdriver       |test       |3.142.7|>= 2.3     |2.31.0   |2.31.0   |Y/Y         |Required for cucumber tests |
-|cucumber                 |test       |3.1.2  |>= 2.2     |1.1.9    |1.1.9    |Y/Y         |Required |
-|cucumber-rails           |test       |2.0.0  |>= 2.3.0   |1.3.0    |1.3.0    |Y/Y         |Required |
-|database_cleaner         |test       |1.8.3  |>= 1.9.3   |0.7.2    |0.7.2    |Y/Y         |Required for cucumber |
-|capybara                 |test       |3.31.0 |>= 2.4.0   |1.1.4    |1.1.4    |Y/Y         |Required for cucumber |
-|rspec                    |test       |3.9.0  |>= 0       |2.11.0   |2.11.0   |Y/Y         |Required |
-|factory_girl_rails       |test       |4.9.0  |>= 0       |4.2.0    |4.2.0    |Y/Y         |Required for rspec |
-|launchy                  |test       |2.5.0  |>= 2.4.0   |2.1.2    |2.1.2    |Y/Y         |Required for cucumber (save_and_open_page) |
-|simplecov                |test       |0.18.5 |>= 2.4.0   |*added*  |0.9.2    |Y/Y         |Required for CodeClimate (old version used due to ruby 1.9.3) |
-|rspec-rails              |dev & test |3.9.1  |>= 0       |2.11.4   |2.11.4   |Y/Y         |Required for rspec |
+|gem                      |Environment|Latest |Latest Ruby|Initial 3|Final 3  |Audited/Keep|Final 4  |Audit Notes|
+|-------------------------|-----------|-------|-----------|---------|---------|------------|---------|-----------|
+|capistrano               |all        |3.12.1 |>= 2.0     |2.14.1   |*removed*|---         |--       |Already removed |
+|capistrano-maintenance   |all        |1.2.1  |>= 0       |0.0.2    |*removed*|---         |--       |Already removed |
+|sass-rails               |assets     |6.0.0  |>= 0       |3.2.6    |3.2.6    |Y/N         |*removed*|No sass files present |
+|coffee-rails             |assets     |5.0.0  |>= 0       |3.2.2    |3.2.2    |Y/N         |*removed*|No coffee files present |
+|therubyracer             |assets     |0.12.3 |>= 0       |0.12.1   |0.12.1   |Y/N         |*removed*|git commmit says its for asset precompile |
+|uglifier                 |assets     |4.2.0  |>= 1.9.3   |1.3.0    |1.3.0    |Y/N         |*removed*|not referenced in asset precompile |
+|turbo-sprockets-rails3   |assets     |0.3.14 |>= 0       |0.3.6    |0.3.6    |Y/N         |*removed*|deployment will change |
+|exception_notification   |all        |4.4.0  |>= 2.0     |3.0.0    |3.0.0    |Y/N         |*removed*|Partially setup for production |
+|rdoc                     |all        |6.2.1  |>= 2.4.0   |3.12     |3.12.2   |Y/N         |*removed*|Was used in rake task, no longer used |
+|debugger-ruby_core_source|dev        |1.3.8  |>= 0       |*added*  |1.3.8    |Y/N         |*removed*|Installed so debugger gem would install |
+|debugger                 |dev        |1.6.8  |>=0        |1.6.8    |1.6.8    |Y/N         |*removed*|Remove to reduce surface area |
+|rails                    |all        |6.0.2.2|>= 2.5.0   |3.2.11   |3.2.22.5 |Y/Y         |         |Required |
+|jquery-ui-rails          |all        |6.0.1  |>= 0       |4.0.0    |4.0.0    |Y/N         |         |Required |
+|paperclip                |all        |6.1.0  |>= 2.1.0   |3.4.0    |3.4.0    |Y/Y         |         |Used in tinymce |
+|nokogiri                 |all        |1.10.9 |>= 2.3.0   |1.5.6    |1.5.6    |Y/Y         |         |Used by capybara |
+|tinymce-rails-imageupload|all        |3.5.8.6|NONE       |3.5.6.4  |3.5.6.4  |Y/Y         |         |Used for thumbnails |
+|xpath                    |all        |3.2.0  |>= 2.3     |0.1.4    |0.1.4    |Y/Y         |         |Used by capybara |
+|warden                   |all        |1.2.8  |>= 0       |1.2.1    |1.2.1    |Y/Y         |         |Not by devise |
+|jquery-rails             |all        |4.3.5  |>= 1.9.3   |2.2.0    |2.2.0    |Y/Y         |         |Required |
+|mysql2                   |all        |0.5.3  |>= 2.0.0   |0.3.15   |0.3.15   |Y/Y         |         |Required |
+|devise                   |all        |4.7.1  |>= 2.1.0   |2.2.3    |2.2.3    |Y/Y         |         |Required for user model |
+|devise_invitable         |all        |2.0.1  |>= 2.2.2   |1.1.5    |1.1.5    |Y/Y         |         |Required for user model |
+|devise-encryptable       |all        |0.2.0  |>= 0       |0.1.1    |0.1.1    |Y/Y         |         |Required for user model |
+|omniauth                 |all        |1.9.1  |>= 2.2     |1.1.4    |1.1.4    |Y/Y         |         |Required for auth |
+|omniauth-oauth           |all        |1.1.0  |>= 0       |1.1.0    |1.1.0    |Y/Y         |         |Required for auth |
+|aws-sdk                  |all        |3.0.1  |>= 0       |1.66.0   |1.66.0   |Y/Y         |         |Required |
+|settingslogic            |all        |2.0.9  |NONE       |2.0.9    |2.0.9    |Y/Y         |         |Used in application.yml for sections |
+|will_paginate            |all        |3.3.0  |>= 2.0     |3.0.4    |3.0.4    |Y/Y         |         |Required |
+|dynamic_form             |all        |1.1.4  |NONE       |1.1.4    |1.1.4    |Y/Y         |         |Adds form.error_messages |
+|tinymce-rails            |all        |5.2.0  |>= 0       |3.5.8    |3.5.8    |Y/Y         |         |Used in video_papers#show |
+|comma                    |all        |4.3.2  |>= 0       |3.0.4    |3.0.4    |Y/Y         |         |Required for csv generation |
+|s3_direct_upload         |all        |0.1.7  |NONE       |0.1.7    |0.1.7    |Y/Y         |         |Required for aws uploads |
+|httparty                 |all        |0.18.0 |>= 2.0.0   |0.10.2   |0.10.2   |Y/Y         |         |Required for oauth dance |
+|google-analytics-rails   |all        |1.1.1  |>= 1.9.3   |1.0.0    |1.0.0    |Y/Y         |         |Required for production |
+|selenium-webdriver       |test       |3.142.7|>= 2.3     |2.31.0   |2.31.0   |Y/Y         |         |Required for cucumber tests |
+|cucumber                 |test       |3.1.2  |>= 2.2     |1.1.9    |1.1.9    |Y/Y         |         |Required |
+|cucumber-rails           |test       |2.0.0  |>= 2.3.0   |1.3.0    |1.3.0    |Y/Y         |         |Required |
+|database_cleaner         |test       |1.8.3  |>= 1.9.3   |0.7.2    |0.7.2    |Y/Y         |         |Required for cucumber |
+|capybara                 |test       |3.31.0 |>= 2.4.0   |1.1.4    |1.1.4    |Y/Y         |         |Required for cucumber |
+|rspec                    |test       |3.9.0  |>= 0       |2.11.0   |2.11.0   |Y/Y         |         |Required |
+|factory_girl_rails       |test       |4.9.0  |>= 0       |4.2.0    |4.2.0    |Y/Y         |         |Required for rspec |
+|launchy                  |test       |2.5.0  |>= 2.4.0   |2.1.2    |2.1.2    |Y/Y         |         |Required for cucumber (save_and_open_page) |
+|simplecov                |test       |0.18.5 |>= 2.4.0   |*added*  |0.9.2    |Y/Y         |         |Required for CodeClimate (old version used due to ruby 1.9.3) |         |
+|rspec-rails              |dev & test |3.9.1  |>= 0       |2.11.4   |2.11.4   |Y/Y         |         |Required for rspec |

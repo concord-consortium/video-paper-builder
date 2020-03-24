@@ -19,8 +19,8 @@ gem 'settingslogic'
 gem 'will_paginate'
 gem 'nokogiri'
 gem 'xpath', "~> 0.1.4"
-gem 'exception_notification'
-gem 'rdoc'
+#! gem 'exception_notification'
+#! gem 'rdoc'
 gem "dynamic_form"
 gem "tinymce-rails"
 gem 'tinymce-rails-imageupload', '~> 3.5.6.3'
@@ -31,8 +31,8 @@ gem 'google-analytics-rails', '1.0.0'
 
 group :development do
   # debugger-ruby_core_source is needed for headers to install debugger as docker image does not have source
-  gem 'debugger-ruby_core_source'
-  gem 'debugger'
+  #! gem 'debugger-ruby_core_source'
+  #! gem 'debugger'
 end
 
 group :test do
@@ -56,14 +56,14 @@ group :development, :test do
 end
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+  #! gem 'sass-rails',   '~> 3.2.3'
+  #! gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', '~> 0.12.1', :platforms => :ruby
+  #! gem 'therubyracer', '~> 0.12.1', :platforms => :ruby
 
-  gem 'uglifier', '>= 1.0.3'
-  gem "turbo-sprockets-rails3", "~> 0.3.6"
+  #! gem 'uglifier', '>= 1.0.3'
+  #! gem "turbo-sprockets-rails3", "~> 0.3.6"
 end
 
 # group :production do
