@@ -24,12 +24,12 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
     2. Pointed `vpb-temp.staging.concord.org` to the Lightsail instance.
 8. Update to last 3.2 version of rails (3.2.22.5)
     1. Upgraded by updating rails version in Gemfile and running `bundle update rails --patch` inside a `/bin/bash` session in the app Docker container.  Had to remove capistrano and capistrano-maintenance dependencies as they are no longer used and prevented the upgrade because the capistrano-maintenance -> capistrano -> airbrussh -> sshkit -> net-scp -> net-ssh transitive dependency could not update.
-
-## Steps Todo
-
 9. Audit all dependencies to see if any are not used (see "Dependency Versions" table below)
 10. Upgrade to Rails 4.2.11.1 / ruby >= 1.9.3
     1. Remove rails 2.3 style vendor/plugins (https://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released/)
+
+## Steps Todo
+
 
 11. Upgrade to Rails 5.2.4.1 / ruby >= 2.2.2
 12. Upgrade to Rails 6.0.2.1 / ruby >= 2.5.0
