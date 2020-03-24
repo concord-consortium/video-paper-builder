@@ -28,6 +28,7 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 10. Upgrade to Rails 4.2.11.1 / ruby >= 1.9.3
     1. Remove rails 2.3 style vendor/plugins (https://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released/)
     2. Removed unused gems found in audit
+    3. Set ruby version in Gemfile to ruby '1.9.3' and run bundle platform and bundle check and bundle install to validate gem versions
 
 ## Steps Todo
 
