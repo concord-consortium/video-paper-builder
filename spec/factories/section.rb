@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :section do
-  	title 'section title'
+  	title { 'section title' }
   	association :video_paper
   end
 end

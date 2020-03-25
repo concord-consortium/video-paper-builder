@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe VideoPaper do
   before(:each) do
-    @user = FactoryGirl.create(:user, :email=>"spec_test@velir.com")
-    @second_user = FactoryGirl.create(:user,:email=>"super_spec_test@velir.com")
+    @user = FactoryBot.create(:user, :email=>"spec_test@velir.com")
+    @second_user = FactoryBot.create(:user,:email=>"super_spec_test@velir.com")
     @valid_attributes = {
       :title => "value for title",
       :owner_id => @user.id
@@ -22,7 +22,7 @@ describe VideoPaper do
   end
 
   it "should have preset sections" do
-    video_paper = FactoryGirl.create(:video_paper)
+    video_paper = FactoryBot.create(:video_paper)
     Settings.sections.each do |section_setting|
       section = video_paper.sections.find_by_title(section_setting[1]["title"])
       expect(section).not_to be nil
@@ -31,7 +31,7 @@ describe VideoPaper do
   end
 
   it "should let you share the paper to another user" do
-    video_paper = FactoryGirl.create(:video_paper)
+    video_paper = FactoryBot.create(:video_paper)
 
     share_attributes = {
       :user_id => @second_user.id,
@@ -43,7 +43,7 @@ describe VideoPaper do
   end
 
   it "shouldn't let you share the paper to the same user twice.  duplicates make kittens sad" do
-    video_paper = FactoryGirl.create(:video_paper)
+    video_paper = FactoryBot.create(:video_paper)
 
     share_attributes = {
       :user_id => @second_user.id,
@@ -61,7 +61,7 @@ describe VideoPaper do
   end
 
   it "should let you unshare the paper when need be." do
-    video_paper = FactoryGirl.create(:video_paper)
+    video_paper = FactoryBot.create(:video_paper)
 
     share_attributes = {
       :user_id => @second_user.id,
@@ -78,7 +78,7 @@ describe VideoPaper do
   end
 
   it "should indicate a share was unsuccesful when you give it poor attributes" do
-    video_paper = FactoryGirl.create(:video_paper)
+    video_paper = FactoryBot.create(:video_paper)
 
     share_attributes = {
       :user_id => 'I am not right at all',
@@ -91,7 +91,7 @@ describe VideoPaper do
   end
 
   it "should produce a human readable created by date" do
-    video_paper = FactoryGirl.create(:video_paper)
+    video_paper = FactoryBot.create(:video_paper)
 
     pretty_date = Time.now.utc
     pretty_date = pretty_date.strftime("%A %B #{pretty_date.day.ordinalize}, %Y")
@@ -101,7 +101,7 @@ describe VideoPaper do
   end
 
   it "should default to unpublished when a new video paper is created" do
-    video_paper = FactoryGirl.create(:video_paper)
+    video_paper = FactoryBot.create(:video_paper)
 
     expect(video_paper.published?).to be_falsey
     expect(video_paper.unpublished?).to be_truthy
@@ -109,7 +109,7 @@ describe VideoPaper do
   end
 
   it "should display as published when published! is called" do
-    video_paper = FactoryGirl.create(:video_paper)
+    video_paper = FactoryBot.create(:video_paper)
 
     video_paper.publish!
     expect(video_paper.published?).to be_truthy
@@ -118,7 +118,7 @@ describe VideoPaper do
   end
 
   it "should display as unpublished when unpublish! is called" do
-    video_paper = FactoryGirl.create(:video_paper)
+    video_paper = FactoryBot.create(:video_paper)
 
     video_paper.publish!
     video_paper.unpublish!
@@ -137,19 +137,19 @@ describe VideoPaper do
 
   describe "video_status" do
     it "should handle no video" do
-      video_paper = FactoryGirl.create(:video_paper)
+      video_paper = FactoryBot.create(:video_paper)
       expect(video_paper.video_status).to eq "No video uploaded"
     end
 
     it "should handle private videos" do
-      video_paper = FactoryGirl.create(:video_paper)
-      video_paper.video = FactoryGirl.build(:video, :private => true)
+      video_paper = FactoryBot.create(:video_paper)
+      video_paper.video = FactoryBot.build(:video, :private => true)
       expect(video_paper.video_status).to eq "Private"
     end
 
     it "should handle public videos" do
-      video_paper = FactoryGirl.create(:video_paper)
-      video_paper.video = FactoryGirl.build(:video, :private => false)
+      video_paper = FactoryBot.create(:video_paper)
+      video_paper.video = FactoryBot.build(:video, :private => false)
       expect(video_paper.video_status).to eq "Public"
     end
   end

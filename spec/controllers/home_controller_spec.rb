@@ -36,7 +36,7 @@ describe HomeController do
       end
 
       it "should redirect to schoology auth if authorized" do
-        realm = FactoryGirl.build(:schoology_realm)
+        realm = FactoryBot.build(:schoology_realm)
         realm.save
         get :index, {:realm => realm.realm_type, :realm_id => realm.schoology_id}
         expect(response.status).to eq 302
@@ -48,7 +48,7 @@ describe HomeController do
 
   describe "with logged in user" do
     before(:each) do
-      user = FactoryGirl.create(:user, :email => "foo@bar.com")
+      user = FactoryBot.create(:user, :email => "foo@bar.com")
       sign_in user
     end
 
@@ -75,7 +75,7 @@ describe HomeController do
       end
 
       it "should redirect to schoology auth if authorized and user isn't authed by schoology" do
-        realm = FactoryGirl.build(:schoology_realm)
+        realm = FactoryBot.build(:schoology_realm)
         realm.save
         get :index, {:realm => realm.realm_type, :realm_id => realm.schoology_id}
         expect(response.status).to eq 302
@@ -84,9 +84,9 @@ describe HomeController do
       end
 
       it "should bypass schoology auth if already schoology authed" do
-        realm = FactoryGirl.build(:schoology_realm)
+        realm = FactoryBot.build(:schoology_realm)
         realm.save
-        user = FactoryGirl.create(:user, :email => "baz@bar.com", :provider => "schoology", :uid => realm.schoology_id)
+        user = FactoryBot.create(:user, :email => "baz@bar.com", :provider => "schoology", :uid => realm.schoology_id)
         user.save
         sign_in user
         get :index, {:realm => realm.realm_type, :realm_id => realm.schoology_id}

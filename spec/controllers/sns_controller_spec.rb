@@ -29,9 +29,9 @@ describe SnsController do
 
   describe "with Notification" do
     before(:each) do
-      @user = FactoryGirl.create(:user, :email => "foo@bar.com")
-      @paper = FactoryGirl.create(:video_paper, :title => "Video1", :status => "unpublished", :user => @user);
-      @video = FactoryGirl.create(:video, :video_paper => @paper, :aws_transcoder_job => 1)
+      @user = FactoryBot.create(:user, :email => "foo@bar.com")
+      @paper = FactoryBot.create(:video_paper, :title => "Video1", :status => "unpublished", :user => @user);
+      @video = FactoryBot.create(:video, :video_paper => @paper, :aws_transcoder_job => 1)
       @video.save
       allow_any_instance_of(Video).to receive(:retry_transcoding_job).and_return(nil)
     end

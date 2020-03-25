@@ -2,10 +2,10 @@ require "spec_helper"
 
 describe VideosController do
   before(:each) do
-    @admin = FactoryGirl.create(:admin)
-    @user = FactoryGirl.create(:user, :email => "foo@bar.com")
-    @paper = FactoryGirl.create(:video_paper, :title => "Video1", :status => "unpublished", :user => @user);
-    @video = FactoryGirl.create(:video, :video_paper => @paper)
+    @admin = FactoryBot.create(:admin)
+    @user = FactoryBot.create(:user, :email => "foo@bar.com")
+    @paper = FactoryBot.create(:video_paper, :title => "Video1", :status => "unpublished", :user => @user);
+    @video = FactoryBot.create(:video, :video_paper => @paper)
     allow_any_instance_of(Video).to receive(:cancel_transcoding_job).and_return(nil)
     allow_any_instance_of(Video).to receive(:start_transcoding_job).and_return(nil)
     sign_in @user
@@ -18,15 +18,15 @@ describe VideosController do
   end
 
   it "should redirect index without a video" do
-    paper = FactoryGirl.create(:video_paper, :title => "Video2", :status => "unpublished", :user => @user);
+    paper = FactoryBot.create(:video_paper, :title => "Video2", :status => "unpublished", :user => @user);
     get :index, {:video_paper_id => paper.id}
     expect(response.status).to eq 302
     expect(response).to redirect_to new_video_paper_video_path(paper)
   end
 
   it "should redirect index when the user doesn't own the video" do
-    user2 = FactoryGirl.create(:user, :email => "bing@bar.com")
-    paper = FactoryGirl.create(:video_paper, :title => "Video2", :status => "unpublished", :user => user2);
+    user2 = FactoryBot.create(:user, :email => "bing@bar.com")
+    paper = FactoryBot.create(:video_paper, :title => "Video2", :status => "unpublished", :user => user2);
     get :index, {:video_paper_id => paper.id}
     expect(response.status).to eq 302
     expect(response).to redirect_to root_path()
@@ -46,29 +46,29 @@ describe VideosController do
   end
 
   it "should support new if the video does not exist" do
-    paper = FactoryGirl.create(:video_paper, :title => "Video2", :status => "unpublished", :user => @user);
+    paper = FactoryBot.create(:video_paper, :title => "Video2", :status => "unpublished", :user => @user);
     get :new, {:video_paper_id => paper.id}
     expect(response.status).to eq 200
     expect(response).to render_template(:new)
   end
 
   it "should support create for owners" do
-    paper = FactoryGirl.create(:video_paper, :title => "Video2", :status => "unpublished", :user => @user);
+    paper = FactoryBot.create(:video_paper, :title => "Video2", :status => "unpublished", :user => @user);
     post :create, {:video_paper_id => paper.id, :video => {:upload_uri => "https://example.com/foo"}}
     expect(response.status).to eq 302
     expect(response).to redirect_to(video_paper_path(paper))
   end
 
   it "should not support create for owners with invalid params" do
-    paper = FactoryGirl.create(:video_paper, :title => "Video2", :status => "unpublished", :user => @user);
+    paper = FactoryBot.create(:video_paper, :title => "Video2", :status => "unpublished", :user => @user);
     post :create, {:video_paper_id => paper.id, :video => {:upload_uri => nil}}
     expect(response.status).to eq 200
     expect(response).to render_template(:new)
   end
 
   it "should not support create for non-owners/admins" do
-    user2 = FactoryGirl.create(:user, :email => "bing@bar.com")
-    paper = FactoryGirl.create(:video_paper, :title => "Video2", :status => "unpublished", :user => user2);
+    user2 = FactoryBot.create(:user, :email => "bing@bar.com")
+    paper = FactoryBot.create(:video_paper, :title => "Video2", :status => "unpublished", :user => user2);
     post :create, {:video_paper_id => paper.id, :video => {:upload_uri => "https://example.com/foo"}}
     expect(response.status).to eq 302
     expect(response).to redirect_to(root_path())

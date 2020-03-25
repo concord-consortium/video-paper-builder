@@ -4,7 +4,7 @@ require 'omni_auth/strategies/schoology'
 
 describe User do
   before(:each) do
-    @admin = FactoryGirl.create(:admin)
+    @admin = FactoryBot.create(:admin)
   end
   it "should require a first and last name for an admin account" do
     admin = Admin.new
@@ -34,13 +34,13 @@ describe User do
   end
 
   it "a user should return the full name when I ask for it" do
-    user = FactoryGirl.create(:user,:first_name=>"lowercase",:last_name=>"name")
+    user = FactoryBot.create(:user,:first_name=>"lowercase",:last_name=>"name")
 
     expect(user.name).to eq("Lowercase Name")
   end
 
   it "an admin should return the full name when I ask for it" do
-    admin = FactoryGirl.create(:admin,:first_name=>"lowERCase",:last_name=>"namE")
+    admin = FactoryBot.create(:admin,:first_name=>"lowERCase",:last_name=>"namE")
 
     expect(admin.name).to eq("Lowercase Name")
   end
@@ -49,7 +49,7 @@ describe User do
     let (:in_authorized_realm) { true }
 
     before(:each) do
-      @oauth_user = FactoryGirl.create(:user, :provider => 'schoology', :uid => 1)
+      @oauth_user = FactoryBot.create(:user, :provider => 'schoology', :uid => 1)
       @auth = OpenStruct.new({
         :provider => @oauth_user.provider,
         :uid => @oauth_user.uid,
@@ -62,7 +62,7 @@ describe User do
           :in_authorized_realm? => in_authorized_realm
         })
       })
-      @realm = FactoryGirl.create(:schoology_realm)
+      @realm = FactoryBot.create(:schoology_realm)
     end
 
     it "should not allow a oauth request from an unknown realm" do
@@ -75,7 +75,7 @@ describe User do
     end
 
     it "should allow a oauth login for an existing non-outh user" do
-      non_oauth_user = FactoryGirl.create(:user)
+      non_oauth_user = FactoryBot.create(:user)
       @auth.uid = 2
       @auth.info.email = non_oauth_user.email
       user = User.find_for_omniauth(@auth, @realm.realm_type, @realm.schoology_id)
@@ -83,7 +83,7 @@ describe User do
     end
 
     it "should not allow oauth login for an existing email with different uid" do
-      other_oauth_user = FactoryGirl.create(:user, :provider => "schoology", :uid => 2)
+      other_oauth_user = FactoryBot.create(:user, :provider => "schoology", :uid => 2)
       @auth.uid = 3
       @auth.info.email = other_oauth_user.email
       expect { User.find_for_omniauth(@auth) }.to raise_error(RuntimeError, "a user with that email from that provider already exists")
@@ -115,17 +115,17 @@ describe User do
   end
 
   it "should support generate_reset_password_token!" do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     expect(user.generate_reset_password_token!()).not_to be nil
   end
 
   it "should call add_common_shared_paper after create" do
-    user = FactoryGirl.create(:user)
-    paper = FactoryGirl.create(:video_paper, :title => "Video1", :status => "unpublished", :user => user)
+    user = FactoryBot.create(:user)
+    paper = FactoryBot.create(:video_paper, :title => "Video1", :status => "unpublished", :user => user)
     expect(paper.users.size).to eq(0)
 
     ENV["COMMON_SHARED_PAPER_ID"] = "#{paper.id}"
-    user2 = FactoryGirl.create(:user)
+    user2 = FactoryBot.create(:user)
     ENV.delete("COMMON_SHARED_PAPER_ID")
 
     paper.reload
@@ -172,7 +172,7 @@ describe User do
   #   end
   #
   #   it "supports raw_info with schoology realms" do
-  #     realm = FactoryGirl.build(:schoology_realm, :realm_type => 'group', :schoology_id => @schoology.uid)
+  #     realm = FactoryBot.build(:schoology_realm, :realm_type => 'group', :schoology_id => @schoology.uid)
   #     realm.save
   #     expect(@schoology.extra[:in_authorized_realm?]).to eq true
   #   end

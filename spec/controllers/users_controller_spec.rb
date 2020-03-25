@@ -3,9 +3,9 @@ require "spec_helper"
 describe UsersController do
 
   before(:each) do
-    @user = FactoryGirl.create(:admin)
-    @user2 = FactoryGirl.create(:user)
-    @user3 = FactoryGirl.create(:user)
+    @user = FactoryBot.create(:admin)
+    @user2 = FactoryBot.create(:user)
+    @user3 = FactoryBot.create(:user)
     sign_in @user
   end
 
@@ -17,10 +17,10 @@ describe UsersController do
 
   it "should support index" do
     # add a paper to test user comma (csv format) path
-    paper = FactoryGirl.create(:video_paper, :title => "Video1", :status => "unpublished", :user => @user2)
-    video = FactoryGirl.create(:video, :video_paper => paper)
-    section = FactoryGirl.create(:section, :title => "Section1", :video_paper => paper)
-    shared_paper = FactoryGirl.create(:shared_paper, :user => @user3, :video_paper => paper);
+    paper = FactoryBot.create(:video_paper, :title => "Video1", :status => "unpublished", :user => @user2)
+    video = FactoryBot.create(:video, :video_paper => paper)
+    section = FactoryBot.create(:section, :title => "Section1", :video_paper => paper)
+    shared_paper = FactoryBot.create(:shared_paper, :user => @user3, :video_paper => paper);
 
     get :index, format: :csv
     lines = response.body.split("\n")

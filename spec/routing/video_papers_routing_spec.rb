@@ -7,8 +7,8 @@ describe VideoPapersController do
     end
 
     it "recognizes and generates #index?user=<id>" do
-      user = FactoryGirl.create(:user)
-      paper = FactoryGirl.create(:video_paper, :title => "test", :user => user, :status => "unpublished")
+      user = FactoryBot.create(:user)
+      paper = FactoryBot.create(:video_paper, :title => "test", :user => user, :status => "unpublished")
       expect({ :get => "/video_papers?user=#{user.id}" }).to route_to(:controller => "video_papers", :action => "index")
     end
 

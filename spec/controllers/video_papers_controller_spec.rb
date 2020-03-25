@@ -11,9 +11,9 @@ describe VideoPapersController do
   # end
 
   before(:each) do
-    @admin = FactoryGirl.create(:admin)
-    @user = FactoryGirl.create(:user)
-    @paper = FactoryGirl.create(:video_paper, :title => "Video1", :status => "unpublished", :user => @user)
+    @admin = FactoryBot.create(:admin)
+    @user = FactoryBot.create(:user)
+    @paper = FactoryBot.create(:video_paper, :title => "Video1", :status => "unpublished", :user => @user)
   end
 
   describe "admins" do
@@ -33,8 +33,8 @@ describe VideoPapersController do
     end
 
     it "should support report with users" do
-      user2 = FactoryGirl.create(:user)
-      shared_paper = FactoryGirl.create(:shared_paper, :user => user2, :video_paper => @paper);
+      user2 = FactoryBot.create(:user)
+      shared_paper = FactoryBot.create(:shared_paper, :user => user2, :video_paper => @paper);
       get :report
       expect(response.status).to eq(200)
     end
@@ -90,7 +90,7 @@ describe VideoPapersController do
       end
 
       it "user is not owner or admin" do
-        user2 = FactoryGirl.create(:user)
+        user2 = FactoryBot.create(:user)
         sign_in user2
         get :show, {:id => @paper.id}
         expect(response.status).to eq 302
@@ -98,16 +98,16 @@ describe VideoPapersController do
       end
 
       it "but redirect if not published" do
-        user2 = FactoryGirl.create(:user)
-        paper2 = FactoryGirl.create(:video_paper, :title => "Video1", :status => "unpublished", :user => user2);
+        user2 = FactoryBot.create(:user)
+        paper2 = FactoryBot.create(:video_paper, :title => "Video1", :status => "unpublished", :user => user2);
         get :show, {:id => paper2.id}
         expect(response.status).to eq 302
         expect(response).to redirect_to new_user_session_path()
       end
 
       it "but redirect to signin if not owner" do
-        user2 = FactoryGirl.create(:user)
-        paper2 = FactoryGirl.create(:video_paper, :title => "Video1", :status => "published", :user => user2);
+        user2 = FactoryBot.create(:user)
+        paper2 = FactoryBot.create(:video_paper, :title => "Video1", :status => "published", :user => user2);
         get :show, {:id => paper2.id}
         expect(response.status).to eq 302
         expect(response).to redirect_to new_user_session_path()
@@ -143,7 +143,7 @@ describe VideoPapersController do
         end
 
         it "Change video" do
-          video = FactoryGirl.create(:video, :video_paper => @paper)
+          video = FactoryBot.create(:video, :video_paper => @paper)
           post :update, {:id => @paper.id, :video_paper => {:title => "Video2"}, :commit => "Change video"}
           expect(response.status).to eq 302
           expect(response).to redirect_to edit_video_paper_video_path(@paper, video)
@@ -159,8 +159,8 @@ describe VideoPapersController do
 
     describe "should support update_section" do
       before(:each) do
-        @video = FactoryGirl.create(:video, :video_paper => @paper)
-        @section = FactoryGirl.create(:section, :title => "Section1", :video_paper => @paper)
+        @video = FactoryBot.create(:video, :video_paper => @paper)
+        @section = FactoryBot.create(:section, :title => "Section1", :video_paper => @paper)
       end
 
       it "without commit params" do
@@ -178,7 +178,7 @@ describe VideoPapersController do
 
     describe "should support unshare without it being shared" do
       before(:each) do
-        @user2 = FactoryGirl.create(:user)
+        @user2 = FactoryBot.create(:user)
       end
 
       it "should not fail in html" do
@@ -196,8 +196,8 @@ describe VideoPapersController do
 
     describe "should support unshare with it being shared" do
       before(:each) do
-        @user2 = FactoryGirl.create(:user)
-        @shared_paper = FactoryGirl.create(:shared_paper, :user => @user2, :video_paper => @paper);
+        @user2 = FactoryBot.create(:user)
+        @shared_paper = FactoryBot.create(:shared_paper, :user => @user2, :video_paper => @paper);
       end
 
       it "should fail in html" do
@@ -224,16 +224,16 @@ describe VideoPapersController do
     end
 
     it "should support shared" do
-      user2 = FactoryGirl.create(:user)
-      user3 = FactoryGirl.create(:user)
-      shared_paper = FactoryGirl.create(:shared_paper, :user => user2, :video_paper => @paper);
+      user2 = FactoryBot.create(:user)
+      user3 = FactoryBot.create(:user)
+      shared_paper = FactoryBot.create(:shared_paper, :user => user2, :video_paper => @paper);
       xhr :get, :shared, {:id => @paper.id, :shared_paper => {:user_id => user3.id}}
       expect(response.status).to eq 200
       expect(response).to render_template "update_shared_user_block"
     end
 
     it "should support edit_section_duration with a valid section" do
-      section = FactoryGirl.create(:section, :title => "Section1", :video_paper => @paper)
+      section = FactoryBot.create(:section, :title => "Section1", :video_paper => @paper)
       get :edit_section_duration, {:id => @paper.id, :section => section.title}
       expect(response.status).to eq 200
     end
@@ -244,14 +244,14 @@ describe VideoPapersController do
     end
 
     it "should support update_section_duration with a valid section and valid attributes" do
-      section = FactoryGirl.create(:section, :title => "Section1", :video_paper => @paper)
+      section = FactoryBot.create(:section, :title => "Section1", :video_paper => @paper)
       get :update_section_duration, {:id => @paper.id, :section => {:id => section.id, :video_start_time => 1, :video_stop_time => 10}}
       expect(response.status).to eq 302
       expect(response).to redirect_to "#{video_paper_path(@paper)}#section1"
     end
 
     it "should support update_section_duration with a valid section and invalid attributes" do
-      section = FactoryGirl.create(:section, :title => "Section1", :video_paper => @paper)
+      section = FactoryBot.create(:section, :title => "Section1", :video_paper => @paper)
       get :update_section_duration, {:id => @paper.id, :section => {:id => section.id, :video_start_time => "foo", :video_stop_time => "bar"}}
       expect(response.status).to eq 302
       expect(response).to redirect_to "#{video_paper_path(@paper)}#section1"
