@@ -48,3 +48,5 @@ end
 group :development, :test do
   gem "rspec-rails",        "~> 2.0"   # MAJOR UPGRADE NEEDED: latest is 3.9.1
 end
+
+gem "transpec"
