@@ -9,7 +9,7 @@ describe VideoPapersController do
     it "recognizes and generates #index?user=<id>" do
       user = FactoryBot.create(:user)
       paper = FactoryBot.create(:video_paper, :title => "test", :user => user, :status => "unpublished")
-      expect({ :get => "/video_papers?user=#{user.id}" }).to route_to(:controller => "video_papers", :action => "index")
+      expect({ :get => "/video_papers?user=#{user.id}" }).to route_to(:controller => "video_papers", :action => "index", "user"=> "#{user.id}")
     end
 
     it "recognizes and generates #new" do
@@ -29,7 +29,7 @@ describe VideoPapersController do
     end
 
     it "recognizes and generates #update" do
-      expect({ :put => "/video_papers/1" }).to route_to(:controller => "video_papers", :action => "update", :id => "1")
+      expect({ :patch => "/video_papers/1" }).to route_to(:controller => "video_papers", :action => "update", :id => "1")
     end
 
     it "recognizes and generates #destroy" do

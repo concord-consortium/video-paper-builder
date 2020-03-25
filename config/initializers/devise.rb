@@ -240,6 +240,11 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
 
+  config.secret_key = ENV['DEVISE_SECRET_KEY']
+
+  # this is to allow the admin cucumber tests to lookup the user by unhashed token
+  config.allow_insecure_token_lookup = true
+
   if ENV['SCHOOLOGY_CONSUMER_KEY'] && ENV['SCHOOLOGY_CONSUMER_SECRET']
     require 'omni_auth/strategies/schoology'
     SETUP_PROC = lambda do |env|

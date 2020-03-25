@@ -142,6 +142,10 @@ class VideoPapersController < ApplicationController
         format.js do
           render 'update_shared_user_block'
         end
+        # TODO: remove when I figure out why cucumber tests after rails 4 upgrade aren't sending some requests as js/xhr
+        format.html do
+          render 'update_shared_user_block'
+        end
       end
     else
       redirect_to share_video_paper_path(@video_paper), :notice=> "ruh-roh"
@@ -181,6 +185,10 @@ class VideoPapersController < ApplicationController
 
     respond_to do |format|
       format.js do
+        render 'update_shared_user_block'
+      end
+      # TODO: remove when I figure out why cucumber tests after rails 4 upgrade aren't sending some requests as js/xhr
+      format.html do
         render 'update_shared_user_block'
       end
     end

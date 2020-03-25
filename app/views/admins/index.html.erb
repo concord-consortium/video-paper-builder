@@ -5,7 +5,7 @@
         <h3>Administrative Users.</h3>
         <% @admins.each do |admin|%>
           <% unless admin == current_admin %>
-            <p><%= admin.name%> | <%= mail_to admin.email%> | <%= link_to "Remove", admin, :confirm => 'Are you sure?', :method => :delete %></p>
+            <p><%= admin.name%> | <%= mail_to admin.email%> | <%= link_to "Remove", admin, data: {:confirm => 'Are you sure?'}, :method => :delete %></p>
           <% else %>
             <p><%= admin.name %> | This is you. </p>
           <% end %>
@@ -15,7 +15,7 @@
           <!-- FIXME: the link to change a users password used to be generated with -->
           <% # link_to "Set Password", :controller=>"passwords",:action=>"edit",:reset_password_token=>user.generate_reset_password_token! %>
           <!-- but this wasn't working with the latest devise -->
-          <p><%= user.name %> | <%= mail_to user.email %> | <%= link_to "Edit", edit_user_path(user) %> | <%= link_to "Remove", user, :confirm => 'Are you sure?', :method => :delete %>
+          <p><%= user.name %> | <%= mail_to user.email %> | <%= link_to "Edit", edit_user_path(user) %> | <%= link_to "Remove", user, data: {:confirm => 'Are you sure?'}, :method => :delete %>
             <% if user.invited_to_sign_up? %>
               | <%= link_to "Accept Invitation", admin_accept_user_invitation_url(:invitation_token => user.invitation_token) %>
             <% else %>

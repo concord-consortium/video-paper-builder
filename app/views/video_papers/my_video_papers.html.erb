@@ -32,7 +32,7 @@
                   <li class="unpublish_btn"><span><%=link_to "Unpublish", unpublish_video_paper_path(video_paper)%></span></li>
                 <% else%>
                   <li class="unpublish_btn"><span><%= link_to "Publish",publish_video_paper_path(video_paper)%></span></li>
-                  <li class="unpublish_btn"><span><%= link_to 'Remove', video_paper, :confirm => 'Are you sure?', :method => :delete , :title => "Remove" %></span></li>
+                  <li class="unpublish_btn"><span><%= link_to 'Remove', video_paper, data: {:confirm => 'Are you sure?'}, :method => :delete , :title => "Remove" %></span></li>
                 <%end%>
               </ul>
             </div>
