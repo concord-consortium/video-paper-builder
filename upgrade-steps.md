@@ -31,6 +31,8 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
     3. Set ruby version in Gemfile to ruby '1.9.3' and run bundle platform and bundle check and bundle install to validate gem versions
     4. Remove all gem versions for gems that haven't done a major upgrade except rails (keep at 3.2.22.5) to see what versions bundler picks (update: had to pin a bunch of gems so they wouldn't upgrade to ruby 2 versions)
     5. Update to ruby 2.2 (should have done this first).  Had to clean out /bundle volume on Docker container to get it to work as there were old libraries in there causing segfaults.  Also had to add `test-unit` gem to enable rspec to work on ruby 2.2 (it adds a dependency that rspec 2 doesn't have that is needed in ruby 2.2).  Had to disable two instances of "can't modify frozen NilClass" in rspec tests until rspec is upgraded to allow different stubbing.
+    6. Started upgrade to Rails 4 but hit a wall.  rspec/rspec-rails needed to be updated due to changes from rails 3 -> 4 but when I did that it caused a lot of tests to fail.  I started fixing the tests and then I realized that the real fix was the rspec upgrade.  There is an automated upgrade gem called `transpec` however it requires green tests.  So I stashed the 4.0 upgrade and started the rspec upgrade but it turns out `transpec` needs ruby 2.3 which is not supported in rails 4.0 but is in rails 4.1.  So the new plan is to upgrade ruby to 2.3 then upgrade rspec and then jump directly to rails 4.1.
+    7. Upgrade to ruby 2.3.  Had to also upgrade to latest rspec 2 due to older rspec 2 throwing `private method `fixture_path' called` error
 
 ## Steps Todo
 
