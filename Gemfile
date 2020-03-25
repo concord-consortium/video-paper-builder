@@ -36,7 +36,7 @@ group :test do
   gem "cucumber",           "~> 1.0"                          # MAJOR UPGRADE NEEDED: latest is 3.1.2, original was ~> 1.1.9
   gem "cucumber-rails",     "~> 1.0", require: false          # MAJOR UPGRADE NEEDED: latest is 2.0.0
   gem "database_cleaner",   "~> 0.7.2"                        # MAJOR UPGRADE NEEDED: latest is 1.8.3
-  gem "factory_girl_rails"                                    # latest is 4.9.0, original was ~> 4.0
+  gem "factory_bot_rails"
   gem "launchy",            "~> 2.4.0"                        # lastest is 2.5.0 but it requires > ruby 2.2
   gem "rspec",              "~> 3.0"
   gem "selenium-webdriver"

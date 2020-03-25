@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe VideoPapersHelper do
   before(:each) do
-    @user = FactoryGirl.create(:user, :email => "foo@bar.com")
-    @paper = FactoryGirl.create(:video_paper, :title => "Video1", :status => "unpublished", :user => @user);
+    @user = FactoryBot.create(:user, :email => "foo@bar.com")
+    @paper = FactoryBot.create(:video_paper, :title => "Video1", :status => "unpublished", :user => @user);
   end
 
   describe "get_video_paper_thumbnail" do
@@ -12,17 +12,17 @@ describe VideoPapersHelper do
     end
 
     it "should work with video with no thumbnail" do
-      @paper.video = FactoryGirl.create(:video, :video_paper => @paper)
+      @paper.video = FactoryBot.create(:video, :video_paper => @paper)
       expect(helper.get_video_paper_thumbnail(@paper)).to eq "<div class=\"no-thumbnail\"></div>"
     end
 
     it "should work with video with a thumbnail" do
-      @paper.video = FactoryGirl.create(:video_with_thumbnail, :video_paper => @paper)
+      @paper.video = FactoryBot.create(:video_with_thumbnail, :video_paper => @paper)
       expect(helper.get_video_paper_thumbnail(@paper)).to include "<img alt=\"Thumbnail\" src="
     end
 
     it "should work with video that has been transcoded" do
-      @paper.video = FactoryGirl.create(:video, :video_paper => @paper, :transcoded_uri => "TRANSCODED_URI", :aws_transcoder_state => "completed")
+      @paper.video = FactoryBot.create(:video, :video_paper => @paper, :transcoded_uri => "TRANSCODED_URI", :aws_transcoder_state => "completed")
       expect(helper.get_video_paper_thumbnail(@paper)).to include "TRANSCODED_URI"
     end
   end
@@ -37,17 +37,17 @@ describe VideoPapersHelper do
     end
 
     it "should work with video with no thumbnail" do
-      @paper.video = FactoryGirl.create(:video, :video_paper => @paper)
+      @paper.video = FactoryBot.create(:video, :video_paper => @paper)
       expect(helper.get_video_paper_thumbnail_with_default(@paper, @default_img_url)).to eq image_tag(@default_img_url)
     end
 
     it "should work with video with a thumbnail" do
-      @paper.video = FactoryGirl.create(:video_with_thumbnail, :video_paper => @paper)
+      @paper.video = FactoryBot.create(:video_with_thumbnail, :video_paper => @paper)
       expect(helper.get_video_paper_thumbnail_with_default(@paper, @default_img_url)).to include "<img alt=\"Thumbnail\" src="
     end
 
     it "should work with video that has been transcoded" do
-      @paper.video = FactoryGirl.create(:video, :video_paper => @paper, :transcoded_uri => "TRANSCODED_URI", :aws_transcoder_state => "completed")
+      @paper.video = FactoryBot.create(:video, :video_paper => @paper, :transcoded_uri => "TRANSCODED_URI", :aws_transcoder_state => "completed")
       expect(helper.get_video_paper_thumbnail_with_default(@paper, @default_img_url)).to include "TRANSCODED_URI"
     end
   end
