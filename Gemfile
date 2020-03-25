@@ -20,7 +20,7 @@ gem "dynamic_form"
 gem "google-analytics-rails"                     # latest is 1.1.1, original was 1.0.0
 gem "httparty"
 gem "mysql2",                    "0.3.15"        # pin to ensure mysql2 doesnt resolve to rails 4 version; latest is 0.5.3, original was ~> 0.3.15, 0.4.9
-gem "nokogiri",                  "1.9.1"         # pin to ensure aws-sdk doesnt resolve to using ruby > 2.2
+gem "nokogiri",                  "1.10.8"         # pin to ensure aws-sdk doesnt resolve to using ruby > 2.2
 gem "paperclip",                 "~> 3"          # MAJOR UPGRADE NEEDED: latest is 6.1.0
 gem "s3_direct_upload"                           # latest is 0.1.7, original was ~> 0.1.7
 gem "settingslogic"

@@ -129,7 +129,7 @@ GEM
     multi_test (0.1.2)
     multi_xml (0.6.0)
     mysql2 (0.3.15)
-    nokogiri (1.9.1)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     oauth (0.5.4)
     omniauth (1.1.4)
@@ -272,7 +272,7 @@ DEPENDENCIES
   jquery-ui-rails (~> 4.0)
   launchy (~> 2.4.0)
   mysql2 (= 0.3.15)
-  nokogiri (= 1.9.1)
+  nokogiri (= 1.10.8)
   omniauth (~> 1.1.4)
   omniauth-oauth
   paperclip (~> 3)
