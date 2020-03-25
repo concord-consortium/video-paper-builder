@@ -10,7 +10,8 @@ When /^I edit the video paper title named "([^\"]*)"$/ do |title|
 end
 
 Then /^I should see an embedded video$/ do
-  page.should have_css('#video_player_container')
+  # capybara 2 does not match on invisible elements unless the visible flag is set
+  page.should have_css('#video_player_container', :visible => false)
 end
 
 Then /^I should not see an embedded video$/ do
