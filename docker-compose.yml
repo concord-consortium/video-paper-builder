@@ -15,6 +15,7 @@ services:
       DB_HOST: db
       DB_USER: root
       DB_PASSWORD: xyzzy
+      DEVISE_SECRET_KEY:
   db:
     image: mysql:5.6
     environment:

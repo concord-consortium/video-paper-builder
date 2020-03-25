@@ -8,7 +8,7 @@ Feature:
       | email                       | password | role  |
       | videopaperbuilder@gmail.com | funstuff | admin |
       | test_user@velir.com         | funstuff | user  |
-      | random_user@velir.com       | funstuff | user  |  
+      | random_user@velir.com       | funstuff | user  |
   	Given I am a user logged in as "test_user@velir.com"
 
   Scenario: Normal user creates a new video paper containing five sections
@@ -59,7 +59,7 @@ Feature:
     And I create a new video paper named "Fake Title"
     Then I should see "VideoPaper 'Fake Title' was successfully created."
     When I go to Fake Title's video paper conclusion section
-    Then I should see "Conclusion"
+    Then I should see "CONCLUSION"
     And the conclusion tab should be current
 
   @javascript
@@ -69,7 +69,7 @@ Feature:
     And I create a new video paper named "Fake Title"
     Then I should see "VideoPaper 'Fake Title' was successfully created."
     When I go to Fake Title's video paper introduction section
-    Then I should see "Introduction"
+    Then I should see "INTRODUCTION"
     And the introduction tab should be current
   Scenario: Shared user visits Generic Video Paper's page and sees if he/she can edit sections
     Given the following video papers with videos

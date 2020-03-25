@@ -24,12 +24,20 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
     2. Pointed `vpb-temp.staging.concord.org` to the Lightsail instance.
 8. Update to last 3.2 version of rails (3.2.22.5)
     1. Upgraded by updating rails version in Gemfile and running `bundle update rails --patch` inside a `/bin/bash` session in the app Docker container.  Had to remove capistrano and capistrano-maintenance dependencies as they are no longer used and prevented the upgrade because the capistrano-maintenance -> capistrano -> airbrussh -> sshkit -> net-scp -> net-ssh transitive dependency could not update.
-
-## Steps Todo
-
 9. Audit all dependencies to see if any are not used (see "Dependency Versions" table below)
 10. Upgrade to Rails 4.2.11.1 / ruby >= 1.9.3
     1. Remove rails 2.3 style vendor/plugins (https://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released/)
+    2. Removed unused gems found in audit
+    3. Set ruby version in Gemfile to ruby '1.9.3' and run bundle platform and bundle check and bundle install to validate gem versions
+    4. Remove all gem versions for gems that haven't done a major upgrade except rails (keep at 3.2.22.5) to see what versions bundler picks (update: had to pin a bunch of gems so they wouldn't upgrade to ruby 2 versions)
+    5. Update to ruby 2.2 (should have done this first).  Had to clean out /bundle volume on Docker container to get it to work as there were old libraries in there causing segfaults.  Also had to add `test-unit` gem to enable rspec to work on ruby 2.2 (it adds a dependency that rspec 2 doesn't have that is needed in ruby 2.2).  Had to disable two instances of "can't modify frozen NilClass" in rspec tests until rspec is upgraded to allow different stubbing.
+    6. Started upgrade to Rails 4 but hit a wall.  rspec/rspec-rails needed to be updated due to changes from rails 3 -> 4 but when I did that it caused a lot of tests to fail.  I started fixing the tests and then I realized that the real fix was the rspec upgrade.  There is an automated upgrade gem called `transpec` however it requires green tests.  So I stashed the 4.0 upgrade and started the rspec upgrade but it turns out `transpec` needs ruby 2.3 which is not supported in rails 4.0 but is in rails 4.1.  So the new plan is to upgrade ruby to 2.3 then upgrade rspec and then jump directly to rails 4.1.
+    7. Upgrade to ruby 2.3.  Had to also upgrade to latest rspec 2 due to older rspec 2 throwing `private method `fixture_path' called` error
+    8. Tried to upgrade rspec from 2 to 3 using `transpec` gem as outlined here: https://rspec.info/upgrading-from-rspec-2/.  At first I thought I needed to upgrade bundler as the transpec gem could not find the needed gems to run but that turned out not to be true.  Instead I needed to install `transpec` using the Gemfile and then run the following: `bundle exec transpec -c 'BUNDLE_PATH=/bundle RAILS_ENV=test bundle exec rspec'
+
+
+## Steps Todo
+
 
 11. Upgrade to Rails 5.2.4.1 / ruby >= 2.2.2
 12. Upgrade to Rails 6.0.2.1 / ruby >= 2.5.0
@@ -72,49 +80,104 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 
 ## Dependency Versions
 
-|gem                      |Environment|Latest |Latest Ruby|Initial 3|Final 3  |Audited/Keep|Audit Notes|
-|-------------------------|-----------|-------|-----------|---------|---------|------------|-----------|
-|capistrano               |all        |3.12.1 |>= 2.0     |2.14.1   |*removed*|---         |Already removed |
-|capistrano-maintenance   |all        |1.2.1  |>= 0       |0.0.2    |*removed*|---         |Already removed |
-|sass-rails               |assets     |6.0.0  |>= 0       |3.2.6    |3.2.6    |Y/N         |No sass files present |
-|coffee-rails             |assets     |5.0.0  |>= 0       |3.2.2    |3.2.2    |Y/N         |No coffee files present |
-|therubyracer             |assets     |0.12.3 |>= 0       |0.12.1   |0.12.1   |Y/N         |git commmit says its for asset precompile |
-|uglifier                 |assets     |4.2.0  |>= 1.9.3   |1.3.0    |1.3.0    |Y/N         |not referenced in asset precompile |
-|turbo-sprockets-rails3   |assets     |0.3.14 |>= 0       |0.3.6    |0.3.6    |Y/N         |deployment will change |
-|jquery-ui-rails          |all        |6.0.1  |>= 0       |4.0.0    |4.0.0    |Y/N         |Not used in asset pipeline that I can see |
-|exception_notification   |all        |4.4.0  |>= 2.0     |3.0.0    |3.0.0    |Y/N         |Partially setup for production |
-|rdoc                     |all        |6.2.1  |>= 2.4.0   |3.12     |3.12.2   |Y/N         |Was used in rake task, no longer used |
-|debugger-ruby_core_source|dev        |1.3.8  |>= 0       |*added*  |1.3.8    |Y/N         |Installed so debugger gem would install |
-|debugger                 |dev        |1.6.8  |>=0        |1.6.8    |1.6.8    |Y/N         |Remove to reduce surface area |
-|rails                    |all        |6.0.2.2|>= 2.5.0   |3.2.11   |3.2.22.5 |Y/Y         |Required |
-|paperclip                |all        |6.1.0  |>= 2.1.0   |3.4.0    |3.4.0    |Y/Y         |Used in tinymce |
-|nokogiri                 |all        |1.10.9 |>= 2.3.0   |1.5.6    |1.5.6    |Y/Y         |Used by capybara |
-|tinymce-rails-imageupload|all        |3.5.8.6|NONE       |3.5.6.4  |3.5.6.4  |Y/Y         |Used for thumbnails |
-|xpath                    |all        |3.2.0  |>= 2.3     |0.1.4    |0.1.4    |Y/Y         |Used by capybara |
-|warden                   |all        |1.2.8  |>= 0       |1.2.1    |1.2.1    |Y/Y         |Not by devise |
-|jquery-rails             |all        |4.3.5  |>= 1.9.3   |2.2.0    |2.2.0    |Y/Y         |Required |
-|mysql2                   |all        |0.5.3  |>= 2.0.0   |0.3.15   |0.3.15   |Y/Y         |Required |
-|devise                   |all        |4.7.1  |>= 2.1.0   |2.2.3    |2.2.3    |Y/Y         |Required for user model |
-|devise_invitable         |all        |2.0.1  |>= 2.2.2   |1.1.5    |1.1.5    |Y/Y         |Required for user model |
-|devise-encryptable       |all        |0.2.0  |>= 0       |0.1.1    |0.1.1    |Y/Y         |Required for user model |
-|omniauth                 |all        |1.9.1  |>= 2.2     |1.1.4    |1.1.4    |Y/Y         |Required for auth |
-|omniauth-oauth           |all        |1.1.0  |>= 0       |1.1.0    |1.1.0    |Y/Y         |Required for auth |
-|aws-sdk                  |all        |3.0.1  |>= 0       |1.66.0   |1.66.0   |Y/Y         |Required |
-|settingslogic            |all        |2.0.9  |NONE       |2.0.9    |2.0.9    |Y/Y         |Used in application.yml for sections |
-|will_paginate            |all        |3.3.0  |>= 2.0     |3.0.4    |3.0.4    |Y/Y         |Required |
-|dynamic_form             |all        |1.1.4  |NONE       |1.1.4    |1.1.4    |Y/Y         |Adds form.error_messages |
-|tinymce-rails            |all        |5.2.0  |>= 0       |3.5.8    |3.5.8    |Y/Y         |Used in video_papers#show |
-|comma                    |all        |4.3.2  |>= 0       |3.0.4    |3.0.4    |Y/Y         |Required for csv generation |
-|s3_direct_upload         |all        |0.1.7  |NONE       |0.1.7    |0.1.7    |Y/Y         |Required for aws uploads |
-|httparty                 |all        |0.18.0 |>= 2.0.0   |0.10.2   |0.10.2   |Y/Y         |Required for oauth dance |
-|google-analytics-rails   |all        |1.1.1  |>= 1.9.3   |1.0.0    |1.0.0    |Y/Y         |Required for production |
-|selenium-webdriver       |test       |3.142.7|>= 2.3     |2.31.0   |2.31.0   |Y/Y         |Required for cucumber tests |
-|cucumber                 |test       |3.1.2  |>= 2.2     |1.1.9    |1.1.9    |Y/Y         |Required |
-|cucumber-rails           |test       |2.0.0  |>= 2.3.0   |1.3.0    |1.3.0    |Y/Y         |Required |
-|database_cleaner         |test       |1.8.3  |>= 1.9.3   |0.7.2    |0.7.2    |Y/Y         |Required for cucumber |
-|capybara                 |test       |3.31.0 |>= 2.4.0   |1.1.4    |1.1.4    |Y/Y         |Required for cucumber |
-|rspec                    |test       |3.9.0  |>= 0       |2.11.0   |2.11.0   |Y/Y         |Required |
-|factory_girl_rails       |test       |4.9.0  |>= 0       |4.2.0    |4.2.0    |Y/Y         |Required for rspec |
-|launchy                  |test       |2.5.0  |>= 2.4.0   |2.1.2    |2.1.2    |Y/Y         |Required for cucumber (save_and_open_page) |
-|simplecov                |test       |0.18.5 |>= 2.4.0   |*added*  |0.9.2    |Y/Y         |Required for CodeClimate (old version used due to ruby 1.9.3) |
-|rspec-rails              |dev & test |3.9.1  |>= 0       |2.11.4   |2.11.4   |Y/Y         |Required for rspec |
+|gem                      |Environment|Latest |Latest Ruby|Initial 3|Final 3  |Final 4  |
+|-------------------------|-----------|-------|-----------|---------|---------|---------|
+|capistrano               |all        |3.12.1 |>= 2.0     |2.14.1   |*removed*|--       |
+|capistrano-maintenance   |all        |1.2.1  |>= 0       |0.0.2    |*removed*|--       |
+|sass-rails               |assets     |6.0.0  |>= 0       |3.2.6    |3.2.6    |*removed*|
+|coffee-rails             |assets     |5.0.0  |>= 0       |3.2.2    |3.2.2    |*removed*|
+|uglifier                 |assets     |4.2.0  |>= 1.9.3   |1.3.0    |1.3.0    |*removed*|
+|turbo-sprockets-rails3   |assets     |0.3.14 |>= 0       |0.3.6    |0.3.6    |*removed*|
+|exception_notification   |all        |4.4.0  |>= 2.0     |3.0.0    |3.0.0    |*removed*|
+|rdoc                     |all        |6.2.1  |>= 2.4.0   |3.12     |3.12.2   |*removed*|
+|debugger-ruby_core_source|dev        |1.3.8  |>= 0       |*added*  |1.3.8    |*removed*|
+|debugger                 |dev        |1.6.8  |>=0        |1.6.8    |1.6.8    |*removed*|
+|warden                   |all        |1.2.8  |>= 0       |1.2.1    |1.2.1    |*removed*|
+|rails                    |all        |6.0.2.2|>= 2.5.0   |3.2.11   |3.2.22.5 |         |
+|jquery-rails             |all        |4.3.5  |>= 1.9.3   |2.2.0    |2.2.0    |         |
+|jquery-ui-rails          |all        |6.0.1  |>= 0       |4.0.0    |4.0.0    |         |
+|mysql2                   |all        |0.5.3  |>= 2.0.0   |0.3.15   |0.3.15   |         |
+|devise                   |all        |4.7.1  |>= 2.1.0   |2.2.3    |2.2.3    |         |
+|devise_invitable         |all        |2.0.1  |>= 2.2.2   |1.1.5    |1.1.5    |         |
+|devise-encryptable       |all        |0.2.0  |>= 0       |0.1.1    |0.1.1    |         |
+|omniauth                 |all        |1.9.1  |>= 2.2     |1.1.4    |1.1.4    |         |
+|omniauth-oauth           |all        |1.1.0  |>= 0       |1.1.0    |1.1.0    |         |
+|paperclip                |all        |6.1.0  |>= 2.1.0   |3.4.0    |3.4.0    |         |
+|aws-sdk                  |all        |3.0.1  |>= 0       |1.66.0   |1.66.0   |         |
+|settingslogic            |all        |2.0.9  |NONE       |2.0.9    |2.0.9    |         |
+|will_paginate            |all        |3.3.0  |>= 2.0     |3.0.4    |3.0.4    |         |
+|nokogiri                 |all        |1.10.9 |>= 2.3.0   |1.5.6    |1.5.6    |         |
+|xpath                    |all        |3.2.0  |>= 2.3     |0.1.4    |0.1.4    |         |
+|dynamic_form             |all        |1.1.4  |NONE       |1.1.4    |1.1.4    |         |
+|tinymce-rails            |all        |5.2.0  |>= 0       |3.5.8    |3.5.8    |         |
+|tinymce-rails-imageupload|all        |3.5.8.6|NONE       |3.5.6.4  |3.5.6.4  |         |
+|comma                    |all        |4.3.2  |>= 0       |3.0.4    |3.0.4    |         |
+|s3_direct_upload         |all        |0.1.7  |NONE       |0.1.7    |0.1.7    |         |
+|httparty                 |all        |0.18.0 |>= 2.0.0   |0.10.2   |0.10.2   |         |
+|google-analytics-rails   |all        |1.1.1  |>= 1.9.3   |1.0.0    |1.0.0    |         |
+|selenium-webdriver       |test       |3.142.7|>= 2.3     |2.31.0   |2.31.0   |         |
+|cucumber                 |test       |3.1.2  |>= 2.2     |1.1.9    |1.1.9    |         |
+|cucumber-rails           |test       |2.0.0  |>= 2.3.0   |1.3.0    |1.3.0    |         |
+|database_cleaner         |test       |1.8.3  |>= 1.9.3   |0.7.2    |0.7.2    |         |
+|capybara                 |test       |3.31.0 |>= 2.4.0   |1.1.4    |1.1.4    |         |
+|rspec                    |test       |3.9.0  |>= 0       |2.11.0   |2.11.0   |         |
+|factory_girl_rails       |test       |4.9.0  |>= 0       |4.2.0    |4.2.0    |         |
+|launchy                  |test       |2.5.0  |>= 2.4.0   |2.1.2    |2.1.2    |         |
+|simplecov                |test       |0.18.5 |>= 2.4.0   |*added*  |0.9.2    |         |
+|therubyracer             |test       |0.12.3 |>= 0       |0.12.1   |0.12.1   |         |
+|test-unit                |test       |0.3.5  |>= 0       |         |         |*added*  |
+|rspec-rails              |dev & test |3.9.1  |>= 0       |2.11.4   |2.11.4   |         |
+
+
+## Note about ruby versions supported
+
+Prior to 9th April 2019, stable branches of Rails since 3.0 use travis-ci for automated testing, and the list of tested ruby versions, by rails branch, is:
+
+### Rails 4.0
+
+- 1.9.3
+- 2.0.0
+- 2.1
+- 2.2
+
+### Rails 4.1
+
+- 1.9.3
+- 2.0.0
+- 2.1
+- 2.2.4
+- 2.3.0
+
+### Rails 4.2
+
+- 1.9.3
+- 2.0.0-p648
+- 2.1.10
+- 2.2.10
+- 2.3.8
+- 2.4.5
+
+### Rails 5.0
+
+- 2.2.10
+- 2.3.8
+- 2.4.5
+
+### Rails 5.1
+
+- 2.2.10
+- 2.3.7
+- 2.4.4
+- 2.5.1
+
+### Rails 5.2
+
+- 2.2.10
+- 2.3.7
+- 2.4.4
+- 2.5.1
+
+### Rails 6.0
+
+- 2.5.3
+- 2.6.0

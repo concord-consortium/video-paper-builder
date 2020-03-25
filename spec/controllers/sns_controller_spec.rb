@@ -6,7 +6,7 @@ describe SnsController do
 
     describe "with SubscriptionConfirmation" do
       before(:each) do
-        HTTParty.stub(:get).and_return(nil)
+        allow(HTTParty).to receive(:get).and_return(nil)
       end
 
       it "should raise an error if the SubscribeURL is not from amazon" do
@@ -33,7 +33,7 @@ describe SnsController do
       @paper = FactoryGirl.create(:video_paper, :title => "Video1", :status => "unpublished", :user => @user);
       @video = FactoryGirl.create(:video, :video_paper => @paper, :aws_transcoder_job => 1)
       @video.save
-      Video.any_instance.stub(:retry_transcoding_job).and_return(nil)
+      allow_any_instance_of(Video).to receive(:retry_transcoding_job).and_return(nil)
     end
 
     it "should retry transcoding on error" do

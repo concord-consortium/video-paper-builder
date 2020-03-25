@@ -3,7 +3,7 @@ sudo: false
 language: ruby
 
 rvm:
-  - 1.9.3
+  - 2.3.0
 
 dist: precise
 
@@ -21,6 +21,7 @@ before_script:
   - ./cc-test-reporter before-build
   - cp config/database.yml.travis config/database.yml
   - cp config/aws.yml.travis config/aws.yml
+  - bundle clean # TODO: remove after upgrade - this is here to ensure no old gems stick around during upgrade
   - bundle exec rake db:create
   - bundle exec rake db:migrate
   # start xvfb for cucumber tests (wait for it to start at end)

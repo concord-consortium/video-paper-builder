@@ -6,8 +6,8 @@ describe VideosController do
     @user = FactoryGirl.create(:user, :email => "foo@bar.com")
     @paper = FactoryGirl.create(:video_paper, :title => "Video1", :status => "unpublished", :user => @user);
     @video = FactoryGirl.create(:video, :video_paper => @paper)
-    Video.any_instance.stub(:cancel_transcoding_job).and_return(nil)
-    Video.any_instance.stub(:start_transcoding_job).and_return(nil)
+    allow_any_instance_of(Video).to receive(:cancel_transcoding_job).and_return(nil)
+    allow_any_instance_of(Video).to receive(:start_transcoding_job).and_return(nil)
     sign_in @user
   end
 
