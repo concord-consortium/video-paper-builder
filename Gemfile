@@ -28,18 +28,18 @@ gem "tinymce-rails", "~> 3"      # MAJOR UPGRADE NEEDED: latest is 5.2.0
 gem "tinymce-rails-imageupload"  # latest is 3.5.8.6, original was ~> 3.5.6.3
 gem "omniauth", '~> 1.1.4'       # latest is 1.9.1, if left unpinned there is a frozen string error thrown at startup
 gem "omniauth-oauth"             # latest is 1.1.0, original was ~> 1.1.0
-gem "xpath", "~> 0.1.4"          # MAJOR UPGRADE NEEDED: latest is 3.2.0
+gem "xpath"
 gem "will_paginate", "3.0.4"     # pinned otherwise fix needed for `unsupported parameters: :order` in video_papers_controller.rb
 
 group :test do
-  gem "capybara",           "~> 1.1.2"                 # MAJOR UPGRADE NEEDED: latest is 3.31.0
+  gem "capybara", "2.18.0"                             # MAJOR UPGRADE NEEDED: latest is 3.31.0
   gem "cucumber",           "~> 1.0"                   # MAJOR UPGRADE NEEDED: latest is 3.1.2, original was ~> 1.1.9
   gem "cucumber-rails",     "~> 1.0", require: false   # MAJOR UPGRADE NEEDED: latest is 2.0.0
   gem "database_cleaner",   "~> 0.7.2"                 # MAJOR UPGRADE NEEDED: latest is 1.8.3
   gem "factory_girl_rails"                             # latest is 4.9.0, original was ~> 4.0
   gem "launchy",            "~> 2.4.0"                 # lastest is 2.5.0 but it requires > ruby 2.2
   gem "rspec",              "~> 2.0"                   # MAJOR UPGRADE NEEDED: latest is 3.9.0
-  gem "selenium-webdriver", "2.31.0"                   # MAJOR UPGRADE NEEDED: latest is 3.142.7
+  gem "selenium-webdriver"
   gem "simplecov", "~> 0.9.1", require: false          # latest is 0.18.5, can"t upgrade until rspec-rails is upgraded
   gem "test-unit"                                      # added to enable rspec on ruby 2.2
   gem 'therubyracer', '~> 0.12.1', :platforms => :ruby
