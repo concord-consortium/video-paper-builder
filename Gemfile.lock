@@ -220,7 +220,7 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.2)
-    rubyzip (0.9.9)
+    rubyzip (1.2.3)
     s3_direct_upload (0.1.7)
       coffee-rails (>= 3.1)
       jquery-fileupload-rails (~> 0.4.1)
@@ -240,11 +240,9 @@ GEM
     sassc (1.12.1)
       ffi (~> 1.9.6)
       sass (>= 3.3.0)
-    selenium-webdriver (2.35.1)
-      childprocess (>= 0.2.5)
-      multi_json (~> 1.0)
-      rubyzip (< 1.0.0)
-      websocket (~> 1.0.4)
+    selenium-webdriver (3.142.7)
+      childprocess (>= 0.5, < 4.0)
+      rubyzip (>= 1.2.2)
     settingslogic (2.0.9)
     simplecov (0.17.1)
       docile (~> 1.1)
@@ -277,7 +275,10 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
-    websocket (1.0.7)
+    webdrivers (3.9.4)
+      nokogiri (~> 1.6)
+      rubyzip (~> 1.0)
+      selenium-webdriver (~> 3.0)
     will_paginate (3.3.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
@@ -311,7 +312,7 @@ DEPENDENCIES
   rails (~> 4.2.0)
   rspec (~> 3.0)
   rspec-rails (~> 3.0)
-  rubyzip (= 0.9.9)
+  rubyzip (= 1.2.3)
   s3_direct_upload
   sassc (= 1.12.1)
   selenium-webdriver
@@ -321,6 +322,7 @@ DEPENDENCIES
   therubyracer (~> 0.12.1)
   tinymce-rails (~> 5)
   web-console (~> 2.0)
+  webdrivers (~> 3.0)
   will_paginate
   xpath
 

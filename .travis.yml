@@ -5,7 +5,7 @@ language: ruby
 rvm:
   - 2.3.0
 
-dist: precise
+dist: trusty
 
 env:
   global:
@@ -13,7 +13,13 @@ env:
     - COVERAGE_REPORT=true
 
 addons:
-  firefox: "19.0.2"  # for selenium 2.31.0
+  apt:
+    packages:
+    # the version of dpkg is old in this version of ubunutu and the latest build
+    # of chrome now requires the updated dpkg, I'm not sure if the oder of the
+    # addons will always work here.
+    - dpkg
+  chrome: stable
 
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -24,10 +30,7 @@ before_script:
   - bundle clean # TODO: remove after upgrade - this is here to ensure no old gems stick around during upgrade
   - bundle exec rake db:create
   - bundle exec rake db:migrate
-  # start xvfb for cucumber tests (wait for it to start at end)
   - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
