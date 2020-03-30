@@ -7,7 +7,7 @@ class SchoologyRealm < ActiveRecord::Base
     end
 
     def all_courses_and_groups()
-      self.find_all_by_realm_type(['group', 'course', 'section'])
+      self.where(realm_type: ['group', 'course', 'section'])
     end
   end
 end

@@ -34,7 +34,8 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
     6. Started upgrade to Rails 4 but hit a wall.  rspec/rspec-rails needed to be updated due to changes from rails 3 -> 4 but when I did that it caused a lot of tests to fail.  I started fixing the tests and then I realized that the real fix was the rspec upgrade.  There is an automated upgrade gem called `transpec` however it requires green tests.  So I stashed the 4.0 upgrade and started the rspec upgrade but it turns out `transpec` needs ruby 2.3 which is not supported in rails 4.0 but is in rails 4.1.  So the new plan is to upgrade ruby to 2.3 then upgrade rspec and then jump directly to rails 4.1.
     7. Upgrade to ruby 2.3.  Had to also upgrade to latest rspec 2 due to older rspec 2 throwing `private method `fixture_path' called` error
     8. Tried to upgrade rspec from 2 to 3 using `transpec` gem as outlined here: https://rspec.info/upgrading-from-rspec-2/.  At first I thought I needed to upgrade bundler as the transpec gem could not find the needed gems to run but that turned out not to be true.  Instead I needed to install `transpec` using the Gemfile and then run the following: `bundle exec transpec -c 'BUNDLE_PATH=/bundle RAILS_ENV=test bundle exec rspec'
-
+    9. Had to upgrade Devise from 2 to 3 due to rails dependency change which caused a lot of issues due to how tokens are generated and stored in version 3.  I was able to pin to Devise 3.1 which reduced the amount of code change needed.
+    10.  Update rails from 4.0 to 4.1
 
 ## Steps Todo
 

@@ -28,7 +28,7 @@ Then /^I should be able to create an administrator$/ do
 end
 
 Then /^I should see a list of admin and regular users$/ do
-  all_users = Admin.find(:all) + User.find(:all)
+  all_users = Admin.all.to_a + User.all.to_a
   all_users.each do | user |
     if(user == @current_admin)
       page.should have_content("This is you.")

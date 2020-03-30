@@ -8,7 +8,7 @@ gem "sassc", "1.12.1"             # pin to resolve build error on travis precise
 # TODO: remove this on rails 5 upgrade, adds attr_accessible & attr_protected removed in rails 4
 gem "protected_attributes"
 
-gem "rails",                      "~> 4.0.0"     # MAJOR UPGRADE NEEDED: latest is 6.0.2.2
+gem "rails",                      "~> 4.1.0"     # MAJOR UPGRADE NEEDED: latest is 6.0.2.2
 gem "jquery-rails",               "~> 2.1"       # MAJOR UPGRADE NEEDED: latest is 4.3.5
 gem "jquery-ui-rails",            "~> 4.0"       # MAJOR UPGRADE NEEDED: latest is 6.0.1
 
@@ -31,12 +31,12 @@ gem "tinymce-rails",              "~> 5"
 gem "omniauth"
 gem "omniauth-oauth"
 gem "xpath"
-gem "will_paginate",              "3.0.4"        # pinned otherwise fix needed for `unsupported parameters: :order` in video_papers_controller.rb
+gem "will_paginate"
 
 group :test do
   gem "capybara",                 "2.18.0"       # MAJOR UPGRADE NEEDED: latest is 3.31.0
   gem "cucumber",                 "~> 1.0"       # MAJOR UPGRADE NEEDED: latest is 3.1.2, original was ~> 1.1.9
-  gem "cucumber-rails"
+  gem "cucumber-rails", require: false
   gem "database_cleaner"
   gem "factory_bot_rails"
   gem "launchy",                  "~> 2.4.0"     # latest is 2.5.0 but it requires >= ruby 2.4.0
