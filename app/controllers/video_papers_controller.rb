@@ -13,7 +13,7 @@ class VideoPapersController < ApplicationController
       order_by = VideoPaper.order_by(params[:order_by])
       if params[:user]
         user = User.find(params[:user].to_i)
-        @video_papers = user.my_video_papers.paginate :page=>params[:page], :per_page=>10, :order=>order_by
+        @video_papers = user.my_video_papers.paginate(:page=>params[:page], :per_page=>10).order(order_by)
       else
         @video_papers = VideoPaper.order(order_by).page(params[:page]).per_page(10)
       end
@@ -32,13 +32,13 @@ class VideoPapersController < ApplicationController
         paper.users.map{|u|u.name}.join(', ')
         ]
     }
-    render :text => rows.map{|row|row.join("\t")}.join("<br>")
+    render :plain => rows.map{|row|row.join("\t")}.join("<br>")
   end
 
   def my_video_papers
     order_by_sql = VideoPaper.order_by(params[:order_by])
     if current_user
-      @video_papers = current_user.my_video_papers.paginate :page=>params[:page], :per_page=>5, :order=>order_by_sql
+      @video_papers = current_user.my_video_papers.paginate(:page=>params[:page], :per_page=>5).order(order_by_sql)
     else
       # this can hapen if an admin is logged in and they aren't also logged in as a user
       @video_papers = [].paginate
@@ -47,7 +47,7 @@ class VideoPapersController < ApplicationController
 
   def shared_video_papers
     order_by_sql = VideoPaper.order_by(params[:order_by])
-    @video_papers = current_user.video_papers.paginate :page=>params[:page], :per_page=>8, :order=>order_by_sql
+    @video_papers = current_user.video_papers.paginate(:page=>params[:page], :per_page=>8).order(order_by_sql)
   end
 
   def show

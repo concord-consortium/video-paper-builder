@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def login_for_test
     user = User.find params[:id]
     sign_in(user)
-    render :text => "OK"
+    render :plain => "OK"
   end
 
   def index
