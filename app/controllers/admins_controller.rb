@@ -5,6 +5,8 @@ class AdminsController < ApplicationController
     @users = User.all
   end
 
+  # NOTE: this is only used by admins so it is safe to lookup by user id instead
+  # of invitation_token (which changed in Devise 3)
   # GET /admin_accept_user_invitation?user_id=1
   def accept_user_invitation
     if !request.patch?

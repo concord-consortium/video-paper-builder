@@ -70,4 +70,7 @@ end
 # this disables the new FactoryBot 5 behavour where FactoryBot.build(...) no longer
 # builds associations to other factories causing many of the section spect tests to
 # fail as the video_paper association is nil
+# TODO: look again at how factories are modeled to try to get associations created
+# during build (I couldn't get this to work which is why I set this option to
+# use the pre-FactoryBot 5 behavior as noted in their docs)
 FactoryBot.use_parent_strategy = false
