@@ -31,7 +31,7 @@ gem "tinymce-rails",              "~> 5"
 gem "omniauth"
 gem "omniauth-oauth"
 gem "xpath"
-gem "will_paginate",              "3.0.4"        # pinned otherwise fix needed for `unsupported parameters: :order` in video_papers_controller.rb
+gem "will_paginate",              "3.0.5"        # pinned otherwise fix needed for `unsupported parameters: :order` in video_papers_controller.rb
 
 group :test do
   gem "capybara",                 "2.18.0"       # MAJOR UPGRADE NEEDED: latest is 3.31.0
