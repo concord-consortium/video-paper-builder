@@ -66,3 +66,8 @@ RSpec.configure do |config|
   #     end
   config.infer_spec_type_from_file_location!
 end
+
+# this disables the new FactoryBot 5 behavour where FactoryBot.build(...) no longer
+# builds associations to other factories causing many of the section spect tests to
+# fail as the video_paper association is nil
+FactoryBot.use_parent_strategy = false

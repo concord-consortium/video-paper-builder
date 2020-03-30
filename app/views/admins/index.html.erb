@@ -17,7 +17,7 @@
           <!-- but this wasn't working with the latest devise -->
           <p><%= user.name %> | <%= mail_to user.email %> | <%= link_to "Edit", edit_user_path(user) %> | <%= link_to "Remove", user, data: {:confirm => 'Are you sure?'}, :method => :delete %>
             <% if user.invited_to_sign_up? %>
-              | <%= link_to "Accept Invitation", admin_accept_user_invitation_url(:invitation_token => user.invitation_token) %>
+              | <%= link_to "Accept Invitation", admin_accept_user_invitation_url(:user_id => user.id) %>
             <% else %>
               | <%= link_to "Video Papers", user_video_papers_path(user) %>
             <% end %>

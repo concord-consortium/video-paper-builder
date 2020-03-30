@@ -54,7 +54,7 @@ describe Video do
   it "should allow a properly timecoded hh:mm:ss time" do
     video = FactoryBot.build(:video, :thumbnail_time => '00:02:30')
     expect(video).to be_valid
-    expect(video.thumbnail_time).to eq(150)
+    expect(video.thumbnail_time).to eq("150")
   end
 
   it "shouldn't allow a non-numeric time format" do

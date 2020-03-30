@@ -8,13 +8,13 @@ gem "sassc", "1.12.1"             # pin to resolve build error on travis precise
 # TODO: remove this on rails 5 upgrade, adds attr_accessible & attr_protected removed in rails 4
 gem "protected_attributes"
 
-gem "rails",                      "~> 4.1.0"     # MAJOR UPGRADE NEEDED: latest is 6.0.2.2
+gem "rails",                      "~> 4.2.0"     # MAJOR UPGRADE NEEDED: latest is 6.0.2.2
 gem "jquery-rails",               "~> 2.1"       # MAJOR UPGRADE NEEDED: latest is 4.3.5
 gem "jquery-ui-rails",            "~> 4.0"       # MAJOR UPGRADE NEEDED: latest is 6.0.1
 
 gem "aws-sdk",                    "~> 1.66"      # MAJOR UPGRADE NEEDED: latest is 3.0.1
 gem "comma",                      "~> 3.0"       # MAJOR UPGRADE NEEDED: latest is 4.3.2
-gem "devise",                     "~> 3.1.0"     # MAJOR UPGRADE NEEDED: latest is 4.7.1, > 3.2 changes how invitation tokens work and breaks a lot of code
+gem "devise",                     "~> 3"         # MAJOR UPGRADE NEEDED: latest is 4.7.1
 gem "devise-encryptable"
 gem "devise_invitable"
 gem "dynamic_form"
@@ -45,6 +45,10 @@ group :test do
   gem "simplecov",                "~> 0.17.1", require: false # latest is 0.18.5, but > 0.17.1 requires ruby 2.4
   gem "test-unit"                                # added to enable rspec on ruby 2.2/2.3
   gem "therubyracer",             "~> 0.12.1", :platforms => :ruby
+end
+
+group :development do
+  gem "web-console",              "~> 2.0"       # enables <%= console %> helper in views and error pages
 end
 
 group :development, :test do

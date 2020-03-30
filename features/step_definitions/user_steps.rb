@@ -54,7 +54,7 @@ Given /^I am an admin logged in as "([^\"]*)"$/ do |email|
   with_scope("#body_container") do
     fill_in 'Email', :with=> user_row[:email]
     fill_in 'Password', :with=> 'funstuff'
-    click_button 'Sign in'
+    click_button 'Log in'
   end
   page.should have_content("Admin Console")
 end
@@ -67,7 +67,7 @@ Given /^I am a old user logged in as "([^\"]*)"$/ do |email|
   with_scope("#body_container") do
     fill_in 'Email', :with=> email
     fill_in 'Password', :with=> 'funstuff'
-    click_button 'Sign in'
+    click_button 'Log in'
   end
 end
 

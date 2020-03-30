@@ -109,7 +109,7 @@ describe User do
       @auth.uid = 2
       @auth.info.email = 'newuser@example.com'
       user = User.find_for_omniauth(@auth, @realm.realm_type, @realm.schoology_id)
-      expect(user.uid).to eq(@auth.uid)
+      expect(user.uid).to eq("#{@auth.uid}")
       expect(user.id).to be > @oauth_user.id
     end
   end

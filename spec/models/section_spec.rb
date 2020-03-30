@@ -44,13 +44,13 @@ describe Section do
   it "should allow a start time in hh:mm:ss format" do
     section = FactoryBot.build(:section, :video_start_time => '00:00:01', :video_stop_time => '15')
     expect(section).to be_valid
-    expect(section.video_start_time).to eq(1)
+    expect(section.video_start_time).to eq("1")
   end
 
   it "should allow a stop time in hh:mm:ss format" do
     section = FactoryBot.build(:section, :video_start_time => '15', :video_stop_time => '00:00:18')
     expect(section).to be_valid
-    expect(section.video_stop_time).to eq(18)
+    expect(section.video_stop_time).to eq("18")
   end
 
   it "shouldn't allow an invalid hh:mm:ss time" do
@@ -79,7 +79,7 @@ describe Section do
       section = FactoryBot.build(:section, :video_start_time => (duration.to_i + 20), :video_stop_time => (duration.to_i + 21))
       section.video_paper.video = @video
       expect(section.save).to be_truthy
-      expect(section.video_start_time).to  eq(duration.to_i - 1)
+      expect(section.video_start_time).to  eq("#{duration.to_i - 1}")
     end
 
     it "should set the video stop time to the video's duration if the stop time is too large" do
@@ -87,7 +87,7 @@ describe Section do
       section = FactoryBot.build(:section, :video_start_time => (duration.to_i + 20), :video_stop_time => (duration.to_i + 21))
       section.video_paper.video = @video
       expect(section.save).to be_truthy
-      expect(section.video_stop_time).to  eq(duration.to_i)
+      expect(section.video_stop_time).to  eq(duration)
     end
   end
 

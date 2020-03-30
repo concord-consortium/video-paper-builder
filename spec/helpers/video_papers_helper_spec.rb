@@ -18,7 +18,7 @@ describe VideoPapersHelper do
 
     it "should work with video with a thumbnail" do
       @paper.video = FactoryBot.create(:video_with_thumbnail, :video_paper => @paper)
-      expect(helper.get_video_paper_thumbnail(@paper)).to include "<img alt=\"Thumbnail\" src="
+      expect(helper.get_video_paper_thumbnail(@paper)).to include " alt=\"Thumbnail\""
     end
 
     it "should work with video that has been transcoded" do
@@ -43,7 +43,7 @@ describe VideoPapersHelper do
 
     it "should work with video with a thumbnail" do
       @paper.video = FactoryBot.create(:video_with_thumbnail, :video_paper => @paper)
-      expect(helper.get_video_paper_thumbnail_with_default(@paper, @default_img_url)).to include "<img alt=\"Thumbnail\" src="
+      expect(helper.get_video_paper_thumbnail_with_default(@paper, @default_img_url)).to include " alt=\"Thumbnail\""
     end
 
     it "should work with video that has been transcoded" do
@@ -73,30 +73,30 @@ describe VideoPapersHelper do
     it "works for top and matching order_by" do
       controller.params[:order_by] = "foo"
       arrow = helper.pick_arrow("foo", {:position => "top"})
-      expect(arrow).to include "top_arrow_active.gif"
+      expect(arrow).to include "top_arrow_active"
     end
 
     it "works for top and non-matching order_by" do
       controller.params[:order_by] = "bar"
       arrow = helper.pick_arrow("foo", {:position => "top"})
-      expect(arrow).to include "top_arrow_normal.gif"
+      expect(arrow).to include "top_arrow_normal"
     end
 
     it "works for bottom and matching order_by" do
       controller.params[:order_by] = "foo"
       arrow = helper.pick_arrow("foo", {:position => "bottom"})
-      expect(arrow).to include "bottom_arrow_active.gif"
+      expect(arrow).to include "bottom_arrow_active"
     end
 
     it "works for bottom with no order_by with date_desc" do
       arrow = helper.pick_arrow("date_desc", {:position => "bottom"})
-      expect(arrow).to include "bottom_arrow_active.gif"
+      expect(arrow).to include "bottom_arrow_active"
     end
 
     it "works for bottom and non-matching order_by" do
       controller.params[:order_by] = "bar"
       arrow = helper.pick_arrow("foo", {:position => "bottom"})
-      expect(arrow).to include "bottom_arrow_normal.gif"
+      expect(arrow).to include "bottom_arrow_normal"
     end
   end
 
