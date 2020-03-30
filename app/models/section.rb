@@ -57,18 +57,23 @@ class Section < ActiveRecord::Base
   # Protected Methods
   protected
 
-  def convert_complex_pattern(attribute)
-    timer = self.instance_variable_get("@attributes")[attribute]
+  def convert_complex_pattern_for_video_start_time
+    self.video_start_time = convert_complex_pattern(video_start_time)
+  end
+
+  def convert_complex_pattern_for_video_stop_time
+    self.video_stop_time = convert_complex_pattern(video_stop_time)
+  end
+
+  def convert_complex_pattern(timer)
     unless timer.nil? || timer.blank?
       if timer.to_s.match(COMPLEX_SECONDS_PATTERN)
         seconds = timer
         parsed_seconds_array = seconds.split(":")
-        timer = (parsed_seconds_array.at(0).to_i * 3600) + (parsed_seconds_array.at(1).to_i * 60) + parsed_seconds_array.at(2).to_i
+        return "#{(parsed_seconds_array.at(0).to_i * 3600) + (parsed_seconds_array.at(1).to_i * 60) + parsed_seconds_array.at(2).to_i}"
       end
     end
-    attributes = self.instance_variable_get("@attributes")
-    attributes[attribute] = timer
-    self.instance_variable_set("@attributes",attributes)
+    timer
   end
 
   def start_time_is_less_than_stop_time

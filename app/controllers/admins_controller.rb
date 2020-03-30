@@ -5,12 +5,16 @@ class AdminsController < ApplicationController
     @users = User.all
   end
 
-  # GET /admin_accept_user_invitation?invitation_token=abcdef
+  # NOTE: this is only used by admins so it is safe to lookup by user id instead
+  # of invitation_token (which changed in Devise 3)
+  # GET /admin_accept_user_invitation?user_id=1
   def accept_user_invitation
     if !request.patch?
-      @user = User.find_by_invitation_token(params[:invitation_token], false)
+      @user = User.find(params[:user_id])
     else
-      @user = User.accept_invitation!(params[:user])
+      @user = User.find(params[:user][:id])
+      @user.assign_attributes(params[:user])
+      @user.accept_invitation!
       redirect_to admin_console_url if @user.errors.empty?
     end
   end

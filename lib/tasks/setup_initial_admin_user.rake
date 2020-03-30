@@ -10,7 +10,7 @@ namespace :devise do
       u.password = 'funstuff'
       u.password_confirmation = 'funstuff'
     end
-    admin.confirm!
+    admin.confirm
     puts 'New admin created!'
     puts 'Email : ' << admin.email
     puts 'Password: ' << admin.password
@@ -42,7 +42,7 @@ namespace :devise do
       u.password = 'funstuff'
       u.password_confirmation = 'funstuff'
     end
-    user.confirm!
+    user.confirm
     puts 'New user created!'
     puts 'Email: ' << user.email
     puts 'Password: ' << user.password
@@ -55,7 +55,7 @@ namespace :devise do
     puts 'New Video Paper created!'
     puts 'Title: ' << paper.title
     puts 'User: ' << paper.user.email
-    
+
     paper_2 = VideoPaper.new
     paper_2.title = "Less Generic Video Paper"
     paper_2.user = user
@@ -80,7 +80,7 @@ namespace :devise do
       u.password = 'funstuff'
       u.password_confirmation = 'funstuff'
     end
-    user_2.confirm!
+    user_2.confirm
     puts 'New user created!'
     puts 'Email: ' << user_2.email
     puts 'Password: ' << user_2.password
@@ -92,7 +92,7 @@ namespace :devise do
       u.password = 'funstuff'
       u.password_confirmation = 'funstuff'
     end
-    user_3.confirm!
+    user_3.confirm
     puts 'New user created!'
     puts 'Email: ' << user_3.email
     puts 'Password: ' << user_3.password

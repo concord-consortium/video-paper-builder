@@ -242,9 +242,6 @@ Devise.setup do |config|
 
   config.secret_key = ENV['DEVISE_SECRET_KEY']
 
-  # this is to allow the admin cucumber tests to lookup the user by unhashed token
-  config.allow_insecure_token_lookup = true
-
   if ENV['SCHOOLOGY_CONSUMER_KEY'] && ENV['SCHOOLOGY_CONSUMER_SECRET']
     require 'omni_auth/strategies/schoology'
     SETUP_PROC = lambda do |env|

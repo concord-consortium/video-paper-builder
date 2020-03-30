@@ -9,7 +9,7 @@ FactoryBot.define do
     email {generate(:user_email)}
     password { "funstuff" }
     password_confirmation { "funstuff" }
-    after(:create) { |u| u.confirm! }
+    after(:create) { |u| u.confirm }
   end
 
   factory :invited_user, :parent => :user do
@@ -22,7 +22,7 @@ FactoryBot.define do
     email {generate(:user_email)}
     password { "funstuff" }
     password_confirmation { "funstuff" }
-    after(:create) { |u| u.confirm! }
+    after(:create) { |u| u.confirm }
   end
 
 end

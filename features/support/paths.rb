@@ -33,7 +33,11 @@ module NavigationHelpers
     when /the (.*)'s user confirmation page/
       '/users/confirmation?confirmation_token=' + User.find_by_email($1).confirmation_token.to_s
     when /the (.*)'s user invitation page/
-      '/users/invitation/accept?invitation_token=' + User.find_by_email($1).invitation_token.to_s
+      # regenerate an invitation to get the raw token as it is not saved in the database
+      user = User.find_by_email($1)
+      user.deliver_invitation
+      original_token = user.raw_invitation_token.to_s
+      '/users/invitation/accept?invitation_token=' + original_token
     #VIDEO PAPERS
     when /my video papers page/
       '/my_video_papers'
