@@ -3,10 +3,9 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
 if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
-  Bundler.require(*Rails.groups(:assets => %w(development test)))
-  # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
+  # Rails 4.0 removed the assets group from Gemfile: https://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html#upgrading-from-rails-3-2-to-rails-4-0-gemfile
+  # this used to be `Bundler.require(*Rails.groups(:assets => %w(development test)))`
+  Bundler.require(*Rails.groups())
 end
 
 module VPB

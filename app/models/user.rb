@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   # :http_authenticatable, :token_authenticatable, :confirmable, :lockable, :timeoutable and :activatable
   devise :registerable, :database_authenticatable, :recoverable,
          :rememberable, :trackable, :validatable, :confirmable, :invitable,
-         :encryptable
+         :encryptable, validate_on_invite: true
   devise :omniauthable, :omniauth_providers => Devise.omniauth_providers
 
   ###################################
@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   ###################################
 
   has_many :my_video_papers, :foreign_key => 'owner_id', :class_name => 'VideoPaper', :dependent => :destroy
-  has_many :video_papers, :through=> :shared_papers, :uniq=>true
+  has_many :video_papers, -> { uniq }, :through=> :shared_papers
   has_many :shared_papers, :dependent => :destroy
   has_many :wysihat_files, :dependent => :destroy
 
@@ -39,15 +39,19 @@ class User < ActiveRecord::Base
   #Public Methods
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :first_name, :last_name,:invitation_token, :provider, :uid
+  attr_accessible :email, :password, :password_confirmation, :first_name, :last_name,:invitation_token, :provider, :uid, :remember_me
 
   def name
     "#{self.first_name.titlecase} #{self.last_name.titlecase}"
   end
 
   def generate_reset_password_token!
-    generate_reset_password_token && save(:validate => false)
-    self.reset_password_token
+    # TODO: Devise 3 changes how tokens are generated and stored and this no longer works
+    # the code that uses this was already commented out in the admin/index.html.erb file.
+    # Leaving the code in here so that maybe in final upgrade to Devise 4 this can be fixed
+    # generate_reset_password_token! && save(:validate => false)
+    # self.reset_password_token
+    return "TODO: FIX!"
   end
 
   def self.invite_key_fields

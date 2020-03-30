@@ -2,14 +2,14 @@ class Section < ActiveRecord::Base
   attr_accessible :video_start_time, :video_stop_time
 
   # Constants
-  COMPLEX_SECONDS_PATTERN = /^(([0-1]?[0-9])|([2][0-3])):([0-5]?[0-9])(:([0-5]?[0-9]))?$/
-  SIMPLE_SECONDS_PATTERN = /^\d*$/
-  
+  COMPLEX_SECONDS_PATTERN = /\A(([0-1]?[0-9])|([2][0-3])):([0-5]?[0-9])(:([0-5]?[0-9]))?\z/
+  SIMPLE_SECONDS_PATTERN = /\A\d*\z/
+
   ###################################
   # Associations
   ###################################
   belongs_to :video_paper
-  
+
   ###################################
   # Validations
   ###################################
@@ -17,31 +17,31 @@ class Section < ActiveRecord::Base
   validates_presence_of :title
   validates_format_of :video_start_time, :with=>SIMPLE_SECONDS_PATTERN,:allow_nil=>true,:allow_blank=>true
   validates_format_of :video_stop_time, :with=>SIMPLE_SECONDS_PATTERN,:allow_nil=>true,:allow_blank=>true
-  validate :start_time_is_less_than_stop_time 
-  
+  validate :start_time_is_less_than_stop_time
+
   ###################################
   # Callbacks
   ###################################
   before_validation :convert_complex_pattern_for_video_start_time
   before_validation :convert_complex_pattern_for_video_stop_time
-  before_save :reset_start_and_stop_times  
-    
+  before_save :reset_start_and_stop_times
+
   ##################################
   # instance methods
   ##################################
-  
+
   def to_timestamp(time_in_seconds)
     time_to_format = time_in_seconds.to_i
     hours  = (time_to_format / 3600).to_i
     minutes = ((time_to_format % 3600) / 60).to_i
     seconds = (time_to_format % 60).to_i
-    
+
     "%02i:%02i:%02i" % [hours.to_s,minutes.to_s,seconds.to_s]
   end
-  
+
   ##
-  # I'll admit, this is probably overkill.  This is a dynamic method for 
-  # converting the hh:mm:ss format into a seconds format for the start and stop times. 
+  # I'll admit, this is probably overkill.  This is a dynamic method for
+  # converting the hh:mm:ss format into a seconds format for the start and stop times.
   #
   # When the larger method name isn't found, it hits method missing and then does the appropriate
   # method.
@@ -56,7 +56,7 @@ class Section < ActiveRecord::Base
   end
   # Protected Methods
   protected
-  
+
   def convert_complex_pattern(attribute)
     timer = self.instance_variable_get("@attributes")[attribute]
     unless timer.nil? || timer.blank?
@@ -70,13 +70,13 @@ class Section < ActiveRecord::Base
     attributes[attribute] = timer
     self.instance_variable_set("@attributes",attributes)
   end
-  
+
   def start_time_is_less_than_stop_time
     unless (self.video_start_time.nil? || self.video_stop_time.nil?) || (self.video_start_time.blank? || self.video_stop_time.blank?)
       errors.add(:base, "Start time must be less than Stop time") if self.video_start_time.to_i >= self.video_stop_time.to_i
     end
   end
-  
+
   def reset_start_and_stop_times
     video = video_paper ? video_paper.video : nil
     unless video.nil? or video.duration.to_i < 1
@@ -88,5 +88,5 @@ class Section < ActiveRecord::Base
       end
     end
   end
-  
+
 end

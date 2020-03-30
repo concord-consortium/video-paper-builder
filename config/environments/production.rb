@@ -61,6 +61,8 @@ VPB::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  # TODO: remove comment after upgrade
+  # Not supported in rails 4
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
@@ -74,4 +76,7 @@ VPB::Application.configure do
     :sender_address => %{"Exception Notifier" <vpb-errors@concord.org>},
     :exception_recipients => %w{vpb-errors@concord.org}
 
+  # When true, eager loads all registered config.eager_load_namespaces.
+  # This includes your application, engines, Rails frameworks, and any other registered namespace.
+  config.eager_load = true
 end

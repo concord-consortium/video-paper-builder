@@ -1,4 +1,4 @@
-Then /^I should not be able to invite an admin$/ do  
+Then /^I should not be able to invite an admin$/ do
   step "I am on the admin sign in page"
   page.should_not have_content('Send invitation')
   page.should have_content('Sign in')

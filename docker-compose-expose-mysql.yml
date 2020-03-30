@@ -1,0 +1,8 @@
+# uses port 33306 instead of 3306
+# to use this create an .env file with the following content:
+# COMPOSE_FILE=docker-compose.yml:docker-compose-expose-mysql.yml
+version: '3'
+services:
+  db:
+    ports:
+      - "33306:3306"

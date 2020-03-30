@@ -1,10 +1,10 @@
 <div class="content_details bg_change">
   <div class="top_curv">
-    <div class="bottom_curv">  
+    <div class="bottom_curv">
       <div class="admin_panel">
         <h1>Change your password</h1>
 
-        <%= form_for resource_name, resource, :url => password_path(resource_name), :html => { :method => :put } do |f| %>
+        <%= form_for resource_name, resource, :url => password_path(resource_name), :html => { :method => :patch } do |f| %>
           <%= f.error_messages %>
           <%= f.hidden_field :reset_password_token %>
 
@@ -17,7 +17,7 @@
           <div class="input_bg">
             <p><%= f.password_field :password_confirmation %></p>
           </div>
-          
+
           <div class="button">
             <p><%= f.submit "Submit",:class=>"login_btn" %></p>
           </div>

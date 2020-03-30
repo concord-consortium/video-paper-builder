@@ -181,12 +181,6 @@ describe VideoPapersController do
         @user2 = FactoryBot.create(:user)
       end
 
-      it "should not fail in html" do
-        get :unshare, {:id => @paper.id, :user_id => @user2.id}
-        expect(response.status).to eq 302
-        expect(response).to redirect_to share_video_paper_path(@paper)
-      end
-
       it "should not fail in js" do
         xhr :get, :unshare, {:id => @paper.id, :user_id => @user2.id}
         expect(response.status).to eq 302
@@ -198,11 +192,6 @@ describe VideoPapersController do
       before(:each) do
         @user2 = FactoryBot.create(:user)
         @shared_paper = FactoryBot.create(:shared_paper, :user => @user2, :video_paper => @paper);
-      end
-
-      it "should fail in html" do
-        get :unshare, {:id => @paper.id, :user_id => @user2.id}
-        expect(response.status).to eq 406
       end
 
       it "should not fail in js" do
