@@ -1,4 +1,4 @@
-FROM ruby:2.3.0
+FROM ruby:2.4.5
 # RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys AA8E81B4331F7F50
 RUN apt-get update -qq && apt-get install -y --force-yes build-essential vim-tiny xvfb libgtk-3-0 libdbus-glib-1-2 libxt6 libasound2 && apt-get clean && rm -rf /var/lib/apt/lists/*
 
