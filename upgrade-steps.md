@@ -36,6 +36,7 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
     8. Tried to upgrade rspec from 2 to 3 using `transpec` gem as outlined here: https://rspec.info/upgrading-from-rspec-2/.  At first I thought I needed to upgrade bundler as the transpec gem could not find the needed gems to run but that turned out not to be true.  Instead I needed to install `transpec` using the Gemfile and then run the following: `bundle exec transpec -c 'BUNDLE_PATH=/bundle RAILS_ENV=test bundle exec rspec'
     9. Had to upgrade Devise from 2 to 3 due to rails dependency change which caused a lot of issues due to how tokens are generated and stored in version 3.  I was able to pin to Devise 3.1 which reduced the amount of code change needed.
     10.  Update rails from 4.0 to 4.1
+    11.  Update rails from 4.1 to 4.2
 
 ## Steps Todo
 
@@ -81,53 +82,55 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 
 ## Dependency Versions
 
-|gem                      |Environment|Latest |Latest Ruby|Initial 3|Final 3  |Final 4  |
-|-------------------------|-----------|-------|-----------|---------|---------|---------|
-|capistrano               |all        |3.12.1 |>= 2.0     |2.14.1   |*removed*|--       |
-|capistrano-maintenance   |all        |1.2.1  |>= 0       |0.0.2    |*removed*|--       |
-|sass-rails               |assets     |6.0.0  |>= 0       |3.2.6    |3.2.6    |*removed*|
-|coffee-rails             |assets     |5.0.0  |>= 0       |3.2.2    |3.2.2    |*removed*|
-|uglifier                 |assets     |4.2.0  |>= 1.9.3   |1.3.0    |1.3.0    |*removed*|
-|turbo-sprockets-rails3   |assets     |0.3.14 |>= 0       |0.3.6    |0.3.6    |*removed*|
-|exception_notification   |all        |4.4.0  |>= 2.0     |3.0.0    |3.0.0    |*removed*|
-|rdoc                     |all        |6.2.1  |>= 2.4.0   |3.12     |3.12.2   |*removed*|
-|debugger-ruby_core_source|dev        |1.3.8  |>= 0       |*added*  |1.3.8    |*removed*|
-|debugger                 |dev        |1.6.8  |>=0        |1.6.8    |1.6.8    |*removed*|
-|warden                   |all        |1.2.8  |>= 0       |1.2.1    |1.2.1    |*removed*|
-|rails                    |all        |6.0.2.2|>= 2.5.0   |3.2.11   |3.2.22.5 |         |
-|jquery-rails             |all        |4.3.5  |>= 1.9.3   |2.2.0    |2.2.0    |         |
-|jquery-ui-rails          |all        |6.0.1  |>= 0       |4.0.0    |4.0.0    |         |
-|mysql2                   |all        |0.5.3  |>= 2.0.0   |0.3.15   |0.3.15   |         |
-|devise                   |all        |4.7.1  |>= 2.1.0   |2.2.3    |2.2.3    |         |
-|devise_invitable         |all        |2.0.1  |>= 2.2.2   |1.1.5    |1.1.5    |         |
-|devise-encryptable       |all        |0.2.0  |>= 0       |0.1.1    |0.1.1    |         |
-|omniauth                 |all        |1.9.1  |>= 2.2     |1.1.4    |1.1.4    |         |
-|omniauth-oauth           |all        |1.1.0  |>= 0       |1.1.0    |1.1.0    |         |
-|paperclip                |all        |6.1.0  |>= 2.1.0   |3.4.0    |3.4.0    |         |
-|aws-sdk                  |all        |3.0.1  |>= 0       |1.66.0   |1.66.0   |         |
-|settingslogic            |all        |2.0.9  |NONE       |2.0.9    |2.0.9    |         |
-|will_paginate            |all        |3.3.0  |>= 2.0     |3.0.4    |3.0.4    |         |
-|nokogiri                 |all        |1.10.9 |>= 2.3.0   |1.5.6    |1.5.6    |         |
-|xpath                    |all        |3.2.0  |>= 2.3     |0.1.4    |0.1.4    |         |
-|dynamic_form             |all        |1.1.4  |NONE       |1.1.4    |1.1.4    |         |
-|tinymce-rails            |all        |5.2.0  |>= 0       |3.5.8    |3.5.8    |         |
-|tinymce-rails-imageupload|all        |3.5.8.6|NONE       |3.5.6.4  |3.5.6.4  |         |
-|comma                    |all        |4.3.2  |>= 0       |3.0.4    |3.0.4    |         |
-|s3_direct_upload         |all        |0.1.7  |NONE       |0.1.7    |0.1.7    |         |
-|httparty                 |all        |0.18.0 |>= 2.0.0   |0.10.2   |0.10.2   |         |
-|google-analytics-rails   |all        |1.1.1  |>= 1.9.3   |1.0.0    |1.0.0    |         |
-|selenium-webdriver       |test       |3.142.7|>= 2.3     |2.31.0   |2.31.0   |         |
-|cucumber                 |test       |3.1.2  |>= 2.2     |1.1.9    |1.1.9    |         |
-|cucumber-rails           |test       |2.0.0  |>= 2.3.0   |1.3.0    |1.3.0    |         |
-|database_cleaner         |test       |1.8.3  |>= 1.9.3   |0.7.2    |0.7.2    |         |
-|capybara                 |test       |3.31.0 |>= 2.4.0   |1.1.4    |1.1.4    |         |
-|rspec                    |test       |3.9.0  |>= 0       |2.11.0   |2.11.0   |         |
-|factory_girl_rails       |test       |4.9.0  |>= 0       |4.2.0    |4.2.0    |         |
-|launchy                  |test       |2.5.0  |>= 2.4.0   |2.1.2    |2.1.2    |         |
-|simplecov                |test       |0.18.5 |>= 2.4.0   |*added*  |0.9.2    |         |
-|therubyracer             |test       |0.12.3 |>= 0       |0.12.1   |0.12.1   |         |
-|test-unit                |test       |0.3.5  |>= 0       |         |         |*added*  |
-|rspec-rails              |dev & test |3.9.1  |>= 0       |2.11.4   |2.11.4   |         |
+| |gem                      |Environment|Latest  |Latest Ruby|Initial 3|Final 3  |Final 4  |
+|-|-------------------------|-----------|--------|-----------|---------|---------|---------|
+|X|capistrano               |all        |3.12.1  |>= 2.0     |2.14.1   |*removed*|--       |
+|X|capistrano-maintenance   |all        |1.2.1   |>= 0       |0.0.2    |*removed*|--       |
+|X|coffee-rails             |assets     |5.0.0   |>= 0       |3.2.2    |3.2.2    |*removed*|
+|X|debugger                 |dev        |1.6.8   |>=0        |1.6.8    |1.6.8    |*removed*|
+|X|debugger-ruby_core_source|dev        |1.3.8   |>= 0       |*added*  |1.3.8    |*removed*|
+|X|exception_notification   |all        |4.4.0   |>= 2.0     |3.0.0    |3.0.0    |*removed*|
+|X|rdoc                     |all        |6.2.1   |>= 2.4.0   |3.12     |3.12.2   |*removed*|
+|X|sass-rails               |assets     |6.0.0   |>= 0       |3.2.6    |3.2.6    |*removed*|
+|X|turbo-sprockets-rails3   |assets     |0.3.14  |>= 0       |0.3.6    |0.3.6    |*removed*|
+|X|uglifier                 |assets     |4.2.0   |>= 1.9.3   |1.3.0    |1.3.0    |*removed*|
+|X|warden                   |all        |1.2.8   |>= 0       |1.2.1    |1.2.1    |*removed*|
+|X|tinymce-rails-imageupload|all        |3.5.8.6 |NONE       |3.5.6.4  |3.5.6.4  |*removed*|
+|Y|devise-encryptable       |all        |0.2.0   |>= 0       |0.1.1    |0.1.1    |0.2.0    |
+|Y|google-analytics-rails   |all        |1.1.1   |>= 1.9.3   |1.0.0    |1.0.0    |1.1.1    |
+|Y|database_cleaner         |test       |1.8.3   |>= 1.9.3   |0.7.2    |0.7.2    |1.8.3    |
+|Y|dynamic_form             |all        |1.1.4   |NONE       |1.1.4    |1.1.4    |1.1.4    |
+|Y|httparty                 |all        |0.18.0  |>= 2.0.0   |0.10.2   |0.10.2   |0.18.0   |
+|Y|nokogiri                 |all        |1.10.9  |>= 2.3.0   |1.5.6    |1.5.6    |1.10.9   |
+|Y|protected_attributes     |all        |1.1.4   |>= 0       |--       |--       |1.1.4    |
+|Y|rspec                    |test       |3.9.0   |>= 0       |2.11.0   |2.11.0   |3.9.0    |
+|Y|rspec-rails              |dev & test |3.9.1   |>= 0       |2.11.4   |2.11.4   |3.9.1    |
+|Y|s3_direct_upload         |all        |0.1.7   |NONE       |0.1.7    |0.1.7    |0.1.7    |
+|Y|selenium-webdriver       |test       |3.142.7 |>= 2.3     |2.31.0   |2.31.0   |3.142.7  |
+|Y|settingslogic            |all        |2.0.9   |NONE       |2.0.9    |2.0.9    |2.0.9    |
+|Y|test-unit                |test       |3.3.5   |>= 0       |--       |--       |3.3.5    |
+|Y|therubyracer             |test       |0.12.3  |>= 0       |0.12.1   |0.12.1   |0.12.3   |
+|Y|tinymce-rails            |all        |5.2.1   |>= 0       |3.5.8    |3.5.8    |5.2.1    |
+|Y|omniauth                 |all        |1.9.1   |>= 2.2     |1.1.4    |1.1.4    |1.9.1    |
+|Y|omniauth-oauth           |all        |1.1.0   |>= 0       |1.1.0    |1.1.0    |1.1.0    |
+|Y|xpath                    |all        |3.2.0   |>= 2.3     |0.1.4    |0.1.4    |3.2.0    |
+|Y|will_paginate            |all        |3.3.0   |>= 2.0     |3.0.4    |3.0.4    |3.3.0    |
+|N|rails                    |all        |6.0.2.2 |>= 2.5.0   |3.2.11   |3.2.22.5 |4.2.11.1 |
+|N|jquery-rails             |all        |4.3.5   |>= 1.9.3   |2.2.0    |2.2.0    |2.3.0    |
+|N|jquery-ui-rails          |all        |6.0.1   |>= 0       |4.0.0    |4.0.0    |4.2.1    |
+|N|aws-sdk                  |all        |3.0.1   |>= 0       |1.66.0   |1.66.0   |1.67.0   |
+|N|comma                    |all        |4.3.2   |>= 0       |3.0.4    |3.0.4    |3.2.4    |
+|N|devise                   |all        |4.7.1   |>= 2.1.0   |2.2.3    |2.2.3    |3.5.10   |
+|N|devise_invitable         |all        |2.0.1   |>= 2.2.2   |1.1.5    |1.1.5    |1.6.1    |
+|N|mysql2                   |all        |0.5.3   |>= 2.0.0   |0.3.15   |0.3.15   |0.3.21   |
+|N|paperclip                |all        |6.1.0   |>= 2.1.0   |3.4.0    |3.4.0    |3.5.4    |
+|N|capybara                 |test       |3.31.0  |>= 2.4.0   |1.1.4    |1.1.4    |2.18.0   |
+|N|cucumber                 |test       |3.1.2   |>= 2.2     |1.1.9    |1.1.9    |1.3.20   |
+|N|cucumber-rails           |test       |2.0.0   |>= 2.3.0   |1.3.0    |1.3.0    |1.5.0    |
+|N|factory_(girl/bot)_rails |test       |5.1.2   |>= 0       |4.2.0    |4.2.0    |5.1.1    |
+|N|launchy                  |test       |2.5.0   |>= 2.4.0   |2.1.2    |2.1.2    |2.4.3    |
+|N|simplecov                |test       |0.18.5  |>= 2.4.0   |*added*  |0.9.2    |0.10.2   |
+|N|webdrivers               |test       |4.2.0   |>= 0       |--       |--       |3.9.4    |
 
 
 ## Note about ruby versions supported
