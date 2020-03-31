@@ -35,8 +35,9 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
     7. Upgrade to ruby 2.3.  Had to also upgrade to latest rspec 2 due to older rspec 2 throwing `private method `fixture_path' called` error
     8. Tried to upgrade rspec from 2 to 3 using `transpec` gem as outlined here: https://rspec.info/upgrading-from-rspec-2/.  At first I thought I needed to upgrade bundler as the transpec gem could not find the needed gems to run but that turned out not to be true.  Instead I needed to install `transpec` using the Gemfile and then run the following: `bundle exec transpec -c 'BUNDLE_PATH=/bundle RAILS_ENV=test bundle exec rspec'
     9. Had to upgrade Devise from 2 to 3 due to rails dependency change which caused a lot of issues due to how tokens are generated and stored in version 3.  I was able to pin to Devise 3.1 which reduced the amount of code change needed.
-    10.  Update rails from 4.0 to 4.1
-    11.  Update rails from 4.1 to 4.2
+    10. Update rails from 4.0 to 4.1
+    11. Update rails from 4.1 to 4.2
+    12. Update to ruby 2.4.5
 
 ## Steps Todo
 
@@ -101,6 +102,8 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |Y|database_cleaner         |test       |1.8.3   |>= 1.9.3   |0.7.2    |0.7.2    |1.8.3    |
 |Y|dynamic_form             |all        |1.1.4   |NONE       |1.1.4    |1.1.4    |1.1.4    |
 |Y|httparty                 |all        |0.18.0  |>= 2.0.0   |0.10.2   |0.10.2   |0.18.0   |
+|Y|launchy                  |test       |2.5.0   |>= 2.4.0   |2.1.2    |2.1.2    |2.5.0    |
+|Y|mysql2                   |all        |0.5.3   |>= 2.0.0   |0.3.15   |0.3.15   |0.5.3    |
 |Y|nokogiri                 |all        |1.10.9  |>= 2.3.0   |1.5.6    |1.5.6    |1.10.9   |
 |Y|protected_attributes     |all        |1.1.4   |>= 0       |--       |--       |1.1.4    |
 |Y|rspec                    |test       |3.9.0   |>= 0       |2.11.0   |2.11.0   |3.9.0    |
@@ -108,29 +111,28 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |Y|s3_direct_upload         |all        |0.1.7   |NONE       |0.1.7    |0.1.7    |0.1.7    |
 |Y|selenium-webdriver       |test       |3.142.7 |>= 2.3     |2.31.0   |2.31.0   |3.142.7  |
 |Y|settingslogic            |all        |2.0.9   |NONE       |2.0.9    |2.0.9    |2.0.9    |
+|Y|simplecov                |test       |0.18.5  |>= 2.4.0   |*added*  |0.9.2    |0.18.5   |
 |Y|test-unit                |test       |3.3.5   |>= 0       |--       |--       |3.3.5    |
 |Y|therubyracer             |test       |0.12.3  |>= 0       |0.12.1   |0.12.1   |0.12.3   |
 |Y|tinymce-rails            |all        |5.2.1   |>= 0       |3.5.8    |3.5.8    |5.2.1    |
 |Y|omniauth                 |all        |1.9.1   |>= 2.2     |1.1.4    |1.1.4    |1.9.1    |
 |Y|omniauth-oauth           |all        |1.1.0   |>= 0       |1.1.0    |1.1.0    |1.1.0    |
 |Y|xpath                    |all        |3.2.0   |>= 2.3     |0.1.4    |0.1.4    |3.2.0    |
+|Y|webdrivers               |test       |4.2.0   |>= 0       |--       |--       |4.2.0    |
 |Y|will_paginate            |all        |3.3.0   |>= 2.0     |3.0.4    |3.0.4    |3.3.0    |
-|N|rails                    |all        |6.0.2.2 |>= 2.5.0   |3.2.11   |3.2.22.5 |4.2.11.1 |
-|N|jquery-rails             |all        |4.3.5   |>= 1.9.3   |2.2.0    |2.2.0    |2.3.0    |
-|N|jquery-ui-rails          |all        |6.0.1   |>= 0       |4.0.0    |4.0.0    |4.2.1    |
 |N|aws-sdk                  |all        |3.0.1   |>= 0       |1.66.0   |1.66.0   |1.67.0   |
 |N|comma                    |all        |4.3.2   |>= 0       |3.0.4    |3.0.4    |3.2.4    |
 |N|devise                   |all        |4.7.1   |>= 2.1.0   |2.2.3    |2.2.3    |3.5.10   |
 |N|devise_invitable         |all        |2.0.1   |>= 2.2.2   |1.1.5    |1.1.5    |1.6.1    |
-|N|mysql2                   |all        |0.5.3   |>= 2.0.0   |0.3.15   |0.3.15   |0.3.21   |
+|N|jquery-rails             |all        |4.3.5   |>= 1.9.3   |2.2.0    |2.2.0    |2.3.0    |
+|N|jquery-ui-rails          |all        |6.0.1   |>= 0       |4.0.0    |4.0.0    |4.2.1    |
 |N|paperclip                |all        |6.1.0   |>= 2.1.0   |3.4.0    |3.4.0    |3.5.4    |
 |N|capybara                 |test       |3.31.0  |>= 2.4.0   |1.1.4    |1.1.4    |2.18.0   |
 |N|cucumber                 |test       |3.1.2   |>= 2.2     |1.1.9    |1.1.9    |1.3.20   |
 |N|cucumber-rails           |test       |2.0.0   |>= 2.3.0   |1.3.0    |1.3.0    |1.5.0    |
 |N|factory_(girl/bot)_rails |test       |5.1.2   |>= 0       |4.2.0    |4.2.0    |5.1.1    |
-|N|launchy                  |test       |2.5.0   |>= 2.4.0   |2.1.2    |2.1.2    |2.4.3    |
-|N|simplecov                |test       |0.18.5  |>= 2.4.0   |*added*  |0.9.2    |0.10.2   |
-|N|webdrivers               |test       |4.2.0   |>= 0       |--       |--       |3.9.4    |
+|N|rails                    |all        |6.0.2.2 |>= 2.5.0   |3.2.11   |3.2.22.5 |4.2.11.1 |
+|N|web-console              |dev        |4.0.1   |>= 2.5     |--       |--       |3.3.0    |
 
 
 ## Note about ruby versions supported
