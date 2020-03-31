@@ -316,7 +316,7 @@ DEPENDENCIES
   sprockets (~> 3)
   test-unit
   therubyracer
-  tinymce-rails (~> 5)
+  tinymce-rails
   web-console
   webdrivers
   will_paginate

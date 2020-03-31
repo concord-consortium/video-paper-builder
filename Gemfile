@@ -26,7 +26,7 @@ gem "nokogiri"
 gem "paperclip",                  "~> 3"         # MAJOR UPGRADE NEEDED: latest is 6.1.0
 gem "s3_direct_upload"
 gem "settingslogic"
-gem "tinymce-rails",              "~> 5"
+gem "tinymce-rails"
 # TODO: enable/replace after all rails upgrades (it calls deprecated rake task at startup)
 # gem "tinymce-rails-imageupload"
 gem "omniauth"
