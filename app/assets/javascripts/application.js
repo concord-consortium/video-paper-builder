@@ -4,8 +4,8 @@
 //= require prototype
 //= require swfobject
 
-//= require jquery.ui.slider
-//= require jquery.ui.tabs
+//= require jquery-ui/widgets/slider
+//= require jquery-ui/widgets/tabs
 
 //= require jquery-progressbar
 //= require jquery-cycle

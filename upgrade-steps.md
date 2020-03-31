@@ -103,6 +103,8 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |Y|dynamic_form             |all        |1.1.4   |NONE       |1.1.4    |1.1.4    |1.1.4    |
 |Y|google-analytics-rails   |all        |1.1.1   |>= 1.9.3   |1.0.0    |1.0.0    |1.1.1    |
 |Y|httparty                 |all        |0.18.0  |>= 2.0.0   |0.10.2   |0.10.2   |0.18.0   |
+|Y|jquery-rails             |all        |4.3.5   |>= 1.9.3   |2.2.0    |2.2.0    |4.3.5    |
+|Y|jquery-ui-rails          |all        |6.0.1   |>= 0       |4.0.0    |4.0.0    |6.0.1    |
 |Y|launchy                  |test       |2.5.0   |>= 2.4.0   |2.1.2    |2.1.2    |2.5.0    |
 |Y|mysql2                   |all        |0.5.3   |>= 2.0.0   |0.3.15   |0.3.15   |0.5.3    |
 |Y|nokogiri                 |all        |1.10.9  |>= 2.3.0   |1.5.6    |1.5.6    |1.10.9   |
@@ -124,8 +126,6 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |N|aws-sdk                  |all        |3.0.1   |>= 0       |1.66.0   |1.66.0   |1.67.0   |
 |N|devise                   |all        |4.7.1   |>= 2.1.0   |2.2.3    |2.2.3    |3.5.10   |
 |N|devise_invitable         |all        |2.0.1   |>= 2.2.2   |1.1.5    |1.1.5    |1.6.1    |
-|N|jquery-rails             |all        |4.3.5   |>= 1.9.3   |2.2.0    |2.2.0    |2.3.0    |
-|N|jquery-ui-rails          |all        |6.0.1   |>= 0       |4.0.0    |4.0.0    |4.2.1    |
 |N|paperclip                |all        |6.1.0   |>= 2.1.0   |3.4.0    |3.4.0    |3.5.4    |
 |N|capybara                 |test       |3.31.0  |>= 2.4.0   |1.1.4    |1.1.4    |2.18.0   |
 |N|cucumber                 |test       |3.1.2   |>= 2.2     |1.1.9    |1.1.9    |1.3.20   |
