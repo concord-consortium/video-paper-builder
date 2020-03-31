@@ -98,9 +98,10 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |X|warden                   |all        |1.2.8   |>= 0       |1.2.1    |1.2.1    |*removed*|
 |X|tinymce-rails-imageupload|all        |3.5.8.6 |NONE       |3.5.6.4  |3.5.6.4  |*removed*|
 |Y|devise-encryptable       |all        |0.2.0   |>= 0       |0.1.1    |0.1.1    |0.2.0    |
-|Y|google-analytics-rails   |all        |1.1.1   |>= 1.9.3   |1.0.0    |1.0.0    |1.1.1    |
+|Y|comma                    |all        |4.3.2   |>= 0       |3.0.4    |3.0.4    |4.3.2    |
 |Y|database_cleaner         |test       |1.8.3   |>= 1.9.3   |0.7.2    |0.7.2    |1.8.3    |
 |Y|dynamic_form             |all        |1.1.4   |NONE       |1.1.4    |1.1.4    |1.1.4    |
+|Y|google-analytics-rails   |all        |1.1.1   |>= 1.9.3   |1.0.0    |1.0.0    |1.1.1    |
 |Y|httparty                 |all        |0.18.0  |>= 2.0.0   |0.10.2   |0.10.2   |0.18.0   |
 |Y|launchy                  |test       |2.5.0   |>= 2.4.0   |2.1.2    |2.1.2    |2.5.0    |
 |Y|mysql2                   |all        |0.5.3   |>= 2.0.0   |0.3.15   |0.3.15   |0.5.3    |
@@ -121,7 +122,6 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |Y|webdrivers               |test       |4.2.0   |>= 0       |--       |--       |4.2.0    |
 |Y|will_paginate            |all        |3.3.0   |>= 2.0     |3.0.4    |3.0.4    |3.3.0    |
 |N|aws-sdk                  |all        |3.0.1   |>= 0       |1.66.0   |1.66.0   |1.67.0   |
-|N|comma                    |all        |4.3.2   |>= 0       |3.0.4    |3.0.4    |3.2.4    |
 |N|devise                   |all        |4.7.1   |>= 2.1.0   |2.2.3    |2.2.3    |3.5.10   |
 |N|devise_invitable         |all        |2.0.1   |>= 2.2.2   |1.1.5    |1.1.5    |1.6.1    |
 |N|jquery-rails             |all        |4.3.5   |>= 1.9.3   |2.2.0    |2.2.0    |2.3.0    |
