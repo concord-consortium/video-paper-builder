@@ -42,7 +42,7 @@ group :test do
   gem "database_cleaner"
   gem "factory_bot_rails"
   gem "launchy"
-  gem "rspec",                    "~> 3.0"
+  gem "rspec"
   gem "selenium-webdriver"
   gem "simplecov", require: false
   gem "test-unit"                                # added to enable rspec on ruby 2.2/2.3
@@ -55,5 +55,5 @@ group :development do
 end
 
 group :development, :test do
-  gem "rspec-rails",              "~> 3.0"
+  gem "rspec-rails"
 end

@@ -113,7 +113,7 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |Y|nokogiri                 |all        |1.10.9  |>= 2.3.0   |1.5.6    |1.5.6    |1.10.9   |
 |Y|protected_attributes     |all        |1.1.4   |>= 0       |--       |--       |1.1.4    |
 |Y|rspec                    |test       |3.9.0   |>= 0       |2.11.0   |2.11.0   |3.9.0    |
-|Y|rspec-rails              |dev & test |3.9.1   |>= 0       |2.11.4   |2.11.4   |3.9.1    |
+|Y|rspec-rails              |dev & test |4.0.0   |>= 0       |2.11.4   |2.11.4   |4.0.0    |
 |Y|s3_direct_upload         |all        |0.1.7   |NONE       |0.1.7    |0.1.7    |0.1.7    |
 |Y|selenium-webdriver       |test       |3.142.7 |>= 2.3     |2.31.0   |2.31.0   |3.142.7  |
 |Y|settingslogic            |all        |2.0.9   |NONE       |2.0.9    |2.0.9    |2.0.9    |
