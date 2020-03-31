@@ -2,13 +2,10 @@ FROM ruby:2.3.0
 # RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys AA8E81B4331F7F50
 RUN apt-get update -qq && apt-get install -y --force-yes build-essential vim-tiny xvfb libgtk-3-0 libdbus-glib-1-2 libxt6 libasound2 && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# add versioned firefox (for selenium 2.31.0)
-ARG FIREFOX_VERSION=19.0.2
-RUN wget --no-verbose -O /tmp/firefox.tar.bz2 https://download-installer.cdn.mozilla.net/pub/firefox/releases/$FIREFOX_VERSION/linux-x86_64/en-US/firefox-$FIREFOX_VERSION.tar.bz2 \
-  && tar -C /opt -xjf /tmp/firefox.tar.bz2 \
-  && rm /tmp/firefox.tar.bz2 \
-  && mv /opt/firefox /opt/firefox-$FIREFOX_VERSION \
-  && ln -fs /opt/firefox-$FIREFOX_VERSION/firefox /usr/bin/firefox
+#Install Google Chrome for Selenium
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+  && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list \
+  && apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -y google-chrome-stable
 
 # update to latest bundler
 RUN gem install bundler -v '~>1'
