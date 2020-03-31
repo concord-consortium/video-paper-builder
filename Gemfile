@@ -10,7 +10,7 @@ gem "sprockets",                  "~> 3"  # pin to ensure s3_direct_upload doesn
 gem "protected_attributes"
 
 gem "rails",                      "~> 4.2.0"     # MAJOR UPGRADE NEEDED: latest is 6.0.2.2
-gem "jquery-rails",               "~> 2.1"       # MAJOR UPGRADE NEEDED: latest is 4.3.5
+gem "jquery-rails",               "~> 3.1"       # MAJOR UPGRADE NEEDED: latest is 4.3.5
 gem "jquery-ui-rails",            "~> 4.0"       # MAJOR UPGRADE NEEDED: latest is 6.0.1
 
 gem "aws-sdk",                    "~> 1.66"      # MAJOR UPGRADE NEEDED: latest is 3.0.1
