@@ -15,7 +15,7 @@ gem "jquery-ui-rails",            "~> 4.0"       # MAJOR UPGRADE NEEDED: latest 
 
 gem "aws-sdk",                    "~> 1.66"      # MAJOR UPGRADE NEEDED: latest is 3.0.1
 gem "comma",                      "~> 3.0"       # MAJOR UPGRADE NEEDED: latest is 4.3.2
-gem "devise",                     "~> 3"         # MAJOR UPGRADE NEEDED: latest is 4.7.1
+gem "devise",                     "~> 4"         # MAJOR UPGRADE NEEDED: latest is 4.7.1
 gem "devise-encryptable"
 gem "devise_invitable"
 gem "dynamic_form"
