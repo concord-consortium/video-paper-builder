@@ -3,6 +3,11 @@ aws_yml = Rails.root.join("config", 'aws.yml').to_s
 aws_template = ERB.new File.new(aws_yml).read
 aws_config = YAML.load(aws_template.result())[Rails.env]
 
+Aws.config.update({
+  region: aws_config["s3"]["region"],
+  credentials: Aws::Credentials.new(aws_config["access_key_id"], aws_config["secret_access_key"])
+})
+
 # set s3 direct upload settings
 S3DirectUpload.config do |c|
   c.access_key_id = aws_config["access_key_id"]

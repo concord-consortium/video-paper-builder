@@ -97,6 +97,9 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |X|uglifier                 |assets     |4.2.0   |>= 1.9.3   |1.3.0    |1.3.0    |*removed*|
 |X|warden                   |all        |1.2.8   |>= 0       |1.2.1    |1.2.1    |*removed*|
 |X|tinymce-rails-imageupload|all        |3.5.8.6 |NONE       |3.5.6.4  |3.5.6.4  |*removed*|
+|X|aws-sdk                  |all        |3.0.1   |>= 0       |1.66.0   |1.66.0   |*removed*|
+|Y|aws-sdk-s3               |all        |1.61.1  |>= 0       |--       |--       |1.61.1   |
+|Y|aws-sdk-elastictranscoder|all        |1.19.0  |>= 0       |--       |--       |1.19.0   |
 |Y|devise-encryptable       |all        |0.2.0   |>= 0       |0.1.1    |0.1.1    |0.2.0    |
 |Y|comma                    |all        |4.3.2   |>= 0       |3.0.4    |3.0.4    |4.3.2    |
 |Y|database_cleaner         |test       |1.8.3   |>= 1.9.3   |0.7.2    |0.7.2    |1.8.3    |
@@ -123,7 +126,6 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |Y|xpath                    |all        |3.2.0   |>= 2.3     |0.1.4    |0.1.4    |3.2.0    |
 |Y|webdrivers               |test       |4.2.0   |>= 0       |--       |--       |4.2.0    |
 |Y|will_paginate            |all        |3.3.0   |>= 2.0     |3.0.4    |3.0.4    |3.3.0    |
-|N|aws-sdk                  |all        |3.0.1   |>= 0       |1.66.0   |1.66.0   |1.67.0   |
 |N|devise                   |all        |4.7.1   |>= 2.1.0   |2.2.3    |2.2.3    |3.5.10   |
 |N|devise_invitable         |all        |2.0.1   |>= 2.2.2   |1.1.5    |1.1.5    |1.6.1    |
 |N|paperclip                |all        |6.1.0   |>= 2.1.0   |3.4.0    |3.4.0    |3.5.4    |
@@ -133,7 +135,6 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |N|factory_(girl/bot)_rails |test       |5.1.2   |>= 0       |4.2.0    |4.2.0    |5.1.1    |
 |N|rails                    |all        |6.0.2.2 |>= 2.5.0   |3.2.11   |3.2.22.5 |4.2.11.1 |
 |N|web-console              |dev        |4.0.1   |>= 2.5     |--       |--       |3.3.0    |
-
 
 ## Note about ruby versions supported
 

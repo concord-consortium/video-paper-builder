@@ -13,7 +13,8 @@ gem "rails",                      "~> 4.2.0"     # MAJOR UPGRADE NEEDED: latest 
 gem "jquery-rails"
 gem "jquery-ui-rails"
 
-gem "aws-sdk",                    "~> 1.66"      # MAJOR UPGRADE NEEDED: latest is 3.0.1
+gem "aws-sdk-s3"
+gem "aws-sdk-elastictranscoder"
 gem "comma"
 gem "devise",                     "~> 3"         # MAJOR UPGRADE NEEDED: latest is 4.7.1
 gem "devise-encryptable"
