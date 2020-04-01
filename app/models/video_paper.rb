@@ -1,6 +1,4 @@
 class VideoPaper < ActiveRecord::Base
-  attr_accessible :title
-
   #Class variables
   @@per_page = 5
 

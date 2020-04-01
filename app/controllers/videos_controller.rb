@@ -37,7 +37,7 @@ class VideosController < ApplicationController
     if !params[:video].has_key?(:private)
       params[:video][:private] = false
     end
-    @video = Video.new(params[:video])
+    @video = Video.new(video_params(params[:video]))
     unless @video.video_paper_id
       @video.video_paper = @video_paper
     end
@@ -57,7 +57,7 @@ class VideosController < ApplicationController
   def update
     @video = Video.find(params[:id])
     old_upload_uri = @video.upload_uri
-    if @video.update_attributes(params[:video])
+    if @video.update(video_params(params[:video]))
       unless params[:video][:upload_uri] == old_upload_uri
         if !@video.processed
           @video.cancel_transcoding_job
@@ -113,5 +113,12 @@ class VideosController < ApplicationController
 
   def owner_or_admin
     (@owner == current_user && current_user) || current_admin
+  end
+
+  private
+
+  def video_params(_params)
+    params = _params
+    params.permit(:private, :thumbnail, :thumbnail_time, :entry_id, :upload_uri, :transcoded_uri, :aws_transcoder_job)
   end
 end

@@ -26,11 +26,18 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(params[:user])
+    if @user.update(user_params(params[:user]))
       redirect_to admin_console_path, :notice => "User was update successfully"
     else
       render :action => 'edit'
     end
+  end
+
+  private
+
+  def user_params(_params)
+    params = _params
+    params.permit(:email, :password, :password_confirmation, :first_name, :last_name,:invitation_token, :provider, :uid, :remember_me)
   end
 
 end

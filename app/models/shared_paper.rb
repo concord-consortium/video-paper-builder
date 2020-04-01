@@ -1,12 +1,10 @@
 class SharedPaper < ActiveRecord::Base
-  attr_accessible :user_id, :notes
-
   ###################################
   # Associations
   ###################################
   belongs_to :video_paper
   belongs_to :user
-  
+
   ###################################
   # Validations
   ###################################
@@ -19,7 +17,7 @@ class SharedPaper < ActiveRecord::Base
   # instance methods
   ##################################
 
-# Protected Methods  
+# Protected Methods
 protected
   def user_exists
     all_user_ids = User.all.map(&:id)
