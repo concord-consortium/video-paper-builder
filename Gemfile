@@ -37,7 +37,7 @@ gem "will_paginate"
 
 group :test do
   gem "capybara",                 "~> 2.0"       # MAJOR UPGRADE NEEDED: latest is 3.31.0
-  gem "cucumber",                 "~> 1.0"       # MAJOR UPGRADE NEEDED: latest is 3.1.2, original was ~> 1.1.9
+  gem "cucumber"
   gem "cucumber-rails", require: false
   gem "database_cleaner"
   gem "factory_bot_rails"
