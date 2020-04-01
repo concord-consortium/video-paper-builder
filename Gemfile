@@ -16,7 +16,7 @@ gem "jquery-ui-rails"
 gem "aws-sdk-s3"
 gem "aws-sdk-elastictranscoder"
 gem "comma"
-gem "devise",                     "~> 3"         # MAJOR UPGRADE NEEDED: latest is 4.7.1
+gem "devise"
 gem "devise-encryptable"
 gem "devise_invitable"
 gem "dynamic_form"
