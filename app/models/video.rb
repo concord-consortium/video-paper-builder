@@ -33,6 +33,7 @@ class Video < ActiveRecord::Base
     validates_uniqueness_of :video_paper_id
     #validates_length_of :description, :maximum=>500
     validates_format_of :thumbnail_time, :with=>SIMPLE_SECONDS_PATTERN,:allow_nil=>true,:allow_blank=>true
+    validates_attachment :thumbnail, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 
     ##################################
     # instance methods

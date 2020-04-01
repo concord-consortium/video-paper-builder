@@ -24,7 +24,7 @@ gem "google-analytics-rails"
 gem "httparty"
 gem "mysql2"
 gem "nokogiri"
-gem "paperclip",                  "~> 3"         # MAJOR UPGRADE NEEDED: latest is 6.1.0
+gem "paperclip"
 gem "s3_direct_upload"
 gem "settingslogic"
 gem "tinymce-rails"

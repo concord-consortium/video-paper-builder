@@ -111,6 +111,7 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |Y|launchy                  |test       |2.5.0   |>= 2.4.0   |2.1.2    |2.1.2    |2.5.0    |
 |Y|mysql2                   |all        |0.5.3   |>= 2.0.0   |0.3.15   |0.3.15   |0.5.3    |
 |Y|nokogiri                 |all        |1.10.9  |>= 2.3.0   |1.5.6    |1.5.6    |1.10.9   |
+|Y|paperclip                |all        |6.1.0   |>= 2.1.0   |3.4.0    |3.4.0    |6.1.0    |
 |Y|protected_attributes     |all        |1.1.4   |>= 0       |--       |--       |1.1.4    |
 |Y|rspec                    |test       |3.9.0   |>= 0       |2.11.0   |2.11.0   |3.9.0    |
 |Y|rspec-rails              |dev & test |4.0.0   |>= 0       |2.11.4   |2.11.4   |4.0.0    |
@@ -128,7 +129,6 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |Y|will_paginate            |all        |3.3.0   |>= 2.0     |3.0.4    |3.0.4    |3.3.0    |
 |N|devise                   |all        |4.7.1   |>= 2.1.0   |2.2.3    |2.2.3    |3.5.10   |
 |N|devise_invitable         |all        |2.0.1   |>= 2.2.2   |1.1.5    |1.1.5    |1.6.1    |
-|N|paperclip                |all        |6.1.0   |>= 2.1.0   |3.4.0    |3.4.0    |3.5.4    |
 |N|capybara                 |test       |3.31.0  |>= 2.4.0   |1.1.4    |1.1.4    |2.18.0   |
 |N|cucumber                 |test       |3.1.2   |>= 2.2     |1.1.9    |1.1.9    |1.3.20   |
 |N|cucumber-rails           |test       |2.0.0   |>= 2.3.0   |1.3.0    |1.3.0    |1.5.0    |
