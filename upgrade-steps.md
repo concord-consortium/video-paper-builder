@@ -100,11 +100,12 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |X|aws-sdk                  |all        |3.0.1   |>= 0       |1.66.0   |1.66.0   |*removed*|
 |Y|aws-sdk-s3               |all        |1.61.1  |>= 0       |--       |--       |1.61.1   |
 |Y|aws-sdk-elastictranscoder|all        |1.19.0  |>= 0       |--       |--       |1.19.0   |
-|Y|devise-encryptable       |all        |0.2.0   |>= 0       |0.1.1    |0.1.1    |0.2.0    |
+|Y|capybara                 |test       |3.32.0  |>= 2.4.0   |1.1.4    |1.1.4    |3.32.0   |
 |Y|comma                    |all        |4.3.2   |>= 0       |3.0.4    |3.0.4    |4.3.2    |
 |Y|cucumber                 |test       |3.1.2   |>= 2.2     |1.1.9    |1.1.9    |3.1.2    |
 |Y|cucumber-rails           |test       |2.0.0   |>= 2.3.0   |1.3.0    |1.3.0    |2.0.0    |
 |Y|database_cleaner         |test       |1.8.3   |>= 1.9.3   |0.7.2    |0.7.2    |1.8.3    |
+|Y|devise-encryptable       |all        |0.2.0   |>= 0       |0.1.1    |0.1.1    |0.2.0    |
 |Y|dynamic_form             |all        |1.1.4   |NONE       |1.1.4    |1.1.4    |1.1.4    |
 |Y|google-analytics-rails   |all        |1.1.1   |>= 1.9.3   |1.0.0    |1.0.0    |1.1.1    |
 |Y|httparty                 |all        |0.18.0  |>= 2.0.0   |0.10.2   |0.10.2   |0.18.0   |
@@ -131,7 +132,6 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |Y|will_paginate            |all        |3.3.0   |>= 2.0     |3.0.4    |3.0.4    |3.3.0    |
 |N|devise                   |all        |4.7.1   |>= 2.1.0   |2.2.3    |2.2.3    |3.5.10   |
 |N|devise_invitable         |all        |2.0.1   |>= 2.2.2   |1.1.5    |1.1.5    |1.6.1    |
-|N|capybara                 |test       |3.31.0  |>= 2.4.0   |1.1.4    |1.1.4    |2.18.0   |
 |N|factory_(girl/bot)_rails |test       |5.1.2   |>= 0       |4.2.0    |4.2.0    |5.1.1    |
 |N|rails                    |all        |6.0.2.2 |>= 2.5.0   |3.2.11   |3.2.22.5 |4.2.11.1 |
 |N|web-console              |dev        |4.0.1   |>= 2.5     |--       |--       |3.3.0    |

@@ -36,7 +36,7 @@ gem "xpath"
 gem "will_paginate"
 
 group :test do
-  gem "capybara",                 "~> 2.0"       # MAJOR UPGRADE NEEDED: latest is 3.31.0
+  gem "capybara"
   gem "cucumber"
   gem "cucumber-rails", require: false
   gem "database_cleaner"
