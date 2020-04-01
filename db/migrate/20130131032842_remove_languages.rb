@@ -1,4 +1,4 @@
-class RemoveLanguages < ActiveRecord::Migration
+class RemoveLanguages < ActiveRecord::Migration[5.1]
   def up
     remove_column :videos, :language_id
     drop_table :languages

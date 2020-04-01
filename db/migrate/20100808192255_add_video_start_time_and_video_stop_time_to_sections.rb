@@ -1,4 +1,4 @@
-class AddVideoStartTimeAndVideoStopTimeToSections < ActiveRecord::Migration
+class AddVideoStartTimeAndVideoStopTimeToSections < ActiveRecord::Migration[5.1]
   def self.up
     add_column :sections, :video_start_time, :string
     add_column :sections, :video_stop_time, :string

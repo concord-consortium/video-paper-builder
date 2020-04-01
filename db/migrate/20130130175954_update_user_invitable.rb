@@ -1,4 +1,4 @@
-class UpdateUserInvitable < ActiveRecord::Migration
+class UpdateUserInvitable < ActiveRecord::Migration[5.1]
   # this is pased on this readme:
   # https://github.com/scambra/devise_invitable
 

@@ -1,4 +1,4 @@
-class AddKalturaMetadataToVideos < ActiveRecord::Migration
+class AddKalturaMetadataToVideos < ActiveRecord::Migration[5.1]
   def self.up
     add_column :videos, :duration, :string
     add_column :videos, :processed, :boolean

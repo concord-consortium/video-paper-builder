@@ -1,4 +1,4 @@
-class CreateVideoPapers < ActiveRecord::Migration
+class CreateVideoPapers < ActiveRecord::Migration[5.1]
   def self.up
     create_table :video_papers do |t|
       t.string :title

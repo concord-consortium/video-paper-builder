@@ -1,4 +1,4 @@
-class UpdateAdminDeviseInvitable < ActiveRecord::Migration
+class UpdateAdminDeviseInvitable < ActiveRecord::Migration[5.1]
   def up
     add_column :admins, :invitation_created_at, :datetime
     change_column :admins, :invitation_token, :string, limit: nil

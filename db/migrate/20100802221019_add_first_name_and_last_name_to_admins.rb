@@ -1,4 +1,4 @@
-class AddFirstNameAndLastNameToAdmins < ActiveRecord::Migration
+class AddFirstNameAndLastNameToAdmins < ActiveRecord::Migration[5.1]
   def self.up
     add_column :admins, :first_name, :string
     add_column :admins, :last_name, :string

@@ -1,4 +1,4 @@
-class AddTranscoderJob < ActiveRecord::Migration
+class AddTranscoderJob < ActiveRecord::Migration[5.1]
   def up
     add_column :videos, :transcoded_uri, :string
     add_column :videos, :aws_transcoder_job, :string
