@@ -26,7 +26,8 @@ class Admin < ActiveRecord::Base
   ##################################
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :first_name, :last_name
+  # TODO: figure out omni auth use
+  # attr_accessible :email, :password, :password_confirmation, :first_name, :last_name
 
   def name
     "#{self.first_name.downcase.titlecase} #{self.last_name.downcase.titlecase}"

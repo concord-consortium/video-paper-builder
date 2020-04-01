@@ -82,18 +82,23 @@ class VideoPapersController < ApplicationController
   end
 
   def create
-    @video_paper = VideoPaper.new(params[:video_paper])
-    if current_user
-      @video_paper.user = current_user
-    end
+    # support create without params
+    if params.has_key?(:video_paper)
+      @video_paper = VideoPaper.new(video_paper_params(params[:video_paper]))
+      if current_user
+        @video_paper.user = current_user
+      end
 
-    if @video_paper.save
-      case params[:commit]
-        when "Enter in notes"
-          redirect_to(@video_paper, :notice => "VideoPaper '#{@video_paper.title}' was successfully created.")
-        when "Upload a video"
-          redirect_to(new_video_paper_video_path(@video_paper),:notice=>"VideoPaper '#{@video_paper.title}' was succesfully created.")
-        end
+      if @video_paper.save
+        case params[:commit]
+          when "Enter in notes"
+            redirect_to(@video_paper, :notice => "VideoPaper '#{@video_paper.title}' was successfully created.")
+          when "Upload a video"
+            redirect_to(new_video_paper_video_path(@video_paper),:notice=>"VideoPaper '#{@video_paper.title}' was succesfully created.")
+          end
+      else
+        render :action => "new"
+      end
     else
       render :action => "new"
     end
@@ -101,7 +106,7 @@ class VideoPapersController < ApplicationController
 
   def update
     @video_paper = VideoPaper.find(params[:id])
-    if @video_paper.update_attributes(params[:video_paper])
+    if @video_paper.update(video_paper_params(params[:video_paper]))
       case params[:commit]
         when "Enter in notes"
           redirect_to(@video_paper, :notice => 'VideoPaper was successfully updated.')
@@ -168,7 +173,7 @@ class VideoPapersController < ApplicationController
   def shared
     @video_paper = VideoPaper.find(params[:id])
     @shared_users = @video_paper.shared_papers
-    @share = SharedPaper.new(params[:shared_paper])
+    @share = SharedPaper.new(shared_paper_params(params[:shared_paper]))
 
     shared_paper = params[:shared_paper]
     #massage the attributes into an acceptable format for the share method
@@ -176,7 +181,7 @@ class VideoPapersController < ApplicationController
     unless user.nil?
       shared_paper[:user_id] = user.id
     end
-    @share = @video_paper.share(shared_paper)
+    @share = @video_paper.share(shared_paper_params(shared_paper))
     if @share
       #redirect_to share_video_paper_path(@video_paper),:notice=>"Great Success!"
     else
@@ -212,8 +217,7 @@ class VideoPapersController < ApplicationController
     @section = @video_paper.sections.find_by_id(params[:section].delete(:id))
     @video = @video_paper.video
 
-    if @section.update_attributes(params[:section])
-      #redirect_to({:controller=>"video_papers",:action=>"edit_section",:section=>@section.title}, :notice=>"Success!")
+    if @section.update(section_params(params[:section]))
       redirect_to(video_paper_path(@video_paper) + "#" + dom_friend(:id=>@section.title),:notice=>'Timing successfully updated.')
     else
       redirect_to(video_paper_path(@video_paper) + "#" + dom_friend(:id=>@section.title),:notice=>'Invalid time!')
@@ -269,5 +273,22 @@ class VideoPapersController < ApplicationController
   end
   def owner?
     current_user == VideoPaper.find(params[:id]).user
+  end
+
+  private
+
+  def video_paper_params(_params)
+    params = _params
+    params.permit(:title)
+  end
+
+  def section_params(_params)
+    params = _params
+    params.permit(:video_start_time, :video_stop_time)
+  end
+
+  def shared_paper_params(_params)
+    params = _params
+    params.permit(:user_id, :notes)
   end
 end

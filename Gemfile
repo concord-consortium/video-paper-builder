@@ -2,12 +2,7 @@ source "http://rubygems.org"
 ruby "2.4.5"
 
 # TODO: remove these gems after ruby upgrades
-# gem "rubyzip", "1.2.3"           # pin to ensure cucumber-rails doesnt resolve to using ruby 2.4
-# gem "sassc", "1.12.1"             # pin to resolve build error on travis precise (cc1plus: error: unrecognized command line option ‘-std=c++11’)
 gem "sprockets",                  "~> 3"  # pin to ensure s3_direct_upload doesnt resolve to using ruby 2.5
-
-# TODO: remove this on rails 5 upgrade, adds attr_accessible & attr_protected removed in rails 4
-gem "protected_attributes"
 
 gem "rails",                      "~> 4.2.0"     # MAJOR UPGRADE NEEDED: latest is 6.0.2.2
 gem "jquery-rails"

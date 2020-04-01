@@ -26,8 +26,10 @@ VPB::Application.configure do
   # Only use best-standards-support built into browsers
   # config.action_dispatch.best_standards_support = :builtin
 
+  # TODO: remove comment after upgrade
+  # Not supported in rails 4
   # Raise exception on mass assignment protection for Active Record models
-  config.active_record.mass_assignment_sanitizer = :strict
+  # config.active_record.mass_assignment_sanitizer = :strict
 
   # TODO: remove comment after upgrade
   # Not supported in rails 4

@@ -13,10 +13,17 @@ class AdminsController < ApplicationController
       @user = User.find(params[:user_id])
     else
       @user = User.find(params[:user][:id])
-      @user.assign_attributes(params[:user])
+      @user.assign_attributes(user_params(params[:user]))
       @user.accept_invitation!
       redirect_to admin_console_url if @user.errors.empty?
     end
+  end
+
+  private
+
+  def user_params(_params)
+    params = _params
+    params.permit(:email, :password, :password_confirmation, :first_name, :last_name,:invitation_token, :provider, :uid, :remember_me)
   end
 
 end

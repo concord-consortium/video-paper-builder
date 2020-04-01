@@ -1,5 +1,6 @@
 class SchoologyRealm < ActiveRecord::Base
-  attr_accessible :schoology_id, :realm_type
+  # TODO: figure out omni auth use
+  # attr_accessible :schoology_id, :realm_type
 
   class <<self
     def allowed?(realm_type, schoology_id)

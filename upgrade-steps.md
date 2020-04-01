@@ -40,6 +40,7 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
     12. Update to ruby 2.4.5
 11. Upgrade to Rails 5.2.4.1 / ruby >= 2.2.2
     1. Update all dependencies (I first tried to update directly to rails 5 but bundler could not resolve).  This update actually went a lot smoother than I thought as many of the gems bumped major versions.  As of now with this step complete there are only 4 gems (rails included) that are not on latest.
+    2. Remove protected_attributes gem and replace attr_accessible in models with strong parameters in controller
 
 ## Steps Todo
 
