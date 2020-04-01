@@ -1,4 +1,4 @@
-class AddThumbnailColumnsToVideo < ActiveRecord::Migration
+class AddThumbnailColumnsToVideo < ActiveRecord::Migration[5.1]
   def self.up
     add_column :videos, :thumbnail_file_name, :string
     add_column :videos, :thumbnail_content_type, :string

@@ -1,4 +1,4 @@
-class UpdateAdminInvitable < ActiveRecord::Migration
+class UpdateAdminInvitable < ActiveRecord::Migration[5.1]
   # this is pased on this readme:
   # https://github.com/scambra/devise_invitable
 

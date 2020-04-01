@@ -1,4 +1,4 @@
-class AddPrivateToVideos < ActiveRecord::Migration
+class AddPrivateToVideos < ActiveRecord::Migration[5.1]
   def self.up
     add_column :videos, :private, :boolean
   end

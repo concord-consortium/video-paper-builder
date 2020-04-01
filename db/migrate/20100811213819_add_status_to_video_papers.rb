@@ -1,4 +1,4 @@
-class AddStatusToVideoPapers < ActiveRecord::Migration
+class AddStatusToVideoPapers < ActiveRecord::Migration[5.1]
   def self.up
     add_column :video_papers, :status, :string, :default=>"unpublished"
   end

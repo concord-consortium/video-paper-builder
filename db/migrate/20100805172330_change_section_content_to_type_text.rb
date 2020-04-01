@@ -1,4 +1,4 @@
-class ChangeSectionContentToTypeText < ActiveRecord::Migration
+class ChangeSectionContentToTypeText < ActiveRecord::Migration[5.1]
   def self.up
     change_column :sections, :content, :text
   end

@@ -1,4 +1,4 @@
-class CreateVideos < ActiveRecord::Migration
+class CreateVideos < ActiveRecord::Migration[5.1]
   def self.up
     create_table :videos do |t|
       t.string :entry_id

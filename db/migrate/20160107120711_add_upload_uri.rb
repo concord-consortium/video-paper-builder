@@ -1,4 +1,4 @@
-class AddUploadUri < ActiveRecord::Migration
+class AddUploadUri < ActiveRecord::Migration[5.1]
   def up
     add_column :videos, :upload_uri, :string
   end

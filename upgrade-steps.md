@@ -43,6 +43,7 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
     2. Remove protected_attributes gem and replace attr_accessible in models with strong parameters in controller
     3. Upgrade to rails 5.0.7.2
         1. Installed rubocop and used `bundle exec rubocop --only Rails/HttpPositionalArguments -a` to fix almost all deprecation warnings about positional argurments -- needed to change use of xhr first for the update to fix everything (which is deprecated).  Once the update was done I uninstalled rubocop.  More info here: https://stackoverflow.com/a/58095264
+    4. Upgrade to rails 5.1.7
 
 ## Steps Todo
 
@@ -136,7 +137,7 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |Y|webdrivers               |test       |4.2.0   |>= 0       |--       |--       |4.2.0    |
 |Y|will_paginate            |all        |3.3.0   |>= 2.0     |3.0.4    |3.0.4    |3.3.0    |
 |N|factory_(girl/bot)_rails |test       |5.1.2   |>= 0       |4.2.0    |4.2.0    |5.1.1    |
-|N|rails                    |all        |6.0.2.2 |>= 2.5.0   |3.2.11   |3.2.22.5 |5.0.7.2  |
+|N|rails                    |all        |6.0.2.2 |>= 2.5.0   |3.2.11   |3.2.22.5 |5.1.7    |
 |N|simplecov                |test       |0.18.5  |>= 2.4.0   |*added*  |0.9.2    |0.17.1   |
 |N|web-console              |dev        |4.0.1   |>= 2.5     |--       |--       |3.3.0    |
 

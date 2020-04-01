@@ -1,4 +1,4 @@
-class AddLanguageIdToVideos < ActiveRecord::Migration
+class AddLanguageIdToVideos < ActiveRecord::Migration[5.1]
   def self.up
     add_column :videos, :language_id, :integer
   end

@@ -1,4 +1,4 @@
-class ChangeAwsNotificationToText < ActiveRecord::Migration
+class ChangeAwsNotificationToText < ActiveRecord::Migration[5.1]
   def up
     change_column :videos, :aws_transcoder_last_notification, :text
   end

@@ -1,4 +1,4 @@
-class CreateSchoologyRealms < ActiveRecord::Migration
+class CreateSchoologyRealms < ActiveRecord::Migration[5.1]
   def change
     create_table :schoology_realms do |t|
       t.string :realm_type
