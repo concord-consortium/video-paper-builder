@@ -288,7 +288,7 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
-    sprockets (3.7.2)
+    sprockets (4.0.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.2.1)
@@ -361,7 +361,6 @@ DEPENDENCIES
   selenium-webdriver
   settingslogic
   simplecov (~> 0.10, < 0.18)
-  sprockets (~> 3)
   test-unit
   therubyracer
   tinymce-rails
@@ -371,7 +370,7 @@ DEPENDENCIES
   xpath
 
 RUBY VERSION
-   ruby 2.4.5p335
+   ruby 2.5.1p57
 
 BUNDLED WITH
    1.17.3
