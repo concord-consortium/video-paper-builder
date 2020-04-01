@@ -38,11 +38,12 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
     10. Update rails from 4.0 to 4.1
     11. Update rails from 4.1 to 4.2
     12. Update to ruby 2.4.5
+11. Upgrade to Rails 5.2.4.1 / ruby >= 2.2.2
+    1. Update all dependencies (I first tried to update directly to rails 5 but bundler could not resolve).  This update actually went a lot smoother than I thought as many of the gems bumped major versions.  As of now with this step complete there are only 4 gems (rails included) that are not on latest.
 
 ## Steps Todo
 
 
-11. Upgrade to Rails 5.2.4.1 / ruby >= 2.2.2
 12. Upgrade to Rails 6.0.2.1 / ruby >= 2.5.0
 13. Setup Docker environment for production?
 
@@ -97,17 +98,28 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |X|uglifier                 |assets     |4.2.0   |>= 1.9.3   |1.3.0    |1.3.0    |*removed*|
 |X|warden                   |all        |1.2.8   |>= 0       |1.2.1    |1.2.1    |*removed*|
 |X|tinymce-rails-imageupload|all        |3.5.8.6 |NONE       |3.5.6.4  |3.5.6.4  |*removed*|
-|Y|devise-encryptable       |all        |0.2.0   |>= 0       |0.1.1    |0.1.1    |0.2.0    |
-|Y|google-analytics-rails   |all        |1.1.1   |>= 1.9.3   |1.0.0    |1.0.0    |1.1.1    |
+|X|aws-sdk                  |all        |3.0.1   |>= 0       |1.66.0   |1.66.0   |*removed*|
+|Y|aws-sdk-s3               |all        |1.61.1  |>= 0       |--       |--       |1.61.1   |
+|Y|aws-sdk-elastictranscoder|all        |1.19.0  |>= 0       |--       |--       |1.19.0   |
+|Y|capybara                 |test       |3.32.0  |>= 2.4.0   |1.1.4    |1.1.4    |3.32.0   |
+|Y|comma                    |all        |4.3.2   |>= 0       |3.0.4    |3.0.4    |4.3.2    |
+|Y|cucumber                 |test       |3.1.2   |>= 2.2     |1.1.9    |1.1.9    |3.1.2    |
+|Y|cucumber-rails           |test       |2.0.0   |>= 2.3.0   |1.3.0    |1.3.0    |2.0.0    |
 |Y|database_cleaner         |test       |1.8.3   |>= 1.9.3   |0.7.2    |0.7.2    |1.8.3    |
+|Y|devise                   |all        |4.7.1   |>= 2.1.0   |2.2.3    |2.2.3    |4.7.1    |
+|Y|devise-encryptable       |all        |0.2.0   |>= 0       |0.1.1    |0.1.1    |0.2.0    |
 |Y|dynamic_form             |all        |1.1.4   |NONE       |1.1.4    |1.1.4    |1.1.4    |
+|Y|google-analytics-rails   |all        |1.1.1   |>= 1.9.3   |1.0.0    |1.0.0    |1.1.1    |
 |Y|httparty                 |all        |0.18.0  |>= 2.0.0   |0.10.2   |0.10.2   |0.18.0   |
+|Y|jquery-rails             |all        |4.3.5   |>= 1.9.3   |2.2.0    |2.2.0    |4.3.5    |
+|Y|jquery-ui-rails          |all        |6.0.1   |>= 0       |4.0.0    |4.0.0    |6.0.1    |
 |Y|launchy                  |test       |2.5.0   |>= 2.4.0   |2.1.2    |2.1.2    |2.5.0    |
 |Y|mysql2                   |all        |0.5.3   |>= 2.0.0   |0.3.15   |0.3.15   |0.5.3    |
 |Y|nokogiri                 |all        |1.10.9  |>= 2.3.0   |1.5.6    |1.5.6    |1.10.9   |
+|Y|paperclip                |all        |6.1.0   |>= 2.1.0   |3.4.0    |3.4.0    |6.1.0    |
 |Y|protected_attributes     |all        |1.1.4   |>= 0       |--       |--       |1.1.4    |
 |Y|rspec                    |test       |3.9.0   |>= 0       |2.11.0   |2.11.0   |3.9.0    |
-|Y|rspec-rails              |dev & test |3.9.1   |>= 0       |2.11.4   |2.11.4   |3.9.1    |
+|Y|rspec-rails              |dev & test |4.0.0   |>= 0       |2.11.4   |2.11.4   |4.0.0    |
 |Y|s3_direct_upload         |all        |0.1.7   |NONE       |0.1.7    |0.1.7    |0.1.7    |
 |Y|selenium-webdriver       |test       |3.142.7 |>= 2.3     |2.31.0   |2.31.0   |3.142.7  |
 |Y|settingslogic            |all        |2.0.9   |NONE       |2.0.9    |2.0.9    |2.0.9    |
@@ -120,20 +132,10 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |Y|xpath                    |all        |3.2.0   |>= 2.3     |0.1.4    |0.1.4    |3.2.0    |
 |Y|webdrivers               |test       |4.2.0   |>= 0       |--       |--       |4.2.0    |
 |Y|will_paginate            |all        |3.3.0   |>= 2.0     |3.0.4    |3.0.4    |3.3.0    |
-|N|aws-sdk                  |all        |3.0.1   |>= 0       |1.66.0   |1.66.0   |1.67.0   |
-|N|comma                    |all        |4.3.2   |>= 0       |3.0.4    |3.0.4    |3.2.4    |
-|N|devise                   |all        |4.7.1   |>= 2.1.0   |2.2.3    |2.2.3    |3.5.10   |
-|N|devise_invitable         |all        |2.0.1   |>= 2.2.2   |1.1.5    |1.1.5    |1.6.1    |
-|N|jquery-rails             |all        |4.3.5   |>= 1.9.3   |2.2.0    |2.2.0    |2.3.0    |
-|N|jquery-ui-rails          |all        |6.0.1   |>= 0       |4.0.0    |4.0.0    |4.2.1    |
-|N|paperclip                |all        |6.1.0   |>= 2.1.0   |3.4.0    |3.4.0    |3.5.4    |
-|N|capybara                 |test       |3.31.0  |>= 2.4.0   |1.1.4    |1.1.4    |2.18.0   |
-|N|cucumber                 |test       |3.1.2   |>= 2.2     |1.1.9    |1.1.9    |1.3.20   |
-|N|cucumber-rails           |test       |2.0.0   |>= 2.3.0   |1.3.0    |1.3.0    |1.5.0    |
+|N|devise_invitable         |all        |2.0.1   |>= 2.2.2   |1.1.5    |1.1.5    |1.7.5    |
 |N|factory_(girl/bot)_rails |test       |5.1.2   |>= 0       |4.2.0    |4.2.0    |5.1.1    |
 |N|rails                    |all        |6.0.2.2 |>= 2.5.0   |3.2.11   |3.2.22.5 |4.2.11.1 |
 |N|web-console              |dev        |4.0.1   |>= 2.5     |--       |--       |3.3.0    |
-
 
 ## Note about ruby versions supported
 

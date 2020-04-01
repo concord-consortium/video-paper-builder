@@ -10,12 +10,13 @@ gem "sprockets",                  "~> 3"  # pin to ensure s3_direct_upload doesn
 gem "protected_attributes"
 
 gem "rails",                      "~> 4.2.0"     # MAJOR UPGRADE NEEDED: latest is 6.0.2.2
-gem "jquery-rails",               "~> 2.1"       # MAJOR UPGRADE NEEDED: latest is 4.3.5
-gem "jquery-ui-rails",            "~> 4.0"       # MAJOR UPGRADE NEEDED: latest is 6.0.1
+gem "jquery-rails"
+gem "jquery-ui-rails"
 
-gem "aws-sdk",                    "~> 1.66"      # MAJOR UPGRADE NEEDED: latest is 3.0.1
-gem "comma",                      "~> 3.0"       # MAJOR UPGRADE NEEDED: latest is 4.3.2
-gem "devise",                     "~> 3"         # MAJOR UPGRADE NEEDED: latest is 4.7.1
+gem "aws-sdk-s3"
+gem "aws-sdk-elastictranscoder"
+gem "comma"
+gem "devise"
 gem "devise-encryptable"
 gem "devise_invitable"
 gem "dynamic_form"
@@ -23,10 +24,10 @@ gem "google-analytics-rails"
 gem "httparty"
 gem "mysql2"
 gem "nokogiri"
-gem "paperclip",                  "~> 3"         # MAJOR UPGRADE NEEDED: latest is 6.1.0
+gem "paperclip"
 gem "s3_direct_upload"
 gem "settingslogic"
-gem "tinymce-rails",              "~> 5"
+gem "tinymce-rails"
 # TODO: enable/replace after all rails upgrades (it calls deprecated rake task at startup)
 # gem "tinymce-rails-imageupload"
 gem "omniauth"
@@ -35,13 +36,13 @@ gem "xpath"
 gem "will_paginate"
 
 group :test do
-  gem "capybara",                 "~> 2.0"       # MAJOR UPGRADE NEEDED: latest is 3.31.0
-  gem "cucumber",                 "~> 1.0"       # MAJOR UPGRADE NEEDED: latest is 3.1.2, original was ~> 1.1.9
+  gem "capybara"
+  gem "cucumber"
   gem "cucumber-rails", require: false
   gem "database_cleaner"
   gem "factory_bot_rails"
   gem "launchy"
-  gem "rspec",                    "~> 3.0"
+  gem "rspec"
   gem "selenium-webdriver"
   gem "simplecov", require: false
   gem "test-unit"                                # added to enable rspec on ruby 2.2/2.3
@@ -54,5 +55,5 @@ group :development do
 end
 
 group :development, :test do
-  gem "rspec-rails",              "~> 3.0"
+  gem "rspec-rails"
 end

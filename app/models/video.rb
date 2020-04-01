@@ -33,6 +33,7 @@ class Video < ActiveRecord::Base
     validates_uniqueness_of :video_paper_id
     #validates_length_of :description, :maximum=>500
     validates_format_of :thumbnail_time, :with=>SIMPLE_SECONDS_PATTERN,:allow_nil=>true,:allow_blank=>true
+    validates_attachment :thumbnail, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 
     ##################################
     # instance methods
@@ -137,9 +138,9 @@ class Video < ActiveRecord::Base
     def cancel_transcoding_job(transcoder = nil)
       if !aws_transcoder_job.nil?
         begin
-          transcoder = transcoder || AWS::ElasticTranscoder::Client.new
+          transcoder = transcoder || Aws::ElasticTranscoder::Client.new
           transcoder.cancel_job id: aws_transcoder_job
-        rescue AWS::ElasticTranscoder::Errors::ResourceInUseException
+        rescue Aws::ElasticTranscoder::Errors::ResourceInUseException
           # this is raised if the job is current transcoding
         end
         self.aws_transcoder_job = nil
@@ -154,10 +155,10 @@ class Video < ActiveRecord::Base
     # Protected Methods
 
     def signed_url(url)
-      s3 = AWS::S3.new
-      bucket = s3.buckets[VPB::Application.config.aws["s3"]["bucket"]]
-      obj = bucket ? bucket.objects[url] : nil
-      obj ? obj.url_for(:read, :expires => VPB::Application.config.aws["s3"]["expires"].to_f).to_s : nil #, :response_content_type => 'video/mp4') # also think about setting endpoint to hostname
+      s3 = Aws::S3::Resource.new
+      bucket = s3.bucket(VPB::Application.config.aws["s3"]["bucket"])
+      obj = bucket ? bucket.object(url) : nil
+      obj ? obj.presigned_url(:get, expires_in: VPB::Application.config.aws["s3"]["expires"].to_i) : nil
     end
 
     def parse_upload_uri

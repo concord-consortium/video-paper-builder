@@ -142,7 +142,7 @@ describe Video do
   describe "aws transcoding" do
     before(:each) do
       @video = FactoryBot.build(:video)
-      @transcoder = AWS::ElasticTranscoder::Client.new
+      @transcoder = Aws::ElasticTranscoder::Client.new
       allow(@transcoder).to receive(:create_job).and_return({:job => {:id => "1"}})
       allow(@transcoder).to receive(:cancel_job).and_return(nil)
     end
