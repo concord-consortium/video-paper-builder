@@ -10,7 +10,7 @@ describe UsersController do
   end
 
   it "should support destroy" do
-    delete :destroy, {:id => @user2.id}
+    delete :destroy, params: { :id => @user2.id }
     expect(response.status).to eq 302
     expect(response).to redirect_to admins_path()
   end
@@ -30,19 +30,19 @@ describe UsersController do
   end
 
   it "should support edit" do
-    get :edit, {:id => @user2.id}
+    get :edit, params: { :id => @user2.id }
     expect(response.status).to eq 200
     expect(response).to render_template(:edit)
   end
 
   it "should support update with valid params" do
-    post :update, {:id => @user2.id, :user => {:first_name => "foo"}}
+    post :update, params: { :id => @user2.id, :user => {:first_name => "foo"} }
     expect(response.status).to eq 302
     expect(response).to redirect_to admin_console_path()
   end
 
   it "should support update with invalid params" do
-    post :update, {:id => @user2.id, :user => {:first_name => ""}}
+    post :update, params: { :id => @user2.id, :user => {:first_name => ""} }
     expect(response.status).to eq 200
     expect(response).to render_template(:edit)
   end

@@ -9,7 +9,7 @@ class VideoPaper < ActiveRecord::Base
   has_many :sections, :dependent => :destroy
   has_one :video, :dependent => :destroy
   has_many :shared_papers, :dependent => :destroy
-  has_many :users, -> { uniq }, :through=>:shared_papers
+  has_many :users, -> { distinct }, :through=>:shared_papers
 
   ###################################
   # Validations

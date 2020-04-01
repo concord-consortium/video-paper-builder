@@ -22,7 +22,7 @@ describe VideoPapersController do
     end
 
     it "should support index by user" do
-      get :index, {:user => @user.id}
+      get :index, params: { :user => @user.id }
       expect(assigns(:video_papers)).not_to be_nil
       expect(response).to render_template(:index)
     end
@@ -40,13 +40,13 @@ describe VideoPapersController do
     end
 
     it "should support show" do
-      get :show, {:id => @paper.id}
+      get :show, params: { :id => @paper.id }
       expect(response.status).to eq 200
       expect(response).to render_template(:show)
     end
 
     it "should support edit_section" do
-      get :edit_section, {:id => @paper.id}
+      get :edit_section, params: { :id => @paper.id }
       expect(response.status).to eq(200)
       expect(response).to render_template(:edit_section)
     end
@@ -58,7 +58,7 @@ describe VideoPapersController do
     end
 
     it "should not support index by user" do
-      get :index, {:user => @user.id}
+      get :index, params: { :user => @user.id }
       expect(response.status).to eq 302
       expect(response).to redirect_to new_admin_session_path()
     end
@@ -76,7 +76,7 @@ describe VideoPapersController do
     end
 
     it "should support create with params" do
-      get :create, {:video_paper => {:title => "Video1"}, :commit => "Upload a video"}
+      get :create, params: { :video_paper => {:title => "Video1"}, :commit => "Upload a video" }
       expect(response.status).to eq 302
       expect(response).to redirect_to new_video_paper_video_path(assigns(:video_paper))
     end
@@ -84,7 +84,7 @@ describe VideoPapersController do
     describe "should support show" do
 
       it "if user is owner" do
-        get :show, {:id => @paper.id}
+        get :show, params: { :id => @paper.id }
         expect(response.status).to eq 200
         expect(response).to render_template(:show)
       end
@@ -92,7 +92,7 @@ describe VideoPapersController do
       it "user is not owner or admin" do
         user2 = FactoryBot.create(:user)
         sign_in user2
-        get :show, {:id => @paper.id}
+        get :show, params: { :id => @paper.id }
         expect(response.status).to eq 302
         expect(response).to redirect_to new_user_session_path()
       end
@@ -100,7 +100,7 @@ describe VideoPapersController do
       it "but redirect if not published" do
         user2 = FactoryBot.create(:user)
         paper2 = FactoryBot.create(:video_paper, :title => "Video1", :status => "unpublished", :user => user2);
-        get :show, {:id => paper2.id}
+        get :show, params: { :id => paper2.id }
         expect(response.status).to eq 302
         expect(response).to redirect_to new_user_session_path()
       end
@@ -108,14 +108,14 @@ describe VideoPapersController do
       it "but redirect to signin if not owner" do
         user2 = FactoryBot.create(:user)
         paper2 = FactoryBot.create(:video_paper, :title => "Video1", :status => "published", :user => user2);
-        get :show, {:id => paper2.id}
+        get :show, params: { :id => paper2.id }
         expect(response.status).to eq 302
         expect(response).to redirect_to new_user_session_path()
       end
 
       it "when not logged in it should fail" do
         sign_out @user
-        get :show, {:id => @paper.id}
+        get :show, params: { :id => @paper.id }
         expect(response.status).to eq 302
         expect(response).to redirect_to new_user_session_path()
       end
@@ -124,33 +124,33 @@ describe VideoPapersController do
     describe "should support update" do
 
       it "but redirect to edit on empty title" do
-        post :update, {:id => @paper.id, :video_paper => {:title => ""}}
+        post :update, params: { :id => @paper.id, :video_paper => {:title => ""} }
         expect(response.status).to eq 200
         expect(response).to render_template(:edit)
       end
 
       describe "with commit of" do
         it "Enter in notes" do
-          post :update, {:id => @paper.id, :video_paper => {:title => "Video2"}, :commit => "Enter in notes"}
+          post :update, params: { :id => @paper.id, :video_paper => {:title => "Video2"}, :commit => "Enter in notes" }
           expect(response.status).to eq 302
           expect(response).to redirect_to video_paper_path(@paper)
         end
 
         it "Upload a video" do
-          post :update, {:id => @paper.id, :video_paper => {:title => "Video2"}, :commit => "Upload a video"}
+          post :update, params: { :id => @paper.id, :video_paper => {:title => "Video2"}, :commit => "Upload a video" }
           expect(response.status).to eq 302
           expect(response).to redirect_to new_video_paper_video_path(@paper)
         end
 
         it "Change video" do
           video = FactoryBot.create(:video, :video_paper => @paper)
-          post :update, {:id => @paper.id, :video_paper => {:title => "Video2"}, :commit => "Change video"}
+          post :update, params: { :id => @paper.id, :video_paper => {:title => "Video2"}, :commit => "Change video" }
           expect(response.status).to eq 302
           expect(response).to redirect_to edit_video_paper_video_path(@paper, video)
         end
 
         it "invalid value" do
-          post :update, {:id => @paper.id, :video_paper => {:title => "Video2"}, :commit => "invalid value"}
+          post :update, params: { :id => @paper.id, :video_paper => {:title => "Video2"}, :commit => "invalid value" }
           expect(response.status).to eq 200
           expect(response).to render_template(:edit)
         end
@@ -164,13 +164,13 @@ describe VideoPapersController do
       end
 
       it "without commit params" do
-        get :update_section, {:id => @paper.id, :section => {:title => "Section1", :content => "foo"}}
+        get :update_section, params: { :id => @paper.id, :section => {:title => "Section1", :content => "foo"} }
         expect(response.status).to eq 302
         expect(response).to redirect_to "#{video_paper_path(@paper)}#section1"
       end
 
       it "with commit params" do
-        get :update_section, {:id => @paper.id, :section => {:title => "Section1", :content => "foo"}, :commit => "Edit Timing"}
+        get :update_section, params: { :id => @paper.id, :section => {:title => "Section1", :content => "foo"}, :commit => "Edit Timing" }
         expect(response.status).to eq 302
         expect(response).to redirect_to edit_section_duration_video_paper_path(@paper, {:section => @section.title})
       end
@@ -182,7 +182,7 @@ describe VideoPapersController do
       end
 
       it "should not fail in js" do
-        xhr :get, :unshare, {:id => @paper.id, :user_id => @user2.id}
+        get :unshare, params: { :id => @paper.id, :user_id => @user2.id }, session: { xhr: true }
         expect(response.status).to eq 302
         expect(response).to redirect_to share_video_paper_path(@paper)
       end
@@ -195,20 +195,20 @@ describe VideoPapersController do
       end
 
       it "should not fail in js" do
-        xhr :get, :unshare, {:id => @paper.id, :user_id => @user2.id}
+        get :unshare, params: { :id => @paper.id, :user_id => @user2.id }, session: { xhr: true }
         expect(response.status).to eq 200
         expect(response).to render_template "update_shared_user_block"
       end
     end
 
     it "should support destroy" do
-      delete :destroy, {:id => @paper.id}
+      delete :destroy, params: { :id => @paper.id }
       expect(response.status).to eq 302
       expect(response).to redirect_to my_video_papers_path()
     end
 
     it "should support share" do
-      get :share, {:id => @paper.id}
+      get :share, params: { :id => @paper.id }
       expect(response.status).to eq 200
     end
 
@@ -216,32 +216,32 @@ describe VideoPapersController do
       user2 = FactoryBot.create(:user)
       user3 = FactoryBot.create(:user)
       shared_paper = FactoryBot.create(:shared_paper, :user => user2, :video_paper => @paper);
-      xhr :get, :shared, {:id => @paper.id, :shared_paper => {:user_id => user3.id}}
+      get :shared, params: { :id => @paper.id, :shared_paper => {:user_id => user3.id} }, session: { xhr: true }
       expect(response.status).to eq 200
       expect(response).to render_template "update_shared_user_block"
     end
 
     it "should support edit_section_duration with a valid section" do
       section = FactoryBot.create(:section, :title => "Section1", :video_paper => @paper)
-      get :edit_section_duration, {:id => @paper.id, :section => section.title}
+      get :edit_section_duration, params: { :id => @paper.id, :section => section.title }
       expect(response.status).to eq 200
     end
 
     it "should support edit_section_duration without a valid section" do
-      get :edit_section_duration, {:id => @paper.id, :section => "invalid"}
+      get :edit_section_duration, params: { :id => @paper.id, :section => "invalid" }
       expect(response.status).to eq 200
     end
 
     it "should support update_section_duration with a valid section and valid attributes" do
       section = FactoryBot.create(:section, :title => "Section1", :video_paper => @paper)
-      get :update_section_duration, {:id => @paper.id, :section => {:id => section.id, :video_start_time => 1, :video_stop_time => 10}}
+      get :update_section_duration, params: { :id => @paper.id, :section => {:id => section.id, :video_start_time => 1, :video_stop_time => 10} }
       expect(response.status).to eq 302
       expect(response).to redirect_to "#{video_paper_path(@paper)}#section1"
     end
 
     it "should support update_section_duration with a valid section and invalid attributes" do
       section = FactoryBot.create(:section, :title => "Section1", :video_paper => @paper)
-      get :update_section_duration, {:id => @paper.id, :section => {:id => section.id, :video_start_time => "foo", :video_stop_time => "bar"}}
+      get :update_section_duration, params: { :id => @paper.id, :section => {:id => section.id, :video_start_time => "foo", :video_stop_time => "bar"} }
       expect(response.status).to eq 302
       expect(response).to redirect_to "#{video_paper_path(@paper)}#section1"
     end

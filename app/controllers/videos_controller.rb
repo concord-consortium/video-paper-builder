@@ -2,12 +2,12 @@ require 'yaml'
 
 class VideosController < ApplicationController
 
-  before_filter :authenticate_any_user!
-  before_filter :get_video_paper_and_owner_from_request
-  before_filter :authenticate_owner!
-  before_filter :authenticate_admin!, :only=>[:show, :start_transcoding_job]
-  before_filter :video_exists?, :only=>[:new,:create]
-  before_filter :no_video?,:only=>[:index]
+  before_action :authenticate_any_user!
+  before_action :get_video_paper_and_owner_from_request
+  before_action :authenticate_owner!
+  before_action :authenticate_admin!, :only=>[:show, :start_transcoding_job]
+  before_action :video_exists?, :only=>[:new,:create]
+  before_action :no_video?,:only=>[:index]
 
   def index
     redirect_to video_paper_path(@video_paper)

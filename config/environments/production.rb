@@ -9,7 +9,7 @@ VPB::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_files = false
+  config.public_file_server.enabled = false
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -80,7 +80,9 @@ VPB::Application.configure do
   # This includes your application, engines, Rails frameworks, and any other registered namespace.
   config.eager_load = true
 
+  # TODO: remove comment after upgrade
+  # Not supported in rails 5
   # opt-in to errors raised within `after_rollback`/`after_commit` callbacks as
   # this changes in Rails 4 -> 5
-  config.active_record.raise_in_transactional_callbacks = true
+  # config.active_record.raise_in_transactional_callbacks = true
 end

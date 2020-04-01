@@ -1,11 +1,11 @@
 require 'will_paginate/array'
 
 class VideoPapersController < ApplicationController
-  before_filter :authenticate_any_user!, :except=>[:new,:create,:show,:transcoding_status]
-  before_filter :authenticate_user!, :only=>[:new,:create]
-  before_filter :authenticate_owner!, :only=>[:edit,:edit_section,:update,:update_section,:share,:edit_section_duration,:update_setion_duration,:publish,:unpublish,:destroy]
-  before_filter :authenticate_shared!, :only=>[:show]
-  before_filter :authenticate_admin!, :only=>[:index, :report]
+  before_action :authenticate_any_user!, :except=>[:new,:create,:show,:transcoding_status]
+  before_action :authenticate_user!, :only=>[:new,:create]
+  before_action :authenticate_owner!, :only=>[:edit,:edit_section,:update,:update_section,:share,:edit_section_duration,:update_setion_duration,:publish,:unpublish,:destroy]
+  before_action :authenticate_shared!, :only=>[:show]
+  before_action :authenticate_admin!, :only=>[:index, :report]
   helper_method :owner_or_admin?
   helper_method :owner?
 

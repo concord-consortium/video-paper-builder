@@ -15,13 +15,13 @@ describe SnsController do
           # TODO: after rails update try to get json post of raw body working.
           # Currently there is code in SnsController to fallback to formdata
           # that was added to support these tests
-          post :transcoder_update, body, {format: :json}
+          post :transcoder_update, params: body, session: { format: :json }
         }.to raise_error(MessageWasNotAuthentic)
       end
 
       it "should succeed if the SubscribeURL is from amazon" do
         body = {:Type => "SubscriptionConfirmation", :SubscribeURL => "https://amazonaws.com/"}
-        post :transcoder_update, body, {format: :json}
+        post :transcoder_update, params: body, session: { format: :json }
         expect(response.status).to eq 200
       end
     end
@@ -56,7 +56,7 @@ describe SnsController do
   describe "with UnsubscribeConfirmation" do
     it "should do nothing" do
       body = {:Type => "UnsubscribeConfirmation"}
-      post :transcoder_update, body, {format: :json}
+      post :transcoder_update, params: body, session: { format: :json }
       expect(response.status).to eq 200
     end
   end
