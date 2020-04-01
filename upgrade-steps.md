@@ -127,7 +127,6 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |Y|s3_direct_upload         |all        |0.1.7   |NONE       |0.1.7    |0.1.7    |0.1.7    |
 |Y|selenium-webdriver       |test       |3.142.7 |>= 2.3     |2.31.0   |2.31.0   |3.142.7  |
 |Y|settingslogic            |all        |2.0.9   |NONE       |2.0.9    |2.0.9    |2.0.9    |
-|Y|simplecov                |test       |0.18.5  |>= 2.4.0   |*added*  |0.9.2    |0.18.5   |
 |Y|test-unit                |test       |3.3.5   |>= 0       |--       |--       |3.3.5    |
 |Y|therubyracer             |test       |0.12.3  |>= 0       |0.12.1   |0.12.1   |0.12.3   |
 |Y|tinymce-rails            |all        |5.2.1   |>= 0       |3.5.8    |3.5.8    |5.2.1    |
@@ -138,6 +137,7 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |Y|will_paginate            |all        |3.3.0   |>= 2.0     |3.0.4    |3.0.4    |3.3.0    |
 |N|factory_(girl/bot)_rails |test       |5.1.2   |>= 0       |4.2.0    |4.2.0    |5.1.1    |
 |N|rails                    |all        |6.0.2.2 |>= 2.5.0   |3.2.11   |3.2.22.5 |5.0.7.2  |
+|N|simplecov                |test       |0.18.5  |>= 2.4.0   |*added*  |0.9.2    |0.17.1   |
 |N|web-console              |dev        |4.0.1   |>= 2.5     |--       |--       |3.3.0    |
 
 ## Note about ruby versions supported
