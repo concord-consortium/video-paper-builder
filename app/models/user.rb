@@ -16,8 +16,8 @@ class User < ActiveRecord::Base
   ###################################
 
   has_many :my_video_papers, :foreign_key => 'owner_id', :class_name => 'VideoPaper', :dependent => :destroy
-  has_many :video_papers, -> { distinct }, :through=> :shared_papers
   has_many :shared_papers, :dependent => :destroy
+  has_many :video_papers, -> { distinct }, :through=> :shared_papers
   has_many :wysihat_files, :dependent => :destroy
 
   ###################################
