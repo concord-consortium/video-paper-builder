@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_admin!, :except => [ :login_for_test]
+  before_action :authenticate_admin!, :except => [ :login_for_test]
 
   def destroy
     @user = User.find(params[:id])

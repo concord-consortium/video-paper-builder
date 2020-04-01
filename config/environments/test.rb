@@ -8,8 +8,8 @@ VPB::Application.configure do
   config.cache_classes = true
 
   # Configure static asset server for tests with Cache-Control for performance
-  config.serve_static_files = true
-  config.static_cache_control = "public, max-age=3600"
+  config.public_file_server.enabled = true
+  config.public_file_server.headers = { 'Cache-Control' => 'public, max-age=3600' }
 
   # TODO: remove comment after upgrade
   # Not supported in rails 4
@@ -46,7 +46,9 @@ VPB::Application.configure do
   # This includes your application, engines, Rails frameworks, and any other registered namespace.
   config.eager_load = false
 
+  # TODO: remove comment after upgrade
+  # Not supported in rails 5
   # opt-in to errors raised within `after_rollback`/`after_commit` callbacks as
   # this changes in Rails 4 -> 5
-  config.active_record.raise_in_transactional_callbacks = true
+  # config.active_record.raise_in_transactional_callbacks = true
 end

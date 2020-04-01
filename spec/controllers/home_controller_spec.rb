@@ -23,14 +23,14 @@ describe HomeController do
       it "should set the schoology_host session var if referer isn't concord.org" do
         expect(session[:schoology_host]).to be_nil
         request.env["HTTP_REFERER"] = "http://example.com"
-        get :index, {:realm => "group", :realm_id => 1}
+        get :index, params: { :realm => "group", :realm_id => 1 }
         expect(session[:schoology_host]).to eq "example.com"
         expect(response.status).to eq 200
         expect(response).to render_template("_unauthorized_schoology_realm")
       end
 
       it "should redirect to unauthorized template if unauthorized" do
-        get :index, {:realm => "group", :realm_id => 1}
+        get :index, params: { :realm => "group", :realm_id => 1 }
         expect(response.status).to eq 200
         expect(response).to render_template("_unauthorized_schoology_realm")
       end
@@ -38,7 +38,7 @@ describe HomeController do
       it "should redirect to schoology auth if authorized" do
         realm = FactoryBot.build(:schoology_realm)
         realm.save
-        get :index, {:realm => realm.realm_type, :realm_id => realm.schoology_id}
+        get :index, params: { :realm => realm.realm_type, :realm_id => realm.schoology_id }
         expect(response.status).to eq 302
         expect(response).to redirect_to("/users/auth/schoology")
         realm.delete
@@ -69,7 +69,7 @@ describe HomeController do
       end
 
       it "should redirect to unauthorized template if unauthorized" do
-        get :index, {:realm => "group", :realm_id => 1}
+        get :index, params: { :realm => "group", :realm_id => 1 }
         expect(response.status).to eq 200
         expect(response).to render_template("_unauthorized_schoology_realm")
       end
@@ -77,7 +77,7 @@ describe HomeController do
       it "should redirect to schoology auth if authorized and user isn't authed by schoology" do
         realm = FactoryBot.build(:schoology_realm)
         realm.save
-        get :index, {:realm => realm.realm_type, :realm_id => realm.schoology_id}
+        get :index, params: { :realm => realm.realm_type, :realm_id => realm.schoology_id }
         expect(response.status).to eq 302
         expect(response).to redirect_to("/users/auth/schoology")
         realm.delete
@@ -89,7 +89,7 @@ describe HomeController do
         user = FactoryBot.create(:user, :email => "baz@bar.com", :provider => "schoology", :uid => realm.schoology_id)
         user.save
         sign_in user
-        get :index, {:realm => realm.realm_type, :realm_id => realm.schoology_id}
+        get :index, params: { :realm => realm.realm_type, :realm_id => realm.schoology_id }
         expect(response.status).to eq 302
         expect(response).to redirect_to new_video_paper_path()
         realm.delete
@@ -116,13 +116,13 @@ describe HomeController do
   end
 
   it "should support help_videos" do
-    get :help_videos, {:video_name => "images"}
+    get :help_videos, params: { :video_name => "images" }
     expect(response.status).to eq 200
     expect(response).to render_template("help_videos/images")
   end
 
   it "should support help_videos and ensure against hacking" do
-    get :help_videos, {:video_name => "im/ag/es"}
+    get :help_videos, params: { :video_name => "im/ag/es" }
     expect(response.status).to eq 200
     expect(response).to render_template("help_videos/images")
   end

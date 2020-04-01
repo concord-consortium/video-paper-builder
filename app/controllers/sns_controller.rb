@@ -45,7 +45,7 @@ class SnsController < ApplicationController
       # nothing for now
     end
 
-    render :nothing => true, :status => 200, :content_type => 'text/html'
+    render :body => nil, :status => 200, :content_type => 'text/html'
   end
 
   private

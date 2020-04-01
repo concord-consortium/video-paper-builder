@@ -41,6 +41,8 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 11. Upgrade to Rails 5.2.4.1 / ruby >= 2.2.2
     1. Update all dependencies (I first tried to update directly to rails 5 but bundler could not resolve).  This update actually went a lot smoother than I thought as many of the gems bumped major versions.  As of now with this step complete there are only 4 gems (rails included) that are not on latest.
     2. Remove protected_attributes gem and replace attr_accessible in models with strong parameters in controller
+    3. Upgrade to rails 5.0.7.2
+        1. Installed rubocop and used `bundle exec rubocop --only Rails/HttpPositionalArguments -a` to fix almost all deprecation warnings about positional argurments -- needed to change use of xhr first for the update to fix everything (which is deprecated).  Once the update was done I uninstalled rubocop.  More info here: https://stackoverflow.com/a/58095264
 
 ## Steps Todo
 
@@ -109,6 +111,7 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |Y|database_cleaner         |test       |1.8.3   |>= 1.9.3   |0.7.2    |0.7.2    |1.8.3    |
 |Y|devise                   |all        |4.7.1   |>= 2.1.0   |2.2.3    |2.2.3    |4.7.1    |
 |Y|devise-encryptable       |all        |0.2.0   |>= 0       |0.1.1    |0.1.1    |0.2.0    |
+|Y|devise_invitable         |all        |2.0.1   |>= 2.2.2   |1.1.5    |1.1.5    |2.0.1    |
 |Y|dynamic_form             |all        |1.1.4   |NONE       |1.1.4    |1.1.4    |1.1.4    |
 |Y|google-analytics-rails   |all        |1.1.1   |>= 1.9.3   |1.0.0    |1.0.0    |1.1.1    |
 |Y|httparty                 |all        |0.18.0  |>= 2.0.0   |0.10.2   |0.10.2   |0.18.0   |
@@ -124,7 +127,6 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |Y|s3_direct_upload         |all        |0.1.7   |NONE       |0.1.7    |0.1.7    |0.1.7    |
 |Y|selenium-webdriver       |test       |3.142.7 |>= 2.3     |2.31.0   |2.31.0   |3.142.7  |
 |Y|settingslogic            |all        |2.0.9   |NONE       |2.0.9    |2.0.9    |2.0.9    |
-|Y|simplecov                |test       |0.18.5  |>= 2.4.0   |*added*  |0.9.2    |0.18.5   |
 |Y|test-unit                |test       |3.3.5   |>= 0       |--       |--       |3.3.5    |
 |Y|therubyracer             |test       |0.12.3  |>= 0       |0.12.1   |0.12.1   |0.12.3   |
 |Y|tinymce-rails            |all        |5.2.1   |>= 0       |3.5.8    |3.5.8    |5.2.1    |
@@ -133,9 +135,9 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |Y|xpath                    |all        |3.2.0   |>= 2.3     |0.1.4    |0.1.4    |3.2.0    |
 |Y|webdrivers               |test       |4.2.0   |>= 0       |--       |--       |4.2.0    |
 |Y|will_paginate            |all        |3.3.0   |>= 2.0     |3.0.4    |3.0.4    |3.3.0    |
-|N|devise_invitable         |all        |2.0.1   |>= 2.2.2   |1.1.5    |1.1.5    |1.7.5    |
 |N|factory_(girl/bot)_rails |test       |5.1.2   |>= 0       |4.2.0    |4.2.0    |5.1.1    |
-|N|rails                    |all        |6.0.2.2 |>= 2.5.0   |3.2.11   |3.2.22.5 |4.2.11.1 |
+|N|rails                    |all        |6.0.2.2 |>= 2.5.0   |3.2.11   |3.2.22.5 |5.0.7.2  |
+|N|simplecov                |test       |0.18.5  |>= 2.4.0   |*added*  |0.9.2    |0.17.1   |
 |N|web-console              |dev        |4.0.1   |>= 2.5     |--       |--       |3.3.0    |
 
 ## Note about ruby versions supported
