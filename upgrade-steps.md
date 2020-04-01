@@ -38,11 +38,12 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
     10. Update rails from 4.0 to 4.1
     11. Update rails from 4.1 to 4.2
     12. Update to ruby 2.4.5
+11. Upgrade to Rails 5.2.4.1 / ruby >= 2.2.2
+    1. Update all dependencies (I first tried to update directly to rails 5 but bundler could not resolve).  This update actually went a lot smoother than I thought as many of the gems bumped major versions.  As of now with this step complete there are only 4 gems (rails included) that are not on latest.
 
 ## Steps Todo
 
 
-11. Upgrade to Rails 5.2.4.1 / ruby >= 2.2.2
 12. Upgrade to Rails 6.0.2.1 / ruby >= 2.5.0
 13. Setup Docker environment for production?
 
