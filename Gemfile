@@ -4,7 +4,7 @@ ruby "2.4.5"
 # TODO: remove these gems after ruby upgrades
 gem "sprockets",                  "~> 3"  # pin to ensure s3_direct_upload doesnt resolve to using ruby 2.5
 
-gem "rails",                      "~> 5.1.0"     # MAJOR UPGRADE NEEDED: latest is 6.0.2.2
+gem "rails",                      "~> 5"  # MAJOR UPGRADE NEEDED: latest is 6.0.2.2
 gem "jquery-rails"
 gem "jquery-ui-rails"
 

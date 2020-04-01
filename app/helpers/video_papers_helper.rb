@@ -6,7 +6,7 @@ module VideoPapersHelper
   def get_video_paper_thumbnail(video_paper)
     unless video_paper.video.nil?
       if video_paper.video.thumbnail?
-        image_tag(video_paper.video.thumbnail.url(:thumb))
+        image_tag(video_paper.video.thumbnail.url(:thumb), alt: "Thumbnail")
       else
         thumbnail_url = video_paper.video.generate_signed_thumbnail_url()
         if thumbnail_url
@@ -23,7 +23,7 @@ module VideoPapersHelper
   def get_video_paper_thumbnail_with_default(video_paper, default_img_url)
     unless video_paper.video.nil?
       if video_paper.video.thumbnail?
-        image_tag(video_paper.video.thumbnail.url(:thumb))
+        image_tag(video_paper.video.thumbnail.url(:thumb), alt: "Thumbnail")
       else
         thumbnail_url = video_paper.video.generate_signed_thumbnail_url()
         if thumbnail_url
