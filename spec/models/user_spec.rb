@@ -136,7 +136,6 @@ describe User do
   describe "Schoology OmniAuth strategy" do
     before(:each) do
       @schoology = OmniAuth::Strategies::Schoology.new(nil)
-      # stubbing this now causes a runtime error in ruby 2.2 (can't modify frozen NilClass)
       allow(@schoology.access_token).to receive(:get) do |url|
         case url
         when "/v1/users/me"
