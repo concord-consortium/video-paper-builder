@@ -1,5 +1,5 @@
 source "http://rubygems.org"
-ruby "2.5.1"
+ruby "2.6.6"
 
 gem "rails", "~> 6"
 gem "jquery-rails"

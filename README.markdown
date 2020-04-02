@@ -15,7 +15,7 @@ Installation:
 
 ### Use rvm
 
-    $ rvm --rvmrc 2.5.1
+    $ rvm --rvmrc 2.6.6
     $ cd ..; cd -
 
 ### Run bundler install
