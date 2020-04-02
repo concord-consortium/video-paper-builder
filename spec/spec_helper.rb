@@ -35,6 +35,10 @@ RSpec.configure do |config|
   # config.mock_with :mocha
   # config.mock_with :flexmock
   # config.mock_with :rr
+  config.mock_with :rspec do |mocks|
+    # allow mocking of `@schoology.access_token` in user_spec as access_token is generated internally during test
+    mocks.allow_message_expectations_on_nil = true
+  end
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"

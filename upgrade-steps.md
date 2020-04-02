@@ -54,6 +54,7 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
     1. Removed all commented out deprecated code (was left in with new TODO comment to make reviews easier)
     2. Fixed SNS controller spec after rspec upgrade (older rspec wasn't passing post bodies as JSON)
     3. Updated cucumber config as stated in their docs using `rails generate cucumber:install` and then tweaking the output - this changed the reporting style which I think looks better
+    4. Fixed commented out schoology omniauth strategy spec
 
 
 ## Steps Todo
