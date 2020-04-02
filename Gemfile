@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 ruby "2.5.1"
 
-gem "rails",                      "~> 5"  # MAJOR UPGRADE NEEDED: latest is 6.0.2.2
+gem "rails", "~> 6"
 gem "jquery-rails"
 gem "jquery-ui-rails"
 
