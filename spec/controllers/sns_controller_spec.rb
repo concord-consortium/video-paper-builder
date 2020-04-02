@@ -12,16 +12,13 @@ describe SnsController do
       it "should raise an error if the SubscribeURL is not from amazon" do
         body = {:Type => "SubscriptionConfirmation", :SubscribeURL => "http://example.com/"}
         expect {
-          # TODO: after rails update try to get json post of raw body working.
-          # Currently there is code in SnsController to fallback to formdata
-          # that was added to support these tests
-          post :transcoder_update, params: body, session: { format: :json }
+          post :transcoder_update, params: body, as: :json
         }.to raise_error(MessageWasNotAuthentic)
       end
 
       it "should succeed if the SubscribeURL is from amazon" do
         body = {:Type => "SubscriptionConfirmation", :SubscribeURL => "https://amazonaws.com/"}
-        post :transcoder_update, params: body, session: { format: :json }
+        post :transcoder_update, params: body, as: :json
         expect(response.status).to eq 200
       end
     end
@@ -37,18 +34,16 @@ describe SnsController do
     end
 
     it "should retry transcoding on error" do
-      # TODO: fix with rails upgrade that can post embedded hashes
-      # body = {:Type => "Notification", :Message => {:jobId => 1, :state => "Error", :errorCode => 3001}}
-      # post :transcoder_update, body, {format: :json}
-      # expect(response.status).to eq 200
+      body = {:Type => "Notification", :Message => {:jobId => 1, :state => "Error", :errorCode => 3001}}
+      post :transcoder_update, params: body, as: :json
+      expect(response.status).to eq 200
       expect(true).to eq true
     end
 
     it "should succeed not error without duration" do
-      # TODO: fix with rails upgrade that can post embedded hashes
-      # body = {:Type => "Notification", :Message => {:jobId => 1, :state => "Completed"}}
-      # post :transcoder_update, body, {format: :json}
-      # expect(response.status).to eq 200
+      body = {:Type => "Notification", :Message => {:jobId => 1, :state => "Completed"}}
+      post :transcoder_update, params: body, as: :json
+      expect(response.status).to eq 200
       expect(true).to eq true
     end
   end
@@ -56,7 +51,7 @@ describe SnsController do
   describe "with UnsubscribeConfirmation" do
     it "should do nothing" do
       body = {:Type => "UnsubscribeConfirmation"}
-      post :transcoder_update, params: body, session: { format: :json }
+      post :transcoder_update, params: body, as: :json
       expect(response.status).to eq 200
     end
   end
