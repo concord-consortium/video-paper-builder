@@ -18,10 +18,6 @@ fi
 
 bundle check || bundle install
 
-# TODO: remove after all gem upgrades
-# (this is here to ensure no old gems stick around)
-bundle clean
-
 if [ "$RAILS_ENV" = "production" ]; then
   bundle exec rake assets:precompile
 fi

@@ -25,10 +25,6 @@ class Admin < ActiveRecord::Base
   # instance methods
   ##################################
 
-  # Setup accessible (or protected) attributes for your model
-  # TODO: figure out omni auth use
-  # attr_accessible :email, :password, :password_confirmation, :first_name, :last_name
-
   def name
     "#{self.first_name.downcase.titlecase} #{self.last_name.downcase.titlecase}"
   end

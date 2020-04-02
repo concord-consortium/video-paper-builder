@@ -38,10 +38,6 @@ class User < ActiveRecord::Base
 
   #Public Methods
 
-  # Setup accessible (or protected) attributes for your model
-  # TODO: figure out omni auth use
-  # attr_accessible :email, :password, :password_confirmation, :first_name, :last_name,:invitation_token, :provider, :uid, :remember_me
-
   def name
     "#{self.first_name.titlecase} #{self.last_name.titlecase}"
   end

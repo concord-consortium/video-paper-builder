@@ -6,11 +6,6 @@ VPB::Application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
-  # TODO: remove comment after upgrade
-  # Not supported in rails 4
-  # Log error messages when you accidentally call methods on nil.
-  # config.whiny_nils = true
-
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
@@ -20,22 +15,6 @@ VPB::Application.configure do
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
-
-  # TODO: remove comment after upgrade
-  # Not needed in rails 4
-  # Only use best-standards-support built into browsers
-  # config.action_dispatch.best_standards_support = :builtin
-
-  # TODO: remove comment after upgrade
-  # Not supported in rails 4
-  # Raise exception on mass assignment protection for Active Record models
-  # config.active_record.mass_assignment_sanitizer = :strict
-
-  # TODO: remove comment after upgrade
-  # Not supported in rails 4
-  # Log the query plan for queries taking more than this (works
-  # with SQLite, MySQL, and PostgreSQL)
-  # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Do not compress assets
   config.assets.compress = false
@@ -49,10 +28,4 @@ VPB::Application.configure do
   # When true, eager loads all registered config.eager_load_namespaces.
   # This includes your application, engines, Rails frameworks, and any other registered namespace.
   config.eager_load = false
-
-  # TODO: remove comment after upgrade
-  # Not supported in rails 5
-  # opt-in to errors raised within `after_rollback`/`after_commit` callbacks as
-  # this changes in Rails 4 -> 5
-  # config.active_record.raise_in_transactional_callbacks = true
 end
