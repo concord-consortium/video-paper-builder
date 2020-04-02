@@ -195,7 +195,7 @@ describe VideoPapersController do
       end
 
       it "should not fail in js" do
-        get :unshare, params: { :id => @paper.id, :user_id => @user2.id }, session: { xhr: true }
+        get :unshare, params: { :id => @paper.id, :user_id => @user2.id }, xhr: true, format: :js
         expect(response.status).to eq 200
         expect(response).to render_template "update_shared_user_block"
       end
@@ -216,7 +216,7 @@ describe VideoPapersController do
       user2 = FactoryBot.create(:user)
       user3 = FactoryBot.create(:user)
       shared_paper = FactoryBot.create(:shared_paper, :user => user2, :video_paper => @paper);
-      get :shared, params: { :id => @paper.id, :shared_paper => {:user_id => user3.id} }, session: { xhr: true }
+      get :shared, params: { :id => @paper.id, :shared_paper => {:user_id => user3.id} }, xhr: true, format: :js
       expect(response.status).to eq 200
       expect(response).to render_template "update_shared_user_block"
     end
