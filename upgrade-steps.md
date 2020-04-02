@@ -50,6 +50,11 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
     2. Update to rails 6.0.2.2
     3. Update to ruby 2.6.6 (tried 2.7.0 but it generated a lot of deprecation warnings around keyword parameters)
     4. Finalize update table (removed ruby versions and set final gem versions) - all gems are at the latest except `simplecov` which has bug in latest
+13. Tidied up TODO items
+    1. Removed all commented out deprecated code (was left in with new TODO comment to make reviews easier)
+    2. Fixed SNS controller spec after rspec upgrade (older rspec wasn't passing post bodies as JSON)
+    3. Updated cucumber config as stated in their docs using `rails generate cucumber:install` and then tweaking the output - this changed the reporting style which I think looks better
+
 
 ## Steps Todo
 
