@@ -310,10 +310,10 @@ VPB = {
 		changed: false,
 		editing: false,
 		tinyMceInit: function (editor) {
-			editor.onClick.add(function () {
+			editor.on("click", function () {
 				VPB.sectionEditor.editing = true;
 			});
-			editor.onChange.add(function () {
+			editor.on("Change", function () {
 				VPB.sectionEditor.changed = true;
 			});
 		},
