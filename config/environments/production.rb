@@ -61,12 +61,6 @@ VPB::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  # TODO: remove comment after upgrade
-  # Not supported in rails 4
-  # Log the query plan for queries taking more than this (works
-  # with SQLite, MySQL, and PostgreSQL)
-  # config.active_record.auto_explain_threshold_in_seconds = 0.5
-
   # set a host name for emails
   config.action_mailer.default_url_options = { :host => 'vpb.concord.org' }
 
@@ -79,10 +73,4 @@ VPB::Application.configure do
   # When true, eager loads all registered config.eager_load_namespaces.
   # This includes your application, engines, Rails frameworks, and any other registered namespace.
   config.eager_load = true
-
-  # TODO: remove comment after upgrade
-  # Not supported in rails 5
-  # opt-in to errors raised within `after_rollback`/`after_commit` callbacks as
-  # this changes in Rails 4 -> 5
-  # config.active_record.raise_in_transactional_callbacks = true
 end

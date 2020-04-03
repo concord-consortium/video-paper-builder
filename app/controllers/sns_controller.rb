@@ -3,16 +3,8 @@ class MessageWasNotAuthentic < StandardError; end
 class SnsController < ApplicationController
 
   def transcoder_update
-    # try to parse as both raw json (from AWS) and fall back to form data from test (can't get it to post raw json from rspec))
-    notification = {}
-    sleep_before_retry = 7
-    begin
-      notification = JSON.parse request.raw_post
-    rescue JSON::ParserError
-      notification = params
-      # turn off sleep on retry in tests
-      sleep_before_retry = 0
-    end
+    sleep_before_retry = ENV["RAILS_ENV"] == "test" ? 0 : 7
+    notification = JSON.parse request.raw_post
 
     case notification["Type"]
     when "SubscriptionConfirmation"
@@ -21,7 +13,7 @@ class SnsController < ApplicationController
       HTTParty.get notification["SubscribeURL"]
 
     when "Notification"
-      message = JSON.parse notification["Message"]
+      message = notification["Message"]
       video = Video.find_by_aws_transcoder_job message["jobId"]
       # the video will be nil for jobs that were cancelled due to an immediate re-upload of a new video
       if video != nil

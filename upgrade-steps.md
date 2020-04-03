@@ -30,7 +30,7 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
     2. Removed unused gems found in audit
     3. Set ruby version in Gemfile to ruby '1.9.3' and run bundle platform and bundle check and bundle install to validate gem versions
     4. Remove all gem versions for gems that haven't done a major upgrade except rails (keep at 3.2.22.5) to see what versions bundler picks (update: had to pin a bunch of gems so they wouldn't upgrade to ruby 2 versions)
-    5. Update to ruby 2.2 (should have done this first).  Had to clean out /bundle volume on Docker container to get it to work as there were old libraries in there causing segfaults.  Also had to add `test-unit` gem to enable rspec to work on ruby 2.2 (it adds a dependency that rspec 2 doesn't have that is needed in ruby 2.2).  Had to disable two instances of "can't modify frozen NilClass" in rspec tests until rspec is upgraded to allow different stubbing.
+    5. Update to ruby 2.2 (should have done this first).  Had to clean out /bundle volume on Docker container to get it to work as there were old libraries in there causing segfaults.  Also had to add `test-unit` gem to enable rspec to work on ruby 2.2 (it adds a dependency that rspec 2 doesn't have that is needed in ruby 2.2).  Had to disable two instances of "can't modify frozen NilClass" in rspec tests until rspec is upgraded to allow different stubbing.  This was resolved in step 13 after rspec was updated to enabled sending post bodies as json instead of form response format.
     6. Started upgrade to Rails 4 but hit a wall.  rspec/rspec-rails needed to be updated due to changes from rails 3 -> 4 but when I did that it caused a lot of tests to fail.  I started fixing the tests and then I realized that the real fix was the rspec upgrade.  There is an automated upgrade gem called `transpec` however it requires green tests.  So I stashed the 4.0 upgrade and started the rspec upgrade but it turns out `transpec` needs ruby 2.3 which is not supported in rails 4.0 but is in rails 4.1.  So the new plan is to upgrade ruby to 2.3 then upgrade rspec and then jump directly to rails 4.1.
     7. Upgrade to ruby 2.3.  Had to also upgrade to latest rspec 2 due to older rspec 2 throwing `private method `fixture_path' called` error
     8. Tried to upgrade rspec from 2 to 3 using `transpec` gem as outlined here: https://rspec.info/upgrading-from-rspec-2/.  At first I thought I needed to upgrade bundler as the transpec gem could not find the needed gems to run but that turned out not to be true.  Instead I needed to install `transpec` using the Gemfile and then run the following: `bundle exec transpec -c 'BUNDLE_PATH=/bundle RAILS_ENV=test bundle exec rspec'
@@ -50,6 +50,12 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
     2. Update to rails 6.0.2.2
     3. Update to ruby 2.6.6 (tried 2.7.0 but it generated a lot of deprecation warnings around keyword parameters)
     4. Finalize update table (removed ruby versions and set final gem versions) - all gems are at the latest except `simplecov` which has bug in latest
+13. Tidied up TODO items
+    1. Removed all commented out deprecated code (was left in with new TODO comment to make reviews easier)
+    2. Fixed SNS controller spec after rspec upgrade (older rspec wasn't passing post bodies as JSON)
+    3. Updated cucumber config as stated in their docs using `rails generate cucumber:install` and then tweaking the output - this changed the reporting style which I think looks better
+    4. Fixed commented out schoology omniauth strategy spec
+
 
 ## Steps Todo
 
@@ -127,7 +133,7 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |Y|mysql2                   |all        |0.5.3   |0.3.15   |0.3.15   |0.5.3    |0.5.3    |0.5.3    |
 |Y|nokogiri                 |all        |1.10.9  |1.5.6    |1.5.6    |1.10.9   |1.10.9   |1.10.9   |
 |Y|paperclip                |all        |6.1.0   |3.4.0    |3.4.0    |6.1.0    |6.1.0    |6.1.0    |
-|Y|protected_attributes     |all        |1.1.4   |--       |--       |1.1.4    |*removed*|#removed*|
+|Y|protected_attributes     |all        |1.1.4   |--       |--       |1.1.4    |*removed*|*removed*|
 |Y|rails                    |all        |6.0.2.2 |3.2.11   |3.2.22.5 |4.2.11.1 |5.2.4.2  |6.0.2.2  |
 |Y|rspec                    |test       |3.9.0   |2.11.0   |2.11.0   |3.9.0    |3.9.0    |3.9.0    |
 |Y|rspec-rails              |dev & test |4.0.0   |2.11.4   |2.11.4   |4.0.0    |4.0.0    |4.0.0    |
@@ -144,6 +150,8 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 |Y|web-console              |dev        |4.0.1   |--       |--       |3.3.0    |3.3.0    |4.0.1    |
 |Y|will_paginate            |all        |3.3.0   |3.0.4    |3.0.4    |3.3.0    |3.3.0    |3.3.0    |
 |N|simplecov                |test       |0.18.5  |*added*  |0.9.2    |0.17.1   |0.17.1   |0.17.1   |
+
+NOTE: simplecov is the only dependency not updated to latest.  It is pinned due to a bug in 0.18.x (reported but unresolved at this time) that causes it to fail on Travis.  More info in Gemfile.
 
 ## Note about ruby versions supported
 
