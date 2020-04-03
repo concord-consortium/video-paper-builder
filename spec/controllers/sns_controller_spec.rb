@@ -34,14 +34,16 @@ describe SnsController do
     end
 
     it "should retry transcoding on error" do
-      body = {:Type => "Notification", :Message => {:jobId => 1, :state => "Error", :errorCode => 3001}}
+      # message is encoded by AWS as stringified JSON within the posted JSON
+      body = {:Type => "Notification", :Message => {:jobId => 1, :state => "Error", :errorCode => 3001}.to_json}
       post :transcoder_update, params: body, as: :json
       expect(response.status).to eq 200
       expect(true).to eq true
     end
 
     it "should succeed not error without duration" do
-      body = {:Type => "Notification", :Message => {:jobId => 1, :state => "Completed"}}
+      # message is encoded by AWS as stringified JSON within the posted JSON
+      body = {:Type => "Notification", :Message => {:jobId => 1, :state => "Completed"}.to_json}
       post :transcoder_update, params: body, as: :json
       expect(response.status).to eq 200
       expect(true).to eq true

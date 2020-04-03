@@ -13,7 +13,8 @@ class SnsController < ApplicationController
       HTTParty.get notification["SubscribeURL"]
 
     when "Notification"
-      message = notification["Message"]
+      # message is double-secret encoded by AWS for double-secret reasons
+      message = JSON.parse notification["Message"]
       video = Video.find_by_aws_transcoder_job message["jobId"]
       # the video will be nil for jobs that were cancelled due to an immediate re-upload of a new video
       if video != nil

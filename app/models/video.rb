@@ -101,7 +101,7 @@ class Video < ActiveRecord::Base
       self.transcoded_uri = "#{key_prefix}#{upload_filename}"
 
       # to allow for stubbing in tests
-      transcoder = transcoder || AWS::ElasticTranscoder::Client.new
+      transcoder = transcoder || Aws::ElasticTranscoder::Client.new
       result = transcoder.create_job(
         pipeline_id: VPB::Application.config.aws["transcoder"]["pipeline_id"],
         input: {
