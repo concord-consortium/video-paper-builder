@@ -20,8 +20,6 @@ gem "paperclip"
 gem "s3_direct_upload"
 gem "settingslogic"
 gem "tinymce-rails"
-# TODO: enable/replace after all rails upgrades (it calls deprecated rake task at startup)
-# gem "tinymce-rails-imageupload"
 gem "omniauth"
 gem "omniauth-oauth"
 gem "xpath"
