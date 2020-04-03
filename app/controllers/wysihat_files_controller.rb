@@ -11,10 +11,8 @@ class WysihatFilesController < ApplicationController
     @wysihat_file.save
 
     render json: {
-      image: {
-        url: url_for(@wysihat_file)
-      }
-    }, content_type: "text/html"
+      location: url_for(@wysihat_file)
+    }
 
   end
 
