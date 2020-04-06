@@ -9,18 +9,14 @@ if [ -f $PIDFILE ]; then
 fi
 
 if [ ! -f $DB_CONFIG ]; then
-  cp $APP_HOME/config/database.yml.docker $DB_CONFIG
+  cp $APP_HOME/config/database.docker.yml $DB_CONFIG
 fi
 
 if [ ! -f $AWS_CONFIG ]; then
-  cp $APP_HOME/config/aws.yml.docker $AWS_CONFIG
+  cp $APP_HOME/config/aws.docker.yml $AWS_CONFIG
 fi
 
 bundle check || bundle install
-
-if [ "$RAILS_ENV" = "production" ]; then
-  bundle exec rake assets:precompile
-fi
 
 if [ "$RAILS_ENV" = "test" ]; then
   /etc/init.d/xvfb start

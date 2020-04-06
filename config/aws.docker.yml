@@ -1,0 +1,22 @@
+# config/aws.yml
+base: &base
+  access_key_id: <%= ENV['ACCESS_KEY_ID'] %>
+  secret_access_key: <%= ENV['SECRET_ACCESS_KEY'] %>
+  s3:
+    bucket: <%= ENV['S3_BUCKET'] %>
+    region: <%= ENV['S3_REGION'] %>
+    expires: '3600'
+  transcoder:
+    pipeline_id: <%= ENV['PIPELINE_ID'] %>
+
+development:
+  <<: *base
+
+test:
+  <<: *base
+
+cucumber:
+  <<: *base
+
+production:
+  <<: *base

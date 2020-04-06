@@ -51,3 +51,13 @@ end
 group :development, :test do
   gem "rspec-rails"
 end
+
+group :production do
+  gem "unicorn"
+
+  # for asset precompile
+  gem "sass-rails"
+  gem "coffee-rails"
+  gem "uglifier"
+  gem "therubyracer", :platforms => :ruby
+end
