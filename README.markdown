@@ -28,7 +28,7 @@ TODO
 
 ### Setup database
 
-1. Copy config/database.yml.example to config/database.yml
+1. Copy config/database.example.yml to config/database.yml
 2. Update username and password
 3. Run rake db:create:all
 4. Run rake db:migrate
@@ -70,17 +70,47 @@ Configuration Notes
 
 I have a theory that if the `AWS_*` env variables are not set then the signed video URLs do not work correctly until someone tries to upload a video. This is because the S3 uploader is configured with these credentials which probably then calls AWS.config with them. And then that global config picked up by everything else.
 
-Docker
-------
+Docker (Development)
+---------------------
 
-Create config/aws.yml.docker from config/aws.yml.example and fill in the configuration.  This config/aws.yml.docker file is set in the .gitignore file.
+Create an `.env` file and set the following values:
 
-Run the command: `docker-compose up`
+```
+DEVISE_SECRET_KEY=  (use `rake secret` to generate)
+SECRET_KEY_BASE=  (use `rake secret` to generate)
+ACCESS_KEY_ID=  (AWS access key)
+SECRET_ACCESS_KEY=  (AWS secret access key)
+S3_BUCKET=  (AWS bucket)
+S3_REGION=  (AWS region)
+PIPELINE_ID=  (AWS Elastic Transcoder pipeline ID)
+RDS_DB_NAME=video_paper_builder_prod
+RDS_USERNAME=root
+RDS_PASSWORD=xyzzy
+RDS_HOSTNAME=db
+RDS_PORT=3306
+```
 
-Document server should be available at:
+Run the command: `docker-compose up` to start the server.
+
+The server should then be available at:
 
 http://localhost:3000
 
+To create the initial admin user run: `docker-compose run app /bin/bash -c "bundle exec rails c"`
+
+and then type in the following with the values changed in the rails console:
+
+```
+Admin.create! do |u|
+      u.first_name = 'CHANGE'
+      u.last_name = 'CHANGE'
+      u.email = 'CHANGE'
+      u.password = 'CHANGE'
+      u.password_confirmation = 'CHANGE'
+    end
+```
+
+finally change the confirmation url showing the console after the admin is created to use localhost and then load that url in your browser (while the server is running) to confirm the admin.
 
 Running Tests in Docker
 -----------------------
@@ -96,7 +126,66 @@ To use port 80 instead of port 3000 for the webserver with docker-compose create
 COMPOSE_FILE=docker-compose.yml:docker-compose-port-80.yml
 ```
 
-then restart docker-compose.
+then restart docker-compose. If you have issues you may need to disable an existing webserver running on port 80.
+
+
+Docker (Local Production Test)
+---------------------
+
+Create an `.env` file and set the following values (NOTE: the RDS_ values must match those in the `docker-compose-local-prod.yml` file):
+
+```
+DEVISE_SECRET_KEY=  (use `rake secret` to generate)
+SECRET_KEY_BASE=  (use `rake secret` to generate)
+ACCESS_KEY_ID=  (AWS access key)
+SECRET_ACCESS_KEY=  (AWS secret access key)
+S3_BUCKET=  (AWS bucket)
+S3_REGION=  (AWS region)
+PIPELINE_ID=  (AWS Elastic Transcoder pipeline ID)
+RDS_DB_NAME=video_paper_builder_prod
+RDS_USERNAME=root
+RDS_PASSWORD=xyzzy
+RDS_HOSTNAME=db
+RDS_PORT=3306
+```
+
+Run the command: `docker-compose -f docker-compose-local-prod.yml build` to create the image.
+
+Run the command: `docker-compose -f docker-compose-local-prod.yml run prod_app /bin/bash` and inside the bash session run `./docker/prod/prod-run.sh migrate` to create and migrate the database.
+
+Run the command: `docker-compose -f docker-compose-local-prod.yml up` to start the server.
+
+The server should then be available (via nginx proxying to the app running under unuicorn) at:
+
+http://localhost/
+
+(if you have issues you may need to disable an existing webserver running on port 80)
+
+To create the initial admin user run: `docker-compose -f docker-compose-local-prod.yml run prod_app /bin/bash -c "bundle exec rails c"`
+
+and then type in the following with the values changed in the rails console:
+
+```
+Admin.create! do |u|
+      u.first_name = 'CHANGE'
+      u.last_name = 'CHANGE'
+      u.email = 'CHANGE'
+      u.password = 'CHANGE'
+      u.password_confirmation = 'CHANGE'
+    end
+```
+
+finally change the confirmation url showing the console after the admin is created to use localhost and then load that url in your browser (while the server is running) to confirm the admin.
+
+Elastic Transcoder and SNS Notifications
+----------------------------------------
+
+In production or development to enable transcoder notifications back to the application you must add a subscription for the web endpoint using the AWS web ui.  If you do not do this you will see the VPB web ui wait forever for notification that the video has been transcoded.
+
+1. Load https://console.aws.amazon.com/sns/v3/home?region=us-east-1#/topic/arn:aws:sns:us-east-1:612297603577:vpb-transcoder-progress
+2. Click the "Create subscription" button
+3. Select either http or https as the protocol (depending on your deployment)
+4. Add the SNS endpoint url whose path is `/sns/transcoder_update`, eg http://example.com/sns/transcoder_update
 
 License
 -------

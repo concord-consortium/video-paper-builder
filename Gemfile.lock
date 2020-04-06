@@ -169,6 +169,7 @@ GEM
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
     json (2.3.0)
+    kgio (2.11.3)
     launchy (2.5.0)
       addressable (~> 2.7)
     libv8 (3.16.14.19)
@@ -243,6 +244,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
+    raindrops (0.19.1)
     rake (13.0.1)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.1)
@@ -324,6 +326,11 @@ GEM
       railties (>= 3.1.1)
     tzinfo (1.2.6)
       thread_safe (~> 0.1)
+    uglifier (4.2.0)
+      execjs (>= 0.3.0, < 3)
+    unicorn (5.5.4)
+      kgio (~> 2.6)
+      raindrops (~> 0.7)
     warden (1.2.8)
       rack (>= 2.0.6)
     web-console (4.0.1)
@@ -350,6 +357,7 @@ DEPENDENCIES
   aws-sdk-elastictranscoder
   aws-sdk-s3
   capybara
+  coffee-rails
   comma
   cucumber
   cucumber-rails
@@ -374,12 +382,15 @@ DEPENDENCIES
   rspec
   rspec-rails
   s3_direct_upload
+  sass-rails
   selenium-webdriver
   settingslogic
   simplecov (~> 0.10, < 0.18)
   test-unit
   therubyracer
   tinymce-rails
+  uglifier
+  unicorn
   web-console
   webdrivers
   will_paginate

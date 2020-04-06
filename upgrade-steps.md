@@ -5,7 +5,7 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
 ## Steps Done
 
 1. Setup Docker environment for development only
-  a. No real issues found after using a combination of the docker setup from document-store and lara.
+    1. No real issues found after using a combination of the docker setup from document-store and lara.
 2. Setup Travis builds
     1. Had to set the Travis dist to precise to avoid mysql2 gem error because it doesn't support secure connections on Mysql 5.7, precise uses Mysql 5.5
     2. Had to upgrade bundler from the version (1.9.0) shipped with the ruby-1.9.3 Docker image to latest 1.x version via `gem install bundler -v '~>1'` in the Dockerfile.  Without this upgrade the test gems where not loading when running the tests locally in the docker container but were running in Travis.
@@ -55,11 +55,24 @@ This documents the steps taken to upgrade VPB from ruby 1.93/rails 3.2 to the la
     2. Fixed SNS controller spec after rspec upgrade (older rspec wasn't passing post bodies as JSON)
     3. Updated cucumber config as stated in their docs using `rails generate cucumber:install` and then tweaking the output - this changed the reporting style which I think looks better
     4. Fixed commented out schoology omniauth strategy spec
+13. Setup Docker environment for production
+    1. Moved Dockerfile to Dockerfile-dev and moved supporting files to docker/dev
+    2. Changed Dockerfile to use Lara like setup (nginx, foreman and unicorn) using docker/prod folder
+    3. Added docker-compose-local-prod.yml for local testing of production
+    4. Renamed all *.yml.SOMETHING to *.SOMETHING.yml for better syntax highlighting
+    5. Removed old unneeded files
+        1. Capfile
+        2. config/initializers-orig
+        3. .ebextensions
+        4. doc/elastic-beanstalk-deploy.md
+        5. doc/rails_3-2_update.txt
+        4. doc/README_FOR_APP
+    6. Updated readme with local production testing note and SNS subscription note
+    7. Cleaned up .dockerignore and .gitignore files
 
 
 ## Steps Todo
 
-13. Setup Docker environment for production?
 
 
 ## Starting Code Coverage (rails 3.2.11/ruby 2.1 ordered by final %)

@@ -1,16 +1,14 @@
-# for running development environment locally (more info in readme)
+# this is for testing the production server setup locally (more info in readme)
 version: '3'
 services:
-  app:
+  # uses different app name to keep bundle output separate from dev app
+  prod_app:
     build:
       context: .
-      dockerfile: Dockerfile-dev
-    command: docker/dev/dev-run.sh
-    volumes:
-      - .:/vpb:delegated
-      - bundle:/bundle
+      dockerfile: Dockerfile
+    command: docker/prod/prod-run.sh
     ports:
-      - "3000:3000"
+      - "80:80"
     depends_on:
       - db
     environment:
@@ -24,6 +22,12 @@ services:
       S3_BUCKET:
       S3_REGION:
       PIPELINE_ID:
+      RDS_DB_NAME:
+      RDS_USERNAME:
+      RDS_PASSWORD:
+      RDS_HOSTNAME:
+      RDS_PORT:
+  # uses same db volume as dev app
   db:
     image: mysql:5.6
     environment:
@@ -33,5 +37,4 @@ services:
       # use a named volume here so the database is preserved after a down and up
       - mysql:/var/lib/mysql
 volumes:
-  bundle:
   mysql:

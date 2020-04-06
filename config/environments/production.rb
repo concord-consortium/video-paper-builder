@@ -64,13 +64,14 @@ VPB::Application.configure do
   # set a host name for emails
   config.action_mailer.default_url_options = { :host => 'vpb.concord.org' }
 
-  # this is the way to do exception notification now in Rails 3
-  config.middleware.use ExceptionNotifier,
-    :email_prefix => "[VPB Exception] ",
-    :sender_address => %{"Exception Notifier" <vpb-errors@concord.org>},
-    :exception_recipients => %w{vpb-errors@concord.org}
-
   # When true, eager loads all registered config.eager_load_namespaces.
   # This includes your application, engines, Rails frameworks, and any other registered namespace.
   config.eager_load = true
+
+  # to allow testing with docker-compose-local-prod.yml
+  config.hosts << "localhost"
+
+  # TODO: remove this after testing on temp staging
+  # whitelist the following domains (needed for rails 6 middleware to prevent against DNS rebinding attacks)
+  config.hosts << "vpb-temp.staging.concord.org"
 end

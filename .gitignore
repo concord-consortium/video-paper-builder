@@ -1,27 +1,16 @@
-*.log
-*.sqlite3
-vendor/cache/*
+.env
+log/*
+tmp/*
 config/database.yml
 config/aws.yml
 config/google-analytics.yml
 config/paperclip.yml
-.bundle/*
 public/system/*
 .DS_Store
 public/.DS_Store
-tmp/*
 .rvmrc
 bin/*
 public/assets
 .rspec
 
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
-
-# has secrets in it but used in development
-config/aws.yml.docker
-
 # to allow for docker compose overrides
-.env
