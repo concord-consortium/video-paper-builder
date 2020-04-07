@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: docker/prod/prod-run.sh
+    command: bash -c "rm /vpb/tmp/unicorn.pid; ./docker/prod/prod-run.sh"
     ports:
       - "80:80"
     depends_on:
