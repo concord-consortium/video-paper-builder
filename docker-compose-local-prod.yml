@@ -27,6 +27,9 @@ services:
       RDS_PASSWORD:
       RDS_HOSTNAME:
       RDS_PORT:
+      SES_KEY:
+      SES_SECRET:
+      MAILER_HOSTNAME:
   # uses same db volume as dev app
   db:
     image: mysql:5.6

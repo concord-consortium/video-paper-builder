@@ -7,6 +7,7 @@ gem "jquery-ui-rails"
 
 gem "aws-sdk-s3"
 gem "aws-sdk-elastictranscoder"
+gem "aws-ses", { :require=>"aws/ses" }
 gem "comma"
 gem "devise"
 gem "devise-encryptable"
