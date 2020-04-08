@@ -24,7 +24,8 @@ ADD . $APP_HOME
 # get files into the right place
 RUN mv -f Gemfile.lock-docker Gemfile.lock && \
     cp config/database.docker.yml config/database.yml && \
-    cp config/aws.docker.yml config/aws.yml
+    cp config/aws.docker.yml config/aws.yml && \
+    cp config/paperclip.docker.yml config/paperclip.yml
 
 ## Configured nginx (after bundler so we don't have to wait for bundler to change config)
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf

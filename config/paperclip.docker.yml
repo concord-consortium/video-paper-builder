@@ -1,0 +1,20 @@
+base: &base
+  storage: s3
+  preserve_files: true
+  s3_credentials:
+    access_key_id: <%= ENV['ACCESS_KEY_ID'] %>
+    secret_access_key: <%= ENV['SECRET_ACCESS_KEY'] %>
+    s3_region: <%= ENV['S3_REGION'] %>
+  bucket: <%= ENV['S3_BUCKET'] %>
+
+development:
+  <<: *base
+
+test:
+  <<: *base
+
+cucumber:
+  <<: *base
+
+production:
+  <<: *base
