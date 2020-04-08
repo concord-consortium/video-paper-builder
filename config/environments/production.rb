@@ -71,6 +71,12 @@ VPB::Application.configure do
   # to allow testing with docker-compose-local-prod.yml
   config.hosts << "localhost"
 
+  # production and staging urls
+  config.hosts << "apps.concord.org"
+  config.hosts << "apps.concordqa.org"
+  config.hosts << "vpb.concord.org"
+  config.hosts << "vpb.concordqa.org"
+
   # TODO: remove this after testing on temp staging
   # whitelist the following domains (needed for rails 6 middleware to prevent against DNS rebinding attacks)
   config.hosts << "vpb-temp.staging.concord.org"
