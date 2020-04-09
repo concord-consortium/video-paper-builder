@@ -72,22 +72,14 @@ VPB::Application.configure do
   # This includes your application, engines, Rails frameworks, and any other registered namespace.
   config.eager_load = true
 
-  # to allow testing with docker-compose-local-prod.yml
-  config.hosts << "localhost"
-
-  # production and staging urls
-  config.hosts << "apps.concord.org"
-  config.hosts << "apps.concordqa.org"
-  config.hosts << "vpb.concord.org"
-  config.hosts << "vpb.concordqa.org"
+  # whitelist the allowed hosts (needed for rails 6 middleware to prevent against DNS rebinding attacks)
+  (ENV["ALLOWED_HOSTS"] || "").split(" ") do |host|
+    config.hosts << host.strip
+  end
 
   # allow production debug to stdout on environment variable set
   if ENV['DEBUG_PRODUCTION']
     config.logger = Logger.new(STDOUT)
     config.log_level = :debug
   end
-
-  # TODO: remove this after testing on temp staging
-  # whitelist the following domains (needed for rails 6 middleware to prevent against DNS rebinding attacks)
-  config.hosts << "vpb-temp.staging.concord.org"
 end
