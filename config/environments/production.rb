@@ -49,7 +49,7 @@ VPB::Application.configure do
   # config.assets.precompile += %w( search.js )
 
   # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Enable threaded mode
   # config.threadsafe!
@@ -62,16 +62,24 @@ VPB::Application.configure do
   config.active_support.deprecation = :notify
 
   # set a host name for emails
-  config.action_mailer.default_url_options = { :host => 'vpb.concord.org' }
+  config.action_mailer.default_url_options = { :host => (ENV['MAILER_HOSTNAME'] || 'vpb.concord.org') }
+
+  # set ses for delivery
+  config.action_mailer.delivery_method = :ses
+  config.action_mailer.perform_deliveries = true
 
   # When true, eager loads all registered config.eager_load_namespaces.
   # This includes your application, engines, Rails frameworks, and any other registered namespace.
   config.eager_load = true
 
-  # to allow testing with docker-compose-local-prod.yml
-  config.hosts << "localhost"
+  # whitelist the allowed hosts (needed for rails 6 middleware to prevent against DNS rebinding attacks)
+  (ENV["ALLOWED_HOSTS"] || "").split(" ") do |host|
+    config.hosts << host.strip
+  end
 
-  # TODO: remove this after testing on temp staging
-  # whitelist the following domains (needed for rails 6 middleware to prevent against DNS rebinding attacks)
-  config.hosts << "vpb-temp.staging.concord.org"
+  # allow production debug to stdout on environment variable set
+  if ENV['DEBUG_PRODUCTION']
+    config.logger = Logger.new(STDOUT)
+    config.log_level = :debug
+  end
 end
