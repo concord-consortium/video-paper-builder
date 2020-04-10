@@ -242,7 +242,7 @@ Devise.setup do |config|
 
   config.secret_key = ENV['DEVISE_SECRET_KEY']
 
-  if ENV['SCHOOLOGY_CONSUMER_KEY'] && ENV['SCHOOLOGY_CONSUMER_SECRET']
+  if ENV['SCHOOLOGY_CONSUMER_KEY'].present? && ENV['SCHOOLOGY_CONSUMER_SECRET'].present?
     require 'omni_auth/strategies/schoology'
     SETUP_PROC = lambda do |env|
       host = env['rack.session'][:schoology_host]

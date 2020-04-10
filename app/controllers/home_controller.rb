@@ -52,7 +52,7 @@ class HomeController < ApplicationController
 
   def schoology_oauth_required?
     # no oauth if no schoology oauth environment variables set or the schoology realm params are not found
-    return false unless ENV['SCHOOLOGY_CONSUMER_KEY'] && ENV['SCHOOLOGY_CONSUMER_SECRET'] && params[:realm] && params[:realm_id]
+    return false unless ENV['SCHOOLOGY_CONSUMER_KEY'].present? && ENV['SCHOOLOGY_CONSUMER_SECRET'].present? && params[:realm] && params[:realm_id]
 
     # oauth required for any non-matching current users
     return !current_user || (current_user != (User.find_by_provider_and_uid('schoology', params[:realm_id]) rescue nil))
