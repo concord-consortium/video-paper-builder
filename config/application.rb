@@ -51,5 +51,12 @@ module VPB
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # change X-Frame-Options to ALLOWALL to allow Schoology to iframe in the site (keep the others same as rails defaults)
+    config.action_dispatch.default_headers = {
+      'X-Frame-Options' => 'ALLOWALL',
+      'X-XSS-Protection' => '1; mode=block',
+      'X-Content-Type-Options' => 'nosniff'
+    }
   end
 end

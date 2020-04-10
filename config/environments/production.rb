@@ -72,10 +72,8 @@ VPB::Application.configure do
   # This includes your application, engines, Rails frameworks, and any other registered namespace.
   config.eager_load = true
 
-  # whitelist the allowed hosts (needed for rails 6 middleware to prevent against DNS rebinding attacks)
-  (ENV["ALLOWED_HOSTS"] || "").split(" ") do |host|
-    config.hosts << host.strip
-  end
+  # disable hosts whitelist (so that ELB-HeathCheck which uses internal IP as hostname can succeed)
+  config.hosts = nil
 
   # allow production debug to stdout on environment variable set
   if ENV['DEBUG_PRODUCTION']
