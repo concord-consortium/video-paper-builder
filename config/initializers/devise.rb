@@ -250,6 +250,6 @@ Devise.setup do |config|
         env['omniauth.strategy'].options[:client_options][:authorize_url] = "https://#{host}/oauth/authorize"
       end
     end
-    config.omniauth 'schoology', ENV['SCHOOLOGY_CONSUMER_KEY'], ENV['SCHOOLOGY_CONSUMER_SECRET'], scope: 'user', strategy_class: 'OmniAuth::Strategies::Schoology', setup: SETUP_PROC
+    config.omniauth 'schoology', ENV['SCHOOLOGY_CONSUMER_KEY'], ENV['SCHOOLOGY_CONSUMER_SECRET'], scope: 'user', strategy_class: OmniAuth::Strategies::Schoology, setup: SETUP_PROC
   end
 end
