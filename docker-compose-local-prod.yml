@@ -31,7 +31,6 @@ services:
       SES_SECRET:
       MAILER_HOSTNAME:
       DEBUG_PRODUCTION:
-      ALLOWED_HOSTS:
   # uses same db volume as dev app
   db:
     image: mysql:5.6
