@@ -3,7 +3,7 @@
     <ul>
       <li>
         <div id="welcome_user">Welcome, <%= current_user.name -%></div>
-        <% if !(ENV['SCHOOLOGY_CONSUMER_KEY'] && ENV['SCHOOLOGY_CONSUMER_SECRET']) %>
+        <% if !(ENV['SCHOOLOGY_CONSUMER_KEY'].present? && ENV['SCHOOLOGY_CONSUMER_SECRET'].present?) %>
           <div id="change_password"><%= link_to 'Change password', edit_user_registration_path%></div>
         <% end %>
       </li>
@@ -13,7 +13,7 @@
   </div>
 <% elsif @user && !@user.invited_to_sign_up? %>
   <div class="login_container">
-    <% if ENV['SCHOOLOGY_CONSUMER_KEY'] && ENV['SCHOOLOGY_CONSUMER_SECRET'] %>
+    <% if ENV['SCHOOLOGY_CONSUMER_KEY'].present? && ENV['SCHOOLOGY_CONSUMER_SECRET'].present? %>
       <%= link_to "Sign in with Schoology", omniauth_authorize_path('user', 'schoology'), :class => 'schoology_login_btn' %>
       <div style="clear: both">
         <p id="not_schoology">
