@@ -1,7 +1,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-noconflict
-//= require prototype
 //= require swfobject
 
 //= require jquery-ui/widgets/slider
@@ -13,7 +12,6 @@
 //= require fancybox
 //= require mousewheel
 //= require jquery-jnotify
-//= require effects
 //= require tinymce
 //= require s3_direct_upload
 //= require aws-upload
