@@ -19,8 +19,7 @@ Feature:
     When I go to Generic Video Paper's video paper page
     Then I should be on the new video paper page
 
-  # TODO: reenable after fix selenium build break
-  @disabled @javascript
+  @javascript
   Scenario: Owner of 'Generic Video Paper' shares it to 'sharing_user@velir.com'
     Given I am a user logged in as "test_user@velir.com"
     When I go to my video papers page
@@ -45,8 +44,7 @@ Feature:
     When I go to Generic Video Paper's video paper page
     Then I should be on Generic Video Paper's video paper page
 
-  # TODO: reenable after fix selenium build break
-  @disabled @javascript
+  @javascript
   Scenario: Owner removes the shared user of 'Generic Video Paper'
     Given I am a user logged in as "test_user@velir.com"
     And my video paper "Generic Video Paper" is shared with "test_user@velir.com"
@@ -67,4 +65,3 @@ Feature:
     And I fill in the following:
       | shared_paper_user_id | thisisntanemail@velir.com |
     Then I press "Share"
-

@@ -1,7 +1,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-noconflict
-//= require prototype
 //= require swfobject
 
 //= require jquery-ui/widgets/slider
@@ -13,7 +12,6 @@
 //= require fancybox
 //= require mousewheel
 //= require jquery-jnotify
-//= require effects
 //= require tinymce
 //= require s3_direct_upload
 //= require aws-upload
@@ -472,7 +470,7 @@ VPB = {
 				$j("#transcoding_status").hide();
 				$j("#video_player_container").show();
 
-				$(this).on("timeupdate", function (e) {
+				this.on("timeupdate", function (e) {
 					// Listen for when the player section is over and pause.
 					if(VPB.videoPlayer.player.currentTime() > VPB.currentStop && VPB.currentStop !== 0) {
 						VPB.videoPlayer.pause();
@@ -530,7 +528,7 @@ VPB = {
 				VPB.durationSelector.init();
 				VPB.positionSelector.init();
 				VPB.modalVideoPlayer.seek(VPB.SectionTimeData[VPB.currentSection].start);
-				$(this).on("timeupdate", function (e) {
+				this.on("timeupdate", function (e) {
 					VPB.positionSelector.updateTimePosition(VPB.modalVideoPlayer.player.currentTime());
 					$j("#duration_position").html(VPB.durationSelector.convert(Math.round(VPB.modalVideoPlayer.player.currentTime())));
 

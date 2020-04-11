@@ -179,16 +179,15 @@ h2{color: #878787; font-size: 1.833em; margin-bottom: 1em;}
 #header .logo_login .login label.register{float:left; width:99%; color:#63a4a6; text-align:right; font:12px/14px Arial, Helvetica, sans-serif; padding-top:4px}
 #header .logo_login .login label.register a{float:right; width:auto; color:#63a4a6; background:url(../images/orange_arrow.gif) no-repeat right 5px; text-decoration:none; padding:0 10px 0 0}
 #header .logo_login .login label.register a:hover{text-decoration:underline;}
-#header .logo_login .login .input_bg{float:left; width:178px; background:url(../images/login_bg.gif) no-repeat 0 0; position: relative;}
-#header .logo_login .login input{float:left; width:154px; padding:3px 10px 6px; margin:0; background:none; border:none; color:#868686; font-size:12px;}
+#header .logo_login .login .input_bg{float:left; width:178px; position: relative;}
+#header .logo_login .login input{float:left; width:154px; padding:3px 10px 6px; margin:0; background:url(../images/login_bg.gif) no-repeat 0 0; border:none; color:#868686; font-size:12px;}
 #header .logo_login .login input.search_btn{float:left; width:12px; padding:0; margin:5px 0 0; background:none; border:none; height:20px}
-#header .logo_login .login input.login_btn{float:left; width:49px; background:url(../images/login_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:6px 0 4px; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:0; cursor:pointer}
+#header .logo_login .login input.login_btn{float:left; width:49px; background:url(../images/login_btn.gif) no-repeat 0 0; border:none; color:#fff; text-decoration:none; height:auto; text-align:center; padding:6px 0 4px; text-transform:uppercase; font:bold 10px/14px Arial, Helvetica, sans-serif; margin:25px 0 0; cursor:pointer}
 #header .logo_login .login .schoology_login_btn{float:right; background-color: #ec681f; webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px; color:#fff; text-decoration:none; height:auto; text-align:center; padding:6px 10px 4px 10px; text-transform:uppercase; font:bold 10px/16px Arial, Helvetica, sans-serif; margin:0; cursor:pointer}
 #header .logo_login .login p#forgot{font-size: .9em; margin-right: 57px; text-align: right;}
 #header .logo_login .login p#forgot a{color: #ccc; text-decoration: none;}
 #header .logo_login .login p#not_schoology{font-size: .9em; text-align: right;}
 #header .logo_login .login p#not_schoology a{color: #ccc; text-decoration: none;}
-#header .logo_login .login label#emaillabel, #header .logo_login .login label#passwordlabel{color: #aaa; font: 1em arial, helvetica, sans-serif; left: 7px; position: absolute; top: 5px;}
 
 #body_container{float:left; width:947px; min-height:429px; height:auto!important; height:429px;margin-top:35px;}
 
