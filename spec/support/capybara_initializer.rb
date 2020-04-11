@@ -8,6 +8,9 @@ class CapybaraInitializer
   end
 
   def call
+    # To enable more debugging from WebDriver uncomment this line
+    # Selenium::WebDriver.logger.level = :debug
+
     # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
     # order to ease the transition to Capybara we set the default here. If you'd
     # prefer to use XPath just remove this line and adjust any selectors in your
@@ -20,7 +23,7 @@ class CapybaraInitializer
 
     # Add some Capybara config if we are running
     # Chrome on the docker host machine.
-    if !headless? && docker?
+    if !headless?
       Capybara.server_host = '0.0.0.0'
       Capybara.server_port = '43447'
     end
@@ -51,9 +54,9 @@ class CapybaraInitializer
       # driver_opts can be used to pass options to chromedriver, for example --log-level=DEBUG
       # this approach is deprecated though so you might need to use the newer approach
       # in the future
-      # driver_opts: [ '--log-level=DEBUG']
+      # driver_opts: [ '--log-level=DEBUG', "--log-path=chromedriver.log"]
      }.tap do |a|
-      a[:url] = 'http://host.docker.internal:9515/' if !headless? && docker?
+      a[:url] = 'http://host.docker.internal:9515/' if !headless?
     end
   end
 
@@ -75,9 +78,5 @@ class CapybaraInitializer
     %w(no-sandbox disable-gpu window-size=1440,900).tap do |a|
       a << 'headless' if headless?
     end
-  end
-
-  def docker?
-    context == :docker
   end
 end
