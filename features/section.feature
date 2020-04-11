@@ -52,8 +52,7 @@ Feature:
     And I press "save-introduction"
     Then I should see "introduction content"
 
-  # TODO: reenable after fix selenium build break
-  @disabled @javascript
+  @javascript
   Scenario: Normal user visits video paper conclusion section
     When I go to the new video paper page
     Then I should see "Create a New Video Paper"
@@ -63,8 +62,7 @@ Feature:
     Then I should see "CONCLUSION"
     And the conclusion tab should be current
 
-  # TODO: reenable after fix selenium build break
-  @disabled @javascript
+  @javascript
   Scenario: Normal user visits video paper introduction section
     When I go to the new video paper page
     Then I should see "Create a New Video Paper"

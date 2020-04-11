@@ -25,8 +25,7 @@ Feature:
     Then I unshare "Generic Video Paper" with "sharing_user@velir.com"
 
   # the timings have been disabled for the time being
-  # TODO: reenable after fix selenium build break
-  @disabled @javascript
+  @javascript
   Scenario: As the video paper owner, I should not see the timings for now
     Given I am a user logged in as "test_user@velir.com"
     When I go to Generic Video Paper's video paper page
