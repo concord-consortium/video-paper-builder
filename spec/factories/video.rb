@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :video do
-    upload_uri { 'uploads/test.mov' }
+    upload_uri { '/help-videos/getting-started.mp4' }
     association :video_paper
     private { false }
   end
@@ -11,7 +11,14 @@ FactoryBot.define do
     private { false }
   end
 
-  factory :real_video, :parent => :video do
+  factory :transcoded_video, :parent => :video do
+    transcoded_uri { "/help-videos/getting-started.mp4" }
+    aws_transcoder_state { "completed" }
+    processed { true }
+    duration { "268" }
+  end
+
+  factory :real_video, :parent => :transcoded_video do
     association :video_paper
     description { "this is an awesome description" }
     private { false }

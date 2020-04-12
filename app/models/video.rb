@@ -9,6 +9,9 @@ class Video < ActiveRecord::Base
 
     WEB_MP4_PRESET_ID = '1351620000000-100070'
 
+    # This is a way for tests to disable the URL signing which makes it possible
+    # to provide transcoded videos without needing an S3 bucket
+    CONFIG = { sign_urls: true }
 
     ###################################
     # AR Plugins/gems
@@ -153,10 +156,14 @@ class Video < ActiveRecord::Base
     # Protected Methods
 
     def signed_url(url)
-      s3 = Aws::S3::Resource.new
-      bucket = s3.bucket(VPB::Application.config.aws["s3"]["bucket"])
-      obj = bucket ? bucket.object(url) : nil
-      obj ? obj.presigned_url(:get, expires_in: VPB::Application.config.aws["s3"]["expires"].to_i) : nil
+      if CONFIG[:sign_urls]
+        s3 = Aws::S3::Resource.new
+        bucket = s3.bucket(VPB::Application.config.aws["s3"]["bucket"])
+        obj = bucket ? bucket.object(url) : nil
+        obj ? obj.presigned_url(:get, expires_in: VPB::Application.config.aws["s3"]["expires"].to_i) : nil
+      else
+        url
+      end
     end
 
     def parse_upload_uri

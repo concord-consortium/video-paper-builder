@@ -57,3 +57,6 @@ end
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
 require File.expand_path('../../../spec/spec_helper_common.rb', __FILE__)
+
+# disable the url signing to make it easier to mock the video uploads
+Video::CONFIG[:sign_urls] = false

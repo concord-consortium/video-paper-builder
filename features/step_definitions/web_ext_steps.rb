@@ -15,7 +15,7 @@ Given /I perform javascript confirmation box magic$/ do
 end
 
 When /^(?:|I )debug$/ do
-  debugger
+  binding.pry
   0
 end
 

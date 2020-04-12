@@ -24,16 +24,7 @@ Feature:
     Given I am a user logged in as "test_user@velir.com"
     Then I unshare "Generic Video Paper" with "sharing_user@velir.com"
 
-  # the timings have been disabled for the time being
   @javascript
-  Scenario: As the video paper owner, I should not see the timings for now
-    Given I am a user logged in as "test_user@velir.com"
-    When I go to Generic Video Paper's video paper page
-    When I click the edit icon for the Introduction
-    And I perform javascript confirmation box magic
-    And I should not see "Edit Timing"
-
-  @disabled @javascript
   Scenario: As the video paper owner, I should be able to access the timing actions.
     Given I am a user logged in as "test_user@velir.com"
     When I go to Generic Video Paper's video paper page
@@ -43,20 +34,20 @@ Feature:
     And I should see "Start Time (HH:MM:SS)"
     And I should see "Stop Time (HH:MM:SS)"
 
-  @disabled @javascript
+  @javascript
   Scenario: As the video paper owner, I should be able to set the timings
     Given I am a user logged in as "test_user@velir.com"
     When I go to Generic Video Paper's video paper page
     When I click the edit icon for the Introduction
     And I perform javascript confirmation box magic
     And I follow "Edit Timing"
-    And I fill in "Start Time (HH:MM:SS)" with "5"
-    And I fill in "Stop Time (HH:MM:SS)" with "8"
-    And I press "Save timings"
+    And I fill in "Start Time (HH:MM:SS)" with "00:00:05"
+    And I fill in "Stop Time (HH:MM:SS)" with "00:00:08"
+    And I save the timings
     Then I should be on Generic Video Paper's video paper page
     And I should see "Timing successfully updated."
 
-  @disabled @javascript
+  @javascript
   Scenario: As the video paper owner, I should not be able to set silly timings
     Given I am a user logged in as "test_user@velir.com"
     When I go to Generic Video Paper's video paper page
@@ -65,6 +56,4 @@ Feature:
     And I follow "Edit Timing"
     And I fill in "Start Time (HH:MM:SS)" with "waffles"
     And I fill in "Stop Time (HH:MM:SS)" with "peanuts"
-    And I press "Save timings"
-    Then I should be on Generic Video Paper's video paper page
-    And I should see "Invalid time!"
+    And I save timings then I see an alert with "The start time is invalid"
