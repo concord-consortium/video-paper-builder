@@ -16,12 +16,7 @@ FactoryBot.define do
     aws_transcoder_state { "completed" }
     processed { true }
     duration { "268" }
-  end
-
-  factory :real_video, :parent => :transcoded_video do
-    association :video_paper
     description { "this is an awesome description" }
-    private { false }
   end
 
 end

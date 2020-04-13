@@ -27,6 +27,17 @@ Feature:
   @javascript
   Scenario: As the video paper owner, I should be able to access the timing actions.
     Given I am a user logged in as "test_user@velir.com"
+    And the following video papers with unprocessed videos
+      | title                   | user                | status    |
+      | Unprocessed Video Paper | test_user@velir.com | published |
+    When I go to Unprocessed Video Paper's video paper page
+    When I click the edit icon for the Introduction
+    And I perform javascript confirmation box magic
+    Then I should not see "Edit Timing"
+
+  @javascript
+  Scenario: As the video paper owner, I should be able to access the timing actions.
+    Given I am a user logged in as "test_user@velir.com"
     When I go to Generic Video Paper's video paper page
     When I click the edit icon for the Introduction
     And I perform javascript confirmation box magic

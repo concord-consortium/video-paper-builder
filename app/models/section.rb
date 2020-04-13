@@ -37,21 +37,6 @@ class Section < ActiveRecord::Base
     "%02i:%02i:%02i" % [hours.to_s,minutes.to_s,seconds.to_s]
   end
 
-  ##
-  # I'll admit, this is probably overkill.  This is a dynamic method for
-  # converting the hh:mm:ss format into a seconds format for the start and stop times.
-  #
-  # When the larger method name isn't found, it hits method missing and then does the appropriate
-  # method.
-  def method_missing(method_id, *arguments)
-    case method_id.to_s
-      when /convert_complex_pattern_for_([_a-zA-Z]\w*)/
-        attribute = $1
-        convert_complex_pattern(attribute)
-    else
-      super
-    end
-  end
   # Protected Methods
   protected
 
