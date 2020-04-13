@@ -76,7 +76,7 @@ VPB::Application.configure do
   config.hosts = nil
 
   # allow production debug to stdout on environment variable set
-  if ENV['DEBUG_PRODUCTION']
+  if ENV['DEBUG_PRODUCTION'] == "true"
     config.logger = Logger.new(STDOUT)
     config.log_level = :debug
   end
