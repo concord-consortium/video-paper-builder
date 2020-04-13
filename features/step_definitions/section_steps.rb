@@ -1,19 +1,19 @@
 sections = [ 'introduction', 'lesson', 'student_work', 'results', 'conclusion' ]
 
 Then /^I should have five sections$/ do
-  sections.each{|section| 
+  sections.each{|section|
     page.should have_css("##{section}")
   }
 end
 
-Then /^the (.+) tab should be current$/ do |current_tab|  
+Then /^the (.+) tab should be current$/ do |current_tab|
   sections.each{|section|
     css = "##{section}_tab.ui-tabs-active"
     if current_tab == section
       page.should have_css(css)
     else
       page.should_not have_css(css)
-    end    
+    end
   }
 end
 
@@ -33,14 +33,23 @@ end
 When /^I add "([^"]*)" to "([^"]*)"$/ do |content,finder|
   ##
   # This is probably the biggest hackety hack of the entire project.
-  # The WYSIWYG editor drops an iframe and hides the section content text field, and then 
+  # The WYSIWYG editor drops an iframe and hides the section content text field, and then
   # through dark magic populates it via the iframes' body inner html.  So thats what this
   # does.  Didn't want to throw out the tests.
   #
-  page.evaluate_script("document.getElementById(\"#{finder}\").contentWindow.document.body.innerHTML = \"#{content}\";") 
+  page.evaluate_script("document.getElementById(\"#{finder}\").contentWindow.document.body.innerHTML = \"#{content}\";")
 end
 
 When /^(?:|I )click the edit icon for the (.*)$/ do |section|
   find("#edit_#{section.downcase}").click
 end
 
+When /^(?:|I )save the timings$/ do
+  click_button("Save timings")
+end
+
+When("I save timings then I see an alert with {string}") do |alert_text|
+  accept_alert /.*#{alert_text}.*/ do
+    click_button("Save timings")
+  end
+end
