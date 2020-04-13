@@ -159,8 +159,8 @@ class Video < ActiveRecord::Base
       if CONFIG[:sign_urls]
         s3 = Aws::S3::Resource.new
         bucket = s3.bucket(VPB::Application.config.aws["s3"]["bucket"])
-        obj = bucket ? bucket.object(url) : nil
-        obj ? obj.presigned_url(:get, expires_in: VPB::Application.config.aws["s3"]["expires"].to_i) : nil
+        expires = VPB::Application.config.aws["s3"]["expires"].to_i
+        bucket&.object(url)&.presigned_url(:get, expires_in: expires)
       else
         url
       end
