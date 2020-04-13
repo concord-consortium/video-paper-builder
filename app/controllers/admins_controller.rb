@@ -1,8 +1,15 @@
 class AdminsController < ApplicationController
   before_action :authenticate_admin!
+
   def index
     @admins = Admin.all
     @users = User.all
+  end
+
+  def destroy
+    @admin = Admin.find(params[:id])
+    @admin.destroy
+    redirect_to(admins_path,:notice=>"Admin: #{@admin.name} was removed.")
   end
 
   # NOTE: this is only used by admins so it is safe to lookup by user id instead

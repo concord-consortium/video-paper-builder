@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_30_013855) do
+ActiveRecord::Schema.define(version: 2020_04_13_160307) do
 
   create_table "admins", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2020_03_30_013855) do
     t.integer "invited_by_id"
     t.string "invited_by_type"
     t.datetime "invitation_created_at"
+    t.datetime "reset_password_sent_at"
     t.index ["confirmation_token"], name: "index_admins_on_confirmation_token", unique: true
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["invitation_token"], name: "index_admins_on_invitation_token"
