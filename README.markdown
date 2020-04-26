@@ -147,11 +147,15 @@ RDS_USERNAME=root
 RDS_PASSWORD=xyzzy
 RDS_HOSTNAME=db
 RDS_PORT=3306
+SES_KEY=  (AWS SES key if you want to enable email)
+SES_SECRET=  (AWS SES secret if you want to enable email)
+MAILER_HOSTNAME=localhost  (or change to use different hostname in sent emails)
+DEBUG_PRODUCTION=  (true or false, true will log like development mode)
 ```
 
 Run the command: `docker-compose -f docker-compose-local-prod.yml build` to create the image.
 
-Run the command: `docker-compose -f docker-compose-local-prod.yml run prod_app /bin/bash` and inside the bash session run `./docker/prod/prod-run.sh migrate` to create and migrate the database.
+Run the command: `docker-compose -f docker-compose-local-prod.yml run --rm prod_app /bin/bash` and inside the bash session run `./docker/prod/prod-run.sh migrate` to create and migrate the database.
 
 Run the command: `docker-compose -f docker-compose-local-prod.yml up` to start the server.
 
@@ -161,7 +165,7 @@ http://localhost/
 
 (if you have issues you may need to disable an existing webserver running on port 80)
 
-To create the initial admin user run: `docker-compose -f docker-compose-local-prod.yml run prod_app /bin/bash -c "bundle exec rails c"`
+To create the initial admin user run: `docker-compose -f docker-compose-local-prod.yml run --rm prod_app /bin/bash -c "bundle exec rails c"`
 
 and then type in the following with the values changed in the rails console:
 
@@ -186,6 +190,27 @@ In production or development to enable transcoder notifications back to the appl
 2. Click the "Create subscription" button
 3. Select either http or https as the protocol (depending on your deployment)
 4. Add the SNS endpoint url whose path is `/sns/transcoder_update`, eg http://example.com/sns/transcoder_update
+
+Bulk Invite of Users
+--------------------
+
+There is a `invite_example` rake task in `lib/tasks/invite.take` that defines two constants at the top of the file:
+
+```
+VIDEO_PAPER_ID = 1
+INVITE_CSV_PATH = '/vpb/tmp/invite_list.csv'
+```
+
+To bulk invite users in the current AWS Fargate deployment configuration you will need to set those constants and then run a local Docker instance with the `.env` file settings (as outlined above in "Docker (Local Production Test)") set to the parameter values in the `video-paper-builder` CloudFormation stack on production.
+
+Once you have the `.env` file set run the local production test setup as outlined above and then run the following:
+
+`docker-compose -f docker-compose-local-prod.yml up` to start the server.  Once you start the server, as a check of the mailer, invite a user using a mailing address you have access to and then check to ensure the mail is delivered and has the correct hostname (pointing to the real production server url).  After you have verified this run the following:
+
+`docker-compose -f docker-compose-local-prod.yml run --rm prod_app /bin/bash` and inside the bash session run `bundle exec rake invite_example` to run the rake task.
+
+The rake task sleeps for 0.4 seconds per invite to stay well under the limit of 5 emails per second through SES.
+
 
 License
 -------
