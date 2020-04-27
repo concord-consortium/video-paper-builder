@@ -203,7 +203,9 @@ INVITE_CSV_PATH = '/vpb/tmp/invite_list.csv'
 
 To bulk invite users in the current AWS Fargate deployment configuration you will need to set those constants and then run a local Docker instance with the `.env` file settings (as outlined above in "Docker (Local Production Test)") set to the parameter values in the `video-paper-builder` CloudFormation stack on production.
 
-Once you have the `.env` file set run the local production test setup as outlined above and then run the following:
+The RDS instance security group will need to temporarily be changed to allow ingress from your IP using the AWS GUI.  To do this, [load this page](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#ModifyInboundSecurityGroupRules:securityGroupId=sg-0baea37f250d879b8), click the "Add rule" button and then in the "Source" dropdown select "My IP" and then save the rule.  Once you have completed the invite process you should remove the ingress access from your IP by deleting the rule using the link above.
+
+Once you have the `.env` file set and the IP ingress enabled run the local production test setup as outlined above and then run the following:
 
 `docker-compose -f docker-compose-local-prod.yml up` to start the server.  Once you start the server, as a check of the mailer, invite a user using a mailing address you have access to and then check to ensure the mail is delivered and has the correct hostname (pointing to the real production server url).  After you have verified this run the following:
 
