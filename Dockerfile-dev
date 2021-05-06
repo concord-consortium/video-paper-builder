@@ -2,6 +2,9 @@ FROM ruby:2.6.6
 # RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys AA8E81B4331F7F50
 RUN apt-get update -qq && apt-get install -y --force-yes build-essential vim-tiny xvfb && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# install shared mime info for mimemagic gem
+RUN apt-get install -qq -y shared-mime-info
+
 #Install Google Chrome for Selenium
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
   && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list \
