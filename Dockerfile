@@ -2,6 +2,9 @@ FROM ruby:2.6.6
 # RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys AA8E81B4331F7F50
 RUN apt-get update -qq && apt-get install -qq -y nginx && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# install shared mime info for mimemagic gem
+RUN apt-get install -qq -y shared-mime-info
+
 # update to latest bundler
 RUN gem install bundler -v '~>1'
 

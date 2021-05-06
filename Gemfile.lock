@@ -190,7 +190,9 @@ GEM
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2020.0512)
-    mimemagic (0.3.4)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.0)
@@ -383,6 +385,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   launchy
+  mimemagic (= 0.3.10)
   mysql2
   nokogiri
   omniauth
